@@ -12,7 +12,7 @@ namespace CtrlPVALeasing.Controllers
         {
             return View();
         }
-        public ActionResult Index2()
+        public ActionResult Index_antigo()
         {
             return View();
         }
