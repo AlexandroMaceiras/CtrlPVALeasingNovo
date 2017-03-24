@@ -18,8 +18,14 @@ namespace CtrlPVALeasing.Controllers
         }
 
         public ActionResult About()
-        { 
+        {
             ViewBag.Message = "A página de descrição da sua aplicação.  ";
+
+            return View();
+        }
+        public ActionResult Consulta()
+        {
+            ViewBag.Message = "A página de consulta.  ";
 
             return View();
         }
