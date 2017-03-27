@@ -1,0 +1,77 @@
+﻿@model CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato
+
+@{
+    ViewBag.Title = "Consulta de Contrato";
+}
+
+</br>
+
+@using (Html.BeginForm("ConsultaContrato", "Consulta"))
+{
+    <div class="jumbotronFundo">
+
+        <h2>Consulta de Contrato</h2>
+        <center>
+            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca">
+                        <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
+                    </th>
+                    <th class="busca">
+                        <input class="input-sm-fino" type="text" name="contrato" size="40" style="text-transform:uppercase" />
+                    </th>
+                    <th class="busca">
+                    <td align="right">
+                        <input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" />
+                    </td>
+                    <td align="right">
+                        <input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" />
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    </th>
+                    <th>
+                        <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </th>
+                </tr>
+            </table>
+            <hr />
+            <b class="fonte-cinza-escuro">Dados do Contrato</b>
+            <table border="1" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato: @Html.DisplayFor(model => model.contrato) </div>
+                    </td>
+                    <td>
+                        <input class="input-sm-fino" type="text" name="contrato" size="40" style="text-transform:uppercase" disabled="disabled"/>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Agência: @Html.DisplayFor(model => model.agencia) </div>
+                    </td>
+                    <td>
+                        <input class="input-sm-fino" type="text" name="agencia" size="40" style="text-transform:uppercase" disabled="disabled" />
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: @Html.DisplayFor(model => model.dta_inicio_contrato) </div>
+                    </td>
+                    <td>
+                        <input class="input-sm-fino" type="text" name="cliente" size="40" style="text-transform:uppercase" disabled="disabled" />
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+}

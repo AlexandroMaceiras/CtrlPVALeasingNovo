@@ -1,0 +1,224 @@
+﻿@model CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar</h2>
+
+<h3>Você tem certeza que quer deletar este registro?</h3>
+<div>
+    <h4>Arm_LiquidadosEAtivos_Contrato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.contrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.agencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.agencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_inicio_contrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_inicio_contrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_vecto_contrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_vecto_contrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.origem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.origem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cpf_cnpj_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cpf_cnpj_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ddd_cliente_particular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ddd_cliente_particular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fone_cliente_particular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fone_cliente_particular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rml_cliente_particular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rml_cliente_particular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.end_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.end_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bairro_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bairro_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cidade_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uf_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uf_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cep_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cep_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.filler)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.filler)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ddd_cliente_cml)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ddd_cliente_cml)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fone_cliente_cml)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fone_cliente_cml)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_ultimo_pagto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_ultimo_pagto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_de_baixa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_de_baixa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data_da_baixa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_da_baixa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cod_empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cod_empresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.num_end_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_end_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp_end_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp_end_cliente)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>
