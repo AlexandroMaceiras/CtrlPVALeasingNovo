@@ -28,27 +28,28 @@ namespace CtrlPVALeasing.Controllers
         [Authorize, ActionName("ConsultaContrato"), HttpPost]
         public ActionResult ConsultaContrato2(string contrato)
         {
-            var model =
-            db.Arm_LiquidadosEAtivos_Contrato.OrderBy(x => x.contrato)
-            .Where(x => x.contrato.Contains(contrato));
-
+            //var model =
+            //db.Arm_LiquidadosEAtivos_Contrato.OrderBy(x => x.contrato)
+            //.Where(x => x.contrato.Contains(contrato));
 
             if (contrato == "" || contrato == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("ConsultaContrato");
             }
-            Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato = (Arm_LiquidadosEAtivos_Contrato)db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Contains(contrato));
+            Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato = (Arm_LiquidadosEAtivos_Contrato)db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Contains(contrato)).FirstOrDefault();
             if (arm_LiquidadosEAtivos_Contrato == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
             }
             return View(arm_LiquidadosEAtivos_Contrato);
 
-            if (contrato != "")
-            {
-                return View("ConsultaContrato", model);
-            }
-            return RedirectToAction("ConsultaContrato");
+            //if (contrato != "")
+            //{
+            //    return View("ConsultaContrato", model);
+            //}
+            //return RedirectToAction("ConsultaContrato");
         }
 
 
