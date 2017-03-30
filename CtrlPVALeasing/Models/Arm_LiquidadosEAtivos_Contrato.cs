@@ -8,6 +8,11 @@ namespace CtrlPVALeasing.Models
 
     public partial class Arm_LiquidadosEAtivos_Contrato
     {
+        public IEnumerable<Arm_LiquidadosEAtivos_Contrato> listaContrato { get; set; }
+    }
+
+    public partial class Arm_LiquidadosEAtivos_Contrato
+    {
         public int id { get; set; }
 
         [StringLength(9)]

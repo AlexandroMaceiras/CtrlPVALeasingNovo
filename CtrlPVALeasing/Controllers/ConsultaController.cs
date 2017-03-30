@@ -22,8 +22,21 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult ConsultaContrato()
         {
-            return View();
+            return View(GetArm_LiquidadosEAtivos_Contrato());
         }
+
+        /// <summary>
+        /// Cria um IEnumerable do modelo Arm_LiquidadosEAtivos_Contrato vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<Arm_LiquidadosEAtivos_Contrato> GetArm_LiquidadosEAtivos_Contrato()
+        {
+            List<Arm_LiquidadosEAtivos_Contrato> model = new List<Arm_LiquidadosEAtivos_Contrato>();
+            model.Add(new Arm_LiquidadosEAtivos_Contrato()); // { id = 0, agencia = "" });
+            return model;
+        }
+
+
 
         [Authorize, ActionName("ConsultaContrato"), HttpPost]
         public ActionResult ConsultaContrato2(string contrato)
@@ -37,8 +50,8 @@ namespace CtrlPVALeasing.Controllers
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return RedirectToAction("ConsultaContrato");
             }
-            Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato = (Arm_LiquidadosEAtivos_Contrato)db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Contains(contrato)).FirstOrDefault();
-            if (arm_LiquidadosEAtivos_Contrato == null)
+            IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
+            if (arm_LiquidadosEAtivos_Contrato == null || arm_LiquidadosEAtivos_Contrato.Any() == false)
             {
                 //return HttpNotFound();
                 return RedirectToAction("ConsultaContrato");

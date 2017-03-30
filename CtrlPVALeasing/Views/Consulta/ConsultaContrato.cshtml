@@ -1,4 +1,4 @@
-﻿@model CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato
+﻿@model IEnumerable<CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato>
 <head>
     <meta name="viewport" content="width=device-width" />
 
@@ -17,7 +17,8 @@
 {
     <div class="jumbotronFundo">
 
-        <h2>Consultar Contrato de Leasing</h2>
+        <h2>CONSULTA DE CONTRATO</h2>
+        <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
@@ -29,7 +30,7 @@
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
-                        <input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" />
+                        <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </td>
                     <td align="right" width="9%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
@@ -59,17 +60,17 @@
         </center>
 
         <center>
-            <table border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">Dados do Contrato</b>
+                        <b class="fonte-cinza-escuro">DADOS DO CONTRATO:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.contrato)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -78,7 +79,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Agência: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.agencia)" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().agencia" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,7 +88,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.dta_vecto_contrato)" type="text" name="dta_vecto_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_vecto_contrato" type="text" name="dta_vecto_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -95,7 +96,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de início: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.dta_inicio_contrato)" type="text" name="dta_inicio_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_inicio_contrato" type="text" name="dta_inicio_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -104,7 +105,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Conta: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="Esse campo não existe" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <!--AINDA NÃO DEFINIDO!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -113,7 +114,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data do Último Pagamento: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.dta_ultimo_pagto)" type="text" name="dta_ultimo_pagto" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_ultimo_pagto" type="text" name="dta_ultimo_pagto" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -121,19 +122,22 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Status do Contrato: </div>
                                 </td>
                                 <td>
-                                    @{ if (Html.DisplayFor(model => model.data_da_baixa).ToString() == "        ")
+                                    @{ 
+                                        var status = "";
+                                        if (@Model.First().data_da_baixa != null)
                                         {
-                                            <input class="input-sm-fino" value="Ativo" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                            if (@Model.First().data_da_baixa.ToString() == "        ") { status = "Ativo"; } else if (@Model.First().data_da_baixa.ToString().Trim().Length == 10) { status = "Liquidado"; }
                                         }
+                                        <input class="input-sm-fino" value="@status" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                     }
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Contrato): &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="Criar a Tabela no Banco!!!!!" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                         </table>
@@ -143,17 +147,17 @@
         </center>
             <br />
         <center>
-            <table border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">Dados do Cliente</b>
-                        <table border="1" style="border-style:inherit">
+                        <b class="fonte-cinza-escuro">DADOS DO CLIENTE:</b>
+                        <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Nome/ Razão social:&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td colspan="7">
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.nome_cliente)" type="text" name="contrato" style="text" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().nome_cliente" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -161,7 +165,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.cpf_cnpj_cliente)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().cpf_cnpj_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -170,7 +174,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Com.: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.fone_cliente_cml)" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().fone_cliente_cml" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -179,15 +183,15 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Ptcl.: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.fone_cliente_particular)" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().fone_cliente_particular" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço Bairro: </div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                 </td>
                                 <td colspan="4">
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.end_cliente)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato"   maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -196,7 +200,57 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Bairro: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Html.DisplayFor(model => model.bairro_cliente)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().bairro_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cidade: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Model.First().cidade_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Estado: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Model.First().uf_cliente" type="text" name="contrato" size="3" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">CEP: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Model.First().cep_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marcas: </div>
+                                </td>
+                                <td colspan="7">
+                                    <!--Virá do CCL_Marcas--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                               <td align="right">
+                                    <div id="mudaReset"><input class="btn3 btn-primary-imp btn-sm" type="button" name="outrosContratos" value="OUTROS CONTRATOS" /></div>
                                 </td>
                             </tr>
                         </table>
@@ -204,14 +258,42 @@
                 </tr>
             </table>
         </center>
+
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td colspan="7">
+                                    <input class="input-sm-fino" value="" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+
     </div>
 }
-
+<p>
+    @if (Model != null)
+    {
+        @Html.Partial("_Teste")
+    }
+</p>
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
         $("#mudaReset").click(function () {
-            document.getElementById("limpaNaMarra").setAttribute("value", " ");
+            document.getElementById("limpaNaMarra").setAttribute("value", "");
         });
     }
     catch (e) {
