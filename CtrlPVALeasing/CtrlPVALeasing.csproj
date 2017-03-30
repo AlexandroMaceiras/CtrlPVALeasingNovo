@@ -158,15 +158,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Arm_ImportacaoTotal.cs" />
     <Compile Include="Models\Arm_LiquidadosEAtivos_Contrato.cs" />
     <Compile Include="Models\Arm_Veiculos.cs" />
-    <Compile Include="Models\CtrlPVALeasingContext.cs" />
+    <Compile Include="Models\CtrlIPVALeasingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +226,11 @@
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Consulta\ConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_Teste.cshtml" />
+    <Content Include="Views\Veiculos\Create.cshtml" />
+    <Content Include="Views\Veiculos\Delete.cshtml" />
+    <Content Include="Views\Veiculos\Details.cshtml" />
+    <Content Include="Views\Veiculos\Edit.cshtml" />
+    <Content Include="Views\Veiculos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,7 +12,7 @@ namespace CtrlPVALeasing.Controllers
 {
     public class ConsultaController : Controller
     {
-        private CtrlPVALeasingContext db = new CtrlPVALeasingContext();
+        private CtrlIPVALeasingContext db = new CtrlIPVALeasingContext();
 
         // GET: Arm_LiquidadosEAtivos_Contrato
         public ActionResult Index()
