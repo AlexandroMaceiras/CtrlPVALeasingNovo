@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Models\Arm_LiquidadosEAtivos_Contrato.cs" />
     <Compile Include="Models\Arm_Veiculos.cs" />
+    <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -188,6 +189,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\CtrlIPVALeasing.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -231,6 +233,7 @@
     <Content Include="Views\Veiculos\Details.cshtml" />
     <Content Include="Views\Veiculos\Edit.cshtml" />
     <Content Include="Views\Veiculos\Index.cshtml" />
+    <Content Include="Views\Consulta\_ContadorDeVeiculosEmContrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

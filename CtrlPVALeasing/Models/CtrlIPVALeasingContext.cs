@@ -165,6 +165,6 @@ namespace CtrlPVALeasing.Models
             modelBuilder.Entity<Arm_Veiculos>()
                 .Property(e => e.origem)
                 .IsUnicode(false);
-        }
+            }
     }
 }

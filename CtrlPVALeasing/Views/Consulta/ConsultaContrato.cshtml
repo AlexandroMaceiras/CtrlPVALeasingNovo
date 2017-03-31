@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato>
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
 <head>
     <meta name="viewport" content="width=device-width" />
 
@@ -250,7 +250,9 @@
                                 <td></td>
                                 <td></td>
                                <td align="right">
-                                    <div id="mudaReset"><input class="btn3 btn-primary-imp btn-sm" type="button" name="outrosContratos" value="OUTROS CONTRATOS" /></div>
+                                    <div id="outrosContratos">
+                                        @Html.ActionLink("Detalhes", "OUTROS CONTRATOS", new { cpfcnpj = d.CD_CPF_CNPJ }, new { @class = "modal-link" })
+                                   <input class="btn3 btn-primary-imp btn-sm" type="button" name="outrosContratos" value="OUTROS CONTRATOS" /></div>
                                 </td>
                             </tr>
                         </table>
@@ -270,11 +272,20 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td colspan="7">
-                                    <input class="input-sm-fino" value="" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_ContadorDeVeiculosEmContrato")
+                                }
                             </tr>
-
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_Teste")
+                                }
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -283,12 +294,6 @@
 
     </div>
 }
-<p>
-    @if (Model != null)
-    {
-        @Html.Partial("_Teste")
-    }
-</p>
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
