@@ -46,10 +46,11 @@ namespace CtrlPVALeasing.Controllers
                          fone_cliente_cml = a.fone_cliente_cml,
                          dta_ultimo_pagto = a.dta_ultimo_pagto,
                          tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
                          cod_empresa = a.cod_empresa,
                          num_end_cliente = a.num_end_cliente,
                          comp_end_cliente = a.comp_end_cliente,
-                         //status = b.status
+                         //status = a.status,
 
                          contrato_v = b.contrato,
                          tipo_registro = b.tipo_registro,
@@ -62,8 +63,7 @@ namespace CtrlPVALeasing.Controllers
                          renavam = b.renavam,
                          chassi = b.chassi,
                          placa = b.placa,
-                         origem_v = b.origem//,
-                         //status_v = b.status
+                         origem_v = b.origem
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
                          contrato = x.contrato,
@@ -87,10 +87,11 @@ namespace CtrlPVALeasing.Controllers
                          fone_cliente_cml = x.fone_cliente_cml,
                          dta_ultimo_pagto = x.dta_ultimo_pagto,
                          tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
                          cod_empresa = x.cod_empresa,
                          num_end_cliente = x.num_end_cliente,
                          comp_end_cliente = x.comp_end_cliente,
-                         //status = x.status
+                         //status = x.status,
 
                          contrato_v = x.contrato,
                          tipo_registro = x.tipo_registro,
@@ -103,8 +104,7 @@ namespace CtrlPVALeasing.Controllers
                          renavam = x.renavam,
                          chassi = x.chassi,
                          placa = x.placa,
-                         origem_v = x.origem//,
-                         //status_v = x.status
+                         origem_v = x.origem
 
                      }).Take(100).OrderByDescending(x => x.contrato).ToList();
 
@@ -174,10 +174,11 @@ namespace CtrlPVALeasing.Controllers
                          fone_cliente_cml = a.fone_cliente_cml,
                          dta_ultimo_pagto = a.dta_ultimo_pagto,
                          tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
                          cod_empresa = a.cod_empresa,
                          num_end_cliente = a.num_end_cliente,
                          comp_end_cliente = a.comp_end_cliente,
-                         //status = b.status
+                         status = a.status,
 
                          contrato_v = b.contrato,
                          tipo_registro = b.tipo_registro,
@@ -216,10 +217,11 @@ namespace CtrlPVALeasing.Controllers
                          fone_cliente_cml = x.fone_cliente_cml,
                          dta_ultimo_pagto = x.dta_ultimo_pagto,
                          tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
                          cod_empresa = x.cod_empresa,
                          num_end_cliente = x.num_end_cliente,
                          comp_end_cliente = x.comp_end_cliente,
-                         //status = x.status
+                         status = x.status,
 
                          contrato_v = x.contrato,
                          tipo_registro = x.tipo_registro,
@@ -233,9 +235,9 @@ namespace CtrlPVALeasing.Controllers
                          chassi = x.chassi,
                          placa = x.placa,
                          origem_v = x.origem//,
-                         //status_v = x.status
+                         //status_v = x.status_v
 
-                     }).Where(x => x.contrato.Equals(contrato)).ToList();
+                     }).Where(x => x.contrato.Equals(contrato)).Where(x => x.status.Equals(true)).ToList();
 
             //return View(db.Arm_LiquidadosEAtivos_Contrato.Take(5).ToList());
             if (model.Count() == 0 || model == null)

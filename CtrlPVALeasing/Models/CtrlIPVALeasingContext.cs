@@ -8,7 +8,7 @@ namespace CtrlPVALeasing.Models
     public partial class CtrlIPVALeasingContext : DbContext
     {
         public CtrlIPVALeasingContext()
-            : base("name=CTRL_IPVA_LEASING")
+            : base("name=CTRL_IPVA_LEASING_REAL")
         {
         }
 
@@ -29,13 +29,13 @@ namespace CtrlPVALeasing.Models
                 .Property(e => e.agencia)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
-                .Property(e => e.dta_inicio_contrato)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
+            //    .Property(e => e.dta_inicio_contrato)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
-                .Property(e => e.dta_vecto_contrato)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
+            //    .Property(e => e.dta_vecto_contrato)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
                 .Property(e => e.origem)
@@ -94,17 +94,17 @@ namespace CtrlPVALeasing.Models
                 .Property(e => e.fone_cliente_cml)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
-                .Property(e => e.dta_ultimo_pagto)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
+            //    .Property(e => e.dta_ultimo_pagto)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
                 .Property(e => e.tipo_de_baixa)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
-                .Property(e => e.data_da_baixa)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
+            //    .Property(e => e.data_da_baixa)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Arm_LiquidadosEAtivos_Contrato>()
                 .Property(e => e.cod_empresa)

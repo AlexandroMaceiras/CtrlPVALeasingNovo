@@ -50,9 +50,13 @@
                                         @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
                                 </td>
                             </tr>
-                            }
+                        }
+                        else
+                        {
+                            <script>alert('Não encontrado!!!!!!!!!!!!!!!!!!!!!!!')</script>
                         }
                     }
+                }
             </table>
 
         </td>

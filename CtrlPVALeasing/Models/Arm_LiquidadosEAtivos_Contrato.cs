@@ -19,11 +19,11 @@ namespace CtrlPVALeasing.Models
         [StringLength(5)]
         public string agencia { get; set; }
 
-        [StringLength(8)]
-        public string dta_inicio_contrato { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? dta_inicio_contrato { get; set; }
 
-        [StringLength(8)]
-        public string dta_vecto_contrato { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? dta_vecto_contrato { get; set; }
 
         [StringLength(1)]
         public string origem { get; set; }
@@ -67,14 +67,14 @@ namespace CtrlPVALeasing.Models
         [StringLength(8)]
         public string fone_cliente_cml { get; set; }
 
-        [StringLength(8)]
-        public string dta_ultimo_pagto { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? dta_ultimo_pagto { get; set; }
 
         [StringLength(1)]
         public string tipo_de_baixa { get; set; }
 
-        [StringLength(8)]
-        public string data_da_baixa { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? data_da_baixa { get; set; }
 
         [StringLength(2)]
         public string cod_empresa { get; set; }
@@ -84,5 +84,7 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(15)]
         public string comp_end_cliente { get; set; }
+
+        public bool? status { get; set; }
     }
 }
