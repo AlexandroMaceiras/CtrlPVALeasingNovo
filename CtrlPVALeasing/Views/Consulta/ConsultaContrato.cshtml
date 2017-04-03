@@ -251,8 +251,8 @@
                                 <td></td>
                                <td align="right">
                                     <div id="outrosContratos">
-                                        @Html.ActionLink("Detalhes", "OUTROS CONTRATOS", new { cpfcnpj = d.CD_CPF_CNPJ }, new { @class = "modal-link" })
-                                   <input class="btn3 btn-primary-imp btn-sm" type="button" name="outrosContratos" value="OUTROS CONTRATOS" /></div>
+                                        @Html.ActionLink("OUTROS CONTRATOS", "outrosContatos", new { cpfcnpj = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                    </div>
                                 </td>
                             </tr>
                         </table>

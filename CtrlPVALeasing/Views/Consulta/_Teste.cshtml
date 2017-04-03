@@ -25,31 +25,34 @@
                 @{var contadorInterno = 0;
                     foreach (var item in Model)
                     {
-                        contadorInterno++;
-                        <tr>
-                            <td class="input-sm-fino">
-                                @contadorInterno
-                            </td>
-                            <td class="input-sm-fino">
-                                @Html.DisplayFor(modelItem => item.modelo)
-                            </td>
-                            <td class="input-sm-fino">
-                                @Html.DisplayFor(modelItem => item.chassi)
-                            </td>
-                            <td class="input-sm-fino">
-                                @Html.DisplayFor(modelItem => item.renavam)
-                            </td>
-                            <td class="input-sm-fino">
-                                @Html.DisplayFor(modelItem => item.placa)
-                            </td>
-                            <td class="input-sm-fino">
-                                @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
-                                @Html.ActionLink("Detalhes", "Details", new { id = item.id }) @*|
-                                    @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
-                            </td>
-                        </tr>
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.modelo)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.chassi)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.renavam)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.placa)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
+                                    @Html.ActionLink("Detalhes", "Details", new { id = item.id }) @*|
+                                        @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
+                                </td>
+                            </tr>
+                            }
+                        }
                     }
-                }
             </table>
 
         </td>
