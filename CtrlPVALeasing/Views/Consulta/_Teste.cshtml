@@ -78,17 +78,19 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel">Informação:</h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE CONTRATO</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
-                <p><center><h4>Contrato Nº @Request["contrato"] não encontrado!</h4></center></p>
-                <h4>@Request["contrato"]</h4>
-            </div>
-            <div class="modal-footer modal-sm">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">
-                    Fechar
-                </button>
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+                
+                
             </div>
     </div>
 </div>
