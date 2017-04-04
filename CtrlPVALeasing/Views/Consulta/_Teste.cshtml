@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
 <table class="table" border="1" style="border-style:inherit">
     <tr>
         <td>
@@ -53,7 +54,17 @@
                         }
                         else
                         {
-                            <script>alert('Não encontrado!!!!!!!!!!!!!!!!!!!!!!!')</script>
+                            <script>
+                                try{
+                                    $(document).ready(function () {
+                                        $("#msgErro").modal();
+                                    });
+                                }
+                                catch(e)
+                                {
+                                    alert(e);
+                                }
+                            </script>
                         }
                     }
                 }
@@ -62,3 +73,22 @@
         </td>
     </tr>
 </table>
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel">Informação:</h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <p><center><h4>Contrato Nº @Request["contrato"] não encontrado!</h4></center></p>
+                <h4>@Request["contrato"]</h4>
+            </div>
+            <div class="modal-footer modal-sm">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    Fechar
+                </button>
+            </div>
+    </div>
+</div>

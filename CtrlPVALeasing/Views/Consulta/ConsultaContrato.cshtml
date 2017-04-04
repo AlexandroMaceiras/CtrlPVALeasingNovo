@@ -55,6 +55,12 @@
                         <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
+                <tr>
+                    <td>
+                        <div></div>
+                    </td>
+
+                </tr>
             </table>
             <hr />
         </center>
@@ -124,9 +130,13 @@
                                 <td>
                                     @{ 
                                         var status = "";
-                                        if (@Model.First().data_da_baixa != null)
+                                        if (@Model.First().status == true)
                                         {
-                                            if (@Model.First().data_da_baixa.ToString() == "        ") { status = "Ativo"; } else if (@Model.First().data_da_baixa.ToString().Trim().Length == 10) { status = "Liquidado"; }
+                                            status = "Ativo";
+                                        }
+                                        else if (@Model.First().status == false)
+                                        {
+                                            status = "Liquidado";
                                         }
                                         <input class="input-sm-fino" value="@status" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                     }
