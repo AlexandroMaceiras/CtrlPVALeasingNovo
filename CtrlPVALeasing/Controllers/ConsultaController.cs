@@ -132,6 +132,16 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModel2()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = " " });
+            return model;
+        }
 
 
         [Authorize, ActionName("ConsultaContrato"), HttpPost]
@@ -250,7 +260,7 @@ namespace CtrlPVALeasing.Controllers
 
             if (model.Count() == 0 || model == null)
             {
-                return RedirectToAction("ConsultaContrato");
+                return View(GetContratosVeiculosViewModel2()); //RedirectToAction("ConsultaContrato");
             }
 
             //IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
