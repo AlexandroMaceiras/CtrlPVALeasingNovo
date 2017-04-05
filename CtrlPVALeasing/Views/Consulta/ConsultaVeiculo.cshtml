@@ -10,56 +10,61 @@
 
 </head>
 @{
-    ViewBag.Title = "Consultar Contrato de Leasing";
+    ViewBag.Title = "Consultar Veículo";
 }
 
-@using (Html.BeginForm("ConsultaContrato", "Consulta"))
+@using (Html.BeginForm("ConsultaVeiculo", "Consulta"))
 {
     <div class="jumbotronFundo">
 
-        <h2>CONSULTA DE CONTRATO</h2>
+        <h2>CONSULTA DE VEÍCULO</h2>
         <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <th class="busca" width="5%">
-                        <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
+                        <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["contrato"]" type="text" name="contrato" size="40" style="text-transform:uppercase">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
-                    <th class="busca">
-                    <td align="right" width="10%">
+                    <th class="busca" width="5%">
+                        <b class="fonte-cinza-claro">Renavam:</b>
+                    </th>
+                    <th class="busca" width="10%">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="5%">
+                        <b class="fonte-cinza-claro">Placa:</b>
+                    </th>
+                    <th class="busca" width="10%">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" size="20" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="1%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
-                    </td>
-                    <td align="right" width="9%">
+                    </th>
+                    <th  width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
                     </th>
                     <th>
                         <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
-                </tr>
-                <tr>
-                    <td>
-                        <div></div>
-                    </td>
-
                 </tr>
             </table>
             <hr />
@@ -69,11 +74,59 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
+                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DE VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
                         <b class="fonte-cinza-escuro">DADOS DO CONTRATO:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato: </div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
                                     <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
@@ -128,7 +181,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Status do Contrato: </div>
                                 </td>
                                 <td>
-                                    @{ 
+                                    @{
                                         var status = "";
                                         if (@Model.First().status == true)
                                         {
@@ -141,13 +194,15 @@
                                         <input class="input-sm-fino" value="@status" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                     }
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Contrato): &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right">
+                                    <div id="outrosContratos">
+                                        @Html.ActionLink("OUTROS CONTRATOS", "outrosContatos", new { cpfcnpj = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -155,7 +210,7 @@
                 </tr>
             </table>
         </center>
-            <br />
+        <br />
         <center>
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
@@ -201,7 +256,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                 </td>
                                 <td colspan="4">
-                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato"   maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -247,69 +302,21 @@
                                     <!--Virá do CCL_Marcas--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                               <td align="right">
-                                    <div id="outrosContratos">
-                                        @Html.ActionLink("OUTROS CONTRATOS", "outrosContatos", new { cpfcnpj = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
-                                    </div>
-                                </td>
-                            </tr>
                         </table>
                     </td>
                 </tr>
             </table>
         </center>
 
-        <br />
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
-                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                @if (Model != null)
-                                {
-                                    @Html.Partial("_ContadorDeVeiculosEmContrato")
-                                }
-                            </tr>
-                            <tr>
-                                <td class="input-sm-fino">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                @if (Model != null)
-                                {
-                                    @Html.Partial("_GridVeiculos")
-                                }
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
 
     </div>
-}
+                                        }
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
         $("#mudaReset").click(function () {
             document.getElementById("limpaNaMarra").setAttribute("value", "");
-            document.getElementById("ConsultaContrato").submit();
+            document.getElementById("ConsultaVeiculo").submit();
         });
     }
     catch (e) {

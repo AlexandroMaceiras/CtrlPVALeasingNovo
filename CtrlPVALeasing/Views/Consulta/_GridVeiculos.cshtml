@@ -47,12 +47,12 @@
                                 </td>
                                 <td class="input-sm-fino">
                                     @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
-                                    @Html.ActionLink("Detalhes", "Details", new { id = item.id }) @*|
+                                    @Html.ActionLink("Detalhes", "ConsultaVeiculo", new { chassi = item.chassi, palca = item.placa, renavam = item.renavam }) @*|
                                         @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
                                 </td>
                             </tr>
                         }
-                        else if (item.agencia == " ")
+                        else if (item.id == -1)
                         {
                             <script>
                                 try{

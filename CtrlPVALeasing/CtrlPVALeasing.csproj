@@ -226,11 +226,11 @@
     <Content Include="Views\Home\Consulta.cshtml" />
     <Content Include="Views\Consulta\Create.cshtml" />
     <Content Include="Views\Consulta\Delete.cshtml" />
-    <Content Include="Views\Consulta\Details.cshtml" />
+    <Content Include="Views\Consulta\ConsultaVeiculo.cshtml" />
     <Content Include="Views\Consulta\Edit.cshtml" />
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Consulta\ConsultaContrato.cshtml" />
-    <Content Include="Views\Consulta\_Teste.cshtml" />
+    <Content Include="Views\Consulta\_GridVeiculos.cshtml" />
     <Content Include="Views\Veiculos\Create.cshtml" />
     <Content Include="Views\Veiculos\Delete.cshtml" />
     <Content Include="Views\Veiculos\Details.cshtml" />

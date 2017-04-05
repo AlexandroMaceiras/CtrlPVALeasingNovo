@@ -23,9 +23,12 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
+                     where a.origem.Equals("B")
+                     where b.origem.Equals("RECIBO VEN")
                      select new
                      {
-                         contrato   = a.contrato,
+                         id = a.id,
+                         contrato = a.contrato,
                          tipo = a.tipo,
                          agencia = a.agencia,
                          dta_inicio_contrato = a.dta_inicio_contrato,
@@ -50,12 +53,12 @@ namespace CtrlPVALeasing.Controllers
                          cod_empresa = a.cod_empresa,
                          num_end_cliente = a.num_end_cliente,
                          comp_end_cliente = a.comp_end_cliente,
-                         //status = a.status,
+                         status = a.status,
 
                          contrato_v = b.contrato,
                          tipo_registro = b.tipo_registro,
                          marca = b.marca,
-                         modelo = b. modelo,
+                         modelo = b.modelo,
                          tipo_v = b.tipo,
                          ano_fab = b.ano_fab,
                          ano_mod = b.ano_mod,
@@ -63,9 +66,11 @@ namespace CtrlPVALeasing.Controllers
                          renavam = b.renavam,
                          chassi = b.chassi,
                          placa = b.placa,
-                         origem_v = b.origem
+                         origem_v = b.origem//,
+                                            //status_v = b.status
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
+                         id = x.id,
                          contrato = x.contrato,
                          tipo = x.tipo,
                          agencia = x.agencia,
@@ -91,7 +96,7 @@ namespace CtrlPVALeasing.Controllers
                          cod_empresa = x.cod_empresa,
                          num_end_cliente = x.num_end_cliente,
                          comp_end_cliente = x.comp_end_cliente,
-                         //status = x.status,
+                         status = x.status,
 
                          contrato_v = x.contrato,
                          tipo_registro = x.tipo_registro,
@@ -104,7 +109,8 @@ namespace CtrlPVALeasing.Controllers
                          renavam = x.renavam,
                          chassi = x.chassi,
                          placa = x.placa,
-                         origem_v = x.origem
+                         origem_v = x.origem_v//,
+                                              //status_v = x.status_v
 
                      }).Take(100).OrderByDescending(x => x.contrato).ToList();
 
@@ -118,28 +124,28 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult ConsultaContrato()
         {
-            return View(GetContratosVeiculosViewModel());
+            return View(GetContratosVeiculosViewModelPrimeira());
         }
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModel()
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeira()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel(){ id = 0, agencia = "" });
+            model.Add(new ContratosVeiculosViewModel(){ id = 0});
             return model;
         }
 
         /// <summary>
-        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -1 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModel2()
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelErro()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = " " });
+            model.Add(new ContratosVeiculosViewModel() { id = -1});
             return model;
         }
 
@@ -236,7 +242,7 @@ namespace CtrlPVALeasing.Controllers
                 comp_end_cliente = x.comp_end_cliente,
                 status = x.status,
 
-                contrato_v = x.contrato,
+                contrato_v = x.contrato_v,
                 tipo_registro = x.tipo_registro,
                 marca = x.marca,
                 modelo = x.modelo,
@@ -260,7 +266,7 @@ namespace CtrlPVALeasing.Controllers
 
             if (model.Count() == 0 || model == null)
             {
-                return View(GetContratosVeiculosViewModel2()); //RedirectToAction("ConsultaContrato");
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
             }
 
             //IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
@@ -281,18 +287,132 @@ namespace CtrlPVALeasing.Controllers
 
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult ConsultaVeiculo(string chassi, string placa, string renavam)
         {
-            if (id == null)
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(GetContratosVeiculosViewModelPrimeira());
             }
-            Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Find(id);
-            if (arm_LiquidadosEAtivos_Contrato == null)
+
+
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where b.origem.Contains("RECIBO VEN")
+                     select new
+                     {
+                         id = a.id,
+                         contrato = a.contrato,
+                         tipo = a.tipo,
+                         agencia = a.agencia,
+                         dta_inicio_contrato = a.dta_inicio_contrato,
+                         dta_vecto_contrato = a.dta_vecto_contrato,
+                         origem = a.origem,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         nome_cliente = a.nome_cliente,
+                         ddd_cliente_particular = a.ddd_cliente_particular,
+                         fone_cliente_particular = a.fone_cliente_particular,
+                         rml_cliente_particular = a.rml_cliente_particular,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         cep_cliente = a.cep_cliente,
+                         filler = a.filler,
+                         ddd_cliente_cml = a.ddd_cliente_cml,
+                         fone_cliente_cml = a.fone_cliente_cml,
+                         dta_ultimo_pagto = a.dta_ultimo_pagto,
+                         tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
+                         cod_empresa = a.cod_empresa,
+                         num_end_cliente = a.num_end_cliente,
+                         comp_end_cliente = a.comp_end_cliente,
+                         status = a.status,
+
+                         contrato_v = b.contrato,
+                         tipo_registro = b.tipo_registro,
+                         marca = b.marca,
+                         modelo = b.modelo,
+                         tipo_v = b.tipo,
+                         ano_fab = b.ano_fab,
+                         ano_mod = b.ano_mod,
+                         cor = b.cor,
+                         renavam = b.renavam,
+                         chassi = b.chassi,
+                         placa = b.placa,
+                         origem_v = b.origem//,
+                                            //status_v = b.status
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         id = x.id,
+                         contrato = x.contrato,
+                         tipo = x.tipo,
+                         agencia = x.agencia,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         origem = x.origem,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         nome_cliente = x.nome_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         rml_cliente_particular = x.rml_cliente_particular,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         filler = x.filler,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
+                         cod_empresa = x.cod_empresa,
+                         num_end_cliente = x.num_end_cliente,
+                         comp_end_cliente = x.comp_end_cliente,
+                         status = x.status,
+
+                         contrato_v = x.contrato_v,
+                         tipo_registro = x.tipo_registro,
+                         marca = x.marca,
+                         modelo = x.modelo,
+                         tipo_v = x.tipo,
+                         ano_fab = x.ano_fab,
+                         ano_mod = x.ano_mod,
+                         cor = x.cor,
+                         renavam = x.renavam,
+                         chassi = x.chassi,
+                         placa = x.placa,
+                         origem_v = x.origem_v//,
+                                              //status_v = x.status_v
+
+                     });
+
+            if (model.Count() == 0 || model == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("ConsultaVeiculo");
             }
-            return View(arm_LiquidadosEAtivos_Contrato);
+
+            //IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaVeiculo");
+            }
+            return View("ConsultaVeiculo", model);
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Create
