@@ -388,7 +388,7 @@ namespace CtrlPVALeasing.Controllers
                          tipo_registro = x.tipo_registro,
                          marca = x.marca,
                          modelo = x.modelo,
-                         tipo_v = x.tipo,
+                         tipo_v = x.tipo_v,
                          ano_fab = x.ano_fab,
                          ano_mod = x.ano_mod,
                          cor = x.cor,
@@ -402,7 +402,7 @@ namespace CtrlPVALeasing.Controllers
 
             if (model.Count() == 0 || model == null)
             {
-                return RedirectToAction("ConsultaVeiculo");
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
             }
 
             //IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
