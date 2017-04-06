@@ -234,7 +234,9 @@
     <Content Include="Views\Veiculos\Details.cshtml" />
     <Content Include="Views\Veiculos\Edit.cshtml" />
     <Content Include="Views\Veiculos\Index.cshtml" />
-    <Content Include="Views\Consulta\_ContadorDeVeiculosEmContrato.cshtml" />
+    <Content Include="Views\Consulta\_ContadorDeGrid.cshtml" />
+    <Content Include="Views\Consulta\ConsultaCliente.cshtml" />
+    <Content Include="Views\Consulta\_GridContratos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

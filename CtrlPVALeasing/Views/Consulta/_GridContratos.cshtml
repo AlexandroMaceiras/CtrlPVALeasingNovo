@@ -9,16 +9,19 @@
                         <div class="fonte-cinza-claro fonte-tamanho-form">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
                     </th>
                     <th class="input-sm-fino">
-                        <div class="fonte-cinza-claro fonte-tamanho-form">Modelo do veículo</div> @*@Html.DisplayNameFor(model => model.modelo)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato</div> @*@Html.DisplayNameFor(model => model.modelo)*@
                     </th>
                     <th class="input-sm-fino">
-                        <div class="fonte-cinza-claro fonte-tamanho-form">Chassi</div> @*@Html.DisplayNameFor(model => model.chassi)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Status do Contrato</div> @*@Html.DisplayNameFor(model => model.chassi)*@
                     </th>
                     <th class="input-sm-fino">
-                        <div class="fonte-cinza-claro fonte-tamanho-form">Renavam</div> @*@Html.DisplayNameFor(model => model.renavam)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Início</div> @*@Html.DisplayNameFor(model => model.renavam)*@
                     </th>
                     <th class="input-sm-fino">
-                        <div class="fonte-cinza-claro fonte-tamanho-form">Placa</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Último Pagamento</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
                     <th></th>
                 </tr>
@@ -34,20 +37,23 @@
                                     @contadorInterno
                                 </td>
                                 <td class="input-sm-fino">
-                                    @Html.DisplayFor(modelItem => item.modelo)
+                                    @item.contrato.ToString()
                                 </td>
                                 <td class="input-sm-fino">
-                                    @Html.DisplayFor(modelItem => item.chassi)
+                                     <text>@(item.status.HasValue && item.status.Value == true ? "ATIVO" : "LIQUIDADO")</text>
                                 </td>
                                 <td class="input-sm-fino">
-                                    @Html.DisplayFor(modelItem => item.renavam)
+                                    @Html.DisplayFor(modelItem => item.dta_inicio_contrato)
                                 </td>
                                 <td class="input-sm-fino">
-                                    @Html.DisplayFor(modelItem => item.placa)
+                                    @Html.DisplayFor(modelItem => item.dta_vecto_contrato)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
                                 </td>
                                 <td class="input-sm-fino">
                                     @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
-                                    @Html.ActionLink("Detalhes", "ConsultaVeiculo", new { chassi = item.chassi, palca = item.placa, renavam = item.renavam }) @*|
+                                    @Html.ActionLink("Detalhes", "ConsultaContrato", new { contrato = item.contrato }) @*|
                                         @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
                                 </td>
                             </tr>
@@ -59,4 +65,5 @@
         </td>
     </tr>
 </table>
+
 

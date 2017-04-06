@@ -10,23 +10,23 @@
 
 </head>
 @{
-    ViewBag.Title = "Consultar Contrato de Leasing";
+    ViewBag.Title = "Consultar Cliente";
 }
 
-@using (Html.BeginForm("ConsultaContrato", "Consulta"))
+@using (Html.BeginForm("ConsultaCliente", "Consulta"))
 {
     <div class="jumbotronFundo">
 
-        <h2>CONSULTA DE CONTRATO</h2>
+        <h2>CONSULTA DE CLIENTE</h2>
         <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <th class="busca" width="5%">
-                        <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
+                        <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["contrato"]" type="text" name="contrato" size="40" style="text-transform:uppercase">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["cpf_cnpj_cliente"]" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
@@ -65,97 +65,6 @@
             <hr />
         </center>
 
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
-                        <b class="fonte-cinza-escuro">DADOS DO CONTRATO:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Agência: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().agencia" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_vecto_contrato" type="text" name="dta_vecto_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data de início: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_inicio_contrato" type="text" name="dta_inicio_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Conta: </div>
-                                </td>
-                                <td>
-                                    <!--AINDA NÃO DEFINIDO!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data do Último Pagamento: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_ultimo_pagto" type="text" name="dta_ultimo_pagto" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Status do Contrato: </div>
-                                </td>
-                                <td>
-                                    @{ 
-                                        var status = "";
-                                        if (@Model.First().status == true)
-                                        {
-                                            status = "Ativo";
-                                        }
-                                        else if (@Model.First().status == false)
-                                        {
-                                            status = "Liquidado";
-                                        }//Dessse jeito se vier null na primeira vez não deixa como LIQUIDADO.
-                                        <input class="input-sm-fino" value="@status" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Contrato): &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
-            <br />
         <center>
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
@@ -201,7 +110,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                 </td>
                                 <td colspan="4">
-                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato"   maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -259,10 +168,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                               <td align="right">
-                                    <div id="outrosContratos">
-                                        @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })  
-                                </td>
+                                <td></td>
                             </tr>
                         </table>
                     </td>
@@ -275,11 +181,11 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">DADOS DOS VEÍCULOS:</b>
+                        <b class="fonte-cinza-escuro">DADOS DOS CONTRATOS:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Contratos:&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 @if (Model != null)
                                 {
@@ -292,7 +198,7 @@
                             <tr>
                                 @if (Model != null)
                                 {
-                                    @Html.Partial("_GridVeiculos")
+                                    @Html.Partial("_GridContratos")
                                 }
                             </tr>
                         </table>
@@ -306,7 +212,7 @@
     //Erro de contrato não encontrado
     if (Model.First().id == -1)
     {
-    <script>
+        <script>
         try
         {
             $(document).ready(function() {
@@ -317,9 +223,9 @@
         {
             alert(e);
         }
-    </script>
+        </script>
+        }
     }
-}
 
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
@@ -339,12 +245,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE CONTRATO</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE CLIENTE</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Cliente não encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

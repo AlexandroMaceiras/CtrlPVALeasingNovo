@@ -26,19 +26,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="1%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
@@ -419,7 +419,9 @@
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
         $("#mudaReset").click(function () {
-            document.getElementById("limpaNaMarra").setAttribute("value", "");
+            document.getElementById("limpaNaMarra1").setAttribute("value", "");
+            document.getElementById("limpaNaMarra2").setAttribute("value", "");
+            document.getElementById("limpaNaMarra3").setAttribute("value", "");
             document.getElementById("ConsultaVeiculo").submit();
         });
     }
