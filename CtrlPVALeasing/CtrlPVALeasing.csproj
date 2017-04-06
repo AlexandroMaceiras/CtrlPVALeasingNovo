@@ -158,7 +158,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -229,11 +228,6 @@
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Consulta\ConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_GridVeiculos.cshtml" />
-    <Content Include="Views\Veiculos\Create.cshtml" />
-    <Content Include="Views\Veiculos\Delete.cshtml" />
-    <Content Include="Views\Veiculos\Details.cshtml" />
-    <Content Include="Views\Veiculos\Edit.cshtml" />
-    <Content Include="Views\Veiculos\Index.cshtml" />
     <Content Include="Views\Consulta\_ContadorDeGrid.cshtml" />
     <Content Include="Views\Consulta\ConsultaCliente.cshtml" />
     <Content Include="Views\Consulta\_GridContratos.cshtml" />

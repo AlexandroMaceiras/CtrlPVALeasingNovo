@@ -527,6 +527,8 @@ namespace CtrlPVALeasing.Controllers
 
                      }).OrderBy(x => x.contrato).ToList();
 
+            model = model.GroupBy(x => x.contrato);
+
             //model = model.Where(s => s.contrato.Equals(contrato));
             //model = model.Where(b => b.origem.Equals("B"));
             //model = model.Where(w => w.origem_v.Contains("RECIBO VEN"));
