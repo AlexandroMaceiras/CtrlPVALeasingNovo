@@ -96,7 +96,7 @@ textarea {
 }
 
 .btn-primary-limpar {
-    color: white;
+    color: black;
     background-color: rgb(222, 223, 232);
     border-color: silver;
 }
@@ -123,7 +123,7 @@ textarea {
 .input-sm-fino {
   height: 20px;
   padding: 5px 10px;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -138,7 +138,17 @@ textarea {
     color: rgb(144, 150, 169);
 }
 
-.fonte-tamanho-form 
+.fonte-tamanho11-form 
 {
     font-size: 11px;
+}
+
+.fonte-tamanho13-form 
+{
+    font-size: 13px;
+}
+
+.fonte-tamanho12-form 
+{
+    font-size: 12px;
 }
