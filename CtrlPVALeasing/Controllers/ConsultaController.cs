@@ -15,6 +15,7 @@ namespace CtrlPVALeasing.Controllers
         private CtrlIPVALeasingContext db = new CtrlIPVALeasingContext();
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
+        IEnumerable<ContratosVeiculosViewModel> model1 = null;
 
         // GET: Arm_LiquidadosEAtivos_Contrato
         public ActionResult Index()
@@ -527,27 +528,91 @@ namespace CtrlPVALeasing.Controllers
 
                      }).OrderBy(x => x.contrato).ToList();
 
-            model = model.GroupBy(x => x.contrato);
+            model1 = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos on a.contrato equals b.contrato
+                     where
+                       a.cpf_cnpj_cliente.Equals(cpf_cnpj_clienteZEROS) &&
+                       a.origem == "B" &&
+                       b.origem.Contains("RECIBO VEN")
+                     group new { a, b } by new
+                     {
+                         a.nome_cliente,
+                         a.cpf_cnpj_cliente,
+                         a.fone_cliente_particular,
+                         a.fone_cliente_cml,
+                         a.end_cliente,
+                         a.bairro_cliente,
+                         a.cidade_cliente,
+                         a.uf_cliente,
+                         a.cep_cliente,
+                         a.contrato,
+                         a.status,
+                         a.dta_inicio_contrato,
+                         a.dta_vecto_contrato,
+                         a.dta_ultimo_pagto,
+                         a.origem,
+                         column1 = b.origem
+                     } into g
+                      orderby g.Key.contrato,
+                              g.Key.status,
+                              g.Key.dta_inicio_contrato
+                      select new
+                     {
+                         g.Key.nome_cliente,
+                         g.Key.cpf_cnpj_cliente,
+                         g.Key.fone_cliente_particular,
+                         g.Key.fone_cliente_cml,
+                         g.Key.end_cliente,
+                         g.Key.bairro_cliente,
+                         g.Key.cidade_cliente,
+                         g.Key.uf_cliente,
+                         g.Key.cep_cliente,
+                         g.Key.contrato,
+                         g.Key.status,
+                         g.Key.dta_inicio_contrato,
+                         g.Key.dta_vecto_contrato,
+                         g.Key.dta_ultimo_pagto,
+                         origemA = g.Key.origem,
+                         origemB = g.Key.column1
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         nome_cliente = x.nome_cliente,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         contrato = x.contrato,
+                         status = x.status,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         origem = x.origemA,
+                         origem_v = x.origemB
+                     });
 
             //model = model.Where(s => s.contrato.Equals(contrato));
             //model = model.Where(b => b.origem.Equals("B"));
             //model = model.Where(w => w.origem_v.Contains("RECIBO VEN"));
 
-            //return View(db.Arm_LiquidadosEAtivos_Contrato.Take(5).ToList());
+                    //return View(db.Arm_LiquidadosEAtivos_Contrato.Take(5).ToList());
 
-            if (model.Count() == 0 || model == null)
+            if (model1.Count() == 0 || model1 == null)
             {
                 return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
             }
 
             //IEnumerable<Arm_LiquidadosEAtivos_Contrato> arm_LiquidadosEAtivos_Contrato = db.Arm_LiquidadosEAtivos_Contrato.Where(x => x.contrato.Equals(contrato));
 
-            if (model == null || model.Any() == false)
+            if (model1 == null || model1.Any() == false)
             {
                 //return HttpNotFound();
                 return RedirectToAction("ConsultaClienteo");
             }
-            return View(model);
+            return View(model1);
 
             //if (contrato != "")
             //{
