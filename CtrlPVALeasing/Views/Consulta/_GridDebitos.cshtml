@@ -1,0 +1,70 @@
+﻿
+@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança</div> @*@Html.DisplayNameFor(model => model.modelo)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">UF de Registro</div> @*@Html.DisplayNameFor(model => model.chassi)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Cobrança</div> @*@Html.DisplayNameFor(model => model.renavam)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Débito pago pelo banco?</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Valor Recuperado</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{var contadorInterno = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            @*<tr>
+                                <td class="input-sm-fino">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino">
+                                    @item.contrato.ToString()
+                                </td>
+                                <td class="input-sm-fino">
+                                    <text>@(item.status.HasValue && item.status.Value == true ? "ATIVO" : "LIQUIDADO")</text>
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.dta_inicio_contrato)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.dta_vecto_contrato)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("Detalhes", "ConsultaContrato", new { contrato = item.contrato }) |
+                                        @Html.ActionLink("Deletar", "Delete", new { id = item.id })
+                                </td>
+                            </tr>*@
+                        }
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+

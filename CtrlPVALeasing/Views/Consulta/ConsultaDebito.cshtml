@@ -15,21 +15,17 @@
             $("#msgErro2").modal();
         });
     }
-    function chamaErro1() {
-        $(document).ready(function () {
-            $("#msgErro1").modal();
-        });
-    }
+
 </script>
 @{
-    ViewBag.Title = "Consultar Veículo";
+    ViewBag.Title = "Consultar Débito";
 }
 
-@using (Html.BeginForm("ConsultaVeiculo", "Consulta"))
+@using (Html.BeginForm("ConsultaDebito", "Consulta"))
 {
     <div class="jumbotronFundo">
 
-        <h2>CONSULTA DE VEÍCULO</h2>
+        <h2>CONSULTA DE DEBITO</h2>
         <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -169,7 +165,7 @@
                             <tr>
                                 <td><div class="fonte-cinza-claro fonte-tamanho-form">Possui comunicação de venda&nbsp;</div></td>
                                 <td>
-                                    <input type="checkbox" name="pcv" />
+                                    <input type="checkbox" name="pcv"/>
                                 </td>
                                 <td>&nbsp;&nbsp;</td>
                                 <td><div class="fonte-cinza-claro fonte-tamanho-form">Veículo apreendido pelo banco&nbsp;</div></td>
@@ -191,57 +187,29 @@
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total dos Débito: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total dos Débitos de IPVA: &nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
                                     <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Recuperação:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total das Recuperações de IPVA: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
+                                <td class="input-sm-fino">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td align="right">
-                                    <div id="Detalhes">
-                                        @{
-                                            if (Model.First().contrato != "" && Model.First().contrato != null)
-                                            {
-                                                @Html.ActionLink("DETALHES", "ConsultaDebito", new { chassi = @Model.First().chassi, placa = @Model.First().placa, renavam = @Model.First().renavam }, new { @class = "btn3 btn-primary-imp btn-sm" })
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("DETALHES", "ConsultaDebito", new { chassi = @Model.First().chassi, placa = @Model.First().placa, renavam = @Model.First().renavam }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
-                                            }
-                                        }
-                                    </div>
-                                </td>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_GridDebitos")
+                                }
                             </tr>
                         </table>
                     </td>
@@ -351,102 +319,6 @@
             </table>
         </center>
         <br />
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
-                        <b class="fonte-cinza-escuro">DADOS DO CLIENTE:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome/ Razão social:&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td colspan="7">
-                                    <input class="input-sm-fino" value="@Model.First().nome_cliente" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().cpf_cnpj_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Com.: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().fone_cliente_cml" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Particular.: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().fone_cliente_particular" type="text" name="cliente" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
-                                </td>
-                                <td colspan="4">
-                                    <input class="input-sm-fino" value="@Model.First().end_cliente" type="text" name="contrato" maxlength="40" size="100" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Bairro: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().bairro_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cidade: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().cidade_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Estado: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().uf_cliente" type="text" name="contrato" size="3" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">CEP: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Model.First().cep_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marcas: </div>
-                                </td>
-                                <td colspan="7">
-                                    <!--Virá do CCL_Marcas--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
 
     </div>
 
@@ -481,27 +353,6 @@
         alert(e);
     }
 </script>
-
-<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-sm">
-            <header class="modal-header modal-sm">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
-            </header>
-            <div class="modal-body modal-sm">
-                <table width="100%">
-                    <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo não encontrado!</h4></center></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
     <div class="modal-dialog modal-sm">

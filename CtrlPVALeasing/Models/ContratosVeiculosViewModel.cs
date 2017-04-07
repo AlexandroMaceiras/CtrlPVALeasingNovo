@@ -21,10 +21,14 @@ namespace CtrlPVALeasing.Models
         [StringLength(5)]
         public string agencia { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Column(TypeName = "date")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? dta_inicio_contrato { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Column(TypeName = "date")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? dta_vecto_contrato { get; set; }
 
         [StringLength(1)]
@@ -69,13 +73,17 @@ namespace CtrlPVALeasing.Models
         [StringLength(8)]
         public string fone_cliente_cml { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Column(TypeName = "date")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? dta_ultimo_pagto { get; set; }
 
         [StringLength(1)]
         public string tipo_de_baixa { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Column(TypeName = "date")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? data_da_baixa { get; set; }
 
         [StringLength(2)]
