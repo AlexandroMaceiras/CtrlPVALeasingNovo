@@ -26,7 +26,15 @@
                         <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@Request["cpf_cnpj_cliente"]" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
+                        @{
+                            //Tira os Zeros à esquerda.
+                            var cpf_cnpj_cliente = "";
+                            if (Request["cpf_cnpj_cliente"] != null)
+                            {
+                                cpf_cnpj_cliente = @Request["cpf_cnpj_cliente"].TrimStart('0');
+                            }
+                            <input id="limpaNaMarra" class="input-sm-fino" value="@cpf_cnpj_cliente" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
+                        }
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
