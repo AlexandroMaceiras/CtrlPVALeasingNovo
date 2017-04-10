@@ -33,25 +33,25 @@
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
-                    <th class="busca" width="10%">
+                    <th class="busca" width="8%">
                         <input id="limpaNaMarra1" class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
-                    <th class="busca" width="10%">
+                    <th class="busca" width="8%">
                         <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" size="35" style="text-transform:uppercase">
                     </th>
-                    <th class="busca" width="5%">
+                    <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
-                    <th class="busca" width="10%">
+                    <th class="busca" width="8%">
                         <input id="limpaNaMarra3" class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
-                    <th class="busca" width="1%">
+                    <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
-                    <th  width="1%">
+                    <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
                     </th>
                 </tr>
@@ -230,7 +230,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -239,7 +239,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Agência: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().agencia" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().agencia" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -248,7 +248,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_vecto_contrato" type="text" name="dta_vecto_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_vecto_contrato" type="text" name="dta_vecto_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -256,7 +256,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de início: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_inicio_contrato" type="text" name="dta_inicio_contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_inicio_contrato" type="text" name="dta_inicio_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -265,7 +265,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Conta: </div>
                                 </td>
                                 <td>
-                                    <!--AINDA NÃO DEFINIDO!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <!--AINDA NÃO DEFINIDO!--><input class="input-sm-fino" value="" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,7 +274,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data do Último Pagamento: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_ultimo_pagto" type="text" name="dta_ultimo_pagto" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@Model.First().dta_ultimo_pagto" type="text" name="dta_ultimo_pagto" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -292,7 +292,7 @@
                                         {
                                             status = "Liquidado";
                                         }
-                                        <input class="input-sm-fino" value="@status" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                        <input class="input-sm-fino" value="@status" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                     }
                                 </td>
                                 <td></td>

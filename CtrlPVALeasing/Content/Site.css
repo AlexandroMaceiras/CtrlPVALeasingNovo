@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
 }
 
 .btn2 {
@@ -123,11 +123,31 @@ textarea {
 .input-sm-fino {
   height: 20px;
   padding: 5px 10px;
-  font-size: 10px;
+    font-size: 11px;
   line-height: 1.5;
   border-radius: 3px;
 }
-
+.input-sm-fino10 {
+  height: 60px;
+  padding: 10px 15px;
+  font-size: 10px;
+  line-height: 35.5;
+  border-radius: 12px;
+}
+.input-sm-fino11 {
+  height: 20px;
+  padding: 5px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.input-sm-fino12 {
+  height: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
 .fonte-cinza-claro
 {
     color: rgb(176, 172, 186);
@@ -136,6 +156,11 @@ textarea {
 .fonte-cinza-escuro
 {
     color: rgb(144, 150, 169);
+}
+
+.fonte-tamanho-form 
+{
+    font-size: 12px;
 }
 
 .fonte-tamanho11-form 
