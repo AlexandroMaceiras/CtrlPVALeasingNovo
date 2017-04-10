@@ -23,6 +23,7 @@
 
 @using (Html.BeginForm("ConsultaDebito", "Consulta"))
 {
+        var MF = Model.First();
     <div class="jumbotronFundo">
 
         <h2>CONSULTA DE DEBITO</h2>
@@ -34,19 +35,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
@@ -89,7 +90,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,7 +99,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().marca" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.marca" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,7 +108,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().ano_fab" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.ano_fab" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -115,7 +116,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -124,7 +125,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().modelo" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.modelo" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -133,7 +134,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().ano_mod" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.ano_mod" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -141,7 +142,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -150,7 +151,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().tipo_v" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.tipo_v" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -159,7 +160,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().cor" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.cor" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -230,7 +231,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().contrato" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.contrato" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -239,7 +240,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Agência: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().agencia" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.agencia" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -248,7 +249,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_vecto_contrato" type="text" name="dta_vecto_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_vecto_contrato.HasValue ? MF.dta_vecto_contrato.ToString().Substring(0,10) : "")" type="text" name="dta_vecto_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -256,7 +257,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data de início: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_inicio_contrato" type="text" name="dta_inicio_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_inicio_contrato.HasValue ? MF.dta_inicio_contrato.ToString().Substring(0,10) : "")" type="text" name="dta_inicio_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,7 +275,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data do Último Pagamento: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Model.First().dta_ultimo_pagto" type="text" name="dta_ultimo_pagto" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_ultimo_pagto.HasValue ? MF.dta_ultimo_pagto.ToString().Substring(0,10) : "")" type="text" name="dta_ultimo_pagto" size="25" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -284,11 +285,11 @@
                                 <td>
                                     @{
                                         var status = "";
-                                        if (@Model.First().status == true)
+                                        if (@MF.status == true)
                                         {
                                             status = "Ativo";
                                         }
-                                        else if (@Model.First().status == false)
+                                        else if (@MF.status == false)
                                         {
                                             status = "Liquidado";
                                         }
@@ -303,13 +304,13 @@
                                 <td align="right">
                                     <div id="outrosContratos">
                                         @{
-                                            if (Model.First().contrato != "" && Model.First().contrato != null)
+                                            if (MF.contrato != "" && MF.contrato != null)
                                             {
-                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @Model.First().cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro2(); return false;" })
+                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro2(); return false;" })
                                             }
                                         }
                                      </div>
@@ -325,7 +326,7 @@
     </div>
 
     //Erro de veículo não encontrado
-    if (Model.First().id == -1)
+    if (MF.id == -1)
     {
     <script>
         try{
