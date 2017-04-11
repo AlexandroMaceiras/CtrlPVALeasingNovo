@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Tbl_DebitosEPagamentos_VeiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +168,7 @@
     <Compile Include="Models\Arm_Veiculos.cs" />
     <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
+    <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,15 +191,30 @@
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\CtrlIPVALeasing.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
     <Content Include="Scripts\jquery.alerts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.globalize.js" />
+    <Content Include="Scripts\jquery.validate.globalize.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\methods_pt.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -228,6 +245,11 @@
     <Content Include="Views\Consulta\_GridContratos.cshtml" />
     <Content Include="Views\Consulta\ConsultaDebito.cshtml" />
     <Content Include="Views\Consulta\_GridDebitos.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Create.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Delete.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Details.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

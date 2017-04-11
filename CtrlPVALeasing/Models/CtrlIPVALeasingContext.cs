@@ -14,6 +14,7 @@ namespace CtrlPVALeasing.Models
 
         public virtual DbSet<Arm_LiquidadosEAtivos_Contrato> Arm_LiquidadosEAtivos_Contrato { get; set; }
         public virtual DbSet<Arm_Veiculos> Arm_Veiculos { get; set; }
+        public DbSet<Tbl_DebitosEPagamentos_Veiculo> Tbl_DebitosEPagamentos_Veiculo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -118,6 +119,10 @@ namespace CtrlPVALeasing.Models
                 .Property(e => e.comp_end_cliente)
                 .IsUnicode(false);
 
+
+
+
+
             modelBuilder.Entity<Arm_Veiculos>()
                 .Property(e => e.contrato)
                 .IsUnicode(false);
@@ -165,6 +170,58 @@ namespace CtrlPVALeasing.Models
             modelBuilder.Entity<Arm_Veiculos>()
                 .Property(e => e.origem)
                 .IsUnicode(false);
-            }
+
+
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.chassi)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.renavam)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.placa)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.uf_cobranca)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.tipo_cobranca)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.ano_exercicio)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.cda)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.nome_cartotio)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.uf_pagamento)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.tipo_pagamento)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.numero_miro)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.obs_pagamento)
+                .IsUnicode(false);
+        }
+
     }
 }

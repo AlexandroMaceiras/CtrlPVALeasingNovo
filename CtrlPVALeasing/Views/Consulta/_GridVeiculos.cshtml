@@ -46,9 +46,7 @@
                                     @Html.DisplayFor(modelItem => item.placa)
                                 </td>
                                 <td class="input-sm-fino">
-                                    @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
-                                    @Html.ActionLink("DETALHES", "ConsultaVeiculo", new { chassi = item.chassi, placa = item.placa, renavam = item.renavam }, new { @class = "btn2 btn-primary-detalhes btn-sm" }) @*|
-                                        @Html.ActionLink("Deletar", "Delete", new { id = item.id })*@
+                                    @Html.ActionLink("DETALHES", "ConsultaVeiculo", new { chassi = item.chassi, placa = item.placa, renavam = item.renavam }, new { @class = "btn2 btn-primary-detalhes btn-sm" })
                                 </td>
                             </tr>
                         }
