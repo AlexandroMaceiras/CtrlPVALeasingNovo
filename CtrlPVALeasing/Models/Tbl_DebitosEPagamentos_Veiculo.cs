@@ -19,9 +19,6 @@ namespace CtrlPVALeasing.Models
         [StringLength(9)]
         public string placa { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [Column(TypeName = "date")]
-        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? dta_cobranca { get; set; }
 
         [StringLength(2)]
@@ -56,9 +53,6 @@ namespace CtrlPVALeasing.Models
 
         public bool? pagamento_efet_banco { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [Column(TypeName = "date")]
-        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? dta_pagamento { get; set; }
 
         [StringLength(2)]
@@ -81,5 +75,11 @@ namespace CtrlPVALeasing.Models
 
         [Column(TypeName = "numeric")]
         public decimal? valor_pago_total { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? valor_recuperado { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? valor_total_recuperado { get; set; }
     }
 }

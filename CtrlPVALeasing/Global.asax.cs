@@ -17,34 +17,34 @@ namespace CtrlPVALeasing
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
-            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
+            //ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
+            //ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
         }
-        public class DateTimeModelBinder : DefaultModelBinder
-        {
-            public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-            {
-                object result = null;
+        //public class DateTimeModelBinder : DefaultModelBinder
+        //{
+        //    public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        //    {
+        //        object result = null;
 
-                string modelName = bindingContext.ModelName;
-                string attemptedValue = bindingContext.ValueProvider.GetValue(modelName).AttemptedValue;
+        //        string modelName = bindingContext.ModelName;
+        //        string attemptedValue = bindingContext.ValueProvider.GetValue(modelName).AttemptedValue;
 
-                if (String.IsNullOrEmpty(attemptedValue))
-                {
-                    return result;
-                }
+        //        if (String.IsNullOrEmpty(attemptedValue))
+        //        {
+        //            return result;
+        //        }
 
-                try
-                {
-                    result = DateTime.Parse(attemptedValue);
-                }
-                catch (FormatException e)
-                {
-                    bindingContext.ModelState.AddModelError(modelName, e);
-                }
+        //        try
+        //        {
+        //            result = DateTime.Parse(attemptedValue);
+        //        }
+        //        catch (FormatException e)
+        //        {
+        //            bindingContext.ModelState.AddModelError(modelName, e);
+        //        }
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
     }
 }

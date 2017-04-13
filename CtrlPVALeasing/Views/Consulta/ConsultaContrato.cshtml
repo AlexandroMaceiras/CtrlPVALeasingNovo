@@ -209,7 +209,7 @@ function chamaErro() {
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                 </td>
                                 <td colspan="4">
-                                    <input class="input-sm-fino" value="@MF.end_cliente" type="text" name="contrato"   maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.end_cliente" type="text" name="contrato" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -256,8 +256,17 @@ function chamaErro() {
                                 </td>
                             </tr>
                             <tr>
+                                <td>
+                                    @Html.Action("_Teste","", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
+                                </td>
+                            </tr>
+                            <tr>
+
                                 <td colspan="5">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" /></div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    </div>
                                 </td>
                                 <td></td>
                                 <td></td>

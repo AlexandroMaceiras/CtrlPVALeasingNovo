@@ -250,6 +250,7 @@
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Details.cshtml" />
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
+    <Content Include="Views\Consulta\_Teste.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

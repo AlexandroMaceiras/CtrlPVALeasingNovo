@@ -197,7 +197,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) :"")" type="text" name="dta_cobranca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -206,7 +206,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total dos Débitos de IPVA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -214,7 +214,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Recuperação:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -223,7 +223,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total das Recuperações de IPVA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="agencia" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.valor_pago_total" type="text" name="valor_pago_total" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
