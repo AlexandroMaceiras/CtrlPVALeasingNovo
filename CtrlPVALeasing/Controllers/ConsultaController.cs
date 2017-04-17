@@ -18,13 +18,25 @@ namespace CtrlPVALeasing.Controllers
         IEnumerable<Tbl_DebitosEPagamentos_Veiculo> model2 = null;
 
         /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
+        /// Sem este IEnumarable epecífico para a Partial View ela lê o rodapé da _ViewStart na primeira vêz e imprime ele no local da partial View.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeiraRodape()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = "rodap" });
+            return model;
+        }
+
+        /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
         /// </summary>
         /// <returns></returns>
         private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeira()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel(){ id = 0});
+            model.Add(new ContratosVeiculosViewModel(){ id = 0, agencia = " "});
             return model;
         }
 
@@ -35,7 +47,7 @@ namespace CtrlPVALeasing.Controllers
         private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelErro()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel() { id = -1});
+            model.Add(new ContratosVeiculosViewModel() { id = -1, agencia = " " });
             return model;
         }
 
@@ -185,7 +197,7 @@ namespace CtrlPVALeasing.Controllers
         {
             if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
             {
-                return View(GetContratosVeiculosViewModelPrimeira());
+                return View(GetContratosVeiculosViewModelPrimeiraRodape());
             }else if (cpf_cnpj_cliente != "" && cpf_cnpj_cliente != null)
             {
                 string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.ToString().PadLeft(18, '0');

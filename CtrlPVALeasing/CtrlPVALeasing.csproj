@@ -251,6 +251,7 @@
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
     <Content Include="Views\Consulta\_Teste.cshtml" />
+    <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
