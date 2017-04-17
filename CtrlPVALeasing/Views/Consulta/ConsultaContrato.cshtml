@@ -8,7 +8,7 @@
 
     <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
 
-</head>
+    </head>
 <script>
 function chamaErro() {
     $(document).ready(function () {
@@ -256,17 +256,8 @@ function chamaErro() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    @Html.Action("_Teste","", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
-                                </td>
-                            </tr>
-                            <tr>
-
                                 <td colspan="5">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                    </div>
+                                    @Html.Action("_valor_debito_total", "", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
                                 </td>
                                 <td></td>
                                 <td></td>

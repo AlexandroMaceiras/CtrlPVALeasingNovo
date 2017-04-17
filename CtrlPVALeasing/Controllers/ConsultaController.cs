@@ -193,7 +193,7 @@ namespace CtrlPVALeasing.Controllers
             return View("ConsultaDebito", model);
         }
 
-        public ActionResult _Teste(string cpf_cnpj_cliente)
+        public ActionResult _valor_debito_total(string cpf_cnpj_cliente)
         {
             if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
             {
@@ -212,8 +212,9 @@ namespace CtrlPVALeasing.Controllers
                     on a.contrato equals b.contrato
                     where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
                     where a.origem.Equals("B")
-                    where !b.origem.Contains("RECIBO VEN")
-                    join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     where !b.origem.Contains("RECIBO VEN")
+                     //where a.status.Equals(1)
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                      group c by new { c.valor_debito_total, c.valor_total_recuperado } into g
                      select new
@@ -231,6 +232,19 @@ namespace CtrlPVALeasing.Controllers
                         valor_total_recuperado = x.soma_valor_total_recuperado
 
                      });
+
+//SELECT sum(c.valor_debito_total), sum(c.valor_total_recuperado)
+//FROM    Arm_LiquidadosEAtivos_Contrato a
+//JOIN    Arm_Veiculos b
+//ON      a.contrato = b.contrato
+//JOIN    Tbl_DebitosEPagamentos_Veiculo c
+//on      b.chassi = c.chassi
+//AND     b.renavam = c.renavam
+//AND     b.placa = c.placa
+//WHERE   a.origem = 'B'
+//AND     b.origem NOT LIKE '%RECIBO VEN%'
+//AND     a.status = 1
+
 
             if (model.Count() == 0 || model == null)
             {
