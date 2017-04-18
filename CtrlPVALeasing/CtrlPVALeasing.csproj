@@ -158,6 +158,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Tbl_DebitosEPagamentos_VeiculoController.cs" />
@@ -253,6 +254,8 @@
     <Content Include="Views\Consulta\_valor_debito_total.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado.cshtml" />
+    <Content Include="Views\Transacional\ImpressaoDUTAvulso.cshtml" />
+    <Content Include="Views\Transacional\_GridDebitos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
