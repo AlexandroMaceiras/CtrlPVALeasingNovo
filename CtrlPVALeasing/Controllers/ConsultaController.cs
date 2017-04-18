@@ -193,6 +193,68 @@ namespace CtrlPVALeasing.Controllers
             return View("ConsultaDebito", model);
         }
 
+        public ActionResult _valor_total_recuperado(string cpf_cnpj_cliente)
+        {
+            if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
+            {
+                return View(GetContratosVeiculosViewModelPrimeiraRodape());
+            }
+            else if (cpf_cnpj_cliente != "" && cpf_cnpj_cliente != null)
+            {
+                string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.ToString().PadLeft(18, '0');
+            }
+            else
+            {
+                cpf_cnpj_cliente = "";
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+                     where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     //where a.status.Equals(1)
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     group c by new { c.chassi, c.renavam, c.placa } into g
+                     select new
+                     {
+                         soma_valor_total_recuperado = g.Sum(c => c.valor_total_recuperado)
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         valor_total_recuperado = x.soma_valor_total_recuperado
+
+                     });
+
+            //SELECT sum(c.valor_debito_total), sum(c.valor_total_recuperado)
+            //FROM    Arm_LiquidadosEAtivos_Contrato a
+            //JOIN    Arm_Veiculos b
+            //ON      a.contrato = b.contrato
+            //JOIN    Tbl_DebitosEPagamentos_Veiculo c
+            //on      b.chassi = c.chassi
+            //AND     b.renavam = c.renavam
+            //AND     b.placa = c.placa
+            //WHERE   a.origem = 'B'
+            //AND     b.origem NOT LIKE '%RECIBO VEN%'
+            //AND     a.status = 1
+
+
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
+            }
+
+            return PartialView(model);
+        }
+
         public ActionResult _valor_debito_total(string cpf_cnpj_cliente)
         {
             if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
@@ -216,20 +278,14 @@ namespace CtrlPVALeasing.Controllers
                      //where a.status.Equals(1)
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     group c by new { c.valor_debito_total, c.valor_total_recuperado } into g
+                     group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
                     {
-                         teste = g.Key.valor_debito_total,
-                         teste2 = g.Key.valor_total_recuperado,
-                        soma_valor_debito_total = g.Sum(c => c.valor_debito_total),
-                        soma_valor_total_recuperado = g.Sum(c => c.valor_total_recuperado)
+                         soma_valor_debito_total = g.Sum(c => c.valor_debito_total)
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                     {
-                         valor_divida = x.teste,
-                         valor_recuperado = x.teste2,
-                         valor_debito_total = x.soma_valor_debito_total,
-                        valor_total_recuperado = x.soma_valor_total_recuperado
+                         valor_debito_total = x.soma_valor_debito_total
 
                      });
 

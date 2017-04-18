@@ -151,11 +151,8 @@ function chamaErro() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Débitos de IPVA (Contrato): &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <!--Criar a Tabela no Banco!!!!!--><input class="input-sm-fino" value="" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                <td colspan="5">
+                                    @Html.Action("_valor_total_recuperado", "", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
                                 </td>
                             </tr>
                         </table>
