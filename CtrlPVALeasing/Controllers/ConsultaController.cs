@@ -125,7 +125,8 @@ namespace CtrlPVALeasing.Controllers
                          valor_custas           = c.valor_custas,
                          pagamento_efet_banco   = c.pagamento_efet_banco,
                          valor_recuperado       = c.valor_recuperado,
-                         valor_total_recuperado = c.valor_total_recuperado
+                         valor_total_recuperado = c.valor_total_recuperado,
+                         divida_ativa_serasa    = c.divida_ativa_serasa
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -177,7 +178,8 @@ namespace CtrlPVALeasing.Controllers
                          valor_custas           = x.valor_custas,
                          pagamento_efet_banco   = x.pagamento_efet_banco,
                          valor_recuperado       = x.valor_recuperado,
-                         valor_total_recuperado = x.valor_total_recuperado
+                         valor_total_recuperado = x.valor_total_recuperado,
+                         divida_ativa_serasa    = x.divida_ativa_serasa
                      });
 
             if (model.Count() == 0 || model == null)
@@ -275,7 +277,7 @@ namespace CtrlPVALeasing.Controllers
                     where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
                     where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
-                     //where a.status.Equals(1)
+                     //where a.status.Value.Equals(true)
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                      group c by new { c.chassi, c.renavam, c.placa } into g
@@ -463,8 +465,9 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo 
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1 from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
@@ -513,10 +516,11 @@ namespace CtrlPVALeasing.Controllers
                          placa          = b.placa,
                          origem_v       = b.origem,
 
-                         dta_cobranca       = c.dta_cobranca,
-                         valor_debito_total = c.valor_debito_total,
-                         dta_pagamento      = c.dta_pagamento,
-                         valor_pago_total   = c.valor_pago_total
+                         dta_cobranca           = c.dta_cobranca,
+                         valor_debito_total     = c.valor_debito_total,
+                         dta_pagamento          = c.dta_pagamento,
+                         valor_pago_total       = c.valor_pago_total,
+                         divida_ativa_serasa    = c.divida_ativa_serasa
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -561,10 +565,11 @@ namespace CtrlPVALeasing.Controllers
                          placa          = x.placa,
                          origem_v       = x.origem_v,
 
-                         dta_cobranca       = x.dta_cobranca,
-                         valor_debito_total = x.valor_debito_total,
-                         dta_pagamento      = x.dta_pagamento,
-                         valor_pago_total   = x.valor_pago_total
+                         dta_cobranca           = x.dta_cobranca,
+                         valor_debito_total     = x.valor_debito_total,
+                         dta_pagamento          = x.dta_pagamento,
+                         valor_pago_total       = x.valor_pago_total,
+                         divida_ativa_serasa    = x.divida_ativa_serasa
                      });
 
             if (model.Count() == 0 || model == null)

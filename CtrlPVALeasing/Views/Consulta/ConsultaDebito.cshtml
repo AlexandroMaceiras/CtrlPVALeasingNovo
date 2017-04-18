@@ -170,9 +170,9 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv"  @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb" />
+                                        <input type="checkbox" name="vapb"  @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>
                                 </td>
                             </tr>
