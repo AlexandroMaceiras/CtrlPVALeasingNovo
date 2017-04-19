@@ -55,7 +55,15 @@
                                     @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
                                 </td>
                                 <td class="input-sm-fino">
-                                    @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente).ToString().
+                                    @if (@item.cpf_cnpj_cliente.TrimStart('0').Length > 11)
+                                    {
+                                        @item.cpf_cnpj_cliente.Substring(0, 11)<b><id="1">/</id>@item.cpf_cnpj_cliente.Substring(12, 4)<id="2">-</id>@item.cpf_cnpj_cliente.Substring(16, 2)</b>
+
+                                            }
+                                            else
+                                            {
+                                            @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente)
+                                            }
                                 </td>
                                 <td class="input-sm-fino">
                                     @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@
