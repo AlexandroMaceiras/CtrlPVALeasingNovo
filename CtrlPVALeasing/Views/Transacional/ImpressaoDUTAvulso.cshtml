@@ -404,7 +404,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                 </td>
                                 <td colspan="4">
-                                    <input class="input-sm-fino" value="@MF.end_cliente" type="text" name="contrato" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.end_cliente" type="text" name="teste1" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -470,7 +470,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Comprador:&nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td colspan="6">
-                                            <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="teste1" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" />
                                         </td>
                                         <td align="right">
                                             <div id="Detalhes">
@@ -492,7 +492,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase"/>
+                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="cpf_cnpj_comprador" size="30" style="text-transform:uppercase" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -501,15 +501,14 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Local: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td colspan="3">
-                                            <input class="input-sm-fino" value="@MF.fone_cliente_cml" type="text" name="cliente" size="29" style="text-transform:uppercase"/>
+                                            <input class="input-sm-fino" value="@MF.cidade_cliente" type="text" name="cidade_comprador" size="29" style="text-transform:uppercase" />
                                         </td>
                                         <td align="right">
                                             <div id="Detalhes">
                                                 @{
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
-                                                        @Html.ActionLink("INCLUIR NOVO COMPRADOR", "IncluirNovoComprador", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = true }, new { @class = "btn4 btn-primary-imp btn-sm" })
-                                                        @Ajax.ActionLink("INCLUIR NOVO COMPRADOR", "ImpressaoDUTAvulso", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = true }, new AjaxOptions { HttpMethod = "POST" })
+                                                        <div id="fazSubmit"><input class="btn4 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="INCLUIR NOVO COMPRADOR" /></div>
                                                     }
                                                     else
                                                     {

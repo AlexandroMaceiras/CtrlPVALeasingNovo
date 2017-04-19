@@ -599,7 +599,7 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos on a.contrato equals b.contrato
                      where
-                       a.cpf_cnpj_cliente.Equals(cpf_cnpj_clienteZEROS) &&
+                       a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente) && //Não estou usando o cpf_cnpj_clienteZEROS porque decidiu-se que aqui não deveria-se fazer uma pesquisa exata para podermos pesquisar por RAIZ de CNPJs de uma mesma empresa.
                        a.origem == "B" &&
                        !b.origem.Contains("RECIBO VEN")
                      group new { a, b } by new
@@ -621,7 +621,8 @@ namespace CtrlPVALeasing.Controllers
                          a.origem,
                          column1 = b.origem
                      } into g
-                      orderby g.Key.contrato,
+                      orderby g.Key.cpf_cnpj_cliente,
+                              g.Key.contrato,
                               g.Key.status,
                               g.Key.dta_inicio_contrato
                       select new

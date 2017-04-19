@@ -23,6 +23,9 @@
                     <th class="input-sm-fino">
                         <div class="fonte-cinza-claro fonte-tamanho-form">Último Pagamento</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">CPF/CNPJ</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
                     <th></th>
                 </tr>
 
@@ -50,6 +53,9 @@
                                 </td>
                                 <td class="input-sm-fino">
                                     @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente).ToString().
                                 </td>
                                 <td class="input-sm-fino">
                                     @*@Html.ActionLink("Editar", "Edit", new { id = item.id }) |*@

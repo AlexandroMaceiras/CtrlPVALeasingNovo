@@ -53,7 +53,7 @@ namespace CtrlPVALeasing.Controllers
 
         [HttpPost]
         [ActionName("IncluirNovoComprador")]
-        public ActionResult IncluirNovoComprador2(string chassi, string placa, string renavam)
+        public ActionResult IncluirNovoComprador2(string chassi, string placa, string renavam, string teste1, string ac)
         {
             if (chassi == null)
                 chassi = "";
@@ -191,7 +191,7 @@ namespace CtrlPVALeasing.Controllers
             return View("ImpressaoDUTAvulso", model);
         }
 
-        public ActionResult IncluirNovoComprador(string chassi, string placa, string renavam)
+        public ActionResult IncluirNovoComprador(string chassi, string placa, string renavam, string teste1, string ac)
         {
             if (chassi == null)
                 chassi = "";
@@ -329,7 +329,7 @@ namespace CtrlPVALeasing.Controllers
             return View("ImpressaoDUTAvulso", model);
         }
 
-        public ActionResult AlterarComprador(string chassi, string placa, string renavam, string ac)
+        public ActionResult AlterarComprador(string chassi, string placa, string renavam, string ac, string teste1 )
         {
             if (chassi == null)
                 chassi = "";
@@ -468,11 +468,11 @@ namespace CtrlPVALeasing.Controllers
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam, string teste1)
+        public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam, string nome_cliente, string teste0, string ac)
         {
             if(Request.HttpMethod == "GET")
             {
-                var teste = teste1;
+                var Metodo = "GET";
             }
             if (chassi == null)
                 chassi = "";
