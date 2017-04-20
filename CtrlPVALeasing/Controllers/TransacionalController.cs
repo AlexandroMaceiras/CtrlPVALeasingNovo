@@ -468,7 +468,9 @@ namespace CtrlPVALeasing.Controllers
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam, string nome_cliente, string teste0, string ac)
+        public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam, 
+            string nome_cliente, string ac, string nome_comprador, string cpf_cnpj_comprador, 
+            string local_comprador, string rg_comprador, string dta_da_compra, string end_comprador, decimal? valor_da_compra)
         {
             if(Request.HttpMethod == "GET")
             {

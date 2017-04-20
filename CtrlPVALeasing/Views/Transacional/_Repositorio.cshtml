@@ -1,0 +1,194 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+@{
+
+    var MF = Model.First();
+
+    if (Request["ac"] == "true")
+    {
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DA VENDA:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Comprador:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td colspan="6">
+                                    <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" />
+                                </td>
+                                <td align="right">
+                                    <div id="Detalhes">
+                                        @{
+                                            if (MF.contrato != "" && MF.contrato != null)
+                                            {
+                                                @Html.ActionLink("NÃO ALTERAR COMPRADOR", "AlterarComprador", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = true }, new { @class = "btn4 btn-primary-imp btn-sm" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("NÃO ALTERAR COMPRADOR", "AlterarComprador", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="cpf_cnpj_comprador" size="30" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Local: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td colspan="3">
+                                    <input class="input-sm-fino" value="@MF.cidade_cliente.ToString().Trim() / @MF.uf_cliente" type="text" name="local_comprador" size="29" style="text-transform:uppercase" />
+                                </td>
+                                <td align="right">
+                                    <div id="Detalhes">
+                                        @{
+                                            if (MF.contrato != "" && MF.contrato != null)
+                                            {
+                                                <div id="fazSubmit"><input class="btn4 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="INCLUIR NOVO COMPRADOR" /></div>
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("INCLUIR NOVO COMPRADOR", "IncluirNovoComprador", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">RG: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="rg_comprador" size="30" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@DateTime.Now.Date.Day/@DateTime.Now.Date.Month/@DateTime.Now.Date.Year" type="text" name="data_comprador" size="29" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
+                                </td>
+                                <td colspan="4">
+                                    <input class="input-sm-fino" value="@MF.end_cliente.ToString().Trim() - @MF.bairro_cliente.ToString().Trim()  - CEP: @MF.cep_cliente" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="???????????????" type="text" name="valor_comprador" size="25" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    }
+    else
+    {
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DA VENDA:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Comprador:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td colspan="6">
+                                    <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td align="right">
+                                    <div id="Detalhes">
+                                        @{
+                                            if (MF.contrato != "" && MF.contrato != null)
+                                            {
+                                                @Html.ActionLink("ALTERAR COMPRADOR", "AlterarComprador", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = "true" }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("ALTERAR COMPRADOR", "AlterarComprador", new { }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="cpf_cnpj_cliente_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Local: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cidade_cliente.ToString().Trim() / @MF.uf_cliente" type="text" name="local_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">RG: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="rg_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@DateTime.Now.Date.Day/@DateTime.Now.Date.Month/@DateTime.Now.Date.Year" type="text" name="data_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
+                                </td>
+                                <td colspan="4">
+                                    <input class="input-sm-fino" value="@MF.end_cliente.ToString().Trim() - @MF.bairro_cliente.ToString().Trim() - CEP: @MF.cep_cliente" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="????????" type="text" name="???_comprador" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    }
+}

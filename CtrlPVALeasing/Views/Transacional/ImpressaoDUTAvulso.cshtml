@@ -10,6 +10,11 @@
 
 </head>
 <script>
+    function chamaErro4() {
+        $(document).ready(function () {
+            $("#msgErro4").modal();
+        });
+    }
     function chamaErro3() {
         $(document).ready(function () {
             $("#msgErro3").modal();
@@ -66,10 +71,17 @@
                     </th>
                 </tr>
                 <tr>
-                    <th>
+                    @if (MF.chassi != "" && @MF.chassi != null)
+                    {
+                    <th colspan="2">
+                        <a href="/" class="btn3 btn-primary-imp btn-sm">IMPRIMIR O DUT</a>
                     </th>
-                    <th>
-                    </th>
+                    }
+                    else
+                    {
+                        <th>
+                        </th>
+                    }
                     <th>
                     </th>
                     <th>
@@ -87,7 +99,6 @@
             </table>
             <hr />
         </center>
-
         <center>
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
@@ -245,7 +256,7 @@
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("DETALHES", "../Consulta/ConsultaDebito", new { }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
+                                                @Html.ActionLink("DETALHES", "../Consulta/ConsultaDebito", new { }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro4(); return false;" })
                                             }
                                         }
                                     </div>
@@ -456,9 +467,10 @@
             </table>
         </center>
         <br />
-        @{ 
-            if(Request["ac"] == "true")
+        @{
+            if (Request["ac"] == "true")
             {
+
                 <center>
                     <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                         <tr>
@@ -477,11 +489,11 @@
                                                 @{
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
-                                                        @Html.ActionLink("NÃO ALTERAR COMPRADOR", "AlterarComprador", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = true }, new { @class = "btn4 btn-primary-imp btn-sm" })
+                                                        @Html.ActionLink("NÃO ALTERAR COMPRADOR", "ImpressaoDUTAvulso", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = true }, new { @class = "btn4 btn-primary-imp btn-sm" })
                                                     }
                                                     else
                                                     {
-                                                        @Html.ActionLink("NÃO ALTERAR COMPRADOR", "AlterarComprador", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                        @Html.ActionLink("NÃO ALTERAR COMPRADOR", "ImpressaoDUTAvulso", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                                     }
                                                 }
                                             </div>
@@ -501,7 +513,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Local: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td colspan="3">
-                                            <input class="input-sm-fino" value="@MF.cidade_cliente.ToString().Trim() / @MF.uf_cliente" type="text" name="local_comprador" size="29" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.cidade_cliente != null ? MF.cidade_cliente.ToString().Trim() + " / " + MF.uf_cliente : "" )" type="text" name="local_comprador" size="29" style="text-transform:uppercase" />
                                         </td>
                                         <td align="right">
                                             <div id="Detalhes">
@@ -523,7 +535,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">RG: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="rg_comprador" size="30" style="text-transform:uppercase"/>
+                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="rg_comprador" size="30" style="text-transform:uppercase" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -532,7 +544,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@DateTime.Now.Date.Day/@DateTime.Now.Date.Month/@DateTime.Now.Date.Year" type="text" name="data_comprador" size="29" style="text-transform:uppercase"/>
+                                            <input class="input-sm-fino" value="@(MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : "")" type="text" name="dta_da_compra" size="29" style="text-transform:uppercase" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -540,7 +552,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@MF.end_cliente.ToString().Trim() - @MF.bairro_cliente.ToString().Trim()  - CEP: @MF.cep_cliente" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase"/>
+                                            <input class="input-sm-fino" value="@(MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - " + MF.bairro_cliente.ToString().Trim() + "   - CEP: " + MF.cep_cliente : "")" type="text" name="end_comprador" maxlength="40" size="79" style="text-transform:uppercase" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -549,7 +561,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="???????????????" type="text" name="valor_comprador" size="25" style="text-transform:uppercase"/>
+                                            <!--Virá de outra tabela--><input class="input-sm-fino" value="???????????????" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" />
                                         </td>
                                     </tr>
                                 </table>
@@ -579,11 +591,11 @@
                                                 @{
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
-                                                        @Html.ActionLink("ALTERAR COMPRADOR", "AlterarComprador", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = "true" }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                                        @Html.ActionLink("ALTERAR COMPRADOR", "ImpressaoDUTAvulso", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam, ac = "true" }, new { @class = "btn3 btn-primary-imp btn-sm" })
                                                     }
                                                     else
                                                     {
-                                                        @Html.ActionLink("ALTERAR COMPRADOR", "AlterarComprador", new { }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                        @Html.ActionLink("ALTERAR COMPRADOR", "ImpressaoDUTAvulso", new { }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                                     }
                                                 }
                                             </div>
@@ -603,7 +615,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Local: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@MF.cidade_cliente.ToString().Trim() / @MF.uf_cliente" type="text" name="local_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.cidade_cliente != null ? MF.cidade_cliente.ToString().Trim() + " / " + MF.uf_cliente : "" )" type="text" name="local_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -620,7 +632,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@DateTime.Now.Date.Day/@DateTime.Now.Date.Month/@DateTime.Now.Date.Year" type="text" name="data_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : "")" type="text" name="data_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -628,7 +640,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@MF.end_cliente.ToString().Trim() - @MF.bairro_cliente.ToString().Trim() - CEP: @MF.cep_cliente" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - " + MF.bairro_cliente.ToString().Trim() + " - CEP: " + MF.cep_cliente : "")" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -647,27 +659,26 @@
                 </center>
 
             }
-
         }
 
     </div>
 
-                                            //Erro de veículo não encontrado
-                                            if (MF.id == -1)
-                                            {
-                                                <script>
-        try{
-            $(document).ready(function () {
-                $("#msgErro1").modal();
-            });
-        }
-        catch(e)
-        {
-            alert(e);
-        }
-                                                </script>
-                                                }
-                                            }
+    //Erro de veículo não encontrado
+    if (MF.id == -1)
+    {
+        <script>
+            try
+            {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+}
 
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
@@ -737,6 +748,27 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)">Faça primeiro uma pesquisa de algum veículo para depois poder clicar no botão <font color="Black">[ Alterar Comprador ]</font>.</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>IMPRESSÃO DE DUT AVULSO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Débito não encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

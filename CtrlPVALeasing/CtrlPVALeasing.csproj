@@ -256,6 +256,7 @@
     <Content Include="Views\Consulta\_valor_total_recuperado.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDUTAvulso.cshtml" />
     <Content Include="Views\Transacional\_GridDebitos.cshtml" />
+    <Content Include="Views\Transacional\_Repositorio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

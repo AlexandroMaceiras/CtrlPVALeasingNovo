@@ -320,7 +320,7 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult ConsultaContrato(string contrato, string cpf_cnpj_cliente)
         {
-            if (contrato == "" || contrato == null)
+            if (contrato == "" || contrato == null || contrato == "-1")
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return View(GetContratosVeiculosViewModelPrimeira());
