@@ -35,7 +35,7 @@
     ViewBag.Title = "Impressão de DUT Avulso";
 }
 
-@using (Html.BeginForm("ImpressaoDUTAvulso", "Transacional"))
+@using (Html.BeginForm("ImpressaoDUTAvulso", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
@@ -522,7 +522,7 @@
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
                                                         <div id="fazSubmit">
-                                                            <input  onclick="validateForm();" class="btn4 btn-primary-pesqui .btn-sm" type="text" name="busca123" value="INCLUIR NOVO COMPRADOR" />
+                                                            <input  onclick="validateForm();" class="btn4 btn-primary-pesqui .btn-sm" type="button" id="busca123" value="INCLUIR NOVO COMPRADOR" />
                                                             <input type="hidden" name="ic" value="true" />
                                                             <input type="hidden" name="ac" value="false" />
                                                             <input type="hidden" name="id_comprador" value="@MF.id_comprador" />
@@ -550,7 +550,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="dta_da_compra" size="29" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="data_comprador" size="29" style="text-transform:uppercase" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -558,7 +558,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="end_comprador" maxlength="80" size="79" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="endereco_comprador" maxlength="80" size="79" style="text-transform:uppercase" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -612,7 +612,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@(MF.cpf_cnpj_comprador!= null ? MF.cpf_cnpj_comprador : MF.cpf_cnpj_cliente)" type="text" name="cpf_cnpj_cliente_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.cpf_cnpj_comprador!= null ? MF.cpf_cnpj_comprador : MF.cpf_cnpj_cliente)" type="text" name="cpf_cnpj_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -655,7 +655,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
                                         </td>
                                         <td>
-                                            <input id="xxxyyy" class="input-sm-fino" value="@(MF.valor_da_compra!=null ? MF.valor_da_compra : null)" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.valor_da_compra!=null ? MF.valor_da_compra : null)" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                     </tr>
                                 </table>
@@ -704,20 +704,26 @@
     {
         function validateForm()
         {
-            if (document.getElementsByName('valor_da_compra')[0].value == "" || document.getElementsByName('endereco_comprador')[0].value == "")
+            if (
+                document.getElementsByName('nome_comprador')[0].value == "" ||
+                document.getElementsByName('cpf_cnpj_comprador')[0].value == "" ||
+                document.getElementsByName('local_comprador')[0].value == "" ||
+                document.getElementsByName('rg_comprador')[0].value == "" ||
+                document.getElementsByName('data_comprador')[0].value == "" ||
+                document.getElementsByName('endereco_comprador')[0].value == "" ||
+                document.getElementsByName('valor_da_compra')[0].value == "")
             {
-                //$(document).ready(function () {
-                //    $("#msgErro5").modal();
-                //});
-
-                alert('teste');
-
+                $(document).ready(function () {
+                    $("#msgErro5").modal();
+                    return false;
+                });
                 return false;
-
             }
-
-            document.getElementsByName('busca123')[0].attributes("type", "submit");
-            document.getElementsByName('busca123')[0].submit();
+            else
+            {
+                document.getElementById("FormAltera").submit();
+                return true;
+            }
         }
     }
     catch(e)
@@ -820,7 +826,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Complete todos os campos dos Dados da Venda para poder inclui-la!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Não é permitido deixar nenhum campo dos <br /> DADOS DA VENDA em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
