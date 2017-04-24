@@ -51,20 +51,20 @@ CREATE TABLE dbo.Arm_Veiculos
 GO
 
 
-CREATE TABLE dbo.Tbl_DadosDaVenda
-	(
-	id                  INT IDENTITY NOT NULL,
-	renavam       		VARCHAR (20) NULL,
-	chassi        		VARCHAR (20) NULL,
-	placa         		VARCHAR (9) NULL,
-	nome_comprador      VARCHAR (40) NULL,
-	cpf_cnpj_comprador	VARCHAR (18) NULL,
-	rg_comprador      	VARCHAR (11) NULL,
-	local_comprador     VARCHAR (40) NULL,
-	end_comprador       VARCHAR (80) NULL,
-	dta_da_compra      	DATETIME NULL,
-	valor_da_compra		NUMERIC (18, 2) NULL,
-	)
+CREATE TABLE [dbo].[Tbl_DadosDaVenda] 
+    (
+    [id]                 INT             IDENTITY (1, 1) NOT NULL,
+    [renavam]            VARCHAR (20)    NULL,
+    [chassi]             VARCHAR (20)    NULL,
+    [placa]              VARCHAR (9)     NULL,
+    [nome_comprador]     VARCHAR (40)    NULL,
+    [cpf_cnpj_comprador] VARCHAR (18)    NULL,
+    [rg_comprador]       VARCHAR (18)    NULL,
+    [local_comprador]    VARCHAR (80)    NULL,
+    [end_comprador]      VARCHAR (80)    NULL,
+    [dta_da_compra]      DATETIME        NULL,
+    [valor_da_compra]    NUMERIC (18, 2) NULL
+)
 GO
 
 CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
@@ -81,7 +81,7 @@ CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
 	cda                    VARCHAR (10) NULL,
 	valor_custas           NUMERIC (18, 2) NULL,
 	debito_protesto        BIT NULL,
-	nome_cartotio          VARCHAR (40) NULL,
+	nome_cartorio          VARCHAR (40) NULL,
 	divida_ativa_serasa    BIT NULL,
 	protesto_serasa        BIT NULL,
 	valor_debito_total     NUMERIC (18, 2) NULL,

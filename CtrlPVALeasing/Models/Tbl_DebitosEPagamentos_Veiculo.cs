@@ -42,7 +42,7 @@ namespace CtrlPVALeasing.Models
         public bool? debito_protesto { get; set; }
 
         [StringLength(40)]
-        public string nome_cartotio { get; set; }
+        public string nome_cartorio { get; set; }
 
         public bool? divida_ativa_serasa { get; set; }
 
@@ -59,7 +59,10 @@ namespace CtrlPVALeasing.Models
         public string uf_pagamento { get; set; }
 
         [StringLength(10)]
-        public string tipo_pagamento { get; set; }
+        public string forma_pagamento_divida { get; set; }
+
+        [StringLength(10)]
+        public string forma_pagamento_custas { get; set; }
 
         [Column(TypeName = "numeric")]
         public decimal? valor_pago_divida { get; set; }

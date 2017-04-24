@@ -158,6 +158,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Tbl_DadosDaVendaController.cs" />
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Models\Arm_Veiculos.cs" />
     <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
+    <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -258,6 +260,11 @@
     <Content Include="Views\Transacional\ImpressaoDUTAvulso.cshtml" />
     <Content Include="Views\Transacional\_GridDebitos.cshtml" />
     <Content Include="Views\Transacional\_Repositorio.cshtml" />
+    <Content Include="Views\Tbl_DadosDaVenda\Create.cshtml" />
+    <Content Include="Views\Tbl_DadosDaVenda\Delete.cshtml" />
+    <Content Include="Views\Tbl_DadosDaVenda\Details.cshtml" />
+    <Content Include="Views\Tbl_DadosDaVenda\Edit.cshtml" />
+    <Content Include="Views\Tbl_DadosDaVenda\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

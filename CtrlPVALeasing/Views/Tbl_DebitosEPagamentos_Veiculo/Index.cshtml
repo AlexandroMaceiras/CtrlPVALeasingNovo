@@ -47,7 +47,7 @@
             @Html.DisplayNameFor(model => model.debito_protesto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nome_cartotio)
+            @Html.DisplayNameFor(model => model.nome_cartorio)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.divida_ativa_serasa)
@@ -68,7 +68,10 @@
             @Html.DisplayNameFor(model => model.uf_pagamento)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tipo_pagamento)
+            @Html.DisplayNameFor(model => model.forma_pagamento_divida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.forma_pagamento_custas)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.valor_pago_divida)
@@ -124,7 +127,7 @@
             @Html.DisplayFor(modelItem => item.debito_protesto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.nome_cartotio)
+            @Html.DisplayFor(modelItem => item.nome_cartorio)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.divida_ativa_serasa)
@@ -145,7 +148,10 @@
             @Html.DisplayFor(modelItem => item.uf_pagamento)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tipo_pagamento)
+            @Html.DisplayFor(modelItem => item.forma_pagamento_divida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.forma_pagamento_custas)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.valor_pago_divida)

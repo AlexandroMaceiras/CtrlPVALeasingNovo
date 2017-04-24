@@ -1,0 +1,104 @@
+﻿@model CtrlPVALeasing.Models.Tbl_DadosDaVenda
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tbl_DadosDaVenda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.renavam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.renavam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_comprador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_comprador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cpf_cnpj_comprador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cpf_cnpj_comprador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rg_comprador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rg_comprador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.local_comprador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.local_comprador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.end_comprador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.end_comprador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_da_compra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_da_compra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_da_compra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_da_compra)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -482,7 +482,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Comprador:&nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td colspan="6">
-                                            <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.nome_comprador != "" ? MF.nome_comprador : MF.nome_cliente)" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" />
                                         </td>
                                         <td align="right">
                                             <div id="Detalhes">
@@ -520,7 +520,12 @@
                                                 @{
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
-                                                        <div id="fazSubmit"><input class="btn4 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="INCLUIR NOVO COMPRADOR" /></div>
+                                                        <div id="fazSubmit">
+                                                            <input class="btn4 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="INCLUIR NOVO COMPRADOR" />
+                                                            <input type="hidden" name="ic" value="true" />
+                                                            <input type="hidden" name="ac" value="false" />
+                                                            <input type="hidden" name="id_comprador" value="@MF.id_comprador" />
+                                                        </div>
                                                     }
                                                     else
                                                     {
@@ -561,7 +566,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
                                         </td>
                                         <td>
-                                            <!--Virá de outra tabela--><input class="input-sm-fino" value="???????????????" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" />
+                                            <!--Virá de outra tabela--><input class="input-sm-fino" value="0" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" />
                                         </td>
                                     </tr>
                                 </table>
@@ -584,7 +589,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Comprador:&nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td colspan="6">
-                                            <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.nome_comprador != "" ? MF.nome_comprador : MF.nome_cliente)" type="text" maxlength="40" size="79" name="nome_comprador" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td align="right">
                                             <div id="Detalhes">
@@ -606,7 +611,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="cpf_cnpj_cliente_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.nome_comprador != "" ? MF.cpf_cnpj_cliente : MF.cpf_cnpj_cliente)@MF.cpf_cnpj_cliente" type="text" name="cpf_cnpj_cliente_comprador" size="30" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -649,7 +654,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Valor: </div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="????????" type="text" name="???_comprador" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="0" type="text" name="valor_da_compra" size="25" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                     </tr>
                                 </table>

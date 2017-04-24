@@ -167,7 +167,7 @@ namespace CtrlPVALeasing.Models
         public bool? debito_protesto { get; set; }
 
         [StringLength(40)]
-        public string nome_cartotio { get; set; }
+        public string nome_cartorio { get; set; }
 
         public bool? divida_ativa_serasa { get; set; }
 
@@ -206,6 +206,30 @@ namespace CtrlPVALeasing.Models
 
         [Column(TypeName = "numeric")]
         public decimal? valor_total_recuperado { get; set; }
+
+
+
+        public int id_comprador { get; set; }
+
+        [StringLength(40)]
+        public string nome_comprador { get; set; }
+
+        [StringLength(18)]
+        public string cpf_cnpj_comprador { get; set; }
+
+        [StringLength(11)]
+        public string rg_comprador { get; set; }
+
+        [StringLength(40)]
+        public string local_comprador { get; set; }
+
+        [StringLength(80)]
+        public string end_comprador { get; set; }
+
+        public DateTime? dta_da_compra { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? valor_da_compra { get; set; }
 
     }
 }

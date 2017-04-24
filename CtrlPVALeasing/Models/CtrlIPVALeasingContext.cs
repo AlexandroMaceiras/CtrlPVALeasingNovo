@@ -15,6 +15,7 @@ namespace CtrlPVALeasing.Models
         public virtual DbSet<Arm_LiquidadosEAtivos_Contrato> Arm_LiquidadosEAtivos_Contrato { get; set; }
         public virtual DbSet<Arm_Veiculos> Arm_Veiculos { get; set; }
         public DbSet<Tbl_DebitosEPagamentos_Veiculo> Tbl_DebitosEPagamentos_Veiculo { get; set; }
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_DadosDaVenda> Tbl_DadosDaVenda { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -203,7 +204,7 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
-                .Property(e => e.nome_cartotio)
+                .Property(e => e.nome_cartorio)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
@@ -211,7 +212,11 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
-                .Property(e => e.tipo_pagamento)
+                .Property(e => e.forma_pagamento_divida)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.forma_pagamento_custas)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
@@ -222,6 +227,7 @@ namespace CtrlPVALeasing.Models
                 .Property(e => e.obs_pagamento)
                 .IsUnicode(false);
         }
+
 
     }
 }
