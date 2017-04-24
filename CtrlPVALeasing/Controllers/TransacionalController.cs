@@ -202,9 +202,16 @@ namespace CtrlPVALeasing.Controllers
 
                         });
 
-            if (model.Count() == 0 || model == null)
+            try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
             {
-                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                if (model.Count() == 0 || model == null)
+                {
+                    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                }
+            }
+            catch
+            {
+                return View(GetContratosVeiculosViewModelErro());
             }
 
             if (model == null || model.Any() == false)
