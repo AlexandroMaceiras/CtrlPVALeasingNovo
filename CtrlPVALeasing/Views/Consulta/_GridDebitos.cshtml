@@ -24,6 +24,12 @@
                     <th class="input-sm-fino" align="center">
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Ano de Exercício</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Custas</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
                 </tr>
 
                 @{var contadorInterno = 0; 
@@ -52,6 +58,12 @@
                                 </td>
                                 <td class="input-sm-fino" align="right">
                                     @Html.DisplayFor(modelItem => item.valor_recuperado)
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.ano_exercicio)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                             </tr>
                         }

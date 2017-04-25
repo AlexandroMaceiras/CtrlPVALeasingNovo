@@ -122,6 +122,7 @@ namespace CtrlPVALeasing.Controllers
                          dta_cobranca           = c.dta_cobranca,
                          uf_pagamento           = c.uf_pagamento,
                          valor_divida           = c.valor_divida,
+                         ano_exercicio          = c.ano_exercicio,
                          valor_custas           = c.valor_custas,
                          pagamento_efet_banco   = c.pagamento_efet_banco,
                          valor_recuperado       = c.valor_recuperado,
@@ -175,12 +176,13 @@ namespace CtrlPVALeasing.Controllers
                          dta_cobranca           = x.dta_cobranca,
                          uf_pagamento           = x.uf_pagamento,
                          valor_divida           = x.valor_divida,
+                         ano_exercicio          = x.ano_exercicio,
                          valor_custas           = x.valor_custas,
                          pagamento_efet_banco   = x.pagamento_efet_banco,
                          valor_recuperado       = x.valor_recuperado,
                          valor_total_recuperado = x.valor_total_recuperado,
                          divida_ativa_serasa    = x.divida_ativa_serasa
-                     });
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             if (model.Count() == 0 || model == null)
             {
