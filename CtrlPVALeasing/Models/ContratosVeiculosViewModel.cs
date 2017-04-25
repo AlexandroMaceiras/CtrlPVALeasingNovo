@@ -142,7 +142,7 @@ namespace CtrlPVALeasing.Models
 
 
 
-
+        public int id_debito { get; set; }
 
         public DateTime? dta_cobranca { get; set; }
 

@@ -159,6 +159,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Tbl_DadosDaVendaController.cs" />
+    <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -223,7 +224,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="TXT DE SCRIPTS DE TABELAS\Dados de teste das Tabelas" />
-    <Content Include="TXT DE SCRIPTS DE TABELAS\HtmlPage1.html" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\Script Tabelas.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -266,6 +267,7 @@
     <Content Include="Views\Tbl_DadosDaVenda\Details.cshtml" />
     <Content Include="Views\Tbl_DadosDaVenda\Edit.cshtml" />
     <Content Include="Views\Tbl_DadosDaVenda\Index.cshtml" />
+    <Content Include="Views\Registro\RegistroDebitoIPVAManual.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
