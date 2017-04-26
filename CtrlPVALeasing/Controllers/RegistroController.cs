@@ -17,17 +17,17 @@ namespace CtrlPVALeasing.Controllers
         IEnumerable<ContratosVeiculosViewModel> model = null;
         Tbl_DebitosEPagamentos_Veiculo model2 = null;
 
-        /// <summary>
-        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
-        /// Sem este IEnumarable epecífico para a Partial View ela lê o rodapé da _ViewStart na primeira vêz e imprime ele no local da partial View.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeiraRodape()
-        {
-            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = "rodap" });
-            return model;
-        }
+        ///// <summary>
+        ///// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
+        ///// Sem este IEnumarable epecífico para a Partial View ela lê o rodapé da _ViewStart na primeira vêz e imprime ele no local da partial View.
+        ///// </summary>
+        ///// <returns></returns>
+        //private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeiraRodape()
+        //{
+        //    List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+        //    model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = "rodap" });
+        //    return model;
+        //}
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
@@ -51,9 +51,20 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -2 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelErroRegistroDebito()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -2, agencia = " " });
+            return model;
+        }
+
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string rd,
-            DateTime? dta_cobranca, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, 
+            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, 
             string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto, 
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa,decimal? valor_debito_total)
         {
@@ -74,7 +85,9 @@ namespace CtrlPVALeasing.Controllers
                         on a.contrato equals b.contrato
 
                         join c in db.Tbl_DebitosEPagamentos_Veiculo
-                        on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }                        
+                        on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                        into j1
+                        from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                         where b.chassi.Contains(chassi)
                         where b.placa.Contains(placa)
@@ -124,19 +137,20 @@ namespace CtrlPVALeasing.Controllers
                             placa           = b.placa,
                             origem_v        = b.origem,
 
-                            id_debito           = c.id,
-                            dta_cobranca        = c.dta_cobranca,
-                            uf_cobranca         = c.uf_cobranca,
-                            tipo_cobranca       = c.tipo_cobranca,
-                            valor_divida        = c.valor_divida,
-                            ano_exercicio       = c.ano_exercicio,
-                            cda                 = c.cda,
-                            valor_custas        = c.valor_custas,
-                            debito_protesto     = c.debito_protesto,
-                            nome_cartorio       = c.nome_cartorio,
-                            divida_ativa_serasa = c.divida_ativa_serasa,
-                            protesto_serasa     = c.protesto_serasa,
-                            valor_debito_total  = c.valor_debito_total
+                            //id_debito             = c.id,
+                            dta_cobranca            = c.dta_cobranca,
+                            uf_cobranca             = c.uf_cobranca,
+                            tipo_cobranca           = c.tipo_cobranca,
+                            valor_divida            = c.valor_divida,
+                            ano_exercicio           = c.ano_exercicio,
+                            cda                     = c.cda,
+                            valor_custas            = c.valor_custas,
+                            debito_protesto         = c.debito_protesto,
+                            nome_cartorio           = c.nome_cartorio,
+                            divida_ativa_serasa     = c.divida_ativa_serasa,
+                            protesto_serasa         = c.protesto_serasa,
+                            valor_debito_total      = c.valor_debito_total,
+                            dta_pagamento_custas    = c.dta_pagamento_custas
 
 
                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -182,21 +196,23 @@ namespace CtrlPVALeasing.Controllers
                             placa           = x.placa,
                             origem_v        = x.origem_v,
 
-                            id_debito           = x.id_debito,
-                            dta_cobranca        = x.dta_cobranca,
-                            uf_cobranca         = x.uf_cobranca,
-                            tipo_cobranca       = x.tipo_cobranca,
-                            valor_divida        = x.valor_divida,
-                            ano_exercicio       = x.ano_exercicio,
-                            cda                 = x.cda,
-                            valor_custas        = x.valor_custas,
-                            debito_protesto     = x.debito_protesto,
-                            nome_cartorio       = x.nome_cartorio,
-                            divida_ativa_serasa = x.divida_ativa_serasa,
-                            protesto_serasa     = x.protesto_serasa,
-                            valor_debito_total  = x.valor_debito_total
+                            //id_debito             = x.id_debito,
+                            dta_cobranca            = x.dta_cobranca,
+                            uf_cobranca             = x.uf_cobranca,
+                            tipo_cobranca           = x.tipo_cobranca,
+                            valor_divida            = x.valor_divida,
+                            ano_exercicio           = x.ano_exercicio,
+                            cda                     = x.cda,
+                            valor_custas            = x.valor_custas,
+                            debito_protesto         = x.debito_protesto,
+                            nome_cartorio           = x.nome_cartorio,
+                            divida_ativa_serasa     = x.divida_ativa_serasa,
+                            protesto_serasa         = x.protesto_serasa,
+                            valor_debito_total      = x.valor_debito_total,
+                            dta_pagamento_custas    = x.dta_pagamento_custas
 
                         });
+
 
             try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
             {
@@ -218,50 +234,56 @@ namespace CtrlPVALeasing.Controllers
 
             if (Request.HttpMethod == "POST" && rd == "true")
             {
-                
-                // Controle de erros do ModelState
-                //var errors = ModelState
-                //.Where(x => x.Value.Errors.Count > 0)
-                //.Select(x => new { x.Key, x.Value.Errors })
-                //.ToArray();
+                //CONTA e Compara com os registros já existentes no BD.
+                int idDoCara = 0;
+                try
+                {
+                    idDoCara = db.Tbl_DebitosEPagamentos_Veiculo
+                    .Where(c => c.chassi == chassi)
+                    .Where(c => c.renavam == renavam)
+                    .Where(c => c.placa == placa)
+                    .Where(c => c.cda == cda)
+                    .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
+                    .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
+                    .Where(c => c.valor_divida == valor_divida)
+                    .Where(c => c.valor_custas == valor_custas)
+                    .Where(c => c.valor_debito_total == valor_debito_total)
+                    .Where(c => c.ano_exercicio == ano_exercicio)
+                    .ToList().Count();
+                }
+                catch (Exception e)
+                {
+                    Response.Write("<script>alert('" + e.Message + "');</script>");
+                };
 
                 if (ModelState.IsValid)
                 {
-
-                    //string chassi,
-                    //string placa,
-                    //string renavam,
-                    //string rd,
-                    //DateTime? dta_cobranca, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
-                    //string ano_exercicio, string cda, decimal? valor_custas, bool debito_protesto,
-                    //string nome_cartorio, bool divida_ativa_serasa, bool protesto_serasa,decimal? valor_debito_total
-
                     model2 = new Tbl_DebitosEPagamentos_Veiculo
                     {
-                        //id                  = (id_debito.HasValue ? id_debito.Value : 0), //Se não houver um id desse cara ele põe 0
-                        chassi              = chassi,
-                        renavam             = renavam,
-                        placa               = placa,
-                        dta_cobranca        = dta_cobranca,
-                        uf_cobranca         = uf_cobranca,
-                        tipo_cobranca       = tipo_cobranca,
-                        valor_divida        = valor_divida,
-                        ano_exercicio       = ano_exercicio,
-                        cda                 = cda,
-                        valor_custas        = valor_custas,
-                        debito_protesto     = debito_protesto,
-                        nome_cartorio       = nome_cartorio,
-                        divida_ativa_serasa = divida_ativa_serasa,
-                        protesto_serasa     = protesto_serasa,
-                        valor_debito_total  = valor_debito_total
+                        id                      = (idDoCara > 0 ? idDoCara : 0), //Se não houver um id desse cara ele põe 0
+                        chassi                  = chassi,
+                        renavam                 = renavam,
+                        placa                   = placa,
+                        dta_cobranca            = dta_cobranca,
+                        dta_pagamento_custas    = dta_pagamento_custas,
+                        uf_cobranca             = uf_cobranca,
+                        tipo_cobranca           = tipo_cobranca,
+                        valor_divida            = valor_divida,
+                        ano_exercicio           = ano_exercicio,
+                        cda                     = cda,
+                        valor_custas            = valor_custas,
+                        debito_protesto         = debito_protesto,
+                        nome_cartorio           = nome_cartorio,
+                        divida_ativa_serasa     = divida_ativa_serasa,
+                        protesto_serasa         = protesto_serasa,
+                        valor_debito_total      = valor_debito_total
                     };
 
-                    //if (id_comprador.HasValue || id_comprador != 0)
-                    //{
-                    //    db.Entry(model2).State = EntityState.Modified;
-                    //    db.SaveChanges();
-                    //}
-                    //else 
+                    if (idDoCara != 0)
+                    {
+                        return View(GetContratosVeiculosViewModelErroRegistroDebito());
+                    }
+                    else
                     if (db.Entry(model2).State == EntityState.Detached)
                     {
                         db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);

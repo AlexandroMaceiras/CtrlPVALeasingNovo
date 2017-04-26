@@ -20,27 +20,27 @@
             $("#msgErro3").modal();
         });
     }
-    function chamaErro2() {
-        $(document).ready(function () {
-            $("#msgErro2").modal();
-        });
-    }
     function chamaErro1() {
         $(document).ready(function () {
             $("#msgErro1").modal();
         });
     }
+    function chamaErro7() {
+        $(document).ready(function () {
+            $("#msgErro7").modal();
+        });
+    }
 </script>
 @{
-    ViewBag.Title = "Registro de Débito de IPVA";
+    ViewBag.Title = "Registro Débito de IPVA";
 }
 
 @using (Html.BeginForm("RegistroDebitoIPVAManual", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
-
-        <h2>REGISTRO DE DÉBITO DE IPVA</h2>
+        <input type="hidden" name="rd" id="rd" value="false" />
+        <h2>REGISTRO DÉBITO DE IPVA</h2>
         <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -294,10 +294,14 @@
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td colspan="2" align="justify">
+                                <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Débito Protestado&nbsp;
-                                        <input type="checkbox" name="debito_protesto" value="true"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Débito Protestado:
+                                    </div>
+                                </td>
+                                <td colspan="1" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        <input type="checkbox" name="debito_protesto" value="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -311,13 +315,22 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" align="justify">
+                                <td colspan="3" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Dívida Ativa no Serasa&nbsp;
+                                        Dívida Ativa no Serasa:&nbsp;
                                         <input type="checkbox" name="divida_ativa_serasa" value="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Protesto no Serasa&nbsp;
+                                        Protesto no Serasa:&nbsp;
                                         <input type="checkbox" name="protesto_serasa" value="true" />
                                     </div>
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -340,14 +353,14 @@
                                             if (MF.contrato != "" && MF.contrato != null)
                                             {
                                                 <div id="fazSubmit">
-                                                    <input onclick="validateForm();" class="btn4 btn-primary-pesqui .btn-sm" type="button" value="REGISTRAR" />
-                                                    <input type="hidden" name="rd" value="true" />
+                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
+
                                                     <input type="hidden" name="id_comprador" value="@MF.id_comprador" />
                                                 </div>
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("REGISTRAR", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                             }
                                         }
                                     </div>
@@ -375,8 +388,21 @@
             }
         </script>
     }
-}
-
+    else if (MF.id == -2)
+    {
+        <script>
+            try
+            {
+                $(document).ready(function () {
+                    $("#msgErro6").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+        }
+    }
 <script>
     //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
     try {
@@ -395,16 +421,25 @@
     {
         function validateForm()
         {
-            if ( 5!=5
-                //document.getElementsByName('nome_comprador')[0].value == "" ||
-                //document.getElementsByName('cpf_cnpj_comprador')[0].value == "" ||
-                //document.getElementsByName('local_comprador')[0].value == "" ||
-                //document.getElementsByName('rg_comprador')[0].value == "" ||
-                //document.getElementsByName('data_comprador')[0].value == "" ||
-                //document.getElementsByName('endereco_comprador')[0].value == "" ||
-                //document.getElementsByName('valor_da_compra')[0].value == ""
+            if (document.getElementsByName('tipo_cobranca')[0].value == "D") {
+                if (document.getElementsByName('cda')[0].value == "") {
+                    chamaErro7();
+                    return false;
+                }
+            }
+
+            if (
+                document.getElementsByName('dta_cobranca')[0].value == "" ||
+                document.getElementsByName('dta_pagamento_custas')[0].value == "" ||
+                document.getElementsByName('valor_divida')[0].value == "" ||
+                document.getElementsByName('valor_custas')[0].value == "" ||
+                document.getElementsByName('valor_debito_total')[0].value == "" ||
+                document.getElementsByName('ano_exercicio')[0].value == "" ||
+                document.getElementsByName('uf_cobranca')[0].value == "" ||
+                document.getElementsByName('tipo_cobranca')[0].value == ""
                 )
             {
+
                 $(document).ready(function () {
                     $("#msgErro5").modal();
                     return false;
@@ -413,6 +448,7 @@
             }
             else
             {
+                document.getElementById("rd").value = true;
                 document.getElementById("FormAltera").submit();
                 return true;
             }
@@ -429,7 +465,7 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>IMPRESSÃO DE DUT AVULSO</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
@@ -445,38 +481,17 @@
     </div>
 </div>
 
-<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-sm">
-            <header class="modal-header modal-sm">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>IMPRESSÃO DE DUT AVULSO</b></h4></center>
-            </header>
-            <div class="modal-body modal-sm">
-                <table width="100%">
-                    <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro3" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>IMPRESSÃO DE DUT AVULSO</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)">Faça primeiro uma pesquisa de algum veículo para depois poder clicar no botão <font color="Black">[ REGISTRAR ]</font>.</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)">Faça primeiro uma pesquisa de algum veículo para depois poder clicar no botão <font color="Black">[ REGISTRAR DÉBITO ]</font>.</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -513,12 +528,54 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>DADOS DA VENDA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Não é permitido deixar nenhum campo dos <br /> DADOS DA VENDA em branco!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Não é permitido deixar a Data da Cobrança, Data do Pagamento, Valor da Dívida, Valor das Custas, Valor do Débito Total, UF da Cobrança, Tipo de Cobrança ou o Ano de Exercício em branco!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro6" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Este débido não pôde ser registrado!<br />Já existe um Débito de IPVA deste veículo com estas datas, valores e/ou CDA.</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro7" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">O CDA é obrigatório se o Tipo de Cobrança for DIVIDA ATIVA!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

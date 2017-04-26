@@ -207,10 +207,12 @@ namespace CtrlPVALeasing.Models
         [Column(TypeName = "numeric")]
         public decimal? valor_total_recuperado { get; set; }
 
+        public DateTime? dta_pagamento_custas { get; set; }
+        
+
 
 
         public int? id_comprador { get; set; }
-        public int? id_comprador_temp { get; set; }
 
         [StringLength(40)]
         public string nome_comprador { get; set; }
