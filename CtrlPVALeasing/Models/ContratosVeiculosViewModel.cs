@@ -209,7 +209,8 @@ namespace CtrlPVALeasing.Models
 
 
 
-        public int id_comprador { get; set; }
+        public int? id_comprador { get; set; }
+        public int? id_comprador_temp { get; set; }
 
         [StringLength(40)]
         public string nome_comprador { get; set; }
