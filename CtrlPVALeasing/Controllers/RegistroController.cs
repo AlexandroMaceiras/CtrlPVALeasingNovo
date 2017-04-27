@@ -17,17 +17,16 @@ namespace CtrlPVALeasing.Controllers
         IEnumerable<ContratosVeiculosViewModel> model = null;
         Tbl_DebitosEPagamentos_Veiculo model2 = null;
 
-        ///// <summary>
-        ///// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
-        ///// Sem este IEnumarable epecífico para a Partial View ela lê o rodapé da _ViewStart na primeira vêz e imprime ele no local da partial View.
-        ///// </summary>
-        ///// <returns></returns>
-        //private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeiraRodape()
-        //{
-        //    List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-        //    model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = "rodap" });
-        //    return model;
-        //}
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -3 para se injetar na view quando for retorno de pesquisa após inclusão.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelRegistroOk()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -3, agencia = " " });
+            return model;
+        }
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
@@ -63,7 +62,7 @@ namespace CtrlPVALeasing.Controllers
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string rd,
+        public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, 
             string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto, 
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa,decimal? valor_debito_total)
@@ -213,6 +212,7 @@ namespace CtrlPVALeasing.Controllers
 
                         });
 
+            
 
             try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
             {
@@ -239,9 +239,7 @@ namespace CtrlPVALeasing.Controllers
                 try
                 {
                     idDoCara = db.Tbl_DebitosEPagamentos_Veiculo
-                    .Where(c => c.chassi == chassi)
-                    .Where(c => c.renavam == renavam)
-                    .Where(c => c.placa == placa)
+                    .Where(c => c.chassi == chassi || c.renavam == renavam || c.placa == placa)
                     .Where(c => c.cda == cda)
                     .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
                     .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
@@ -261,9 +259,9 @@ namespace CtrlPVALeasing.Controllers
                     model2 = new Tbl_DebitosEPagamentos_Veiculo
                     {
                         id                      = (idDoCara > 0 ? idDoCara : 0), //Se não houver um id desse cara ele põe 0
-                        chassi                  = chassi,
-                        renavam                 = renavam,
-                        placa                   = placa,
+                        chassi                  = chassiPesquisado,
+                        renavam                 = renavamPesquisado,
+                        placa                   = placaPesquisada,
                         dta_cobranca            = dta_cobranca,
                         dta_pagamento_custas    = dta_pagamento_custas,
                         uf_cobranca             = uf_cobranca,
@@ -272,10 +270,10 @@ namespace CtrlPVALeasing.Controllers
                         ano_exercicio           = ano_exercicio,
                         cda                     = cda,
                         valor_custas            = valor_custas,
-                        debito_protesto         = debito_protesto,
+                        debito_protesto         = (debito_protesto == null ? false : true),
                         nome_cartorio           = nome_cartorio,
-                        divida_ativa_serasa     = divida_ativa_serasa,
-                        protesto_serasa         = protesto_serasa,
+                        divida_ativa_serasa     = (divida_ativa_serasa == null ? false : true),
+                        protesto_serasa         = (protesto_serasa == null ? false : true),
                         valor_debito_total      = valor_debito_total
                     };
 
@@ -288,6 +286,7 @@ namespace CtrlPVALeasing.Controllers
                     {
                         db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
                         db.SaveChanges();
+                        return View(GetContratosVeiculosViewModelRegistroOk());
                     }
                 }
             }
