@@ -74,7 +74,7 @@ namespace CtrlPVALeasing.Controllers
             if (renavam == null)
                 renavam = "";
 
-            if (chassi == "" && placa == "" && renavam == "")
+            if (chassi == "" && placa == "" && renavam == "" && (rd == "false" || rd == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
@@ -87,6 +87,11 @@ namespace CtrlPVALeasing.Controllers
                         on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                         into j1
                         from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                        join d in db.Tbl_Bens
+                        on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                        into j2
+                        from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                         where b.chassi.Contains(chassi)
                         where b.placa.Contains(placa)
@@ -123,18 +128,19 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = a.comp_end_cliente,
                             status                  = a.status,
 
-                            contrato_v      = b.contrato,
-                            tipo_registro   = b.tipo_registro,
-                            marca           = b.marca,
-                            modelo          = b.modelo,
-                            tipo_v          = b.tipo,
-                            ano_fab         = b.ano_fab,
-                            ano_mod         = b.ano_mod,
-                            cor             = b.cor,
-                            renavam         = b.renavam,
-                            chassi          = b.chassi,
-                            placa           = b.placa,
-                            origem_v        = b.origem,
+                            contrato_v          = b.contrato,
+                            tipo_registro       = b.tipo_registro,
+                            marca               = b.marca,
+                            modelo              = b.modelo,
+                            tipo_v              = b.tipo,
+                            ano_fab             = b.ano_fab,
+                            ano_mod             = b.ano_mod,
+                            cor                 = b.cor,
+                            renavam             = b.renavam,
+                            chassi              = b.chassi,
+                            placa               = b.placa,
+                            origem_v            = b.origem,
+                            comunicado_venda    = b.comunicado_venda,
 
                             //id_debito             = c.id,
                             dta_cobranca            = c.dta_cobranca,
@@ -149,7 +155,11 @@ namespace CtrlPVALeasing.Controllers
                             divida_ativa_serasa     = c.divida_ativa_serasa,
                             protesto_serasa         = c.protesto_serasa,
                             valor_debito_total      = c.valor_debito_total,
-                            dta_pagamento_custas    = c.dta_pagamento_custas
+                            dta_pagamento_custas    = c.dta_pagamento_custas,
+
+                            renavam_bens    = d.renavam,
+                            chassi_bens     = d.chassi,
+                            placa_bens      = d.placa
 
 
                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -182,18 +192,19 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = x.comp_end_cliente,
                             status                  = x.status,
 
-                            contrato_v      = x.contrato_v,
-                            tipo_registro   = x.tipo_registro,
-                            marca           = x.marca,
-                            modelo          = x.modelo,
-                            tipo_v          = x.tipo_v,
-                            ano_fab         = x.ano_fab,
-                            ano_mod         = x.ano_mod,
-                            cor             = x.cor,
-                            renavam         = x.renavam,
-                            chassi          = x.chassi,
-                            placa           = x.placa,
-                            origem_v        = x.origem_v,
+                            contrato_v          = x.contrato_v,
+                            tipo_registro       = x.tipo_registro,
+                            marca               = x.marca,
+                            modelo              = x.modelo,
+                            tipo_v              = x.tipo_v,
+                            ano_fab             = x.ano_fab,
+                            ano_mod             = x.ano_mod,
+                            cor                 = x.cor,
+                            renavam             = x.renavam,
+                            chassi              = x.chassi,
+                            placa               = x.placa,
+                            origem_v            = x.origem_v,
+                            comunicado_venda    = x.comunicado_venda,
 
                             //id_debito             = x.id_debito,
                             dta_cobranca            = x.dta_cobranca,
@@ -208,7 +219,11 @@ namespace CtrlPVALeasing.Controllers
                             divida_ativa_serasa     = x.divida_ativa_serasa,
                             protesto_serasa         = x.protesto_serasa,
                             valor_debito_total      = x.valor_debito_total,
-                            dta_pagamento_custas    = x.dta_pagamento_custas
+                            dta_pagamento_custas    = x.dta_pagamento_custas,
+
+                            renavam_bens    = x.renavam_bens,
+                            chassi_bens     = x.chassi_bens,
+                            placa_bens      = x.placa_bens
 
                         });
 
@@ -231,7 +246,7 @@ namespace CtrlPVALeasing.Controllers
                 //return HttpNotFound();
                 return RedirectToAction("RegistroDebitoIPVAManual");
             }
-
+                
             if (Request.HttpMethod == "POST" && rd == "true")
             {
                 //CONTA e Compara com os registros já existentes no BD.
@@ -239,7 +254,7 @@ namespace CtrlPVALeasing.Controllers
                 try
                 {
                     idDoCara = db.Tbl_DebitosEPagamentos_Veiculo
-                    .Where(c => c.chassi == chassi || c.renavam == renavam || c.placa == placa)
+                    .Where(c => c.chassi == chassiPesquisado || c.renavam == renavamPesquisado || c.placa == placaPesquisada)
                     .Where(c => c.cda == cda)
                     .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
                     .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)

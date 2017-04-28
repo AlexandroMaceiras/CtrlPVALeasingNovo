@@ -228,6 +228,6 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
         }
 
-
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Bens> Tbl_Bens { get; set; }
     }
 }

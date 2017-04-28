@@ -1,0 +1,44 @@
+﻿@model CtrlPVALeasing.Models.Tbl_Bens
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<br />
+
+<h2>Detalhes do Registro - Tbl-Bens</h2>
+
+<div>
+    <h4>Tbl_Bens</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.renavam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.renavam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

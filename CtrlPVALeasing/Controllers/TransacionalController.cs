@@ -222,19 +222,31 @@ namespace CtrlPVALeasing.Controllers
 
             if (Request.HttpMethod == "POST" && ic == "true")
             {
-                
+
                 // Controle de erros do ModelState
-                //var errors = ModelState
-                //.Where(x => x.Value.Errors.Count > 0)
-                //.Select(x => new { x.Key, x.Value.Errors })
-                //.ToArray();
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+                int idDoCara = 0;
+                try
+                {
+                    idDoCara = db.Tbl_DadosDaVenda
+                    .Where(c => c.chassi == chassi || c.renavam == renavam || c.placa == placa)
+                    .ToList().First().id;
+                }
+                catch (Exception e)
+                {
+                    Response.Write("<script>alert('" + e.Message + "');</script>");
+                };
 
                 if (ModelState.IsValid)
                 {
 
                     model2 = new Tbl_DadosDaVenda
                     {
-                        id                  = (id_comprador.HasValue ? id_comprador.Value : 0), //Se não houver um id desse cara ele põe 0
+                        id                  = (idDoCara > 0 ? idDoCara : 0), //Se não houver um id desse cara ele põe 0
                         chassi              = chassi,
                         renavam             = renavam,
                         placa               = placa,
@@ -247,15 +259,30 @@ namespace CtrlPVALeasing.Controllers
                         valor_da_compra     = valor_da_compra
                     };
 
-                    if (id_comprador.HasValue || id_comprador != 0)
+                    if (idDoCara != 0)
                     {
-                        db.Entry(model2).State = EntityState.Modified;
-                        db.SaveChanges();
+                        try
+                        {
+                            db.Entry(model2).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            Response.Write("<script>alert('" + e.Message + "');</script>");
+                        };
                     }
                     else if (db.Entry(model2).State == EntityState.Detached)
                     {
-                        db.Tbl_DadosDaVenda.Add(model2);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.Tbl_DadosDaVenda.Add(model2);
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            Response.Write("<script>alert('" + e.Message + "');</script>");
+                        };
+
                     }
                 }
             }

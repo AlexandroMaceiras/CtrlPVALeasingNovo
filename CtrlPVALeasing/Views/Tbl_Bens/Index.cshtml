@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.Tbl_Bens>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.renavam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.chassi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.placa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.renavam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chassi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.placa)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

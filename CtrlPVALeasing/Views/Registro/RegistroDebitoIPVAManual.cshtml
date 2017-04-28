@@ -54,19 +54,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : MF.chassi)" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : MF.renavam)" type="text" name="renavam" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : MF.placa)" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
@@ -106,7 +106,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.chassi != null && MF.chassi != "" ? MF.chassi : (Request["chassiPesquisado"] != null ? Request["chassiPesquisado"].Trim() : "") )" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -115,7 +115,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.marca" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.chassi : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -124,7 +124,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.ano_fab" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : (Request["ano_fab"] != null ? Request["ano_fab"].Trim() : "") )" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -132,7 +132,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -141,7 +141,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.modelo" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(Request["modelo"] != null ? Request["modelo"].Trim() : MF.modelo)" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -150,7 +150,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.ano_mod" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(Request["ano_mod"] != null ? Request["ano_mod"].Trim() : MF.ano_mod)" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -158,7 +158,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : MF.placa)" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,7 +167,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.tipo_v" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(Request["tipo_v"] != null ? Request["tipo_v"].Trim() : MF.tipo_v)" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -176,7 +176,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.cor" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(Request["cor"] != null ? Request["cor"].Trim() : MF.cor)" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -186,9 +186,9 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comunicado_venda != null ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb" @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />
+                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null || MF.renavam_bens != null || MF.placa_bens != null ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>
                                 </td>
                             </tr>
@@ -397,11 +397,17 @@
                                             {
                                                 <div id="fazSubmit">
                                                     <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
-
-                                                    <input type="hidden" name="id_comprador" value="@MF.id_comprador" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                                     <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+
+                                                    <input type="hidden" name="marca" value="@MF.marca" />
+                                                    <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
+                                                    <input type="hidden" name="modelo" value="@MF.modelo" />
+                                                    <input type="hidden" name="ano_mod" value="@MF.ano_mod" />
+                                                    <input type="hidden" name="tipo_v" value="@MF.tipo_v" />
+                                                    <input type="hidden" name="cor" value="@MF.cor" />
+
 
                                                 </div>
                                             }
@@ -546,7 +552,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Veículo não encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -567,7 +573,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)">Faça primeiro uma pesquisa de algum veículo para depois poder clicar no botão <font color="Black">[ REGISTRAR DÉBITO ]</font>.</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><br /><h4 style="color: rgb(176, 172, 186)">Faça primeiro uma pesquisa de algum veículo para depois poder clicar no botão <font color="Black">[ REGISTRAR DÉBITO ]</font>.</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -588,7 +594,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Débito não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Débito não encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -609,7 +615,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Não é permitido deixar a Data da Cobrança, Data do Pagamento, Valor da Dívida, Valor das Custas, Valor do Débito Total, UF da Cobrança, Tipo de Cobrança ou o Ano de Exercício em branco!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Cobrança</td></tr><tr><td> - Data do Pagamento</td></tr><tr><td> - Valor da Dívida<td></tr><tr><td> - Valor das Custas</td></tr><tr><td> - Valor do Débito Total</td></tr><tr><td> - UF da Cobrança</td></tr><tr><td> - Tipo de Cobrança</td></tr><tr><td> - Ano de Exercício</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -630,7 +636,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Este débido não pôde ser registrado!<br />Já existe um Débito de IPVA deste veículo com estas datas, valores e/ou CDA.</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><br /><h4 style="color: rgb(176, 172, 186)"><font color="black">Este débido não pôde ser registrado!</font><br /><br />Já existe um Débito de IPVA deste veículo com estas datas, valores e/ou CDA.</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -651,7 +657,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">O CDA é obrigatório se o Tipo de Cobrança for DIVIDA ATIVA!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">CDA</font> é <font color="black">obrigatório</font> se o Tipo de Cobrança for <font color="black">DIVIDA ATIVA!</font></h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -672,7 +678,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">O Nome do Cartório é obrigatório se o Débito Protestado<br/>estiver selecionado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">Nome do Cartório</font> é <font color="black">obrigatório</font> se o <font color="black">Débito Protestado</font><br />estiver selecionado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -693,7 +699,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de Debito Incluído com Sucesso!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de Debito Incluído com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

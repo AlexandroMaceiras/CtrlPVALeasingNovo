@@ -30,22 +30,24 @@
 	)
 GO
 
+
 CREATE TABLE dbo.Arm_Veiculos
 	(
-	id            INT IDENTITY NOT NULL,
-	contrato      VARCHAR (9) NULL,
-	tipo_registro VARCHAR (4) NULL,
-	marca         VARCHAR (20) NULL,
-	modelo        VARCHAR (20) NULL,
-	tipo          VARCHAR (20) NULL,
-	ano_fab       VARCHAR (4) NULL,
-	ano_mod       VARCHAR (4) NULL,
-	cor           VARCHAR (10) NULL,
-	renavam       VARCHAR (20) NULL,
-	chassi        VARCHAR (20) NULL,
-	placa         VARCHAR (9) NULL,
-	origem        VARCHAR (92) NULL,
-	status        BIT NULL,
+	id               INT IDENTITY NOT NULL,
+	contrato         VARCHAR (9) NULL,
+	tipo_registro    VARCHAR (4) NULL,
+	marca            VARCHAR (20) NULL,
+	modelo           VARCHAR (20) NULL,
+	tipo             VARCHAR (20) NULL,
+	ano_fab          VARCHAR (4) NULL,
+	ano_mod          VARCHAR (4) NULL,
+	cor              VARCHAR (10) NULL,
+	renavam          VARCHAR (20) NULL,
+	chassi           VARCHAR (20) NULL,
+	placa            VARCHAR (9) NULL,
+	origem           VARCHAR (92) NULL,
+	status           BIT NULL,
+	comunicado_venda BIT NULL,
 	PRIMARY KEY (id)
 	)
 GO

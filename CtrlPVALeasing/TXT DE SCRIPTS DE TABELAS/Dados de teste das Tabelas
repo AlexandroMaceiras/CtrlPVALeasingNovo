@@ -16,8 +16,8 @@ VALUES ('9BG144CP0EC466910 ', '01017568879         ', 'FYR8011  ', '10/08/2014 0
 
 ==========================================================
 
-INSERT INTO dbo.Arm_Veiculos (contrato, tipo_registro, marca, modelo, tipo, ano_fab, ano_mod, cor, renavam, chassi, placa, origem, status)
-VALUES ('756057515', '0002', 'CHEVROLET           ', ' C.SIM  4X2 2.4 MPFI', 'S-10 PICK-UP        ', '2014', '2014', 'BCO ', '01017568674         ', '9BG144CP0EC467649   ', 'FYY1653  ', 'GRAVAME                                                                                     ', 0)
+INSERT INTO dbo.Arm_Veiculos (contrato, tipo_registro, marca, modelo, tipo, ano_fab, ano_mod, cor, renavam, chassi, placa, origem, status, comunicado_venda)
+VALUES ('756057515', '0002', 'CHEVROLET           ', ' C.SIM  4X2 2.4 MPFI', 'S-10 PICK-UP        ', '2014', '2014', 'BCO ', '01017568674         ', '9BG144CP0EC467649   ', 'FYY1653  ', 'GRAVAME                                                                                     ', 0, 1)
 
 ==========================================================
 

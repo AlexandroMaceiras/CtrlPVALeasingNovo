@@ -46,5 +46,6 @@ namespace CtrlPVALeasing.Models
         [StringLength(92)]
         public string origem { get; set; }
         public bool? status { get; set; }
+        public bool? comunicado_venda { get; set; }
     }
 }

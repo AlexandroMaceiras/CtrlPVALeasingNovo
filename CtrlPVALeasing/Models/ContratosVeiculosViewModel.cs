@@ -138,7 +138,7 @@ namespace CtrlPVALeasing.Models
         public string origem_v { get; set; }
 
         public bool? status_v { get; set; }
-
+        public bool? comunicado_venda { get; set; }
 
 
 
@@ -233,6 +233,18 @@ namespace CtrlPVALeasing.Models
 
         [Column(TypeName = "numeric")]
         public decimal? valor_da_compra { get; set; }
+
+
+
+
+        [StringLength(20)]
+        public string renavam_bens { get; set; }
+
+        [StringLength(20)]
+        public string chassi_bens { get; set; }
+
+        [StringLength(9)]
+        public string placa_bens { get; set; }
 
     }
 }
