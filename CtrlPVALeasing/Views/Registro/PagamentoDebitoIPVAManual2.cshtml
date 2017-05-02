@@ -37,15 +37,15 @@
     }
 </script>
 @{
-    ViewBag.Title = "Registro Débito de IPVA";
+    ViewBag.Title = "Pagamento Débito de IPVA";
 }
 
-@using (Html.BeginForm("RegistroDebitoIPVAManual", "Registro", FormMethod.Post, new { id = "FormAltera" }))
+@using (Html.BeginForm("PagamentoDebitoIPVAManual2", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
         <input type="hidden" name="rd" id="rd" value="false" />
-        <h2>REGISTRO DÉBITO DE IPVA</h2>
+        <h2>PAGAMENTO DÉBITO DE IPVA</h2>
         <br />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -182,16 +182,7 @@
                             <tr>
                                 <td style="font-size: 5px;">&nbsp;</td>
                             </tr>
-                            <tr>
-                                <td colspan="6" align="justify">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.comunicado_venda != null && MF.comunicado_venda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
-                                    </div>
-                                </td>
-                            </tr>
+
                         </table>
                     </td>
                 </tr>
@@ -209,7 +200,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@((MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) : ""))" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -218,9 +209,11 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">UF da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino2" name="uf_cobranca" id="uf">
+                                    <select class="input-sm-ultra-fino3" name="uf_cobranca" id="uf" disabled="disabled" >
                                         @{
-                                            string[,] strg = new string[28, 2] {
+                                            var selecionado = Model.First().uf_cobranca;
+
+                                            string[,] strg = new string[28, 2] { 
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"AC", "<option class='input-sm-ultra-fino' value='AC'>AC</option>"},
                                                 {"AL", "<option class='input-sm-ultra-fino' value='AL'>AL</option>"},
@@ -255,7 +248,7 @@
                                             var saida = "";
                                             for (int x = 0; x <= 27; x++)
                                             {
-                                                if (strg[x, 0] == c)
+                                                if (strg[x, 0] == selecionado)
                                                 {
                                                     saida += strg[x, 1].Substring(0, 7) + " selected " + strg[x, 1].Substring(7, strg[x, 1].Length - 7);
                                                 }
@@ -275,8 +268,10 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
+                                    <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt" disabled="disabled" >
                                         @{
+                                            var selecionado2 = Model.First().tipo_cobranca;
+
                                             string[,] strgtc = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
@@ -287,7 +282,7 @@
                                             var saidam = "";
                                             for (int x = 0; x <= 2; x++)
                                             {
-                                                if (strgtc[x, 0] == m)
+                                                if (strgtc[x, 0] == selecionado2)
                                                 {
                                                     saidam += strgtc[x, 1].Substring(0, 7) + " selected " + strgtc[x, 1].Substring(7, strgtc[x, 1].Length - 7);
                                                 }
@@ -364,6 +359,233 @@
                                         <input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Protesto no Serasa:&nbsp;
                                         <input type="checkbox" name="protesto_serasa" value="true"  @(Request["protesto_serasa"] == "true" ? "checked" : "")/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right">
+                                    <div id="Detalhes">
+                                        @{
+                                            if (MF.contrato != "" && MF.contrato != null)
+                                            {
+                                                <div id="fazSubmit">
+                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
+                                                    <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
+                                                    <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
+                                                    <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+
+                                                    <input type="hidden" name="marca" value="@MF.marca" />
+                                                    <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
+                                                    <input type="hidden" name="modelo" value="@MF.modelo" />
+                                                    <input type="hidden" name="ano_mod" value="@MF.ano_mod" />
+                                                    <input type="hidden" name="tipo_v" value="@MF.tipo_v" />
+                                                    <input type="hidden" name="cor" value="@MF.cor" />
+
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">REGISTRO DE PAGAMENTO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">UF da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select class="input-sm-ultra-fino2" name="uf_cobranca" id="uf">
+                                        @{
+                                            string[,] strg2 = new string[28, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"AC", "<option class='input-sm-ultra-fino' value='AC'>AC</option>"},
+                                                {"AL", "<option class='input-sm-ultra-fino' value='AL'>AL</option>"},
+                                                {"AM", "<option class='input-sm-ultra-fino' value='AM'>AM</option>"},
+                                                {"AP", "<option class='input-sm-ultra-fino' value='AP'>AP</option>"},
+                                                {"BA", "<option class='input-sm-ultra-fino' value='BA'>BA</option>"},
+                                                {"CE", "<option class='input-sm-ultra-fino' value='CE'>CE</option>"},
+                                                {"DF", "<option class='input-sm-ultra-fino' value='DF'>DF</option>"},
+                                                {"ES", "<option class='input-sm-ultra-fino' value='ES'>ES</option>"},
+                                                {"GO", "<option class='input-sm-ultra-fino' value='GO'>GO</option>"},
+                                                {"MA", "<option class='input-sm-ultra-fino' value='MA'>MA</option>"},
+                                                {"MG", "<option class='input-sm-ultra-fino' value='MG'>MG</option>"},
+                                                {"MS", "<option class='input-sm-ultra-fino' value='MS'>MS</option>"},
+                                                {"MT", "<option class='input-sm-ultra-fino' value='MT'>MT</option>"},
+                                                {"PA", "<option class='input-sm-ultra-fino' value='PA'>PA</option>"},
+                                                {"PB", "<option class='input-sm-ultra-fino' value='PB'>PB</option>"},
+                                                {"PE", "<option class='input-sm-ultra-fino' value='PE'>PE</option>"},
+                                                {"PI", "<option class='input-sm-ultra-fino' value='PI'>PI</option>"},
+                                                {"PR", "<option class='input-sm-ultra-fino' value='PR'>PR</option>"},
+                                                {"RJ", "<option class='input-sm-ultra-fino' value='RJ'>RJ</option>"},
+                                                {"RN", "<option class='input-sm-ultra-fino' value='RN'>RN</option>"},
+                                                {"RS", "<option class='input-sm-ultra-fino' value='RS'>RS</option>"},
+                                                {"RO", "<option class='input-sm-ultra-fino' value='RO'>RO</option>"},
+                                                {"RR", "<option class='input-sm-ultra-fino' value='RR'>RR</option>"},
+                                                {"SC", "<option class='input-sm-ultra-fino' value='SC'>SC</option>"},
+                                                {"SE", "<option class='input-sm-ultra-fino' value='SE'>SE</option>"},
+                                                {"SP", "<option class='input-sm-ultra-fino' value='SP'>SP</option>"},
+                                                {"TO", "<option class='input-sm-ultra-fino' value='TO'>TO</option>"},
+                                            };
+
+                                            var c2 = Request["uf_cobranca"] != null ? Request["uf_cobranca"] : "SELECIONE";
+                                            var saida2 = "";
+                                            for (int x = 0; x <= 27; x++)
+                                            {
+                                                if (strg2[x, 0] == c)
+                                                {
+                                                    saida2 += strg2[x, 1].Substring(0, 7) + " selected " + strg2[x, 1].Substring(7, strg2[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saida2 += strg[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saida2)
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
+                                        @{
+                                            string[,] strgtc2 = new string[3, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
+                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                            };
+
+                                            var m2 = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "SELECIONE";
+                                            var saidam2 = "";
+                                            for (int x = 0; x <= 2; x++)
+                                            {
+                                                if (strgtc2[x, 0] == m2)
+                                                {
+                                                    saidam2 += strgtc2[x, 1].Substring(0, 7) + " selected " + strgtc2[x, 1].Substring(7, strgtc2[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam2 += strgtc2[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam2)
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Exercício: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td colspan="1" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Débito Protestado:
+                                    </div>
+                                </td>
+                                <td colspan="1" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        <input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Dívida Ativa no Serasa:&nbsp;
+                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Protesto no Serasa:&nbsp;
+                                        <input type="checkbox" name="protesto_serasa" value="true" @(Request["protesto_serasa"] == "true" ? "checked" : "") />
                                     </div>
                                 </td>
                                 <td>

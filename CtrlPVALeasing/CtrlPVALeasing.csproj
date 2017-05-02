@@ -275,6 +275,9 @@
     <Content Include="Views\Tbl_Bens\Details.cshtml" />
     <Content Include="Views\Tbl_Bens\Edit.cshtml" />
     <Content Include="Views\Tbl_Bens\Index.cshtml" />
+    <Content Include="Views\Registro\PagamentoDebitoIPVAManual.cshtml" />
+    <Content Include="Views\Registro\_GridDebitos.cshtml" />
+    <Content Include="Views\Registro\PagamentoDebitoIPVAManual2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
