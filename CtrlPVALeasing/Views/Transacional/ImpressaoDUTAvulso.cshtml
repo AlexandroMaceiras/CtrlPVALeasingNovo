@@ -550,7 +550,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="data_comprador" size="29" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="dta_da_compra" size="29" style="text-transform:uppercase" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -558,7 +558,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="endereco_comprador" maxlength="80" size="79" style="text-transform:uppercase" />
+                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="end_comprador" maxlength="80" size="79" style="text-transform:uppercase" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -638,7 +638,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Data: &nbsp;&nbsp;&nbsp;</div>
                                         </td>
                                         <td>
-                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="data_comprador" size="29" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.dta_da_compra != null ? MF.dta_da_compra.ToString().Substring(0,10) : (MF.cidade_cliente != null ? DateTime.Now.Date.Day + "/" + DateTime.Now.Date.Month + "/" + DateTime.Now.Date.Year : ""))" type="text" name="dta_da_compra" size="29" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -646,7 +646,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="endereco_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="end_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -684,7 +684,20 @@
             }
         </script>
     }
-}
+    if (MF.id == -2)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro5").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+        }
+    }
 
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
@@ -709,8 +722,8 @@
                 document.getElementsByName('cpf_cnpj_comprador')[0].value == "" ||
                 document.getElementsByName('local_comprador')[0].value == "" ||
                 document.getElementsByName('rg_comprador')[0].value == "" ||
-                document.getElementsByName('data_comprador')[0].value == "" ||
-                document.getElementsByName('endereco_comprador')[0].value == "" ||
+                document.getElementsByName('dta_da_compra')[0].value == "" ||
+                document.getElementsByName('end_comprador')[0].value == "" ||
                 document.getElementsByName('valor_da_compra')[0].value == "")
             {
                 $(document).ready(function () {
@@ -826,7 +839,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Não é permitido deixar nenhum campo dos <br /> DADOS DA VENDA em branco!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Campos dos DADOS DA VENDA inconsistentes, verifique!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
