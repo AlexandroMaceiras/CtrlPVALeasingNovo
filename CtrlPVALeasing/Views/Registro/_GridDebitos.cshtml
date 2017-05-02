@@ -50,7 +50,7 @@
                                     @Html.DisplayFor(modelItem => item.uf_pagamento)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @{ var total = item.valor_divida.Value + item.valor_custas.Value;
+                                    @{ var total = (item.valor_divida.HasValue ? item.valor_divida.Value : 0) + (item.valor_custas.HasValue ? item.valor_custas.Value : 0);
                                        @total
                                     }
                                 </td>
@@ -67,7 +67,7 @@
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    <a href="PagamentoDebitoIPVAManual2" class="btn2 btn-primary-menu btn-sm">PAGAR</a>
+                                    @Html.ActionLink("PAGAR", "../Registro/PagamentoDebitoIPVAManual2", new { chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa }, new { @class = "btn2 btn-primary-menu btn-sm" })
                                 </td>
                             </tr>
                         }

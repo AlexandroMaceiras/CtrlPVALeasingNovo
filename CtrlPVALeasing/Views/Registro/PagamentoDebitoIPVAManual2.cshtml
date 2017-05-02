@@ -200,7 +200,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@((MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) : ""))" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@((MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) : Request["dta_cobranca"]))" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -211,7 +211,7 @@
                                 <td>
                                     <select class="input-sm-ultra-fino3" name="uf_cobranca" id="uf" disabled="disabled" >
                                         @{
-                                            var selecionado = Model.First().uf_cobranca;
+                                            var selecionado = MF.uf_cobranca;
 
                                             string[,] strg = new string[28, 2] { 
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -270,7 +270,7 @@
                                 <td>
                                     <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt" disabled="disabled" >
                                         @{
-                                            var selecionado2 = Model.First().tipo_cobranca;
+                                            var selecionado2 = MF.tipo_cobranca;
 
                                             string[,] strgtc = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -301,7 +301,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase"/>
+                                    <input class="input-sm-fino" value="@(MF.valor_divida.HasValue ? MF.valor_divida.ToString() : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -310,7 +310,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Exercício: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase"/>
+                                    <input class="input-sm-fino" value="@(MF.ano_exercicio != null ? MF.ano_exercicio.ToString() : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -319,7 +319,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.cda != null ? MF.cda.ToString() : "")" type="text" name="cda" size="20" style="text-transform:uppercase"  disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -327,7 +327,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase"  disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -339,7 +339,7 @@
                                 </td>
                                 <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        <input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "")/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="debito_protesto" value="true" @(MF.debito_protesto.HasValue && MF.debito_protesto.Value == true ? "checked" : "") disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -349,23 +349,23 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.nome_cartorio != null ? MF.nome_cartorio.ToString() : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase"  disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Dívida Ativa no Serasa:&nbsp;
-                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(MF.divida_ativa_serasa.HasValue && MF.debito_protesto.Value == true ? "checked" : "")  disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Protesto no Serasa:&nbsp;
-                                        <input type="checkbox" name="protesto_serasa" value="true"  @(Request["protesto_serasa"] == "true" ? "checked" : "")/>
+                                        <input type="checkbox" name="protesto_serasa" value="true"  @(MF.protesto_serasa.HasValue && MF.protesto_serasa.Value == true ? "checked" : "") disabled="disabled" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString() : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase"  disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -374,9 +374,10 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.valor_debito_total.HasValue ? MF.valor_debito_total.ToString() : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase"  disabled="disabled" />
                                 </td>
                             </tr>
+<!--
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -387,7 +388,7 @@
                                 <td></td>
                                 <td align="right">
                                     <div id="Detalhes">
-                                        @{
+                                        @*@{
                                             if (MF.contrato != "" && MF.contrato != null)
                                             {
                                                 <div id="fazSubmit">
@@ -410,10 +411,11 @@
                                             {
                                                 @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                             }
-                                        }
+                                        }*@
                                     </div>
                                 </td>
                             </tr>
+    -->
                         </table>
                     </td>
                 </tr>
@@ -427,21 +429,31 @@
                         <b class="fonte-cinza-escuro">REGISTRO DE PAGAMENTO:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
+                                <td colspan="2" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Pagam. Efetuado pelo Banco:&nbsp;
+                                        <input type="checkbox" name="pagamento_efet_banco" value="true" @(MF.pagamento_efet_banco.HasValue == true ? true : false) />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data de Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">UF da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">UF de Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino2" name="uf_cobranca" id="uf">
+                                    <select class="input-sm-ultra-fino2" name="uf_pagamento" id="uf_pagamento">
                                         @{
+                                            var selecionado3 = MF.uf_pagamento;
+
                                             string[,] strg2 = new string[28, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"AC", "<option class='input-sm-ultra-fino' value='AC'>AC</option>"},
@@ -473,11 +485,11 @@
                                                 {"TO", "<option class='input-sm-ultra-fino' value='TO'>TO</option>"},
                                             };
 
-                                            var c2 = Request["uf_cobranca"] != null ? Request["uf_cobranca"] : "SELECIONE";
+                                            var c2 = Request["uf_pagamento"] != null ? Request["uf_pagamento"] : "SELECIONE";
                                             var saida2 = "";
                                             for (int x = 0; x <= 27; x++)
                                             {
-                                                if (strg2[x, 0] == c)
+                                                if (strg2[x, 0] == selecionado3)
                                                 {
                                                     saida2 += strg2[x, 1].Substring(0, 7) + " selected " + strg2[x, 1].Substring(7, strg2[x, 1].Length - 7);
                                                 }
@@ -494,22 +506,32 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
+                                    <input class="input-sm-fino" value="@MF.numero_miro" type="text" name="numero_miro" size="20" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Forma de Pagto - Dívida: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select class="input-sm-ultra-fino2" name="forma_pagamento_divida" id="vdt">
                                         @{
+                                            var selecionado4 = MF.forma_pagamento_divida;
+
                                             string[,] strgtc2 = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
-                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
-                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                {"SAP", "<option class='input-sm-ultra-fino' value='SAP'>SAP</option>"},
+                                                {"PAG SAFRA", "<option class='input-sm-ultra-fino' value='PAG SAFRA'>PAG SAFRA</option>"},
                                             };
 
-                                            var m2 = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "SELECIONE";
+                                            var m2 = Request["forma_pagamento_divida"] != null ? Request["forma_pagamento_divida"] : "SELECIONE";
                                             var saidam2 = "";
                                             for (int x = 0; x <= 2; x++)
                                             {
-                                                if (strgtc2[x, 0] == m2)
+                                                if (strgtc2[x, 0] == selecionado4)
                                                 {
                                                     saidam2 += strgtc2[x, 1].Substring(0, 7) + " selected " + strgtc2[x, 1].Substring(7, strgtc2[x, 1].Length - 7);
                                                 }
@@ -522,86 +544,74 @@
                                         @Html.Raw(saidam2)
                                     </select>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_pago_divida" type="text" name="valor_pago_divida" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Exercício: &nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Pago Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@MF.valor_pago_total" type="text" name="valor_pago_total" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Forma de Pagto - Custas: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    <select class="input-sm-ultra-fino2" name="forma_pagamento_custas" id="vdt">
+                                        @{
+                                            var selecionado5 = MF.forma_pagamento_custas;
+
+                                            string[,] strgtc1 = new string[3, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"SAP", "<option class='input-sm-ultra-fino' value='SAP'>SAP</option>"},
+                                                {"PAG SAFRA", "<option class='input-sm-ultra-fino' value='PAG SAFRA'>PAG SAFRA</option>"},
+                                            };
+
+                                            var m1 = Request["forma_pagamento_custas"] != null ? Request["forma_pagamento_custas"] : "SELECIONE";
+                                            var saidam1 = "";
+                                            for (int x = 0; x <= 2; x++)
+                                            {
+                                                if (strgtc1[x, 0] == selecionado5)
+                                                {
+                                                    saidam1 += strgtc1[x, 1].Substring(0, 7) + " selected " + strgtc1[x, 1].Substring(7, strgtc1[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam1 += strgtc1[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam1)
+                                    </select>
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_pago_custas" type="text" name="valor_pago_custas" size="20" style="text-transform:uppercase" />
+                                </td>
+
+                            </tr>
+                            <tr>
                                 <td colspan="1" align="justify">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Débito Protestado:
-                                    </div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Obs. Pagamento: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td colspan="1" align="justify">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        <input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="justify">
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Dívida Ativa no Serasa:&nbsp;
-                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Protesto no Serasa:&nbsp;
-                                        <input type="checkbox" name="protesto_serasa" value="true" @(Request["protesto_serasa"] == "true" ? "checked" : "") />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />
+                                <td colspan="8">
+                                    <textarea style="height: 55px;text-transform:uppercase;" rows="3" cols="130" class="input-sm-fino" value="" type="text" name="obs_pagamento" size="250">@MF.obs_pagamento</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -618,7 +628,7 @@
                                             if (MF.contrato != "" && MF.contrato != null)
                                             {
                                                 <div id="fazSubmit">
-                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
+                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                                     <input type="hidden" name="placaPesquisada" value="@MF.placa" />
@@ -635,7 +645,7 @@
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                @Html.ActionLink("REGISTRAR PAGAMENTO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                             }
                                         }
                                     </div>
@@ -709,38 +719,28 @@
     {
         function validateForm()
         {
-            if (document.getElementsByName('tipo_cobranca')[0].value == "D") {
-                if (document.getElementsByName('cda')[0].value == "") {
+            if (document.getElementsByName('forma_pagamento_divida')[0].value != "") {
+                if (document.getElementsByName('valor_pago_divida')[0].value == "") {
                     chamaErro7();
                     return false;
                 }
             }
 
-            var els = document.getElementsByName('debito_protesto');
-            for (var i = 0; i < els.length; i++) {
-                if (els[i].checked) {
-                    if (document.getElementsByName('nome_cartorio')[0].value == "") {
-                        chamaErro8();
-                        return false;
-                    }
+            alert('=>' + document.getElementsByName('forma_pagamento_custas')[0].value + '<=');
+
+            if (document.getElementsByName('forma_pagamento_custas')[0].value != "") {
+                if (document.getElementsByName('valor_pago_custas')[0].value == "") {
+                    chamaErro8();
+                    return false;
                 }
             }
 
-            //if (document.getElementsByName('debito_protesto') == "checked") {
-            //    if (document.getElementsByName('nome_cartorio')[0].value == "") {
-            //        chamaErro8();
-            //        return false;
-            //    }
-            //}
             if (
-                document.getElementsByName('dta_cobranca')[0].value == "" ||
-                document.getElementsByName('dta_pagamento_custas')[0].value == "" ||
-                document.getElementsByName('valor_divida')[0].value == "" ||
-                document.getElementsByName('valor_custas')[0].value == "" ||
-                document.getElementsByName('valor_debito_total')[0].value == "" ||
-                document.getElementsByName('ano_exercicio')[0].value == "" ||
-                document.getElementsByName('uf_cobranca')[0].value == "" ||
-                document.getElementsByName('tipo_cobranca')[0].value == ""
+                document.getElementsByName('dta_pagamento')[0].value == "" ||
+                document.getElementsByName('uf_pagamento')[0].value == "" ||
+                document.getElementsByName('numero_miro')[0].value == "" ||
+                document.getElementsByName('forma_pagamento_divida')[0].value == "" ||
+                document.getElementsByName('valor_pago_total')[0].value == "" 
                 )
             {
 
@@ -837,7 +837,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Cobrança</td></tr><tr><td> - Data do Pagamento</td></tr><tr><td> - Valor da Dívida<td></tr><tr><td> - Valor das Custas</td></tr><tr><td> - Valor do Débito Total</td></tr><tr><td> - UF da Cobrança</td></tr><tr><td> - Tipo de Cobrança</td></tr><tr><td> - Ano de Exercício</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data de Pagamento</td></tr><tr><td> - UF de Pagamento</td></tr><tr><td> - Número MIRO<td></tr><tr><td> - Forma de Pagto - Dívida</td></tr><tr><td> - Valor Pago Total</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -874,12 +874,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">CDA</font> é <font color="black">obrigatório</font> se o Tipo de Cobrança for <font color="black">DIVIDA ATIVA!</font></h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">Valor de Pagamento - Dívida</font> é <font color="black">obrigatório</font> quando a <font color="black">Forma de Pagamento - Dívida</font> for <font color="black">SELECIONADA!</font></h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -895,12 +895,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">Nome do Cartório</font> é <font color="black">obrigatório</font> se o <font color="black">Débito Protestado</font><br />estiver selecionado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><br /><h4 style="color: rgb(176, 172, 186)">O <font color="black">Valor de Pagamento - Custas</font> é <font color="black">obrigatório</font> quando a <font color="black">Forma de Pagamento - Custas</font> for <font color="black">SELECIONADA!</font></h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

@@ -62,7 +62,8 @@ namespace CtrlPVALeasing.Controllers
         }
 
 
-        public ActionResult PagamentoDebitoIPVAManual2(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
+        public ActionResult PagamentoDebitoIPVAManual2(string chassi, string placa, string renavam, 
+            string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
             string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
@@ -156,6 +157,16 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = c.protesto_serasa,
                          valor_debito_total = c.valor_debito_total,
                          dta_pagamento_custas = c.dta_pagamento_custas,
+                         dta_pagamento = c.dta_pagamento,
+                         uf_pagamento = c.uf_pagamento,
+                         numero_miro = c.numero_miro,
+                         forma_pagamento_divida = c.forma_pagamento_divida,
+                         forma_pagamento_custas = c.forma_pagamento_custas,
+                         valor_pago_custas = c.valor_pago_custas,
+                         valor_pago_divida = c.valor_pago_divida,
+                         valor_pago_total = c.valor_pago_total,
+                         obs_pagamento = c.obs_pagamento,
+
 
                          renavam_bens = d.renavam,
                          chassi_bens = d.chassi,
@@ -220,6 +231,15 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = x.protesto_serasa,
                          valor_debito_total = x.valor_debito_total,
                          dta_pagamento_custas = x.dta_pagamento_custas,
+                         dta_pagamento = x.dta_pagamento,
+                         uf_pagamento = x.uf_pagamento,
+                         numero_miro = x.numero_miro,
+                         forma_pagamento_divida = x.forma_pagamento_divida,
+                         forma_pagamento_custas = x.forma_pagamento_custas,
+                         valor_pago_custas = x.valor_pago_custas,
+                         valor_pago_divida = x.valor_pago_divida,
+                         valor_pago_total = x.valor_pago_total,
+                         obs_pagamento = x.obs_pagamento,
 
                          renavam_bens = x.renavam_bens,
                          chassi_bens = x.chassi_bens,

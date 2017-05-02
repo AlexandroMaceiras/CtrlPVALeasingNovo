@@ -208,7 +208,13 @@ namespace CtrlPVALeasing.Models
         public decimal? valor_total_recuperado { get; set; }
 
         public DateTime? dta_pagamento_custas { get; set; }
-        
+
+        [StringLength(10)]
+        public string forma_pagamento_divida { get; set; }
+
+        [StringLength(10)]
+        public string forma_pagamento_custas { get; set; }
+
 
 
 
