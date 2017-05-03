@@ -61,11 +61,23 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -4 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetErroDeEntrada()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -4, agencia = " " });
+            return model;
+        }
 
-        public ActionResult PagamentoDebitoIPVAManual2(string chassi, string placa, string renavam, 
-            string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
+        public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
+            bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
-            string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto,
+            string numero_miro, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
+            decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento,            
+            string ano_exercicio, decimal? valor_custas, bool? debito_protesto,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
         {
             if (chassi == null)
@@ -99,6 +111,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
+                     where c.id.Equals(id_debito)
                      select new
                      {
                          id = a.id,
@@ -143,7 +156,7 @@ namespace CtrlPVALeasing.Controllers
                          origem_v = b.origem,
                          comunicado_venda = b.comunicado_venda,
 
-                         //id_debito             = c.id,
+                         id_debito             = c.id,
                          dta_cobranca = c.dta_cobranca,
                          uf_cobranca = c.uf_cobranca,
                          tipo_cobranca = c.tipo_cobranca,
@@ -157,6 +170,8 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = c.protesto_serasa,
                          valor_debito_total = c.valor_debito_total,
                          dta_pagamento_custas = c.dta_pagamento_custas,
+
+                         pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
                          uf_pagamento = c.uf_pagamento,
                          numero_miro = c.numero_miro,
@@ -217,7 +232,7 @@ namespace CtrlPVALeasing.Controllers
                          origem_v = x.origem_v,
                          comunicado_venda = x.comunicado_venda,
 
-                         //id_debito             = x.id_debito,
+                         id_debito             = x.id_debito,
                          dta_cobranca = x.dta_cobranca,
                          uf_cobranca = x.uf_cobranca,
                          tipo_cobranca = x.tipo_cobranca,
@@ -231,6 +246,8 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = x.protesto_serasa,
                          valor_debito_total = x.valor_debito_total,
                          dta_pagamento_custas = x.dta_pagamento_custas,
+
+                         pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
                          uf_pagamento = x.uf_pagamento,
                          numero_miro = x.numero_miro,
@@ -269,61 +286,84 @@ namespace CtrlPVALeasing.Controllers
 
             if (Request.HttpMethod == "POST" && rd == "true")
             {
-                //CONTA e Compara com os registros já existentes no BD.
-                int idDoCara = 0;
-                try
-                {
-                    idDoCara = db.Tbl_DebitosEPagamentos_Veiculo
-                    .Where(c => c.chassi == chassiPesquisado || c.renavam == renavamPesquisado || c.placa == placaPesquisada)
-                    .Where(c => c.cda == cda)
-                    .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
-                    .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
-                    .Where(c => c.valor_divida == valor_divida)
-                    .Where(c => c.valor_custas == valor_custas)
-                    .Where(c => c.valor_debito_total == valor_debito_total)
-                    .Where(c => c.ano_exercicio == ano_exercicio)
-                    .ToList().Count();
-                }
-                catch (Exception e)
-                {
-                    Response.Write("<script>alert('" + e.Message + "');</script>");
-                };
+
+                // Controle de erros do ModelState
+                //var errors = ModelState
+                //.Where(x => x.Value.Errors.Count > 0)
+                //.Select(x => new { x.Key, x.Value.Errors })
+                //.ToArray();
 
                 if (ModelState.IsValid)
                 {
-                    model2 = new Tbl_DebitosEPagamentos_Veiculo
-                    {
-                        id = (idDoCara > 0 ? idDoCara : 0), //Se não houver um id desse cara ele põe 0
-                        chassi = chassiPesquisado,
-                        renavam = renavamPesquisado,
-                        placa = placaPesquisada,
-                        dta_cobranca = dta_cobranca,
-                        dta_pagamento_custas = dta_pagamento_custas,
-                        uf_cobranca = uf_cobranca,
-                        tipo_cobranca = tipo_cobranca,
-                        valor_divida = valor_divida,
-                        ano_exercicio = ano_exercicio,
-                        cda = cda,
-                        valor_custas = valor_custas,
-                        debito_protesto = (debito_protesto == null ? false : true),
-                        nome_cartorio = nome_cartorio,
-                        divida_ativa_serasa = (divida_ativa_serasa == null ? false : true),
-                        protesto_serasa = (protesto_serasa == null ? false : true),
-                        valor_debito_total = valor_debito_total
-                    };
+                    var procuraRegistro = db.Tbl_DebitosEPagamentos_Veiculo
+                        .FirstOrDefault(c => 
+                    
+                        c.chassi == chassi || 
+                        c.renavam == renavam || 
+                        c.placa == placa || 
 
-                    if (idDoCara != 0)
+                        c.dta_pagamento == dta_pagamento || 
+                        c.uf_pagamento == uf_pagamento || 
+                        c.numero_miro == numero_miro ||
+                        c.forma_pagamento_divida == forma_pagamento_divida ||
+                        c.valor_pago_total == valor_pago_total ||
+                        c.valor_pago_divida == valor_pago_divida);
+
+                    if (procuraRegistro != null)
                     {
-                        return View(GetContratosVeiculosViewModelErroRegistroDebito());
+                        procuraRegistro.chassi = chassi;
+                        procuraRegistro.renavam = renavam;
+                        procuraRegistro.placa = placa;
+
+                        procuraRegistro.dta_pagamento = dta_pagamento;
+                        procuraRegistro.uf_pagamento = uf_pagamento;
+                        procuraRegistro.numero_miro = numero_miro;
+                        procuraRegistro.forma_pagamento_divida = forma_pagamento_divida;
+                        procuraRegistro.valor_pago_total = valor_pago_total;
+                        procuraRegistro.valor_pago_divida = valor_pago_divida;
+
+                        procuraRegistro.pagamento_efet_banco = pagamento_efet_banco;
+                        procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
+                        procuraRegistro.valor_pago_custas = valor_pago_custas;
+                        procuraRegistro.obs_pagamento = obs_pagamento;
+
+                        db.Entry(procuraRegistro).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
                     else
-                    if (db.Entry(model2).State == EntityState.Detached)
                     {
-                        db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
-                        db.SaveChanges();
-                        return View(GetContratosVeiculosViewModelRegistroOk());
+                        model2 = new Tbl_DebitosEPagamentos_Veiculo
+                        {
+                            id = 0,
+                            chassi = chassi,
+                            renavam = renavam,
+                            placa = placa,
+
+                            dta_pagamento = dta_pagamento,
+                            uf_pagamento = uf_pagamento,
+                            numero_miro = numero_miro,
+                            forma_pagamento_divida = forma_pagamento_divida,
+                            valor_pago_total = valor_pago_total,
+                            valor_pago_divida = valor_pago_divida,
+
+                            pagamento_efet_banco = pagamento_efet_banco,
+                            forma_pagamento_custas = forma_pagamento_custas,
+                            valor_pago_custas = valor_pago_custas,
+                            obs_pagamento = obs_pagamento
+                        };
+
+                        if (db.Entry(model2).State == EntityState.Detached)
+                        {
+                            db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
+                            db.SaveChanges();
+                        }
                     }
                 }
+                else
+                {
+                    return View(GetErroDeEntrada());
+                }
+
             }
             return View("PagamentoDebitoIPVAManual2", model);
         }
@@ -405,6 +445,7 @@ namespace CtrlPVALeasing.Controllers
                          origem_v = b.origem,
                          comunicado_venda = b.comunicado_venda,
 
+                         id_debito             = c.id,
                          valor_debito_total = c.valor_debito_total,
                          dta_cobranca = c.dta_cobranca,
                          uf_pagamento = c.uf_pagamento,
@@ -464,6 +505,7 @@ namespace CtrlPVALeasing.Controllers
                          origem_v = x.origem_v,
                          comunicado_venda = x.comunicado_venda,
 
+                         id_debito             = x.id_debito,
                          valor_debito_total = x.valor_debito_total,
                          dta_cobranca = x.dta_cobranca,
                          uf_pagamento = x.uf_pagamento,

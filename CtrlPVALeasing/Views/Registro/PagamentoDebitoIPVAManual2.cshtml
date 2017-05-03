@@ -629,18 +629,7 @@
                                             {
                                                 <div id="fazSubmit">
                                                     <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
-                                                    <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
-                                                    <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
-                                                    <input type="hidden" name="placaPesquisada" value="@MF.placa" />
-
-                                                    <input type="hidden" name="marca" value="@MF.marca" />
-                                                    <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
-                                                    <input type="hidden" name="modelo" value="@MF.modelo" />
-                                                    <input type="hidden" name="ano_mod" value="@MF.ano_mod" />
-                                                    <input type="hidden" name="tipo_v" value="@MF.tipo_v" />
-                                                    <input type="hidden" name="cor" value="@MF.cor" />
-
-
+                                                    <input type="hidden" name="id_debito" value="@MF.id_debito" />
                                                 </div>
                                             }
                                             else
@@ -700,7 +689,20 @@
             }
         </script>
     }
-}
+    else if (MF.id == -4)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro9").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+        }
+    }
 <script>
     //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
     try {
@@ -725,8 +727,6 @@
                     return false;
                 }
             }
-
-            alert('=>' + document.getElementsByName('forma_pagamento_custas')[0].value + '<=');
 
             if (document.getElementsByName('forma_pagamento_custas')[0].value != "") {
                 if (document.getElementsByName('valor_pago_custas')[0].value == "") {
@@ -932,3 +932,23 @@
     </div>
 </div>
 
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro9" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>DADOS DA VENDA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Campos dos DADOS DA VENDA inconsistentes, verifique!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
