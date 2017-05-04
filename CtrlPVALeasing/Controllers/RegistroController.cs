@@ -27,6 +27,12 @@ namespace CtrlPVALeasing.Controllers
             model.Add(new ContratosVeiculosViewModel() { id = -3, agencia = " " });
             return model;
         }
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelAtualizaRegistroOk()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -5, agencia = " " });
+            return model;
+        }
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
@@ -329,6 +335,7 @@ namespace CtrlPVALeasing.Controllers
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
+                        return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
                     }
                     else
                     {
@@ -356,6 +363,7 @@ namespace CtrlPVALeasing.Controllers
                         {
                             db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
                             db.SaveChanges();
+                            return View(GetContratosVeiculosViewModelRegistroOk());
                         }
                     }
                 }
