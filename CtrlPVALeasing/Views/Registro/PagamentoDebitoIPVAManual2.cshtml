@@ -518,6 +518,17 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Dívida: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.pci_debito_divida" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
@@ -579,15 +590,6 @@
 
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Dívida: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.pci_debito_divida" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
@@ -596,11 +598,16 @@
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Pago Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            </tr>
+                        </table>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td colspan="8">
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.valor_pago_divida.HasValue && MF.valor_pago_custas.HasValue ? MF.valor_pago_divida + MF.valor_pago_custas : 0)" type="text" name="valor_pago_total" size="10" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td align="right">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Pago Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input-sm-fino" value="@(MF.valor_pago_divida.HasValue && MF.valor_pago_custas.HasValue ? MF.valor_pago_divida + MF.valor_pago_custas : 0)" type="text" name="valor_pago_total" size="10" style="text-transform:uppercase" disabled="disabled" /></div>
                                 </td>
                             </tr>
                             <tr>
