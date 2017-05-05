@@ -15,7 +15,8 @@ namespace CtrlPVALeasing.Models
         public virtual DbSet<Arm_LiquidadosEAtivos_Contrato> Arm_LiquidadosEAtivos_Contrato { get; set; }
         public virtual DbSet<Arm_Veiculos> Arm_Veiculos { get; set; }
         public DbSet<Tbl_DebitosEPagamentos_Veiculo> Tbl_DebitosEPagamentos_Veiculo { get; set; }
-        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_DadosDaVenda> Tbl_DadosDaVenda { get; set; }
+        public DbSet<CtrlPVALeasing.Models.Tbl_DadosDaVenda> Tbl_DadosDaVenda { get; set; }
+        public DbSet<CtrlPVALeasing.Models.Tbl_Bens> Tbl_Bens { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -220,14 +221,28 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
-                .Property(e => e.numero_miro)
+                .Property(e => e.numero_miro_divida)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.numero_miro_custa)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
                 .Property(e => e.obs_pagamento)
                 .IsUnicode(false);
-        }
 
-        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Bens> Tbl_Bens { get; set; }
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.pci_credito)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.pci_debito_custa)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Tbl_DebitosEPagamentos_Veiculo>()
+                .Property(e => e.pci_debito_divida)
+                .IsUnicode(false);
+        }
     }
 }

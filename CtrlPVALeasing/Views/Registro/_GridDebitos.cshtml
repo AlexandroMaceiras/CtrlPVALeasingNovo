@@ -67,7 +67,7 @@
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.ActionLink("PAGAR", "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa }, new { @class = "btn2 btn-primary-menu btn-sm" })
+                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
                                 </td>
                             </tr>
                         }

@@ -81,7 +81,7 @@ namespace CtrlPVALeasing.Controllers
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
-            string numero_miro, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
+            string numero_miro_divida, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
             decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento,            
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
@@ -180,7 +180,7 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
                          uf_pagamento = c.uf_pagamento,
-                         numero_miro = c.numero_miro,
+                         numero_miro_divida = c.numero_miro_divida,
                          forma_pagamento_divida = c.forma_pagamento_divida,
                          forma_pagamento_custas = c.forma_pagamento_custas,
                          valor_pago_custas = c.valor_pago_custas,
@@ -256,7 +256,7 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
                          uf_pagamento = x.uf_pagamento,
-                         numero_miro = x.numero_miro,
+                         numero_miro_divida = x.numero_miro_divida,
                          forma_pagamento_divida = x.forma_pagamento_divida,
                          forma_pagamento_custas = x.forma_pagamento_custas,
                          valor_pago_custas = x.valor_pago_custas,
@@ -302,33 +302,18 @@ namespace CtrlPVALeasing.Controllers
                 if (ModelState.IsValid)
                 {
                     var procuraRegistro = db.Tbl_DebitosEPagamentos_Veiculo
-                        .FirstOrDefault(c => 
-                    
-                        c.chassi == chassi || 
-                        c.renavam == renavam || 
-                        c.placa == placa || 
-
-                        c.dta_pagamento == dta_pagamento || 
-                        c.uf_pagamento == uf_pagamento || 
-                        c.numero_miro == numero_miro ||
-                        c.forma_pagamento_divida == forma_pagamento_divida ||
-                        c.valor_pago_total == valor_pago_total ||
-                        c.valor_pago_divida == valor_pago_divida);
+                        .FirstOrDefault(c => c.id == id_debito);
 
                     if (procuraRegistro != null)
                     {
-                        procuraRegistro.chassi = chassi;
-                        procuraRegistro.renavam = renavam;
-                        procuraRegistro.placa = placa;
-
                         procuraRegistro.dta_pagamento = dta_pagamento;
                         procuraRegistro.uf_pagamento = uf_pagamento;
-                        procuraRegistro.numero_miro = numero_miro;
+                        procuraRegistro.numero_miro_divida = numero_miro_divida;
                         procuraRegistro.forma_pagamento_divida = forma_pagamento_divida;
                         procuraRegistro.valor_pago_total = valor_pago_total;
                         procuraRegistro.valor_pago_divida = valor_pago_divida;
 
-                        procuraRegistro.pagamento_efet_banco = pagamento_efet_banco;
+                        procuraRegistro.pagamento_efet_banco = true;
                         procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
                         procuraRegistro.valor_pago_custas = valor_pago_custas;
                         procuraRegistro.obs_pagamento = obs_pagamento;
@@ -348,7 +333,7 @@ namespace CtrlPVALeasing.Controllers
 
                             dta_pagamento = dta_pagamento,
                             uf_pagamento = uf_pagamento,
-                            numero_miro = numero_miro,
+                            numero_miro_divida = numero_miro_divida,
                             forma_pagamento_divida = forma_pagamento_divida,
                             valor_pago_total = valor_pago_total,
                             valor_pago_divida = valor_pago_divida,
@@ -531,15 +516,22 @@ namespace CtrlPVALeasing.Controllers
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-            if (model.Count() == 0 || model == null)
+            try
             {
-                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
-            }
+                if (model.Count() == 0 || model == null)
+                {
+                    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                }
 
-            if (model == null || model.Any() == false)
+                if (model == null || model.Any() == false)
+                {
+                    //return HttpNotFound();
+                    return RedirectToAction("PagamentoDebitoIPVAManual");
+                }
+            }
+            catch
             {
-                //return HttpNotFound();
-                return RedirectToAction("PagamentoDebitoIPVAManual");
+                return View(GetContratosVeiculosViewModelErro());
             }
             return View("PagamentoDebitoIPVAManual", model);
         }

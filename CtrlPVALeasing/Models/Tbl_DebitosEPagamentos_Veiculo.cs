@@ -68,7 +68,10 @@ namespace CtrlPVALeasing.Models
         public decimal? valor_pago_divida { get; set; }
 
         [StringLength(10)]
-        public string numero_miro { get; set; }
+        public string numero_miro_divida { get; set; }
+
+        [StringLength(10)]
+        public string numero_miro_custa { get; set; }
 
         [StringLength(250)]
         public string obs_pagamento { get; set; }
@@ -86,5 +89,20 @@ namespace CtrlPVALeasing.Models
         public decimal? valor_total_recuperado { get; set; }
 
         public DateTime? dta_pagamento_custas { get; set; }
+
+        public DateTime? dta_recuperacao { get; set; }
+
+        [StringLength(15)]
+        public string pci_debito_divida { get; set; }
+
+        [StringLength(15)]
+        public string pci_debito_custa { get; set; }
+
+        [StringLength(15)]
+        public string pci_credito { get; set; }
+
+        [StringLength(1)]
+        public string grupo_safra { get; set; }
+
     }
 }
