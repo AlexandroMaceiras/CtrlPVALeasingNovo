@@ -198,6 +198,9 @@ namespace CtrlPVALeasing.Models
         [StringLength(10)]
         public string numero_miro_custa { get; set; }
 
+        [StringLength(10)]
+        public string numero_miro { get; set; }
+
         [StringLength(250)]
         public string obs_pagamento { get; set; }
 

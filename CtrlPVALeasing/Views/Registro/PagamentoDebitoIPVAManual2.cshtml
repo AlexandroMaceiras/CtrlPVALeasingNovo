@@ -285,7 +285,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.cda != null ? MF.cda.ToString() : "")" type="text" name="cda" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.cda != null ? MF.cda.ToString() : (Request["cda"] != null ? Request["cda"] :""))" type="text" name="cda" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -293,7 +293,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -305,7 +305,7 @@
                                 </td>
                                 <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        <input type="checkbox" name="debito_protesto" value="true" @(MF.debito_protesto.HasValue && MF.debito_protesto.Value == true ? "checked" : "") disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="debito_protesto" value="true" @(MF.debito_protesto.HasValue && MF.debito_protesto.Value == true ? "checked" : (Request["debito_protesto"] != null ? Request["debito_protesto"] : "")) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -315,23 +315,23 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.nome_cartorio != null ? MF.nome_cartorio.ToString() : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.nome_cartorio != null ? MF.nome_cartorio.ToString() : (Request["nome_cartorio"] != null ? Request["nome_cartorio"] :""))" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Dívida Ativa no Serasa:&nbsp;
-                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(MF.divida_ativa_serasa.HasValue && MF.debito_protesto.Value == true ? "checked" : "") disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked" : (Request["divida_ativa_serasa"] != null ? Request["divida_ativa_serasa"] : "")) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Protesto no Serasa:&nbsp;
-                                        <input type="checkbox" name="protesto_serasa" value="true" @(MF.protesto_serasa.HasValue && MF.protesto_serasa.Value == true ? "checked" : "") disabled="disabled" />
+                                        <input type="checkbox" name="protesto_serasa" value="true" @(MF.protesto_serasa.HasValue && MF.protesto_serasa.Value == true ? "checked" : (Request["protesto_serasa"] != null ? Request["protesto_serasa"] : "")) disabled="disabled" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -340,7 +340,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.valor_debito_total.HasValue ? MF.valor_debito_total.ToString() : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.valor_debito_total.HasValue ? MF.valor_debito_total.ToString() : (Request["valor_debito_total"] != null ? Request["valor_debito_total"] : ""))" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                         </table>
@@ -371,8 +371,6 @@
                                 <td>
                                     <select class="input-sm-ultra-fino2" name="uf_pagamento" id="uf_pagamento">
                                         @{
-                                            var selecionado3 = MF.uf_pagamento;
-
                                             string[,] strg2 = new string[28, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"AC", "<option class='input-sm-ultra-fino' value='AC'>AC</option>"},
@@ -404,11 +402,11 @@
                                                 {"TO", "<option class='input-sm-ultra-fino' value='TO'>TO</option>"},
                                             };
 
-                                            var c2 = Request["uf_pagamento"] != null ? Request["uf_pagamento"] : "SELECIONE";
+                                            var c2 = Request["uf_pagamento"] != null ? Request["uf_pagamento"] : MF.uf_pagamento;
                                             var saida2 = "";
                                             for (int x = 0; x <= 27; x++)
                                             {
-                                                if (strg2[x, 0] == selecionado3)
+                                                if (strg2[x, 0] == c2)
                                                 {
                                                     saida2 += strg2[x, 1].Substring(0, 7) + " selected " + strg2[x, 1].Substring(7, strg2[x, 1].Length - 7);
                                                 }
@@ -461,7 +459,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Divida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : (Request["dta_pagamento"] != null ? Request["dta_pagamento"] : ""))" type="text" name="dta_pagamento" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -472,19 +470,17 @@
                                 <td>
                                     <select class="input-sm-ultra-fino2" name="forma_pagamento_divida" id="vdt">
                                         @{
-                                            var selecionado4 = MF.forma_pagamento_divida;
-
                                             string[,] strgtc2 = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"SAP", "<option class='input-sm-ultra-fino' value='SAP'>SAP</option>"},
                                                 {"PAG SAFRA", "<option class='input-sm-ultra-fino' value='PAG SAFRA'>PAG SAFRA</option>"},
                                             };
 
-                                            var m2 = Request["forma_pagamento_divida"] != null ? Request["forma_pagamento_divida"] : "SELECIONE";
+                                            var m2 = Request["forma_pagamento_divida"] != null ? Request["forma_pagamento_divida"] : MF.forma_pagamento_divida;
                                             var saidam2 = "";
                                             for (int x = 0; x <= 2; x++)
                                             {
-                                                if (strgtc2[x, 0] == selecionado4)
+                                                if (strgtc2[x, 0] == m2)
                                                 {
                                                     saidam2 += strgtc2[x, 1].Substring(0, 7) + " selected " + strgtc2[x, 1].Substring(7, strgtc2[x, 1].Length - 7);
                                                 }
@@ -504,7 +500,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.valor_pago_divida" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.valor_pago_divida.HasValue ? MF.valor_pago_divida.ToString() : (Request["valor_pago_divida"] != null ? Request["valor_pago_divida"] : ""))" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -513,7 +509,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.numero_miro_divida" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.numero_miro_divida != "" ? MF.numero_miro_divida : (Request["numero_miro_divida"] != null ? Request["numero_miro_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -521,7 +517,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.pci_debito_divida" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.pci_debito_divida != "" ? MF.pci_debito_divida : (Request["pci_debito_divida"] != null ? Request["pci_debito_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -532,7 +528,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento_custas" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -543,19 +539,17 @@
                                 <td>
                                     <select class="input-sm-ultra-fino2" name="forma_pagamento_custas" id="vdt">
                                         @{
-                                            var selecionado5 = MF.forma_pagamento_custas;
-
                                             string[,] strgtc1 = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"SAP", "<option class='input-sm-ultra-fino' value='SAP'>SAP</option>"},
                                                 {"PAG SAFRA", "<option class='input-sm-ultra-fino' value='PAG SAFRA'>PAG SAFRA</option>"},
                                             };
 
-                                            var m1 = Request["forma_pagamento_custas"] != null ? Request["forma_pagamento_custas"] : "SELECIONE";
+                                            var m1 = Request["forma_pagamento_custas"] != null ? Request["forma_pagamento_custas"] : MF.forma_pagamento_custas;
                                             var saidam1 = "";
                                             for (int x = 0; x <= 2; x++)
                                             {
-                                                if (strgtc1[x, 0] == selecionado5)
+                                                if (strgtc1[x, 0] == m1)
                                                 {
                                                     saidam1 += strgtc1[x, 1].Substring(0, 7) + " selected " + strgtc1[x, 1].Substring(7, strgtc1[x, 1].Length - 7);
                                                 }
@@ -575,7 +569,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.valor_pago_custas" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.valor_pago_custas.HasValue ? MF.valor_pago_custas.ToString() : (Request["valor_pago_custas"] != null ? Request["valor_pago_custas"] : ""))" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -584,7 +578,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.numero_miro_custa" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.numero_miro_custa != "" ? MF.numero_miro_custa : (Request["numero_miro_custa"] != null ? Request["numero_miro_custa"] : ""))" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" />
                                 </td>
                             </tr>
 
@@ -593,7 +587,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.pci_debito_custa" type="text" name="pci_debito_custa" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@(MF.pci_debito_custa != "" ? MF.pci_debito_custa : (Request["pci_debito_custa"] != null ? Request["pci_debito_custa"] : ""))" type="text" name="pci_debito_custa" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -615,7 +609,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Obs. Pagamento: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td colspan="10">
-                                    <textarea style="height: 55px;text-transform:uppercase;" rows="3" cols="150" class="input-sm-fino" value="" type="text" name="obs_pagamento" size="250">@MF.obs_pagamento</textarea>
+                                    <textarea style="height: 55px;text-transform:uppercase;" rows="3" cols="150" class="input-sm-fino" value="" type="text" name="obs_pagamento" size="250">@(MF.obs_pagamento != "" ? MF.obs_pagamento : (Request["obs_pagamento"] != null ? Request["obs_pagamento"] : ""))</textarea>
                                 </td>
                             </tr>
                         </table>
@@ -625,10 +619,10 @@
                                 <td align="right">
                                     <div id="Detalhes">
                                         @{
-                                            if (MF.contrato != "" && MF.contrato != null)
-                                            {
+                                                    if (MF.contrato != "" && MF.contrato != null)
+                                                    {
                                                 <div id="fazSubmit">
-                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
+                                                    <input id="bRP" onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
                                                     <input type="hidden" name="id_debito" value="@MF.id_debito" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
@@ -648,10 +642,10 @@
                                                     <input type="hidden" name="ano_exercicio" value="@MF.ano_exercicio" />
                                                     <input type="hidden" name="cda" value="@MF.cda" />
                                                     <input type="hidden" name="valor_custas" value="@MF.valor_custas" />
-                                                    <input type="hidden" name="debito_protesto" value="@MF.debito_protesto" />
+                                                    @*<input type="hidden" name="debito_protesto" value="@MF.debito_protesto" />*@
                                                     <input type="hidden" name="nome_cartorio" value="@MF.nome_cartorio" />
-                                                    <input type="hidden" name="divida_ativa_serasa" value="@MF.divida_ativa_serasa" />
-                                                    <input type="hidden" name="protesto_serasa" value="@MF.protesto_serasa" />
+                                                    @*<input type="hidden" name="divida_ativa_serasa" value="@MF.divida_ativa_serasa" />
+                                                    <input type="hidden" name="protesto_serasa" value="@MF.protesto_serasa" />*@
                                                     <input type="hidden" name="dta_pagamento_custas" value="@MF.dta_pagamento_custas" />
                                                     <input type="hidden" name="valor_debito_total" value="@MF.valor_debito_total" />
 
@@ -799,6 +793,8 @@
             }
             else
             {
+                document.getElementById("bRP").setAttribute("disabled", "disabled");
+
                 document.getElementById("rd").value = true;
                 document.getElementsByName("id_debito").value = "@Request["id_debito"]";
                 document.getElementById("FormAltera").submit();
