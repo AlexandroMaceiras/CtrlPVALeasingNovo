@@ -10,27 +10,32 @@
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data da Cobrança</div> @*@Html.DisplayNameFor(model => model.modelo)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data da Cobrança</div>
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">UF de Registro</div> @*@Html.DisplayNameFor(model => model.chassi)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">UF de Registro</div>
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor da Cobrança</div> @*@Html.DisplayNameFor(model => model.renavam)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor da Cobrança</div>
                     </th>
                     <th class="input-sm-fino" align="center" wi>
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Débito pago pelo banco?</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Débito pago pelo banco?</div>
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div>
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Ano de Exercício</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Ano de Exercício</div>
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Custas</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Custas</div>
                     </th>
-                    <th></th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Pagamento</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Recuperação</div>
+                    </th>
                 </tr>
 
                 @{var contadorInterno = 0; 
@@ -67,7 +72,13 @@
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @if (item.uf_pagamento != "" && item.uf_pagamento != null)
+                                    {
+                                        @Html.ActionLink("RECUPERAR", "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = "btn2 btn-primary-limpar btn-sm" })
+                                    }
                                 </td>
                             </tr>
                         }

@@ -79,9 +79,9 @@ namespace CtrlPVALeasing.Controllers
         }
 
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
-            bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string cda, string rd,
+            bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
-            string numero_miro_divida, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
+            string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
             decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento,            
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
@@ -162,7 +162,7 @@ namespace CtrlPVALeasing.Controllers
                          origem_v = b.origem,
                          comunicado_venda = b.comunicado_venda,
 
-                         id_debito             = c.id,
+                         id_debito = c.id,
                          dta_cobranca = c.dta_cobranca,
                          uf_cobranca = c.uf_cobranca,
                          tipo_cobranca = c.tipo_cobranca,
@@ -180,7 +180,11 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
                          uf_pagamento = c.uf_pagamento,
+                         grupo_safra = c.grupo_safra,
+                         pci_debito_divida = c.pci_debito_divida,
+                         pci_debito_custa = c.pci_debito_custa,
                          numero_miro_divida = c.numero_miro_divida,
+                         numero_miro_custa = c.numero_miro_custa,
                          forma_pagamento_divida = c.forma_pagamento_divida,
                          forma_pagamento_custas = c.forma_pagamento_custas,
                          valor_pago_custas = c.valor_pago_custas,
@@ -256,7 +260,11 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
                          uf_pagamento = x.uf_pagamento,
+                         grupo_safra = x.grupo_safra,
+                         pci_debito_divida = x.pci_debito_divida,
+                         pci_debito_custa = x.pci_debito_custa,
                          numero_miro_divida = x.numero_miro_divida,
+                         numero_miro_custa = x.numero_miro_custa,
                          forma_pagamento_divida = x.forma_pagamento_divida,
                          forma_pagamento_custas = x.forma_pagamento_custas,
                          valor_pago_custas = x.valor_pago_custas,
@@ -279,7 +287,7 @@ namespace CtrlPVALeasing.Controllers
                     return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
                 }
             }
-            catch
+            catch(Exception e)
             {
                 return View(GetContratosVeiculosViewModelErro());
             }
@@ -314,6 +322,11 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.valor_pago_divida = valor_pago_divida;
 
                         procuraRegistro.pagamento_efet_banco = true;
+                        procuraRegistro.grupo_safra = grupo_safra;
+                        procuraRegistro.pci_debito_divida = pci_debito_divida;
+                        procuraRegistro.pci_debito_custa = pci_debito_custa;
+                        procuraRegistro.numero_miro_custa = numero_miro_custa;
+
                         procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
                         procuraRegistro.valor_pago_custas = valor_pago_custas;
                         procuraRegistro.obs_pagamento = obs_pagamento;
@@ -338,7 +351,12 @@ namespace CtrlPVALeasing.Controllers
                             valor_pago_total = valor_pago_total,
                             valor_pago_divida = valor_pago_divida,
 
-                            pagamento_efet_banco = pagamento_efet_banco,
+                            pagamento_efet_banco = true,
+                            grupo_safra = grupo_safra,
+                            pci_debito_divida = pci_debito_divida,
+                            pci_debito_custa = pci_debito_custa,
+                            numero_miro_custa = numero_miro_custa,
+
                             forma_pagamento_custas = forma_pagamento_custas,
                             valor_pago_custas = valor_pago_custas,
                             obs_pagamento = obs_pagamento
