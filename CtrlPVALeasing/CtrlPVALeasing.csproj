@@ -161,6 +161,7 @@
     <Compile Include="Controllers\Tbl_BensController.cs" />
     <Compile Include="Controllers\Tbl_DadosDaVendaController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
+    <Compile Include="Controllers\Tbl_DutController.cs" />
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Models\Tbl_Bens.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
+    <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +280,11 @@
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual.cshtml" />
     <Content Include="Views\Registro\_GridDebitos.cshtml" />
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual2.cshtml" />
+    <Content Include="Views\Tbl_Dut\Create.cshtml" />
+    <Content Include="Views\Tbl_Dut\Delete.cshtml" />
+    <Content Include="Views\Tbl_Dut\Details.cshtml" />
+    <Content Include="Views\Tbl_Dut\Edit.cshtml" />
+    <Content Include="Views\Tbl_Dut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

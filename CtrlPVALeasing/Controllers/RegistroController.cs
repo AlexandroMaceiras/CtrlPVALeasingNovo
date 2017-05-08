@@ -82,8 +82,8 @@ namespace CtrlPVALeasing.Controllers
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
-            decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento,            
-            string ano_exercicio, decimal? valor_custas, bool? debito_protesto,
+            decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
+            string ano_exercicio, decimal? valor_custas, bool? debito_protesto, decimal? valor_total_recuperado,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
         {
             if (chassi == null)
@@ -191,12 +191,13 @@ namespace CtrlPVALeasing.Controllers
                          valor_pago_divida = c.valor_pago_divida,
                          valor_pago_total = c.valor_pago_total,
                          obs_pagamento = c.obs_pagamento,
-
+                         pci_credito    = c.pci_credito,
+                         dta_recuperacao = c.dta_recuperacao,
+                         valor_total_recuperado = c.valor_total_recuperado,
 
                          renavam_bens = d.renavam,
                          chassi_bens = d.chassi,
                          placa_bens = d.placa
-
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -271,13 +272,15 @@ namespace CtrlPVALeasing.Controllers
                          valor_pago_divida = x.valor_pago_divida,
                          valor_pago_total = x.valor_pago_total,
                          obs_pagamento = x.obs_pagamento,
+                         pci_credito = x.pci_credito,
+                         dta_recuperacao = x.dta_recuperacao,
+                         valor_total_recuperado = x.valor_total_recuperado,
 
                          renavam_bens = x.renavam_bens,
                          chassi_bens = x.chassi_bens,
                          placa_bens = x.placa_bens
 
                      });
-
 
 
             try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
@@ -331,6 +334,10 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.valor_pago_custas = valor_pago_custas;
                         procuraRegistro.obs_pagamento = obs_pagamento;
 
+                        procuraRegistro.pci_credito = pci_credito;
+                        procuraRegistro.dta_recuperacao = dta_recuperacao;
+                        procuraRegistro.valor_total_recuperado = valor_total_recuperado;
+
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
                         return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
@@ -359,8 +366,13 @@ namespace CtrlPVALeasing.Controllers
 
                             forma_pagamento_custas = forma_pagamento_custas,
                             valor_pago_custas = valor_pago_custas,
-                            obs_pagamento = obs_pagamento
-                        };
+                            obs_pagamento = obs_pagamento,
+
+                            pci_credito = pci_credito,
+                            dta_recuperacao = dta_recuperacao,
+                            valor_total_recuperado = valor_total_recuperado
+
+                    };
 
                         if (db.Entry(model2).State == EntityState.Detached)
                         {
@@ -648,7 +660,7 @@ namespace CtrlPVALeasing.Controllers
                             nome_cartorio           = c.nome_cartorio,
                             divida_ativa_serasa     = c.divida_ativa_serasa,
                             protesto_serasa         = c.protesto_serasa,
-                            valor_debito_total      = c.valor_debito_total,
+                            valor_debito_total      = c.valor_divida + c.valor_custas,
                             dta_pagamento_custas    = c.dta_pagamento_custas,
 
                             renavam_bens    = d.renavam,
@@ -712,7 +724,7 @@ namespace CtrlPVALeasing.Controllers
                             nome_cartorio           = x.nome_cartorio,
                             divida_ativa_serasa     = x.divida_ativa_serasa,
                             protesto_serasa         = x.protesto_serasa,
-                            valor_debito_total      = x.valor_debito_total,
+                            valor_debito_total      = x.valor_divida + x.valor_custas,
                             dta_pagamento_custas    = x.dta_pagamento_custas,
 
                             renavam_bens    = x.renavam_bens,
@@ -754,7 +766,7 @@ namespace CtrlPVALeasing.Controllers
                     .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
                     .Where(c => c.valor_divida == valor_divida)
                     .Where(c => c.valor_custas == valor_custas)
-                    .Where(c => c.valor_debito_total == valor_debito_total)
+                    .Where(c => c.valor_debito_total == valor_divida + valor_custas)
                     .Where(c => c.ano_exercicio == ano_exercicio)
                     .ToList().Count();
                 }
@@ -783,7 +795,7 @@ namespace CtrlPVALeasing.Controllers
                         nome_cartorio           = nome_cartorio,
                         divida_ativa_serasa     = (divida_ativa_serasa == null ? false : true),
                         protesto_serasa         = (protesto_serasa == null ? false : true),
-                        valor_debito_total      = valor_debito_total
+                        valor_debito_total      = valor_divida + valor_custas
                     };
 
                     if (idDoCara != 0)

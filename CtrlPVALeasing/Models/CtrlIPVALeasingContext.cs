@@ -244,5 +244,7 @@ namespace CtrlPVALeasing.Models
                 .Property(e => e.pci_debito_divida)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Dut> Tbl_Dut { get; set; }
     }
 }

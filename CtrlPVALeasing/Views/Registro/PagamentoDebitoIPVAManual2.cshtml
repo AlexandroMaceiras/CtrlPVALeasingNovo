@@ -39,7 +39,7 @@
 @{
     if (Request["Rc"] == "true")
     {
-        ViewBag.Title = "Registro de Recuperação de Pagamento de IPVA";
+        ViewBag.Title = "Recuperação de Pagamento de IPVA";
     }
     else
     {
@@ -60,7 +60,7 @@
                 @if (Request["Rc"] == "true")
                 {
                     <th class="busca" width="82%">
-                        <h2>REGISTRO DE RECUPERAÇÃO DE PAGAMENTO DE IPVA</h2>
+                        <h2>RECUPERAÇÃO DE PAGAMENTO DE IPVA</h2>
                     </th>
                 }
                 else
@@ -71,7 +71,7 @@
                 }
                     <th class="busca" width="18%" align="right">
                         <br />
-                        <a href="PagamentoDebitoIPVAManual" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>
+                        <a href="/" onclick="javascript:history.go(-1);" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>
                         <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -376,8 +376,8 @@
                             <tr>
                                 <td colspan="2" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Pagam. Efetuado pelo Banco:&nbsp; <!-- Este campo é sempre true! -->
-                                        <input type="checkbox" name="pagamento_efet_banco" value="true" checked='checked' @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Pagam. Efetuado pelo Banco:&nbsp; <!-- Este campo é sempre true! E este input deve estar sempre sisabled! -->
+                                        <input type="checkbox" name="pagamento_efet_banco" value="true" checked='checked' disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -527,7 +527,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.numero_miro_divida != "" ? MF.numero_miro_divida : (Request["numero_miro_divida"] != null ? Request["numero_miro_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input class="input-sm-fino" value="@(MF.numero_miro_divida != "" || MF.numero_miro_divida != null ? MF.numero_miro_divida : (Request["numero_miro_divida"] != null ? Request["numero_miro_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
                                 </td>
                             </tr>
                             <tr>
@@ -637,57 +637,77 @@
                                 <td width="90%"></td>
                                 <td align="right">
                                     <div id="Detalhes">
-                                        @{
-                                            if (MF.contrato != "" && MF.contrato != null)
-                                            {
-                                                <div id="fazSubmit">
-                                                    <input id="bRP" onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
-                                                    <input type="hidden" name="id_debito" value="@MF.id_debito" />
-                                                    <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
-                                                    <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
-                                                    <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+                                    <!-- É para o botão desaparecer durante o flash de tela e o usuário não poder reapertar -->
+                                    @if(Request["transicao1"] != "true")
+                                    {
+                                        if (MF.contrato != "" && MF.contrato != null)
+                                        {
+                                            <div id="fazSubmit">
+                                                <input id="botaoDeSubmit1" onclick="return validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR PAGAMENTO" />
+                                                <input type="hidden" name="id_debito" value="@MF.id_debito" />
+                                                <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
+                                                <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
+                                                <input type="hidden" name="placaPesquisada" value="@MF.placa" />
 
-                                                    <input type="hidden" name="marca" value="@MF.marca" />
-                                                    <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
-                                                    <input type="hidden" name="modelo" value="@MF.modelo" />
-                                                    <input type="hidden" name="ano_mod" value="@MF.ano_mod" />
-                                                    <input type="hidden" name="tipo_v" value="@MF.tipo_v" />
-                                                    <input type="hidden" name="cor" value="@MF.cor" />
+                                                <input type="hidden" name="Rc" value="@Request["Rc"]" />
 
-                                                    <input type="hidden" name="dta_cobranca" value="@MF.dta_cobranca" />
-                                                    <input type="hidden" name="uf_cobranca" value="@MF.uf_cobranca" />
-                                                    <input type="hidden" name="tipo_cobranca" value="@MF.tipo_cobranca" />
-                                                    <input type="hidden" name="valor_divida" value="@MF.valor_divida" />
-                                                    <input type="hidden" name="ano_exercicio" value="@MF.ano_exercicio" />
-                                                    <input type="hidden" name="cda" value="@MF.cda" />
-                                                    <input type="hidden" name="valor_custas" value="@MF.valor_custas" />
-                                                    @*<input type="hidden" name="debito_protesto" value="@MF.debito_protesto" />*@
-                                                    <input type="hidden" name="nome_cartorio" value="@MF.nome_cartorio" />
-                                                    @*<input type="hidden" name="divida_ativa_serasa" value="@MF.divida_ativa_serasa" />
-                                                    <input type="hidden" name="protesto_serasa" value="@MF.protesto_serasa" />*@
-                                                    <input type="hidden" name="dta_pagamento_custas" value="@MF.dta_pagamento_custas" />
-                                                    <input type="hidden" name="valor_debito_total" value="@MF.valor_debito_total" />
+                                                <input type="hidden" name="marca" value="@MF.marca" />
+                                                <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
+                                                <input type="hidden" name="modelo" value="@MF.modelo" />
+                                                <input type="hidden" name="ano_mod" value="@MF.ano_mod" />
+                                                <input type="hidden" name="tipo_v" value="@MF.tipo_v" />
+                                                <input type="hidden" name="cor" value="@MF.cor" />
 
-                                                    <input type="hidden" name="dta_pagamento" value="@MF.dta_pagamento" />
-                                                    <input type="hidden" name="uf_pagamento" value="@MF.uf_pagamento" />
-                                                    <input type="hidden" name="numero_miro_divida" value="@MF.numero_miro_divida" />
-                                                    <input type="hidden" name="forma_pagamento_divida" value="@MF.forma_pagamento_divida" />
-                                                    <input type="hidden" name="valor_pago_divida" value="@MF.valor_pago_divida" />
-                                                    <input type="hidden" name="valor_pago_total" value="@MF.valor_pago_total" />
-                                                    <input type="hidden" name="forma_pagamento_custas" value="@MF.forma_pagamento_custas" />
-                                                    <input type="hidden" name="valor_pago_custas" value="@MF.valor_pago_custas" />
-                                                    <input type="hidden" name="obs_pagamento" value="@MF.obs_pagamento" />
-                                                    <input type="hidden" name="grupo_safra" value="@MF.grupo_safra" />
-                                                    <input type="hidden" name="pci_debito_divida" value="@MF.pci_debito_divida" />
-                                                    <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
+                                                <input type="hidden" name="dta_cobranca" value="@MF.dta_cobranca" />
+                                                <input type="hidden" name="uf_cobranca" value="@MF.uf_cobranca" />
+                                                <input type="hidden" name="tipo_cobranca" value="@MF.tipo_cobranca" />
+                                                <input type="hidden" name="valor_divida" value="@MF.valor_divida" />
+                                                <input type="hidden" name="ano_exercicio" value="@MF.ano_exercicio" />
+                                                <input type="hidden" name="cda" value="@MF.cda" />
+                                                <input type="hidden" name="valor_custas" value="@MF.valor_custas" />
+                                                @*<input type="hidden" name="debito_protesto" value="@MF.debito_protesto" />*@
+                                                <input type="hidden" name="nome_cartorio" value="@MF.nome_cartorio" />
+                                                @*<input type="hidden" name="divida_ativa_serasa" value="@MF.divida_ativa_serasa" />
+                                                <input type="hidden" name="protesto_serasa" value="@MF.protesto_serasa" />*@
+                                                <input type="hidden" name="dta_pagamento_custas" value="@MF.dta_pagamento_custas" />
+                                                <input type="hidden" name="valor_debito_total" value="@MF.valor_debito_total" />
 
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("REGISTRAR PAGAMENTO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
-                                            }
+                                                <input type="hidden" name="dta_pagamento" value="@MF.dta_pagamento" />
+                                                <input type="hidden" name="uf_pagamento" value="@MF.uf_pagamento" />
+                                                <input type="hidden" name="numero_miro_divida" value="@MF.numero_miro_divida" />
+                                                <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
+                                                <input type="hidden" name="forma_pagamento_divida" value="@MF.forma_pagamento_divida" />
+                                                <input type="hidden" name="valor_pago_divida" value="@MF.valor_pago_divida" />
+                                                <input type="hidden" name="valor_pago_total" value="@MF.valor_pago_total" />
+                                                <input type="hidden" name="forma_pagamento_custas" value="@MF.forma_pagamento_custas" />
+                                                <input type="hidden" name="valor_pago_custas" value="@MF.valor_pago_custas" />
+                                                <input type="hidden" name="obs_pagamento" value="@MF.obs_pagamento" />
+                                                <input type="hidden" name="grupo_safra" value="@MF.grupo_safra" />
+                                                <input type="hidden" name="pci_debito_divida" value="@MF.pci_debito_divida" />
+                                                <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
+
+                                                <input type="hidden" name="transicao1" value="true" />
+
+                                                <input type="hidden" name="pci_credito" value="@MF.pci_credito" />
+                                                <input type="hidden" name="dta_recuperacao" value="@MF.dta_recuperacao" />
+                                                <input type="hidden" name="valor_total_recuperado" value="@MF.valor_total_recuperado" />
+
+
+
+                                            </div>
                                         }
+                                        else
+                                        {
+                                            @Html.ActionLink("REGISTRAR PAGAMENTO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div id="fazSubmit">
+                                            <input class="btn4 btn-primary-imp .btn-sm" type="button" value="PROCESSANDO..." disabled="disabled"/>
+                                        </div>
+                                        <input type="hidden" name="transicao1" value="false" />
+                                    }
                                     </div>
                                 </td>
                             </tr>
@@ -698,7 +718,7 @@
             </table>
         </center>
 
-        @if(Request["Rc"] == "true")
+        @if (Request["Rc"] == "true")
         {
         <br />
         <center>
@@ -734,20 +754,25 @@
                                 </td>
                             </tr>
                         </table>
+
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td width="90%"></td>
                                 <td align="right">
                                     <div id="Detalhes">
-                                        @{
+                                        <!-- É para o botão desaparecer durante o flash de tela e o usuário não poder reapertar -->
+                                        @if (Request["transicao2"] != "true")
+                                        {
                                             if (MF.contrato != "" && MF.contrato != null)
                                             {
                                                 <div id="fazSubmit">
-                                                    <input id="bRP" onclick="validateFormRecuperacao();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR RECUPERAÇÃO" />
+                                                    <input id="botaoDeSubmit2" onclick="validateFormRecuperacao();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR RECUPERAÇÃO" />
                                                     <input type="hidden" name="id_debito" value="@MF.id_debito" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                                     <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+
+                                                    <input type="hidden" name="Rc" value="@Request["Rc"]" />
 
                                                     <input type="hidden" name="marca" value="@MF.marca" />
                                                     <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
@@ -773,6 +798,7 @@
                                                     <input type="hidden" name="dta_pagamento" value="@MF.dta_pagamento" />
                                                     <input type="hidden" name="uf_pagamento" value="@MF.uf_pagamento" />
                                                     <input type="hidden" name="numero_miro_divida" value="@MF.numero_miro_divida" />
+                                                    <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
                                                     <input type="hidden" name="forma_pagamento_divida" value="@MF.forma_pagamento_divida" />
                                                     <input type="hidden" name="valor_pago_divida" value="@MF.valor_pago_divida" />
                                                     <input type="hidden" name="valor_pago_total" value="@MF.valor_pago_total" />
@@ -782,6 +808,7 @@
                                                     <input type="hidden" name="grupo_safra" value="@MF.grupo_safra" />
                                                     <input type="hidden" name="pci_debito_divida" value="@MF.pci_debito_divida" />
                                                     <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
+                                                    <input type="hidden" name="transicao2" value="true" />
 
                                                 </div>
                                             }
@@ -789,6 +816,13 @@
                                             {
                                                 @Html.ActionLink("REGISTRAR RECUPERAÇÃO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                             }
+                                        }
+                                        else
+                                        {
+                                            <div id="fazSubmit">
+                                                <input class="btn4 btn-primary-imp .btn-sm" type="button" value="PROCESSANDO..." disabled="disabled" />
+                                            </div>
+                                            <input type = "hidden" name = "transicao2" value = "false" />
                                         }
                                     </div>
                                 </td>
@@ -848,6 +882,7 @@
     {
         <script>
             try {
+
                 $(document).ready(function () {
                     $("#msgErro9").modal();
                 });
@@ -867,8 +902,8 @@
                 alert(e);
             }
         </script>
-        }
     }
+}
 
 <script>
     //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
@@ -888,6 +923,8 @@
     {
         function validateFormRecuperacao()
         {
+            document.getElementById("botaoDeSubmit2").setAttribute("disabled", "disabled");
+
             if (
                 document.getElementsByName('dta_recuperacao')[0].value == "" ||
                 document.getElementsByName('valor_total_recuperado')[0].value == "" ||
@@ -903,8 +940,6 @@
             }
             else
             {
-                document.getElementById("bRP").setAttribute("disabled", "disabled");
-
                 document.getElementById("rd").value = true;
                 document.getElementsByName("id_debito").value = "@Request["id_debito"]";
                 document.getElementById("FormAltera").submit();
@@ -945,7 +980,7 @@
             }
             else
             {
-                document.getElementById("bRP").setAttribute("disabled", "disabled");
+                document.getElementById("botaoDeSubmit1").setAttribute("disabled", "disabled");
 
                 document.getElementById("rd").value = true;
                 document.getElementsByName("id_debito").value = "@Request["id_debito"]";
@@ -1132,15 +1167,15 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>DADOS DA VENDA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO/REGISTRO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Campos dos DADOS DA VENDA inconsistentes, verifique!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">O conteúdo de algum campo está inválido, verifique!</h4></center></td>
                     </tr>
                     <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                        <td align="right"><button onclick="history.go(-1);" type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
                     </tr>
                 </table>
             </div>

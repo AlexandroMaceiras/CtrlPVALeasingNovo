@@ -77,7 +77,7 @@
                                 <td class="input-sm-fino" align="right">
                                     @if (item.uf_pagamento != "" && item.uf_pagamento != null)
                                     {
-                                        @Html.ActionLink("RECUPERAR", "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = "btn2 btn-primary-limpar btn-sm" })
+                                        @Html.ActionLink((item.valor_total_recuperado.HasValue ? "EDITAR" : "RECUPERAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null && item.valor_total_recuperado.HasValue ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
                                     }
                                 </td>
                             </tr>
