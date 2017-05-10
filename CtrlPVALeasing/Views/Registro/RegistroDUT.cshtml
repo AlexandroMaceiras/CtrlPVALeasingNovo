@@ -10,11 +10,6 @@
 
 </head>
 <script>
-    function chamaErro2() {
-        $(document).ready(function () {
-            $("#msgErro2").modal();
-        });
-    }
     function chamaErro1() {
         $(document).ready(function () {
             $("#msgErro1").modal();
@@ -22,16 +17,16 @@
     }
 </script>
 @{
-    ViewBag.Title = "Consultar Veículo";
+    ViewBag.Title = "Registrar DUT";
 }
 
-@using (Html.BeginForm("ConsultaVeiculo", "Consulta"))
+@using (Html.BeginForm("RegistroDUT", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
-
-        <h2>CONSULTA DE VEÍCULO</h2>
+        <h2>REGISTRO DE DUT</h2>
         <br />
+        <input type="hidden" name="Rd" id="Rd" value="false" />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
@@ -61,26 +56,44 @@
                     </th>
                 </tr>
                 <tr>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
+                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     <th>
                         <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
             </table>
             <hr />
+        </center>
+        <center>
+            <table width="100%" border="0" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td colspan="0" align="justify">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">
+                            DUT está com o Banco&nbsp;
+                            <input type="checkbox" name="pcv" @( MF.comunicado_venda != null && MF.comunicado_venda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <div class="fonte-cinza-claro fonte-tamanho-form">
+                            @{
+                                if (MF.contrato != "" && MF.contrato != null)
+                                {
+                                    <div id="fazSubmit">
+                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DUT" />
+                                        <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
+                                        <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
+                                        <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("REGISTRAR DUT", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
+                                }
+                            }
+                        </div>
+                    </td>
+                    <td width="65%"></td>
+                </tr>
+            </table>
         </center>
 
         <center>
@@ -94,7 +107,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -120,7 +133,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -146,7 +159,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -177,72 +190,6 @@
                                         <input type="checkbox" name="pcv" @(MF.comunicado_venda != null && MF.comunicado_venda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
                                         <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
-        <br />
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
-                        <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) :"")" type="text" name="dta_cobranca" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total dos Débitos de IPVA: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Última Recuperação:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : "")" type="text" name="dta_pagamento" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total das Recuperações de IPVA: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_pago_total" type="text" name="valor_pago_total" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td align="right">
-                                    <div id="Detalhes">
-                                        @{
-                                            if (MF.contrato != "" && MF.contrato != null)
-                                            {
-                                                @Html.ActionLink("DETALHES", "ConsultaDebito", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn3 btn-primary-imp btn-sm" })
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("DETALHES", "ConsultaDebito", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
-                                            }
-                                        }
                                     </div>
                                 </td>
                             </tr>
@@ -334,18 +281,6 @@
                                 <td></td>
                                 <td></td>
                                 <td align="right">
-                                    <div id="outrosContratos">
-                                        @{
-                                            if (MF.contrato != "" && MF.contrato != null)
-                                            {
-                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro2(); return false;" })
-                                            }
-                                        }
-                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -353,110 +288,12 @@
                 </tr>
             </table>
         </center>
-        <br />
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
-                        <b class="fonte-cinza-escuro">DADOS DO CLIENTE:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Nome/ Razão social:&nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td colspan="7">
-                                    <input class="input-sm-fino" value="@MF.nome_cliente" type="text" maxlength="40" size="79" name="contrato" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Com.: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.fone_cliente_cml" type="text" name="cliente" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Particular.: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.fone_cliente_particular" type="text" name="cliente" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
-                                </td>
-                                <td colspan="4">
-                                    <input class="input-sm-fino" value="@MF.end_cliente" type="text" name="contrato" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Bairro: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.bairro_cliente" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cidade: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.cidade_cliente" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Estado: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.uf_cliente" type="text" name="contrato" size="3" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">CEP: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.cep_cliente" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marcas: </div>
-                                </td>
-                                <td colspan="7">
-                                    <!--Virá do CCL_Marcas--><input class="input-sm-fino" value="" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
-
     </div>
 
-                                            //Erro de veículo não encontrado
-                                            if (MF.id == -1)
-                                            {
-                                                <script>
+    
+    if (MF.id == -1)
+    {
+    <script>
         try{
             $(document).ready(function () {
                 $("#msgErro1").modal();
@@ -466,9 +303,69 @@
         {
             alert(e);
         }
-                                                </script>
-                                                }
-                                            }
+    </script>
+    }
+
+    if (MF.id == -3)
+    {
+    <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro3").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+
+    if (MF.id == -4)
+    {
+        <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro4").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+        </script>
+    }
+
+    if (MF.id == -5)
+    {
+        <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro5").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+
+    if (MF.id == -6)
+    {
+        <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro6").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+}
 
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
@@ -483,6 +380,34 @@
     catch (e) {
         alert(e);
     }
+
+    try
+    {
+        function validateForm()
+        {
+            if (
+                document.getElementsByName('chassiPesquisado')[0].value == "" ||
+                document.getElementsByName('renavamPesquisado')[0].value == "" ||
+                document.getElementsByName('placaPesquisada')[0].value == "")
+            {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                    return false;
+                });
+                return false;
+            }
+            else
+            {
+                document.getElementById("Rd").value = true;
+                document.getElementById("FormAltera").submit();
+                return true;
+            }
+        }
+    }
+    catch(e)
+    {
+        alert(e);
+    }
 </script>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
@@ -490,7 +415,7 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
@@ -506,12 +431,33 @@
     </div>
 </div>
 
-<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro3" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT realizado com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
@@ -526,3 +472,46 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro5" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo já incluso!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro6" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">ERRO na inclusão deste veículo, verifique os dados do veículo!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

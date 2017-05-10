@@ -72,7 +72,7 @@ GO
 CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
 	(
 	id                     INT IDENTITY NOT NULL,
-	chassi                 VARCHAR (18) NULL,
+	chassi                 VARCHAR (20) NULL,
 	renavam                VARCHAR (20) NULL,
 	placa                  VARCHAR (9) NULL,
 	dta_cobranca           DATETIME NULL,
@@ -124,7 +124,7 @@ CREATE TABLE dbo.Tbl_Bens
 	(
 	id      INT IDENTITY NOT NULL,
 	renavam VARCHAR (20) NULL,
-	chassi  VARCHAR (18) NULL,
+	chassi  VARCHAR (20) NULL,
 	placa   VARCHAR (9) NULL,
 	PRIMARY KEY (id)
 	)
@@ -134,7 +134,7 @@ CREATE TABLE dbo.Tbl_Dut
 	(
 	id      INT IDENTITY NOT NULL,
 	renavam VARCHAR (20) NULL,
-	chassi  VARCHAR (18) NULL,
+	chassi  VARCHAR (20) NULL,
 	placa   VARCHAR (9) NULL,
 	PRIMARY KEY (id)
 	)

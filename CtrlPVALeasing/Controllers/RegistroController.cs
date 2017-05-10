@@ -16,6 +16,7 @@ namespace CtrlPVALeasing.Controllers
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
         Tbl_DebitosEPagamentos_Veiculo model2 = null;
+        Tbl_Dut model3 = null;
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -3 para se injetar na view quando for retorno de pesquisa após inclusão.
@@ -77,6 +78,218 @@ namespace CtrlPVALeasing.Controllers
             model.Add(new ContratosVeiculosViewModel() { id = -4, agencia = " " });
             return model;
         }
+
+        private IEnumerable<ContratosVeiculosViewModel> GetErroDeEntradaDesconhecido()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -6, agencia = " " });
+            return model;
+        }
+
+        // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
+        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string Rd)
+        {
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1
+                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     select new
+                     {
+                         id = a.id,
+                         contrato = a.contrato,
+                         tipo = a.tipo,
+                         agencia = a.agencia,
+                         dta_inicio_contrato = a.dta_inicio_contrato,
+                         dta_vecto_contrato = a.dta_vecto_contrato,
+                         origem = a.origem,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         nome_cliente = a.nome_cliente,
+                         ddd_cliente_particular = a.ddd_cliente_particular,
+                         fone_cliente_particular = a.fone_cliente_particular,
+                         rml_cliente_particular = a.rml_cliente_particular,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         cep_cliente = a.cep_cliente,
+                         filler = a.filler,
+                         ddd_cliente_cml = a.ddd_cliente_cml,
+                         fone_cliente_cml = a.fone_cliente_cml,
+                         dta_ultimo_pagto = a.dta_ultimo_pagto,
+                         tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
+                         cod_empresa = a.cod_empresa,
+                         num_end_cliente = a.num_end_cliente,
+                         comp_end_cliente = a.comp_end_cliente,
+                         status = a.status,
+
+                         contrato_v = b.contrato,
+                         tipo_registro = b.tipo_registro,
+                         marca = b.marca,
+                         modelo = b.modelo,
+                         tipo_v = b.tipo,
+                         ano_fab = b.ano_fab,
+                         ano_mod = b.ano_mod,
+                         cor = b.cor,
+                         renavam = b.renavam,
+                         chassi = b.chassi,
+                         placa = b.placa,
+                         origem_v = b.origem,
+                         comunicado_venda = b.comunicado_venda,
+
+                         renavam_bens = c.renavam,
+                         chassi_bens = c.chassi,
+                         placa_bens = c.placa
+
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         id = x.id,
+                         contrato = x.contrato,
+                         tipo = x.tipo,
+                         agencia = x.agencia,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         origem = x.origem,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         nome_cliente = x.nome_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         rml_cliente_particular = x.rml_cliente_particular,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         filler = x.filler,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
+                         cod_empresa = x.cod_empresa,
+                         num_end_cliente = x.num_end_cliente,
+                         comp_end_cliente = x.comp_end_cliente,
+                         status = x.status,
+
+                         contrato_v = x.contrato_v,
+                         tipo_registro = x.tipo_registro,
+                         marca = x.marca,
+                         modelo = x.modelo,
+                         tipo_v = x.tipo_v,
+                         ano_fab = x.ano_fab,
+                         ano_mod = x.ano_mod,
+                         cor = x.cor,
+                         renavam = x.renavam,
+                         chassi = x.chassi,
+                         placa = x.placa,
+                         origem_v = x.origem_v,
+                         comunicado_venda = x.comunicado_venda,
+
+                         renavam_bens = x.renavam_bens,
+                         chassi_bens = x.chassi_bens,
+                         placa_bens = x.placa_bens
+
+                     });
+
+
+
+            try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
+            {
+                if (model.Count() == 0 || model == null)
+                {
+                    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                }
+            }
+            catch
+            {
+                return View(GetContratosVeiculosViewModelErro());
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("RegistroDUT");
+            }
+
+            if (Request.HttpMethod == "POST" && Rd == "true")
+            {
+                Rd = "false";
+
+                // Controle de erros do ModelState
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var procuraRegistro = db.Tbl_Dut
+                            .FirstOrDefault(c => c.chassi == chassiPesquisado || c.renavam == renavamPesquisado || c.placa == placaPesquisada);
+                        if (procuraRegistro != null)
+                        {
+                            procuraRegistro.chassi = chassiPesquisado;
+                            procuraRegistro.renavam = renavamPesquisado;
+                            procuraRegistro.placa = placaPesquisada;
+
+                            db.Entry(procuraRegistro).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
+                        }
+                        else
+                        {
+                            model3 = new Tbl_Dut
+                            {
+                                id = 0,
+                                chassi = chassiPesquisado,
+                                renavam = renavamPesquisado,
+                                placa = placaPesquisada
+                            };
+
+                            if (db.Entry(model3).State == EntityState.Detached)
+                            {
+                                db.Tbl_Dut.Add(model3);
+                                db.SaveChanges();
+                                return View(GetContratosVeiculosViewModelRegistroOk());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return View(GetErroDeEntrada());
+                    }
+                }
+                catch
+                {
+                    return View(GetErroDeEntradaDesconhecido());
+                }
+            }
+            return View("RegistroDUT", model);
+        }
+
 
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
@@ -797,7 +1010,7 @@ namespace CtrlPVALeasing.Controllers
                         protesto_serasa         = (protesto_serasa == null ? false : true),
                         valor_debito_total      = valor_divida + valor_custas
                     };
-
+                        
                     if (idDoCara != 0)
                     {
                         return View(GetContratosVeiculosViewModelErroRegistroDebito());

@@ -158,7 +158,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\Tbl_BensController.cs" />
+    <Compile Include="Controllers\Tbl_CCLController.cs" />
     <Compile Include="Controllers\Tbl_DadosDaVendaController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\Tbl_DutController.cs" />
@@ -174,9 +176,12 @@
     <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
     <Compile Include="Models\Tbl_Bens.cs" />
+    <Compile Include="Models\Tbl_CCL.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
     <Compile Include="Models\Tbl_Dut.cs" />
+    <Compile Include="Models\Tbl_SCC.cs" />
+    <Compile Include="Models\Tbl_SCCController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +290,18 @@
     <Content Include="Views\Tbl_Dut\Details.cshtml" />
     <Content Include="Views\Tbl_Dut\Edit.cshtml" />
     <Content Include="Views\Tbl_Dut\Index.cshtml" />
+    <Content Include="Views\Registro\RegistroDUT.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioBensApreendidosDebtoIPVA.cshtml" />
+    <Content Include="Views\Tbl_CCL\Create.cshtml" />
+    <Content Include="Views\Tbl_CCL\Delete.cshtml" />
+    <Content Include="Views\Tbl_CCL\Details.cshtml" />
+    <Content Include="Views\Tbl_CCL\Edit.cshtml" />
+    <Content Include="Views\Tbl_CCL\Index.cshtml" />
+    <Content Include="Views\Tbl_SCC\Create.cshtml" />
+    <Content Include="Views\Tbl_SCC\Delete.cshtml" />
+    <Content Include="Views\Tbl_SCC\Details.cshtml" />
+    <Content Include="Views\Tbl_SCC\Edit.cshtml" />
+    <Content Include="Views\Tbl_SCC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
