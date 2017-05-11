@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -164,6 +165,7 @@
     <Compile Include="Controllers\Tbl_DadosDaVendaController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\Tbl_DutController.cs" />
+    <Compile Include="Controllers\Tbl_SCCController.cs" />
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -181,7 +183,6 @@
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
     <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />
-    <Compile Include="Models\Tbl_SCCController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +197,7 @@
     <Content Include="Imagens\fundoPrincipal.jpg" />
     <Content Include="Imagens\GrafPizza.jpg" />
     <Content Include="Imagens\safra.jpg" />
+    <Content Include="Imagens\safraBranco.jpg" />
     <Content Include="Imagens\safraONDA.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -297,11 +299,16 @@
     <Content Include="Views\Tbl_CCL\Details.cshtml" />
     <Content Include="Views\Tbl_CCL\Edit.cshtml" />
     <Content Include="Views\Tbl_CCL\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutImpressao.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioCobrancaIPVAAreaBens.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioCobrancasSimplesParaPagamento.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioDebitoEmContaCorrente.cshtml" />
     <Content Include="Views\Tbl_SCC\Create.cshtml" />
     <Content Include="Views\Tbl_SCC\Delete.cshtml" />
     <Content Include="Views\Tbl_SCC\Details.cshtml" />
     <Content Include="Views\Tbl_SCC\Edit.cshtml" />
     <Content Include="Views\Tbl_SCC\Index.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioParaIncorporacaoDeDividaJurRat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

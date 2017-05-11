@@ -3,11 +3,11 @@
     <meta name="viewport" content="width=device-width" />
 </head>
 @{
-    ViewBag.Title = "Relatório - Bens apreendidos com débito de IPVA";
+    ViewBag.Title = "Relatório - Cobranças Simples para Pagamento";
     Layout = "~/Views/Shared/_LayoutImpressao.cshtml";
 }
 <br /><br />
-<h1>BENS APREENDIDOS COM DÉBITO DE IPVA</h1>
+<h1>COBRANÇAS SIMPLES PARA PAGAMENTO</h1>
 <br />
 <table class="table">
     <tr>
@@ -83,7 +83,7 @@
                 @Html.DisplayFor(modelItem => item.placa)
             </td>
             <td align="center">
-                @(item.status.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
+                @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
             </td>
             <td align="center">
                 @Html.DisplayFor(modelItem => item.uf_cobranca)

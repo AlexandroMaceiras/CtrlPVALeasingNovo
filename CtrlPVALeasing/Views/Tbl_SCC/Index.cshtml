@@ -14,6 +14,21 @@
         <th>
             @Html.DisplayNameFor(model => model.cpf_cnpj_cliente)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.perm_debito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.agencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.conta)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +36,21 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.perm_debito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.saldo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.agencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.conta)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.id }) |

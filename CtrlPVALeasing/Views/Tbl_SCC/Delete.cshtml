@@ -6,7 +6,7 @@
 <br /><br />
 <h2>Deletar</h2>
 
-<h3>Tem certeza que quer deletar este?</h3>
+<h3>Tem certeza que quer deletar?</h3>
 <div>
     <h4>Tbl_SCC</h4>
     <hr />
@@ -19,6 +19,46 @@
             @Html.DisplayFor(model => model.cpf_cnpj_cliente)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.perm_debito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.perm_debito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.saldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.agencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.agencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.conta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.conta)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
@@ -26,7 +66,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Deletar" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar", "Index")
+            @Html.ActionLink("voltar", "Index")
         </div>
     }
 </div>

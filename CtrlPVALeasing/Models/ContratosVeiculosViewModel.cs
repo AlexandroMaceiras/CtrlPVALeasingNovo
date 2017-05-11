@@ -272,5 +272,19 @@ namespace CtrlPVALeasing.Models
         [StringLength(9)]
         public string placa_bens { get; set; }
 
+
+
+
+        
+        public bool? perm_debito { get; set; }
+
+        [StringLength(1)]
+        public string sinal { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? saldo { get; set; }
+
+        [StringLength(10)]
+        public string conta { get; set; }
     }
 }

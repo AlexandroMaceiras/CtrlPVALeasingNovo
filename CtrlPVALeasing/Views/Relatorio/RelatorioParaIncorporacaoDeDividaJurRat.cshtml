@@ -3,11 +3,25 @@
     <meta name="viewport" content="width=device-width" />
 </head>
 @{
-    ViewBag.Title = "Relatório - Bens apreendidos com débito de IPVA";
+    if (Request["RAT"] != "true")
+    {
+        ViewBag.Title = "Relatório - Incorporação de Dívida - JUR";
+    }
+    else
+    {
+        ViewBag.Title = "Relatório - Incorporação de Dívida - RAT";
+    }
     Layout = "~/Views/Shared/_LayoutImpressao.cshtml";
 }
 <br /><br />
-<h1>BENS APREENDIDOS COM DÉBITO DE IPVA</h1>
+@if (Request["RAT"] != "true")
+{
+    <h1>INCORPORAÇÃO DE DÍVIDA - JUR</h1>
+}
+else
+{
+    <h1>INCORPORAÇÃO DE DÍVIDA - RAT</h1>
+}
 <br />
 <table class="table">
     <tr>
@@ -36,23 +50,23 @@
             Placa
         </th>
         <th>
-            Data da Cobrança
+            Valor Dívida
         </th>
         <th>
-            UF da Cobrança
+            Valor Custas
         </th>
         <th>
-            Tipo de Cobrança
-        </th>
-        <th>
-            Valor da Dívida
+            Valor Débito Total
         </th>
         <th>
             Ano de Exercício
         </th>
-        @*<th>
-            pagamento_efet_banco
-        </th>*@
+        <th>
+            Valor Total Pago
+        </th>
+        <th>
+            Valor Para Incorporar
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -83,23 +97,23 @@
                 @Html.DisplayFor(modelItem => item.placa)
             </td>
             <td align="center">
-                @(item.status.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
-            </td>
-            <td align="center">
-                @Html.DisplayFor(modelItem => item.uf_cobranca)
-            </td>
-            <td align="center">
-                @(item.tipo_cobranca == "C" ? "Cobr.Simples" : (item.tipo_cobranca == "D" ? "Dív.Ativa" : ""))
-            </td>
-            <td align="right">
                 @Html.DisplayFor(modelItem => item.valor_divida)
             </td>
             <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_custas)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_debito_total)
+            </td>
+            <td align="right">
                 @Html.DisplayFor(modelItem => item.ano_exercicio)
             </td>
-            @*<td align="center">
-                @Html.DisplayFor(modelItem => item.pagamento_efet_banco)
-            </td>*@
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_pago_total)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_pago_total)
+            </td>
         </tr>
     }
 </table>

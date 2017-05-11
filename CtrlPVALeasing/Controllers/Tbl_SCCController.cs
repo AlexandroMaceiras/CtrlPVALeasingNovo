@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CtrlPVALeasing.Models;
 
-namespace CtrlPVALeasing.Models
+namespace CtrlPVALeasing.Controllers
 {
     public class Tbl_SCCController : Controller
     {
@@ -45,7 +46,7 @@ namespace CtrlPVALeasing.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,cpf_cnpj_cliente")] Tbl_SCC tbl_SCC)
+        public ActionResult Create([Bind(Include = "id,cpf_cnpj_cliente,perm_debito,sinal,saldo,agencia,conta")] Tbl_SCC tbl_SCC)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +78,7 @@ namespace CtrlPVALeasing.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,cpf_cnpj_cliente")] Tbl_SCC tbl_SCC)
+        public ActionResult Edit([Bind(Include = "id,cpf_cnpj_cliente,perm_debito,sinal,saldo,agencia,conta")] Tbl_SCC tbl_SCC)
         {
             if (ModelState.IsValid)
             {
