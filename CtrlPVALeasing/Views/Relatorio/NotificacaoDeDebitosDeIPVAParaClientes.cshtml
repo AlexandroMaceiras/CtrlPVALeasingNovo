@@ -1,60 +1,268 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
+
+<style type="text/css">
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .dl-horizontal dt {
+    } 
+    .input-sm-ultra-fino2 {
+      height: 20px;
+      padding: 1px 10px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-ultra-fino3 {
+        height: 20px;
+        padding: 1px 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        border-radius: 3px;
+        background-color: rgb(235,235,228);
+    }
+
+    .input-sm-ultra-fino {
+      height: 10px;
+      padding: 4px 5px;
+        font-size: 10px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-fino {
+      height: 20px;
+      padding: 1px 1px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino10 {
+      height: 60px;
+      padding: 10px 15px;
+      font-size: 10px;
+      line-height: 35.5;
+      border-radius: 12px;
+    }
+    .input-sm-fino11 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino12 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+</style>
+
 @{
     ViewBag.Title = "Relatório - Notificacao de Debitos de IPVA para Clientes";
     Layout = null;
 }
 
-@foreach (var item in Model)
-{
-<body>
-    <center/>
-    <table width="100%">
+@foreach (var item in Model) { <body>
+<div class="jumbotronFundo">
+    <table border="0" width="100%">
+        <tr>
+            <td width="290">
+                <img src="~/Imagens/safraBranco.jpg" />
+            </td>
+        </tr>
+    </table>
+    <center><h4>NOTIFICAÇÃO DE DÉBITO DE IPVA</h4></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
         <tr>
             <td>
-                <table border="0" width="100%">
+                <table border="0" width="100%" cellspacing="0" cellpadding="0" >
+                    <tr >
+                        <td width="290"><font size="2">Prezado cliente:</font></td>
+                    </tr>
                     <tr>
-                        <td width="290">
-                            <img src="~/Imagens/safraBranco.jpg" />
+                        <td width="290"align="justify"><font size="2">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h4>VEÍCULO</h4></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <div><font size="2">Chassi: </font></div>
+                        </td>
+                        <td>
+                            <input class="input-sm-fino" value="@item.chassi" type="text" name="contrato" size="10" style="text-transform:uppercase" disabled="disabled" />
+                        </td>
+                        <td>
+                            <div><font size="2">Renavam: </font></div>
+                        </td>
+                        <td>
+                            <input class="input-sm-fino" value="@item.renavam" type="text" name="cliente" size="1" style="text-transform:uppercase" disabled="disabled" />
+                        </td>
+                        <td>
+                            <div><font size="2">Placa: </font></div>
+                        </td>
+                        <td>
+                            <input class="input-sm-fino" value="@item.placa" type="text" name="cliente" size="1" style="text-transform:uppercase" disabled="disabled" />
                         </td>
                     </tr>
-                </table>
-                <br />
-                <center><h4>NOTIFICAÇÃO DE DÉBITO DE IPVA</h4></center>
-                <table border="1" width="100%">
-                    <tr>
-                        <td width="290">Prezado cliente:</td>
-                    </tr>
-                    <tr>
-                        <td width="290">Informamo que o veículo com as características citadas abaixo, pertencem ao Contrato de Leasing de nº @item.contrato </td>
-                    </tr>
-                </table>
 
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h5>NOTIFICAÇÃO DE DÉBITO DE IPVA</h5></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="290"><font size="1">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290" align="justify"><font size="1">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    @*<br /><br /><br /><br />
+    <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+        <tr>
+            <td>
                 <div class="jumbotronFundo">
-
-                    <h2>CONSULTA DE CLIENTE</h2>
-                    <br />
-                    <center>
-                        <table border="1" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <th class="busca" width="5%">
-                                    <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
-                                </th>
-                            </tr>
-                        </table>
-                    </center>
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <center>
+                                    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <th class="busca" width="5%">
+                                                <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="busca" width="5%">
+                                                <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-
-                <table class="table">
-
+            </td>*@
+            @*<td>
+                    <table class="table">
                         <tr>
                             <td align="center">
                                 @Html.DisplayFor(modelItem => item.contrato)
@@ -95,24 +303,22 @@
                             <td align="center">
                                 @Html.DisplayFor(modelItem => item.ano_exercicio)
                             </td>
-                            @*<td align="center">
-                                    @Html.DisplayFor(modelItem => item.pagamento_efet_banco)
-                                </td>*@
                         </tr>
+                    </table>
+                    <script>
+                        //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+                        //setTimeout(function () {
+                        //    window.print();
+                        //    window.close();
+                        //}, 1000)
+                    </script>
+                </td>*@
+        @*</tr>
+    </table>*@
 
-                </table>
 
-                <script>
-                    //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
-                    //setTimeout(function () {
-                    //    window.print();
-                    //    window.close();
-                    //}, 1000)
-                </script>
 
-            </td>
-        </tr>
-</table>
-</body>
+        </div>
+    </body>
 }
 </html>

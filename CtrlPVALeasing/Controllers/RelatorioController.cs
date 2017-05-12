@@ -410,39 +410,39 @@ namespace CtrlPVALeasing.Controllers
 
                      select new
                      {
-                         contrato           = a.contrato,
-                         status             = a.status,
-                         nome_cliente       = a.nome_cliente,
-                         cpf_cnpj_cliente   = a.cpf_cnpj_cliente,
-                         end_cliente        = a.end_cliente,
-                         cidade_cliente     = a.cidade_cliente,
-                         uf_cliente         = a.uf_cliente,
-                         chassi             = b.chassi,
-                         renavam            = b.renavam,
-                         placa              = b.placa,
-                         dta_cobranca       = c.dta_cobranca,
-                         uf_cobranca        = c.uf_cobranca,
-                         valor_divida       = c.valor_divida,
-                         ano_exercicio      = c.ano_exercicio
+                         contrato = a.contrato,
+                         status = a.status,
+                         nome_cliente = a.nome_cliente,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         end_cliente = a.end_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         chassi = b.chassi,
+                         renavam = b.renavam,
+                         placa = b.placa,
+                         dta_cobranca = c.dta_cobranca,
+                         uf_cobranca = c.uf_cobranca,
+                         valor_divida = c.valor_divida,
+                         ano_exercicio = c.ano_exercicio
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
-                         contrato           = x.contrato,
-                         status             = x.status,
-                         nome_cliente       = x.nome_cliente,
-                         cpf_cnpj_cliente   = x.cpf_cnpj_cliente,
-                         end_cliente        = x.end_cliente,
-                         cidade_cliente     = x.cidade_cliente,
-                         uf_cliente         = x.uf_cliente,
-                         chassi             = x.chassi,
-                         renavam            = x.renavam,
-                         placa              = x.placa,
-                         dta_cobranca       = x.dta_cobranca,
-                         uf_cobranca        = x.uf_cobranca,
-                         valor_divida       = x.valor_divida,
-                         ano_exercicio      = x.ano_exercicio
+                         contrato = x.contrato,
+                         status = x.status,
+                         nome_cliente = x.nome_cliente,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         end_cliente = x.end_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         chassi = x.chassi,
+                         renavam = x.renavam,
+                         placa = x.placa,
+                         dta_cobranca = x.dta_cobranca,
+                         uf_cobranca = x.uf_cobranca,
+                         valor_divida = x.valor_divida,
+                         ano_exercicio = x.ano_exercicio
 
-                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca).Take(5);
 
             return View("", model);
         }
