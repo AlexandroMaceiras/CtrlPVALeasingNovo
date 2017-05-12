@@ -442,7 +442,7 @@ namespace CtrlPVALeasing.Controllers
                          valor_divida = x.valor_divida,
                          ano_exercicio = x.ano_exercicio
 
-                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca).Take(5);
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca).Take(2);
 
             return View("", model);
         }
