@@ -15,7 +15,6 @@ namespace CtrlPVALeasing.Controllers
         private CtrlIPVALeasingContext db = new CtrlIPVALeasingContext();
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
-        IEnumerable<Tbl_DebitosEPagamentos_Veiculo> model2 = null;
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
@@ -50,6 +49,7 @@ namespace CtrlPVALeasing.Controllers
             model.Add(new ContratosVeiculosViewModel() { id = -1, agencia = " " });
             return model;
         }
+
 
         public ActionResult ConsultaDebito(string chassi, string placa, string renavam)
         {

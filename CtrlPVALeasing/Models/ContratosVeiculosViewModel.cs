@@ -184,10 +184,19 @@ namespace CtrlPVALeasing.Models
         public string uf_pagamento { get; set; }
 
         [StringLength(10)]
-        public string tipo_pagamento { get; set; }
+        public string forma_pagamento_divida { get; set; }
+
+        [StringLength(10)]
+        public string forma_pagamento_custas { get; set; }
 
         [Column(TypeName = "numeric")]
         public decimal? valor_pago_divida { get; set; }
+
+        [StringLength(10)]
+        public string numero_miro_divida { get; set; }
+
+        [StringLength(10)]
+        public string numero_miro_custa { get; set; }
 
         [StringLength(10)]
         public string numero_miro { get; set; }
@@ -209,11 +218,22 @@ namespace CtrlPVALeasing.Models
 
         public DateTime? dta_pagamento_custas { get; set; }
 
-        [StringLength(10)]
-        public string forma_pagamento_divida { get; set; }
+        public DateTime? dta_recuperacao { get; set; }
 
-        [StringLength(10)]
-        public string forma_pagamento_custas { get; set; }
+        [StringLength(15)]
+        public string pci_debito_divida { get; set; }
+
+        [StringLength(15)]
+        public string pci_debito_custa { get; set; }
+
+        [StringLength(15)]
+        public string pci_credito { get; set; }
+
+        [StringLength(1)]
+        public string grupo_safra { get; set; }
+
+
+
 
 
 
@@ -252,5 +272,19 @@ namespace CtrlPVALeasing.Models
         [StringLength(9)]
         public string placa_bens { get; set; }
 
+
+
+
+        
+        public bool? perm_debito { get; set; }
+
+        [StringLength(1)]
+        public string sinal { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? saldo { get; set; }
+
+        [StringLength(10)]
+        public string conta { get; set; }
     }
 }

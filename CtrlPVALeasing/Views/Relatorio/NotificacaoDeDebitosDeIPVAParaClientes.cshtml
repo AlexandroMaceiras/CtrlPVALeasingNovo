@@ -1,0 +1,308 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<style type="text/css">
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .dl-horizontal dt {
+    } 
+    .input-sm-ultra-fino2 {
+      height: 20px;
+      padding: 1px 10px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-ultra-fino3 {
+        height: 20px;
+        padding: 1px 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        border-radius: 3px;
+        background-color: rgb(235,235,228);
+    }
+
+    .input-sm-ultra-fino {
+      height: 10px;
+      padding: 4px 5px;
+        font-size: 10px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-fino {
+      height: 20px;
+      padding: 1px 1px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino10 {
+      height: 60px;
+      padding: 10px 15px;
+      font-size: 10px;
+      line-height: 35.5;
+      border-radius: 12px;
+    }
+    .input-sm-fino11 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino12 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Relatório - Notificacao de Debitos de IPVA para Clientes";
+    Layout = null;
+}
+
+@foreach (var item in Model) { <body>
+<div class="jumbotronFundo">
+    <table border="0" width="100%">
+        <tr>
+            <td width="290">
+                <img src="~/Imagens/safraBranco.jpg" />
+            </td>
+        </tr>
+    </table>
+    <center><h4>NOTIFICAÇÃO DE DÉBITO DE IPVA</h4></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0" >
+                    <tr >
+                        <td width="290"><font size="2">Prezado cliente:</font></td>
+                    </tr>
+                    <tr>
+                        <td width="290"align="justify"><font size="2">Informamos que o veículo com características citadas abaixo, pertencente ao Contrato de Leasing de nº @item.contrato, mantido junto à Safra Leasing S/A, encontra-se em situação irregular com débitos junto ao órgão responsável. Solicitamos que Vossa Senhoria regularize as pendências de débito detalhadas abaixo para que possa utilizar o veículo.</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h4>VEÍCULO</h4></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <center>
+                    <table border="0" width="10%" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <div><font size="2">CHASSI:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.chassi" type="text" name="contrato" size="18" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <div><font size="2">RENAVAM:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.renavam" type="text" name="cliente" size="10" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <div><font size="2">PLACA:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.placa" type="text" name="cliente" size="7" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <center><h4>INTERESSADOS</h4></center>
+    <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
+        <tr>
+            <td>
+                <center>
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <div><font size="2">PROPRIETÁRIO:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="SAFRA LEASING S/A" type="text" name="contrato" size="18" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <div><font size="2">CNPJ:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="62.063.177/0001-94" type="text" name="cliente" size="15" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div><font size="2">CLIENTE / ARRENDATÁRIO:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.nome_cliente" type="text" name="cliente" size="40" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <div><font size="2">CPF / CNPJ:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.cpf_cnpj_cliente" type="text" name="cliente" size="7" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div><font size="2">ENDEREÇO:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.end_cliente" type="text" name="cliente" size="7" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div><font size="2">CIDADE:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.cidade_cliente" type="text" name="cliente" size="7" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                            <td>
+                                <div><font size="2">ESTADO:&nbsp;&nbsp;</font></div>
+                            </td>
+                            <td>
+                                <input class="input-sm-fino" value="@item.uf_cliente" type="text" name="cliente" size="7" style="text-transform:uppercase" disabled="disabled" />
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+
+    @*<br /><br /><br /><br />
+    <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+        <tr>
+            <td>
+                <div class="jumbotronFundo">
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <center>
+                                    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <th class="busca" width="5%">
+                                                <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="busca" width="5%">
+                                                <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>*@
+            @*<td>
+                    <table class="table">
+                        <tr>
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.contrato)
+                            </td>
+                            <td align="center">
+                                @(item.status.HasValue && item.status == true ? "Ativo" : (item.status.HasValue && item.status == false ? "Liquidado" : ""))
+                            </td>
+                            <td align="left">
+                                @Html.DisplayFor(modelItem => item.nome_cliente)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente)
+                            </td>
+                            <td align="left">
+                                @Html.DisplayFor(modelItem => item.marca)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(modelItem => item.chassi)
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(modelItem => item.renavam)
+                            </td>
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.placa)
+                            </td>
+                            <td align="center">
+                                @(item.status.HasValue ? item.dta_cobranca.ToString().Substring(0, 10) : "")
+                            </td>
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.uf_cobranca)
+                            </td>
+                            <td align="center">
+                                @(item.tipo_cobranca == "C" ? "Cobr.Simples" : (item.tipo_cobranca == "D" ? "Dív.Ativa" : ""))
+                            </td>
+                            <td align="right">
+                                @Html.DisplayFor(modelItem => item.valor_divida)
+                            </td>
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.ano_exercicio)
+                            </td>
+                        </tr>
+                    </table>
+                    <script>
+                        //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+                        //setTimeout(function () {
+                        //    window.print();
+                        //    window.close();
+                        //}, 1000)
+                    </script>
+                </td>*@
+        @*</tr>
+    </table>*@
+
+
+
+        </div>
+    </body>
+}
+</html>

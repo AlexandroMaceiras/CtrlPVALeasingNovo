@@ -379,7 +379,9 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />*@
+
+                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
