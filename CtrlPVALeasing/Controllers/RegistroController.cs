@@ -302,22 +302,11 @@ namespace CtrlPVALeasing.Controllers
                 if (ModelState.IsValid)
                 {
                     var procuraRegistro = db.Tbl_DebitosEPagamentos_Veiculo
-                        .FirstOrDefault(c => 
-                    
-                        c.chassi == chassi || 
-                        c.renavam == renavam || 
-                        c.placa == placa || 
-
-                        c.dta_pagamento == dta_pagamento || 
-                        c.uf_pagamento == uf_pagamento || 
-                        c.numero_miro == numero_miro ||
-                        c.forma_pagamento_divida == forma_pagamento_divida ||
-                        c.valor_pago_total == valor_pago_total ||
-                        c.valor_pago_divida == valor_pago_divida);
+                        .FirstOrDefault(c => c.id == id_debito);
 
                     if (procuraRegistro != null)
                     {
-                        procuraRegistro.chassi = chassi;
+                        procuraRegistro.id = id_debito;
                         procuraRegistro.renavam = renavam;
                         procuraRegistro.placa = placa;
 
