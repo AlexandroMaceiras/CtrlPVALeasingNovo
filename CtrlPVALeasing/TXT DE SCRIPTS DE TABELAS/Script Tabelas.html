@@ -103,11 +103,16 @@ CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
 	)
 GO
 
-
 CREATE TABLE dbo.Tbl_SCC
 	(
 	id               INT IDENTITY NOT NULL,
-	cpf_cnpj_cliente VARCHAR (18) NULL
+	cpf_cnpj_cliente VARCHAR (18) NULL,
+	perm_debito      BIT NULL,
+	sinal            CHAR (1) NULL,
+	saldo            NUMERIC (18, 2) NULL,
+	agencia          VARCHAR (5) NULL,
+	conta            VARCHAR (10) NULL,
+	PRIMARY KEY (id)
 	)
 GO
 

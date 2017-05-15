@@ -98,10 +98,10 @@ namespace CtrlPVALeasing.Controllers
         {
             int LinhasPular = 1; //Quantidade de linhas à pular no cabeçalho.
 
-            if (Upload1 != null && Upload1.Length > 0) //Upload com path completo sendo informado pelo usuário e leitura direta do arquivo.
-            {
+            //if (Upload1 != null && Upload1.Length > 0) //Upload com path completo sendo informado pelo usuário e leitura direta do arquivo.
+            //{
 
-            }
+            //}
 
             if (Upload2 != null && Upload2.ContentLength > 0) //Upload com browse de arquivo e armazenamentto do arquivo no servidor para depois ser lido.
             {

@@ -394,8 +394,8 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
-                     join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     //join e in db.Tbl_CCL
+                     //on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
 
                      //where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
@@ -415,6 +415,8 @@ namespace CtrlPVALeasing.Controllers
                          nome_cliente = a.nome_cliente,
                          cpf_cnpj_cliente = a.cpf_cnpj_cliente,
                          end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cep_cliente = a.cep_cliente,
                          cidade_cliente = a.cidade_cliente,
                          uf_cliente = a.uf_cliente,
                          chassi = b.chassi,
@@ -432,6 +434,8 @@ namespace CtrlPVALeasing.Controllers
                          nome_cliente = x.nome_cliente,
                          cpf_cnpj_cliente = x.cpf_cnpj_cliente,
                          end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cep_cliente = x.cep_cliente,
                          cidade_cliente = x.cidade_cliente,
                          uf_cliente = x.uf_cliente,
                          chassi = x.chassi,
@@ -442,7 +446,7 @@ namespace CtrlPVALeasing.Controllers
                          valor_divida = x.valor_divida,
                          ano_exercicio = x.ano_exercicio
 
-                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca).Take(2);
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);//.Take(5);
 
             return View("", model);
         }
