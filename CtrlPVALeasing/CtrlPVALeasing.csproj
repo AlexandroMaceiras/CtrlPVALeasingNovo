@@ -204,6 +204,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="Modelo de Upload\UploadDebitoDeIPVA.csv" />
     <None Include="Properties\PublishProfiles\CtrlIPVALeasing.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cldr.js" />
@@ -310,9 +311,11 @@
     <Content Include="Views\Tbl_SCC\Index.cshtml" />
     <Content Include="Views\Relatorio\RelatorioParaIncorporacaoDeDividaJurRat.cshtml" />
     <Content Include="Views\Relatorio\NotificacaoDeDebitosDeIPVAParaClientes.cshtml" />
+    <Content Include="Views\Registro\UploadDebitoIPVA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
