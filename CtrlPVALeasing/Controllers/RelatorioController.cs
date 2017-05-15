@@ -16,6 +16,80 @@ namespace CtrlPVALeasing.Controllers
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
 
+
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na view pela primeira vez quando ela carrega sem ninguém.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeira()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = " " });
+            return model;
+        }
+
+        public ActionResult EntradaRelatorioPerdasOperacionais()
+        {
+            return View(GetContratosVeiculosViewModelPrimeira());
+        }
+
+        [HttpPost]
+        public ActionResult EntradaRelatorioPerdasOperacionais(DateTime? dataInicio, DateTime? dataFim)
+        {
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     join d in db.Tbl_Bens
+                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     join e in db.Tbl_CCL
+                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+
+                     where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
+
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     select new
+                     {
+                         contrato = a.contrato,
+                         status = a.status,
+                         nome_cliente = a.nome_cliente,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         marca = e.marca,
+                         chassi = b.chassi,
+                         renavam = b.renavam,
+                         placa = b.placa,
+                         dta_cobranca = c.dta_cobranca,
+                         uf_cobranca = c.uf_cobranca,
+                         tipo_cobranca = c.tipo_cobranca,
+                         valor_divida = c.valor_divida,
+                         ano_exercicio = c.ano_exercicio,
+                         pagamento_efet_banco = c.pagamento_efet_banco
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         contrato = x.contrato,
+                         status = x.status,
+                         nome_cliente = x.nome_cliente,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         marca = x.marca,
+                         chassi = x.chassi,
+                         renavam = x.renavam,
+                         placa = x.placa,
+                         dta_cobranca = x.dta_cobranca,
+                         uf_cobranca = x.uf_cobranca,
+                         tipo_cobranca = x.tipo_cobranca,
+                         valor_divida = x.valor_divida,
+                         ano_exercicio = x.ano_exercicio,
+                         pagamento_efet_banco = x.pagamento_efet_banco
+
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
+
+            return View("RelatorioBensApreendidosDebtoIPVA", model);
+        }
+
+
         public ActionResult RelatorioBensApreendidosDebtoIPVA()
         {
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato

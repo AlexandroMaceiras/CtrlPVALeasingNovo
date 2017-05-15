@@ -30,13 +30,43 @@ VALUES ('756057515', '0000', '11500', '11/09/2014 00:00:00', '11/09/2016 00:00:0
 ==========================================================
 
 INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
-VALUES ('01017567880', '9BG144CP0EC467623', 'FZD9496')
+VALUES ('01017568674         ', '9BG144CP0EC4676491', 'FYY1653  ')
 
 INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
-VALUES ('01017568879', '9BG144CP0EC466910', 'FYR8011')
+VALUES ('13123', '234HJ23HH32GJ23HG23', 'AAS1212')
 
 INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
-VALUES ('01017568674', '9BG144CP0EC467649', 'FYY1653')
+VALUES ('12233123', '23423HH32GJ23HG2218', 'AAS1314')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233144', '234HJ23HH32GJ23HG44', 'AAS1344')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233199', '234HJ23HH32GJ23HG99', 'AAS1399')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233100', '234HJ23HH32GJ23HG00', 'AAS1300')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233111', '234HJ23HH32GJ23HG11', 'AAS1311')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233166', '234HJ23HH32GJ23HG66', 'AAS1366')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233122', '234HJ23HH32GJ23HG22', 'AAS1322')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233133', '234HJ23HH32GJ23HG33', 'AAS1333')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('12233155', '234HJ23HH32GJ23HG55', 'AAS1355')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('00824874900         ', '9BGRD08X04G163941   ', 'ALQ6344  ')
+
+INSERT INTO dbo.Tbl_Bens (renavam, chassi, placa)
+VALUES ('00824886674         ', '9BGRD08X04G164622   ', 'ALQ7819  ')
 
 ===========================================================
 

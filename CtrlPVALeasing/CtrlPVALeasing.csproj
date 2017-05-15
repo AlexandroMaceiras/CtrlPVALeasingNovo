@@ -312,6 +312,7 @@
     <Content Include="Views\Relatorio\RelatorioParaIncorporacaoDeDividaJurRat.cshtml" />
     <Content Include="Views\Relatorio\NotificacaoDeDebitosDeIPVAParaClientes.cshtml" />
     <Content Include="Views\Registro\UploadDebitoIPVA.cshtml" />
+    <Content Include="Views\Relatorio\EntradaRelatorioPerdasOperacionais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
