@@ -32,8 +32,7 @@
                         </th>
                         <th class="busca" width="18%" align="right">
                             <br />
-                            <a href="/" onclick="javascript:history.go(-1);" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>
-                            <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                            <a href="/" onclick="javascript: window.close();" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR / MENU</a>
                         </th>
                     </tr>
                 </table>
@@ -48,7 +47,7 @@
                             <table border="0" style="border-style:inherit">
                                 <tr>
                                     <td>
-                                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Início:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Início do Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                     </td>
                                     <td>
                                         <input class="input-sm-fino" type="text" name="dataInicio" />
@@ -57,7 +56,7 @@
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Fim:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <div class="fonte-cinza-claro fonte-tamanho-form">Data de Fim do Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                     </td>
                                     <td>
                                         <input class="input-sm-fino" type="text" name="dataFim" />
@@ -66,7 +65,14 @@
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="GERAR RELATÓRIO" />
+                                        <input type="hidden" name="escolha" id="escolha" value="false" />
+                                        <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="GERAR CSV" />
+                                    </td>
+                                    <td>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <input onclick="validateForm(false);" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="GERAR RELATÓRIO" />
                                     </td>
                                 </tr>
                             </table>
@@ -75,6 +81,7 @@
                 </table>
             </center>
         </div>
+
 
     @*//Erro de veículo não encontrado
     if (MF.id == -1)
@@ -96,7 +103,7 @@
 
     try
     {
-        function validateForm()
+        function validateForm(a)
         {
             if (
                 document.getElementsByName('dataInicio')[0].value == "" ||
@@ -112,7 +119,14 @@
             }
             else
             {
-                document.getElementById("rd").value = true;
+                if (a)
+                {
+                    document.getElementById("escolha").value = true;
+                }
+                else
+                {
+                    document.getElementById("escolha").value = false;
+                }
                 document.getElementById("FormAltera").submit();
                 return true;
             }

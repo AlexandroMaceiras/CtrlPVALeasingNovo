@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CtrlPVALeasing.Models;
+using System.IO;
 
 namespace CtrlPVALeasing.Controllers
 {
@@ -34,59 +35,109 @@ namespace CtrlPVALeasing.Controllers
         }
 
         [HttpPost]
-        public ActionResult EntradaRelatorioPerdasOperacionais(DateTime? dataInicio, DateTime? dataFim)
+        public ActionResult EntradaRelatorioPerdasOperacionais(DateTime? dataInicio, DateTime? dataFim, bool escolha)
         {
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
 
-                     where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
+                     join f in db.Tbl_Agencias
+                     on a.agencia equals f.agencia
+                     into j1
+                     from f in j1.DefaultIfEmpty()
 
+                     where c.dta_pagamento >= dataInicio
+                     where c.dta_pagamento <= dataFim
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
                      select new
                      {
-                         contrato = a.contrato,
-                         status = a.status,
-                         nome_cliente = a.nome_cliente,
-                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
-                         marca = e.marca,
-                         chassi = b.chassi,
-                         renavam = b.renavam,
-                         placa = b.placa,
-                         dta_cobranca = c.dta_cobranca,
-                         uf_cobranca = c.uf_cobranca,
-                         tipo_cobranca = c.tipo_cobranca,
-                         valor_divida = c.valor_divida,
-                         ano_exercicio = c.ano_exercicio,
-                         pagamento_efet_banco = c.pagamento_efet_banco
+                         chassi             = b.chassi,
+                         contrato           = a.contrato,
+                         grupo_safra        = c.grupo_safra,
+
+                         descricao_agencia  = f.descricao_agencia,
+                         agencia            = a.agencia,
+
+                         c.dta_pagamento,
+                         c.valor_divida,
+                         c.pci_debito_divida
+
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
-                         contrato = x.contrato,
-                         status = x.status,
-                         nome_cliente = x.nome_cliente,
-                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
-                         marca = x.marca,
-                         chassi = x.chassi,
-                         renavam = x.renavam,
-                         placa = x.placa,
-                         dta_cobranca = x.dta_cobranca,
-                         uf_cobranca = x.uf_cobranca,
-                         tipo_cobranca = x.tipo_cobranca,
-                         valor_divida = x.valor_divida,
-                         ano_exercicio = x.ano_exercicio,
-                         pagamento_efet_banco = x.pagamento_efet_banco
+                         chassi             = x.chassi,
+                         contrato           = x.contrato,
+                         grupo_safra        = x.grupo_safra,
+
+                         descricao_agencia  = x.descricao_agencia,
+                         agencia            = x.agencia,
+
+                         dta_pagamento      = x.dta_pagamento,
+                         valor_divida       = x.valor_divida,
+                         pci_debito_divida  = x.pci_debito_divida
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-            return View("RelatorioBensApreendidosDebtoIPVA", model);
+            //Gera Resultado em CSV.
+            if (escolha)
+            {
+                StringWriter sw = new StringWriter();
+
+                sw.WriteLine("Descrição(Chassi); Nº Contrato; Nome Empresa; Cód; Área Onde Ocorreu a Perda (Descrição Agência); Cód; Tipo do Evento - 1º Nível; Cód; Tipo do Evento - 2º Nível; Cód; Tipo do Evento - 3º Nível; Cód; Fator de Risco; Id Evento Perdas Raiz; Sistema Envolvido; Cód;Produto; Cód; Cód; Data da Descoberta; Tipo de Risco Vinculado; Área que Cadastrou a Perda; Cód; Segmento Comercial; Cód; Data Contábil; Valor; PCI / PCU");
+
+                Response.ClearContent();
+                Response.AddHeader("content-disposition", "attachment;filename=RelatorioPerdasOperacionais.csv");
+                Response.ContentType = "application/octet-stream";
+                Response.ContentEncoding = System.Text.Encoding.Default;
+
+                var users = db.Tbl_DadosDaVenda.ToList();
+
+                foreach (var elemento in model)
+                {
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};",
+
+                    elemento.chassi,
+                    elemento.contrato,
+                    (elemento.grupo_safra == "10" ? "BANCO SAFRA" : (elemento.grupo_safra == "20" ? "BANCO J. SAFRA" : (elemento.grupo_safra == "30" ? "SAFRA LEASING" : (elemento.grupo_safra == "40" ? "JS ADM RECURSOS" : "")))),
+                    elemento.grupo_safra,
+                    elemento.descricao_agencia,
+                    elemento.agencia,
+                    "7 - Práticas Inadequadas relativas a contrapartes, clientes",
+                    "7",
+                    "7_01 - Perdas na relação de negócios com clientes",
+                    "7_01",
+                    "7_01_03 - Outras perdas decorrentes da relação de negócios com clientes",
+                    "7_01_03",
+                    "Eventos Externos",
+                    "",
+                    "Arrendamento Mercantil - Stored",
+                    "ARM",
+                    "LEASING",
+                    "104010000",
+                    "1",
+                    "????????",
+                    "Crédito",
+                    "BO LEASING PESADOSPOA",
+                    "37470",
+                    "Bancos",
+                    "PEPD",
+                    (elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : ""),
+                    elemento.valor_divida,
+                    elemento.pci_debito_divida
+                    ));
+                }
+                Response.Write(sw.ToString());
+                Response.End();
+            }
+            else
+            {
+                return View("RelatorioPerdasOperacionais", model);
+            }
+
+            return View(GetContratosVeiculosViewModelPrimeira());
         }
 
 

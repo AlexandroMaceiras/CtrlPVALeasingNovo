@@ -183,7 +183,7 @@ namespace CtrlPVALeasing.Controllers
                     pci_debito_divida        = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
                     pci_debito_custa         = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
                     pci_credito              = (a.pci_credito.Trim() == "null" || a.pci_credito.Trim() == "NULL" ? null : a.pci_credito.Trim()),
-                    grupo_safra              = (a.grupo_safra.Trim() == "" || a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim().Substring(0,1)),
+                    grupo_safra              = (a.grupo_safra.Trim() == "" || a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim().Substring(0,6)),
                     numero_miro_divida       = (a.numero_miro_divida.Trim() == "null" || a.numero_miro_divida.Trim() == "NULL" ? null : a.numero_miro_divida.Trim()),
                     numero_miro_custa        = (a.numero_miro_custa.Trim() == "null" || a.numero_miro_custa.Trim() == "NULL" ? null : a.numero_miro_custa.Trim()),
 

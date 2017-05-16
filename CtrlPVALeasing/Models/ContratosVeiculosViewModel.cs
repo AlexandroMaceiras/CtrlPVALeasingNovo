@@ -229,7 +229,7 @@ namespace CtrlPVALeasing.Models
         [StringLength(15)]
         public string pci_credito { get; set; }
 
-        [StringLength(1)]
+        [StringLength(6)]
         public string grupo_safra { get; set; }
 
 
@@ -286,5 +286,12 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(10)]
         public string conta { get; set; }
+
+
+
+
+
+        [StringLength(40)]
+        public string descricao_agencia { get; set; }
     }
 }

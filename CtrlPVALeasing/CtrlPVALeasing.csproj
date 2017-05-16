@@ -177,6 +177,8 @@
     <Compile Include="Models\Arm_Veiculos.cs" />
     <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
+    <Compile Include="Models\Tbl_Agencias.cs" />
+    <Compile Include="Models\Tbl_AgenciasController.cs" />
     <Compile Include="Models\Tbl_Bens.cs" />
     <Compile Include="Models\Tbl_CCL.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
@@ -313,6 +315,12 @@
     <Content Include="Views\Relatorio\NotificacaoDeDebitosDeIPVAParaClientes.cshtml" />
     <Content Include="Views\Registro\UploadDebitoIPVA.cshtml" />
     <Content Include="Views\Relatorio\EntradaRelatorioPerdasOperacionais.cshtml" />
+    <Content Include="Views\Relatorio\RelatorioPerdasOperacionais.cshtml" />
+    <Content Include="Views\Tbl_Agencias\Create.cshtml" />
+    <Content Include="Views\Tbl_Agencias\Delete.cshtml" />
+    <Content Include="Views\Tbl_Agencias\Details.cshtml" />
+    <Content Include="Views\Tbl_Agencias\Edit.cshtml" />
+    <Content Include="Views\Tbl_Agencias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

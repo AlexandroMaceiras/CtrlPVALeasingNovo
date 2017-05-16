@@ -19,7 +19,8 @@ namespace CtrlPVALeasing.Models
         public DbSet<CtrlPVALeasing.Models.Tbl_Bens> Tbl_Bens { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Dut> Tbl_Dut { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_CCL> Tbl_CCL { get; set; }
-    
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_SCC> Tbl_SCC { get; set; }
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Agencias> Tbl_Agencias { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -248,6 +249,5 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
         }
 
-        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_SCC> Tbl_SCC { get; set; }
     }
 }

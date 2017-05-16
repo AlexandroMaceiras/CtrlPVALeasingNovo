@@ -101,7 +101,7 @@ namespace CtrlPVALeasing.Models
         [StringLength(15)]
         public string pci_credito { get; set; }
 
-        [StringLength(1)]
+        [StringLength(6)]
         public string grupo_safra { get; set; }
 
     }
