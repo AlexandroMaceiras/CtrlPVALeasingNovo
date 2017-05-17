@@ -178,7 +178,7 @@
     <Compile Include="Models\ContratosVeiculosViewModel.cs" />
     <Compile Include="Models\CtrlIPVALeasingContext.cs" />
     <Compile Include="Models\Tbl_Agencias.cs" />
-    <Compile Include="Models\Tbl_AgenciasController.cs" />
+    <Compile Include="Controllers\Tbl_AgenciasController.cs" />
     <Compile Include="Models\Tbl_Bens.cs" />
     <Compile Include="Models\Tbl_CCL.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
