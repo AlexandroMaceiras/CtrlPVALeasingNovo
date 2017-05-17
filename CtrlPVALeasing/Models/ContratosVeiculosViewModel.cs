@@ -293,5 +293,11 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(40)]
         public string descricao_agencia { get; set; }
+
+
+
+
+        [StringLength(1)]
+        public string impresso { get; set; }
     }
 }

@@ -81,9 +81,9 @@ namespace CtrlPVALeasing.Controllers
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-            //Gera Resultado em CSV.
             if (escolha)
             {
+                //Gera Resultado em CSV.
                 StringWriter sw = new StringWriter();
 
                 sw.WriteLine("Descrição(Chassi); Nº Contrato; Nome Empresa; Cód; Área Onde Ocorreu a Perda (Descrição Agência); Cód; Tipo do Evento - 1º Nível; Cód; Tipo do Evento - 2º Nível; Cód; Tipo do Evento - 3º Nível; Cód; Fator de Risco; Id Evento Perdas Raiz; Sistema Envolvido; Cód;Produto; Cód; Cód; Data da Descoberta; Tipo de Risco Vinculado; Área que Cadastrou a Perda; Cód; Segmento Comercial; Cód; Data Contábil; Valor; PCI / PCU");
@@ -134,6 +134,7 @@ namespace CtrlPVALeasing.Controllers
             }
             else
             {
+                //Gera Relatório impresso em Landscape para poder caber todas as 27 colunas.
                 return View("RelatorioPerdasOperacionais", model);
             }
 

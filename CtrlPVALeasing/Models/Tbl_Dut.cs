@@ -18,5 +18,8 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(9)]
         public string placa { get; set; }
+
+        [StringLength(1)]
+        public string impresso { get; set; }
     }
 }

@@ -66,13 +66,13 @@
                                     </td>
                                     <td>
                                         <input type="hidden" name="escolha" id="escolha" value="false" />
-                                        <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="GERAR CSV" />
+                                        <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
                                     </td>
                                     <td>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <input onclick="validateForm(false);" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="GERAR RELATÓRIO" />
+                                        <input onclick="validateForm(false);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR RELATÓRIO" />
                                     </td>
                                 </tr>
                             </table>
@@ -110,7 +110,6 @@
                 document.getElementsByName('dataFim')[0].value == ""
                 )
             {
-
                 $(document).ready(function () {
                     $("#msgErro1").modal();
                     return false;
@@ -130,6 +129,7 @@
                 document.getElementById("FormAltera").submit();
                 return true;
             }
+            return false;
         }
     }
     catch(e)

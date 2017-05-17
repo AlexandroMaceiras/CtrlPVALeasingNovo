@@ -160,13 +160,16 @@ GO
 
 CREATE TABLE dbo.Tbl_Dut
 	(
-	id      INT IDENTITY NOT NULL,
-	renavam VARCHAR (20) NULL,
-	chassi  VARCHAR (20) NULL,
-	placa   VARCHAR (9) NULL,
+	id       INT IDENTITY NOT NULL,
+	renavam  VARCHAR (20) NULL,
+	chassi   VARCHAR (20) NULL,
+	placa    VARCHAR (9) NULL,
+	impresso CHAR (1) NULL,
 	PRIMARY KEY (id)
 	)
 GO
+
+
 
 IF OBJECT_ID ('dbo.Tbl_SCC') IS NOT NULL
 	DROP TABLE dbo.Tbl_SCC
