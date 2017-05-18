@@ -45,8 +45,20 @@
     var MF = Model.First();
     <div class="jumbotronFundo">
         <input type="hidden" name="rd" id="rd" value="false" />
-        <h2>UPLOAD DÉBITO DE IPVA</h2>
-        <br />
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca" width="82%">
+                        <h2>UPLOAD DÉBITO DE IPVA</h2>
+                    </th>
+                    <th class="busca" width="18%" align="right">
+                        <br />
+                        <a href="/" onclick="javascript: window.close();" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR / MENU</a>
+                    </th>
+                </tr>
+            </table>
+            <hr />
+        </center>
         <center>
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
@@ -60,7 +72,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Para subir um arquivo com vários débitos, baixe <b><a href="~/Modelo de Upload/UploadDebitoDeIPVA.csv">ESTA</a></b> planilha e preencha ela com os dados em cada coluna correta de acordo com o nome do campo que está descrito no top da coluna. Não apague ou sobrescreva a descrição do top das colunas, somente preencha com os dados logo abaixo das descrições. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Para subir um arquivo com vários débitos, baixe <b><a href="~/Modelo de Upload/UploadDebitoDeIPVA.csv">ESTA</a></b> planilha e preencha ela com os dados em cada coluna correta de acordo com o nome do campo que está descrito no top da coluna. Não apague ou sobrescreva a descrição do top das colunas, somente preencha com os dados logo abaixo das descrições. Existem 2 linhas no top. A primeira linha indica o formato e o tamanho do dado que pode ser inserido naquela coluna, a segunda linha indica o nome do campo dquela coluna. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                             </tr>
                             <tr>
@@ -109,6 +121,48 @@
             {
                 $(document).ready(function () {
                     $("#msgErro1").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -4)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro4").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -3)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgOk").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -6)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro6").modal();
                 });
             }
             catch (e) {
@@ -165,12 +219,33 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Veículo não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(206, 39, 39)">Planilha vazia ou algum erro na planilha, nenhum registro foi inserido no BD!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(206, 39, 39)">Erro na consistência dos dados da planilha!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -186,12 +261,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de Debito Incluído com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registros da planilha incluídos no BD!<h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -202,3 +277,23 @@
     </div>
 </div>
 
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro6" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(176, 172, 186)">Erro de entrada de dados!</center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

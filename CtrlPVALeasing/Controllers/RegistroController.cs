@@ -96,7 +96,7 @@ namespace CtrlPVALeasing.Controllers
         [HttpPost]
         public ActionResult UploadDebitoIPVA(string Upload1, HttpPostedFileBase Upload2)
         {
-            int LinhasPular = 1; //Quantidade de linhas à pular no cabeçalho.
+            int LinhasPular = 2; //Quantidade de linhas à pular no cabeçalho.
 
             //if (Upload1 != null && Upload1.Length > 0) //Upload com path completo sendo informado pelo usuário e leitura direta do arquivo.
             //{
@@ -128,26 +128,28 @@ namespace CtrlPVALeasing.Controllers
                     nome_cartorio            = x[11],
                     divida_ativa_serasa      = x[12],
                     protesto_serasa          = x[13],
-                    valor_debito_total       = x[14],
-                    pagamento_efet_banco     = x[15],
-                    dta_pagamento            = x[16],
-                    uf_pagamento             = x[17],
-                    forma_pagamento_divida   = x[18],
-                    forma_pagamento_custas   = x[19],
-                    valor_pago_divida        = x[20],
-                    obs_pagamento            = x[21],
-                    valor_pago_custas        = x[22],
-                    valor_pago_total         = x[23],
-                    valor_recuperado         = x[24],
-                    valor_total_recuperado   = x[25],
-                    dta_pagamento_custas     = x[26],
-                    dta_recuperacao          = x[27],
-                    pci_debito_divida        = x[28],
-                    pci_debito_custa         = x[29],
-                    pci_credito              = x[30],
-                    grupo_safra              = x[31],
-                    numero_miro_divida       = x[32],
-                    numero_miro_custa        = x[33]
+                    valor_debito_total       = x[14]
+                    
+                    //,
+                    //pagamento_efet_banco     = x[15],
+                    //dta_pagamento            = x[16],
+                    //uf_pagamento             = x[17],
+                    //forma_pagamento_divida   = x[18],
+                    //forma_pagamento_custas   = x[19],
+                    //valor_pago_divida        = x[20],
+                    //obs_pagamento            = x[21],
+                    //valor_pago_custas        = x[22],
+                    //valor_pago_total         = x[23],
+                    //valor_recuperado         = x[24],
+                    //valor_total_recuperado   = x[25],
+                    //dta_pagamento_custas     = x[26],
+                    //dta_recuperacao          = x[27],
+                    //pci_debito_divida        = x[28],
+                    //pci_debito_custa         = x[29],
+                    //pci_credito              = x[30],
+                    //grupo_safra              = x[31],
+                    //numero_miro_divida       = x[32],
+                    //numero_miro_custa        = x[33]
 
                 }).AsEnumerable().Select(a => new Tbl_DebitosEPagamentos_Veiculo
                 {
@@ -167,28 +169,28 @@ namespace CtrlPVALeasing.Controllers
                     divida_ativa_serasa      = (a.divida_ativa_serasa.Trim() == "1" ? true : false),
                     protesto_serasa          = (a.protesto_serasa.Trim() == "1" ? true : false),
                     valor_debito_total       = (a.valor_debito_total.Trim() == "" || a.valor_debito_total.Trim() == "null" || a.valor_debito_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_debito_total)),
-                    pagamento_efet_banco     = (a.pagamento_efet_banco.Trim() == "1" ? true : false),
-                    dta_pagamento            = (a.dta_pagamento.Trim() == "" || a.dta_pagamento.Trim() == "null" || a.dta_pagamento.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento)),
-                    uf_pagamento             = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
-                    forma_pagamento_divida   = (a.forma_pagamento_divida.Trim() == "null" || a.forma_pagamento_divida.Trim() == "NULL" ? null : a.forma_pagamento_divida.Trim()),
-                    forma_pagamento_custas   = (a.forma_pagamento_custas.Trim() == "null" || a.forma_pagamento_custas.Trim() == "NULL" ? null : a.forma_pagamento_custas.Trim()),
-                    valor_pago_divida        = (a.valor_pago_divida.Trim() == "" || a.valor_pago_divida.Trim() == "null" || a.valor_pago_divida.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_divida)),
-                    obs_pagamento            = (a.obs_pagamento.Trim() == "null" || a.obs_pagamento.Trim() == "NULL" ? null : a.obs_pagamento.Trim()),
-                    valor_pago_custas        = (a.valor_pago_custas.Trim() == "" || a.valor_pago_custas.Trim() == "null" || a.valor_pago_custas.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_custas)),
-                    valor_pago_total         = (a.valor_pago_total.Trim() == "" || a.valor_pago_total.Trim() == "null" || a.valor_pago_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_total)),
-                    valor_recuperado         = (a.valor_recuperado.Trim() == "" || a.valor_recuperado.Trim() == "null" || a.valor_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_recuperado)),
-                    valor_total_recuperado   = (a.valor_total_recuperado.Trim() == "" || a.valor_total_recuperado.Trim() == "null" || a.valor_total_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_total_recuperado)),
-                    dta_pagamento_custas     = (a.dta_pagamento_custas.Trim() == "" || a.dta_pagamento_custas.Trim() == "null" || a.dta_pagamento_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento_custas)),
-                    dta_recuperacao          = (a.dta_recuperacao.Trim() == "" || a.dta_recuperacao.Trim() == "null" || a.dta_recuperacao.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_recuperacao)),
-                    pci_debito_divida        = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
-                    pci_debito_custa         = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
-                    pci_credito              = (a.pci_credito.Trim() == "null" || a.pci_credito.Trim() == "NULL" ? null : a.pci_credito.Trim()),
-                    grupo_safra              = (a.grupo_safra.Trim() == "" || a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim().Substring(0,6)),
-                    numero_miro_divida       = (a.numero_miro_divida.Trim() == "null" || a.numero_miro_divida.Trim() == "NULL" ? null : a.numero_miro_divida.Trim()),
-                    numero_miro_custa        = (a.numero_miro_custa.Trim() == "null" || a.numero_miro_custa.Trim() == "NULL" ? null : a.numero_miro_custa.Trim()),
+                    //pagamento_efet_banco     = (a.pagamento_efet_banco.Trim() == "1" ? true : false),
+                    //dta_pagamento            = (a.dta_pagamento.Trim() == "" || a.dta_pagamento.Trim() == "null" || a.dta_pagamento.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento)),
+                    //uf_pagamento             = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
+                    //forma_pagamento_divida   = (a.forma_pagamento_divida.Trim() == "null" || a.forma_pagamento_divida.Trim() == "NULL" ? null : a.forma_pagamento_divida.Trim()),
+                    //forma_pagamento_custas   = (a.forma_pagamento_custas.Trim() == "null" || a.forma_pagamento_custas.Trim() == "NULL" ? null : a.forma_pagamento_custas.Trim()),
+                    //valor_pago_divida        = (a.valor_pago_divida.Trim() == "" || a.valor_pago_divida.Trim() == "null" || a.valor_pago_divida.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_divida)),
+                    //obs_pagamento            = (a.obs_pagamento.Trim() == "null" || a.obs_pagamento.Trim() == "NULL" ? null : a.obs_pagamento.Trim()),
+                    //valor_pago_custas        = (a.valor_pago_custas.Trim() == "" || a.valor_pago_custas.Trim() == "null" || a.valor_pago_custas.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_custas)),
+                    //valor_pago_total         = (a.valor_pago_total.Trim() == "" || a.valor_pago_total.Trim() == "null" || a.valor_pago_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_total)),
+                    //valor_recuperado         = (a.valor_recuperado.Trim() == "" || a.valor_recuperado.Trim() == "null" || a.valor_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_recuperado)),
+                    //valor_total_recuperado   = (a.valor_total_recuperado.Trim() == "" || a.valor_total_recuperado.Trim() == "null" || a.valor_total_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_total_recuperado)),
+                    //dta_pagamento_custas     = (a.dta_pagamento_custas.Trim() == "" || a.dta_pagamento_custas.Trim() == "null" || a.dta_pagamento_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento_custas)),
+                    //dta_recuperacao          = (a.dta_recuperacao.Trim() == "" || a.dta_recuperacao.Trim() == "null" || a.dta_recuperacao.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_recuperacao)),
+                    //pci_debito_divida        = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
+                    //pci_debito_custa         = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
+                    //pci_credito              = (a.pci_credito.Trim() == "null" || a.pci_credito.Trim() == "NULL" ? null : a.pci_credito.Trim()),
+                    //grupo_safra              = (a.grupo_safra.Trim() == "" || a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim().Substring(0,6)),
+                    //numero_miro_divida       = (a.numero_miro_divida.Trim() == "null" || a.numero_miro_divida.Trim() == "NULL" ? null : a.numero_miro_divida.Trim()),
+                    //numero_miro_custa        = (a.numero_miro_custa.Trim() == "null" || a.numero_miro_custa.Trim() == "NULL" ? null : a.numero_miro_custa.Trim()),
 
                 });
-                
+                bool salvouAlgum = false;
                 try
                 {
                     if (ModelState.IsValid)
@@ -199,9 +201,14 @@ namespace CtrlPVALeasing.Controllers
                             {
                                 db.Tbl_DebitosEPagamentos_Veiculo.Add(item);
                                 db.SaveChanges();
+                                salvouAlgum = true;
                             }
                         }
-                        return View(GetContratosVeiculosViewModelRegistroOk());
+                        if(salvouAlgum)
+                            return View(GetContratosVeiculosViewModelRegistroOk());
+                        if(!salvouAlgum)
+                            return View(GetContratosVeiculosViewModelErro());
+
                     }
                     else
                     {
