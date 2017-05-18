@@ -74,140 +74,134 @@ namespace CtrlPVALeasing.Controllers
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
 
-            try
-            {
-                model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                         join b in db.Arm_Veiculos
-                         on a.contrato equals b.contrato
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                        join b in db.Arm_Veiculos
+                        on a.contrato equals b.contrato
 
-                         join c in db.Tbl_Dut
-                         on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                        into j1
-                        from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                        join c in db.Tbl_Dut
+                        on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                    into j1
+                    from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                         where a.dta_inicio_contrato >= dataInicio
-                         where a.dta_inicio_contrato <= dataFim
+                        where a.dta_inicio_contrato >= dataInicio
+                        where a.dta_inicio_contrato <= dataFim
 
-                         //where a.uf_cliente == uf_cliente
+                        //where a.uf_cliente == uf_cliente
 
-                         //where c.impresso == impresso
+                        //where c.impresso == impresso
 
-                         where a.status == false
+                        where a.status == false
 
-                         where a.origem.Equals("B")
-                         where !b.origem.Contains("RECIBO VEN")
-                         select new
-                         {
-                             id = a.id,
-                             contrato = a.contrato,
-                             tipo = a.tipo,
-                             agencia = a.agencia,
-                             dta_inicio_contrato = a.dta_inicio_contrato,
-                             dta_vecto_contrato = a.dta_vecto_contrato,
-                             origem = a.origem,
-                             cpf_cnpj_cliente = a.cpf_cnpj_cliente,
-                             nome_cliente = a.nome_cliente,
-                             ddd_cliente_particular = a.ddd_cliente_particular,
-                             fone_cliente_particular = a.fone_cliente_particular,
-                             rml_cliente_particular = a.rml_cliente_particular,
-                             end_cliente = a.end_cliente,
-                             bairro_cliente = a.bairro_cliente,
-                             cidade_cliente = a.cidade_cliente,
-                             uf_cliente = a.uf_cliente,
-                             cep_cliente = a.cep_cliente,
-                             filler = a.filler,
-                             ddd_cliente_cml = a.ddd_cliente_cml,
-                             fone_cliente_cml = a.fone_cliente_cml,
-                             dta_ultimo_pagto = a.dta_ultimo_pagto,
-                             tipo_de_baixa = a.tipo_de_baixa,
-                             data_da_baixa = a.data_da_baixa,
-                             cod_empresa = a.cod_empresa,
-                             num_end_cliente = a.num_end_cliente,
-                             comp_end_cliente = a.comp_end_cliente,
-                             status = a.status,
+                        where a.origem.Equals("B")
+                        where !b.origem.Contains("RECIBO VEN")
+                        select new
+                        {
+                            id = a.id,
+                            contrato = a.contrato,
+                            tipo = a.tipo,
+                            agencia = a.agencia,
+                            dta_inicio_contrato = a.dta_inicio_contrato,
+                            dta_vecto_contrato = a.dta_vecto_contrato,
+                            origem = a.origem,
+                            cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                            nome_cliente = a.nome_cliente,
+                            ddd_cliente_particular = a.ddd_cliente_particular,
+                            fone_cliente_particular = a.fone_cliente_particular,
+                            rml_cliente_particular = a.rml_cliente_particular,
+                            end_cliente = a.end_cliente,
+                            bairro_cliente = a.bairro_cliente,
+                            cidade_cliente = a.cidade_cliente,
+                            uf_cliente = a.uf_cliente,
+                            cep_cliente = a.cep_cliente,
+                            filler = a.filler,
+                            ddd_cliente_cml = a.ddd_cliente_cml,
+                            fone_cliente_cml = a.fone_cliente_cml,
+                            dta_ultimo_pagto = a.dta_ultimo_pagto,
+                            tipo_de_baixa = a.tipo_de_baixa,
+                            data_da_baixa = a.data_da_baixa,
+                            cod_empresa = a.cod_empresa,
+                            num_end_cliente = a.num_end_cliente,
+                            comp_end_cliente = a.comp_end_cliente,
+                            status = a.status,
 
-                             contrato_v = b.contrato,
-                             tipo_registro = b.tipo_registro,
-                             marca = b.marca,
-                             modelo = b.modelo,
-                             tipo_v = b.tipo,
-                             ano_fab = b.ano_fab,
-                             ano_mod = b.ano_mod,
-                             cor = b.cor,
-                             renavam = b.renavam,
-                             chassi = b.chassi,
-                             placa = b.placa,
-                             origem_v = b.origem,
-                             comunicado_venda = b.comunicado_venda,
+                            contrato_v = b.contrato,
+                            tipo_registro = b.tipo_registro,
+                            marca = b.marca,
+                            modelo = b.modelo,
+                            tipo_v = b.tipo,
+                            ano_fab = b.ano_fab,
+                            ano_mod = b.ano_mod,
+                            cor = b.cor,
+                            renavam = b.renavam,
+                            chassi = b.chassi,
+                            placa = b.placa,
+                            origem_v = b.origem,
+                            comunicado_venda = b.comunicado_venda,
 
-                             //id_debito = c.id,
-                             chassi_dut = c.chassi,
-                             renavam_dut = c.renavam,
-                             placa_dut = c.placa
+                            //id_debito = c.id,
+                            chassi_dut = c.chassi,
+                            renavam_dut = c.renavam,
+                            placa_dut = c.placa,
+                            impresso = c.impresso
 
-                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
-                         {
-                             id = x.id,
-                             contrato = x.contrato,
-                             tipo = x.tipo,
-                             agencia = x.agencia,
-                             dta_inicio_contrato = x.dta_inicio_contrato,
-                             dta_vecto_contrato = x.dta_vecto_contrato,
-                             origem = x.origem,
-                             cpf_cnpj_cliente = x.cpf_cnpj_cliente,
-                             nome_cliente = x.nome_cliente,
-                             ddd_cliente_particular = x.ddd_cliente_particular,
-                             fone_cliente_particular = x.fone_cliente_particular,
-                             rml_cliente_particular = x.rml_cliente_particular,
-                             end_cliente = x.end_cliente,
-                             bairro_cliente = x.bairro_cliente,
-                             cidade_cliente = x.cidade_cliente,
-                             uf_cliente = x.uf_cliente,
-                             cep_cliente = x.cep_cliente,
-                             filler = x.filler,
-                             ddd_cliente_cml = x.ddd_cliente_cml,
-                             fone_cliente_cml = x.fone_cliente_cml,
-                             dta_ultimo_pagto = x.dta_ultimo_pagto,
-                             tipo_de_baixa = x.tipo_de_baixa,
-                             data_da_baixa = x.data_da_baixa,
-                             cod_empresa = x.cod_empresa,
-                             num_end_cliente = x.num_end_cliente,
-                             comp_end_cliente = x.comp_end_cliente,
-                             status = x.status,
+                        }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                        {
+                            id = x.id,
+                            contrato = x.contrato,
+                            tipo = x.tipo,
+                            agencia = x.agencia,
+                            dta_inicio_contrato = x.dta_inicio_contrato,
+                            dta_vecto_contrato = x.dta_vecto_contrato,
+                            origem = x.origem,
+                            cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                            nome_cliente = x.nome_cliente,
+                            ddd_cliente_particular = x.ddd_cliente_particular,
+                            fone_cliente_particular = x.fone_cliente_particular,
+                            rml_cliente_particular = x.rml_cliente_particular,
+                            end_cliente = x.end_cliente,
+                            bairro_cliente = x.bairro_cliente,
+                            cidade_cliente = x.cidade_cliente,
+                            uf_cliente = x.uf_cliente,
+                            cep_cliente = x.cep_cliente,
+                            filler = x.filler,
+                            ddd_cliente_cml = x.ddd_cliente_cml,
+                            fone_cliente_cml = x.fone_cliente_cml,
+                            dta_ultimo_pagto = x.dta_ultimo_pagto,
+                            tipo_de_baixa = x.tipo_de_baixa,
+                            data_da_baixa = x.data_da_baixa,
+                            cod_empresa = x.cod_empresa,
+                            num_end_cliente = x.num_end_cliente,
+                            comp_end_cliente = x.comp_end_cliente,
+                            status = x.status,
 
-                             contrato_v = x.contrato_v,
-                             tipo_registro = x.tipo_registro,
-                             marca = x.marca,
-                             modelo = x.modelo,
-                             tipo_v = x.tipo_v,
-                             ano_fab = x.ano_fab,
-                             ano_mod = x.ano_mod,
-                             cor = x.cor,
-                             renavam = x.renavam,
-                             chassi = x.chassi,
-                             placa = x.placa,
-                             origem_v = x.origem_v,
-                             comunicado_venda = x.comunicado_venda,
+                            contrato_v = x.contrato_v,
+                            tipo_registro = x.tipo_registro,
+                            marca = x.marca,
+                            modelo = x.modelo,
+                            tipo_v = x.tipo_v,
+                            ano_fab = x.ano_fab,
+                            ano_mod = x.ano_mod,
+                            cor = x.cor,
+                            renavam = x.renavam,
+                            chassi = x.chassi,
+                            placa = x.placa,
+                            origem_v = x.origem_v,
+                            comunicado_venda = x.comunicado_venda,
 
-                             //id_debito = x.id_debito,
-                             chassi_dut = x.chassi_dut,
-                             renavam_dut = x.renavam_dut,
-                             placa_dut = x.placa_dut,
-                             diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
+                            //id_debito = x.id_debito,
+                            chassi_dut = x.chassi_dut,
+                            renavam_dut = x.renavam_dut,
+                            placa_dut = x.placa_dut,
+                            impresso = x.impresso,
+                            diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
 
-                         }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
+                        }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-                model = (uf_cliente.Trim() == "SP" ? model.Where(x => x.uf_cliente == uf_cliente) : model.Where(x => x.uf_cliente != "SP"));
+            model = (uf_cliente.Trim() == "SP" ? model.Where(x => x.uf_cliente == uf_cliente) : model.Where(x => x.uf_cliente != "SP"));
 
-                model = (impresso.Trim() == "J" ? model.Where(x => x.impresso == DUT) : (impresso.Trim() == "N" ? model.Where(x => x.impresso == "" || x.impresso == null) : (impresso.Trim() == "T" ? model : model)));
+            model = (impresso.Trim() == "J" ? model.Where(x => x.impresso == DUT) : (impresso.Trim() == "N" ? model.Where(x => x.impresso == "" || x.impresso == null) : (impresso.Trim() == "T" ? model : model)));
 
-                model = (DUT.Trim() == "C" ? model.Where(x => x.chassi_dut == x.chassi && x.renavam_dut == x.renavam && x.placa_dut == x.placa) : (DUT.Trim() == "S" ? model.Where(x => x.chassi_dut != x.chassi && x.renavam_dut != x.renavam && x.placa_dut != x.placa) : (DUT.Trim() == "M" ? model.Where(x => x.diferenca.Days > criterio) : model)));
-
-            }
-            catch(Exception e)
-            {
-                Response.Write("<script>alert('" + e.InnerException + "');</script>");
-            }
+            model = (DUT.Trim() == "C" ? model.Where(x => x.impresso == "C") : (DUT.Trim() == "S" ? model.Where(x => x.impresso != "C") : (DUT.Trim() == ">" ? model.Where(x => x.impresso != "C" && x.diferenca.Days > criterio) : model)));
 
             try
             {

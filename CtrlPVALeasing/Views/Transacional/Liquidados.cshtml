@@ -20,7 +20,7 @@
     ViewBag.Title = "Liquidados";
 }
 
-@using (Html.BeginForm("Liquidados", "Transacional"))
+@using (Html.BeginForm("Liquidados", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
 {
     <div class="jumbotronFundo">
         <h2>LIQUIDADOS</h2>
@@ -45,7 +45,7 @@
                     <th width="5%">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
+                        <div id="fazSubmit"><input onclick="validateForm();" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
@@ -71,7 +71,7 @@
                             <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
                             <option class='input-sm-ultra-fino' value='C' @(Request["DUT"] == "C" ? "selected" : "" )>COM DUT</option>
                             <option class='input-sm-ultra-fino' value='S' @(Request["DUT"] == "S" ? "selected" : "" )>SEM DUT</option>
-                            <option class='input-sm-ultra-fino' value='M' @(Request["DUT"] == "M" ? "selected" : "" )>SEM DUT > CRITÉRIO</option>
+                            <option class='input-sm-ultra-fino' value='>' @(Request["DUT"] == ">" ? "selected" : "" )>SEM DUT > CRITÉRIO</option>
                         </select>
                         <b class="fonte-cinza-claro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Critério:</b>
                         <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["criterio"]" type="text" name="criterio" id="criterio" size="1" style="text-transform:uppercase">
@@ -88,7 +88,7 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">@(Model.Count() == 1 ? "NENHUM VEÍCULO" : Model.Count().ToString() + " VEÍCULOS" ) DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : "erro"), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == "M" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : ""))), @(Request["impresso"] == "J" ? "JÁ IMPRESSOS " : (Request["impresso"] == "N" ? "  NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
+                        <b class="fonte-cinza-escuro">@(Model.Count() == 1 ? "NENHUM VEÍCULO" : Model.Count().ToString() + " VEÍCULOS" ) DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : Request["uf_cliente"]), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == ">" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : "")))@(Request["impresso"] == "J" ? ", JÁ IMPRESSOS " : (Request["impresso"] == "N" ? ", NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <table class="table" border="1" style="border-style:inherit">
@@ -195,7 +195,11 @@
         function validateForm() {
             if (
                 document.getElementsByName('dataInicio')[0].value == "" ||
-                document.getElementsByName('dataFim')[0].value == "") {
+                document.getElementsByName('dataFim')[0].value == "" ||
+                document.getElementsByName('uf_cliente')[0].value == "" ||
+                document.getElementsByName('impresso')[0].value == "" ||
+                document.getElementsByName('DUT')[0].value == "" ||
+                document.getElementsByName('criterio')[0].value == "") {
                 $(document).ready(function () {
                     $("#msgErro5").modal();
                     return false;
@@ -215,41 +219,17 @@
 
 </script>
 
-<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-sm">
-            <header class="modal-header modal-sm">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
-            </header>
-            <div class="modal-body modal-sm">
-                <table width="100%">
-                    <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Veículo não encontrado!</h4></center></td>
-                    </tr>
-                    <tr>
-                        <td><center><h4 style="color: black">Este veículo não contém nenhum débito de registro de IPVA.</h4></center></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro5" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data de Liquidação De:</td></tr><tr><td> - Data de Liquidação Até:</td></tr><tr><td> - Filtrar Estado<td></tr><tr><td> - Filtrar Impressão<td></tr><tr><td> - Filtrar DUT<td></tr><tr><td> - Critério<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
