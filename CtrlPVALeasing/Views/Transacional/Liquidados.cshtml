@@ -56,25 +56,25 @@
                         <b class="fonte-cinza-claro">Filtrar Estado:&nbsp;</b>
                         <select class="input-sm-ultra-fino2" name="uf_cliente" id="uf_cliente">
                             <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
-                            <option class='input-sm-ultra-fino' value='SP'>SP</option>
-                            <option class='input-sm-ultra-fino' value='DEMAIS'>DEMAIS</option>
+                            <option class='input-sm-ultra-fino' value='SP' @(Request["uf_cliente"] == "SP" ? "selected" : "" )>SP</option>
+                            <option class='input-sm-ultra-fino' value='DEMAIS' @(Request["uf_cliente"] == "DEMAIS" ? "selected" : "" )>DEMAIS</option>
                         </select>&nbsp;&nbsp;&nbsp;
                         <b class="fonte-cinza-claro">Filtrar Impressão:&nbsp;</b>
                         <select class="input-sm-ultra-fino2" name="impresso" id="impresso">
                             <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
-                            <option class='input-sm-ultra-fino' value='J'>JÁ IMPRESSO</option>
-                            <option class='input-sm-ultra-fino' value='N'>NÃO IMPRESSO</option>
-                            <option class='input-sm-ultra-fino' value='T'>TUDO</option>
+                            <option class='input-sm-ultra-fino' value='J' @(Request["impresso"] == "J" ? "selected" : "" )>JÁ IMPRESSO</option>
+                            <option class='input-sm-ultra-fino' value='N' @(Request["impresso"] == "N" ? "selected" : "" )>NÃO IMPRESSO</option>
+                            <option class='input-sm-ultra-fino' value='T' @(Request["impresso"] == "T" ? "selected" : "" )>TUDO</option>
                         </select>&nbsp;&nbsp;&nbsp;
                         <b class="fonte-cinza-claro">Filtrar DUT:&nbsp;</b>
                         <select class="input-sm-ultra-fino2" name="DUT" id="DUT">
                             <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
-                            <option class='input-sm-ultra-fino' value='C'>COM DUT</option>
-                            <option class='input-sm-ultra-fino' value='S'>SEM DUT</option>
-                            <option class='input-sm-ultra-fino' value='M'>SEM DUT > CRITÉRIO</option>
+                            <option class='input-sm-ultra-fino' value='C' @(Request["DUT"] == "C" ? "selected" : "" )>COM DUT</option>
+                            <option class='input-sm-ultra-fino' value='S' @(Request["DUT"] == "S" ? "selected" : "" )>SEM DUT</option>
+                            <option class='input-sm-ultra-fino' value='M' @(Request["DUT"] == "M" ? "selected" : "" )>SEM DUT > CRITÉRIO</option>
                         </select>
                         <b class="fonte-cinza-claro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Critério:</b>
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="60" type="text" name="criterio" id="criterio" size="1" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["criterio"]" type="text" name="criterio" id="criterio" size="1" style="text-transform:uppercase">
                         <b class="fonte-cinza-claro"> Dias</b>
                     </td>
                     <td>
@@ -88,7 +88,7 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">VEÍCULOS DE @Request["uf_cliente"] @Request["impresso"] @Request["DUT"] DE @Request["dataInicio"] À @Request["dataFim"]:</b>
+                        <b class="fonte-cinza-escuro">@(Model.Count() == 1 ? "NENHUM VEÍCULO" : Model.Count().ToString() + " VEÍCULOS" ) DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : "erro"), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == "M" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : ""))), @(Request["impresso"] == "J" ? "JÁ IMPRESSOS " : (Request["impresso"] == "N" ? "  NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <table class="table" border="1" style="border-style:inherit">
@@ -121,9 +121,9 @@
                                                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
                                                     </th>
                                                 </tr>
+                                                @{var contadorInterno = 0; }
                                                 @if (Model != null)
                                                 {
-                                                    var contadorInterno = 0;
                                                     foreach (var item in Model)
                                                     {
                                                         if (item.contrato != null)
@@ -160,6 +160,7 @@
                                                     }
                                                 }
                                             </table>
+                                            <input type="hidden" id="contadorInterno" name="contadorInterno" value="@contadorInterno" />
                                         </td>
                                     </tr>
                                 </table>

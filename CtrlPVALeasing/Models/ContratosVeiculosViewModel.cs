@@ -299,5 +299,16 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(1)]
         public string impresso { get; set; }
+        [StringLength(20)]
+        public string renavam_dut { get; set; }
+
+        [StringLength(20)]
+        public string chassi_dut { get; set; }
+
+        [StringLength(9)]
+        public string placa_dut { get; set; }
+
+
+        public TimeSpan diferenca { get; set; }
     }
 }
