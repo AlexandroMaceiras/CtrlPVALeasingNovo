@@ -88,84 +88,91 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">@(Model.Count() == 1 ? "NENHUM VEÍCULO" : Model.Count().ToString() + " VEÍCULOS" ) DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : Request["uf_cliente"]), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == ">" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : "")))@(Request["impresso"] == "J" ? ", JÁ IMPRESSOS " : (Request["impresso"] == "N" ? ", NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <table class="table" border="1" style="border-style:inherit">
-                                    <tr>
-                                        <td>
-                                            <table class="table" border="0">
-                                                <tr>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Chassi</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Renavam</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Início</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center" wi>
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Vencimento</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Baixa</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Impresso?</div>
-                                                    </th>
-                                                    <th class="input-sm-fino" align="center">
-                                                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
-                                                    </th>
-                                                </tr>
-                                                @{var contadorInterno = 0; }
-                                                @if (Model != null)
-                                                {
-                                                    foreach (var item in Model)
+                        @if (Model.First().id > 0)
+                        {
+                        <b class="fonte-cinza-escuro">@Model.Count().ToString() VEÍCULOS DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : Request["uf_cliente"]), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == ">" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : "")))@(Request["impresso"] == "J" ? ", JÁ IMPRESSOS " : (Request["impresso"] == "N" ? ", NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
+                        }
+                        else
+                        {
+                            <b class="fonte-cinza-escuro">NENHUM VEÍCULO PESQUISADO</b>
+                        }
+                            <table border="0" style="border-style:inherit">
+                                <tr>
+                                    <table class="table" border="1" style="border-style:inherit">
+                                        <tr>
+                                            <td>
+                                                <table class="table" border="0">
+                                                    <tr>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Chassi</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Renavam</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Início</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center" wi>
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Vencimento</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Baixa</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Impresso?</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
+                                                        </th>
+                                                    </tr>
+                                                    @{var contadorInterno = 0; }
+                                                    @if (Model != null)
                                                     {
-                                                        if (item.contrato != null)
+                                                        foreach (var item in Model)
                                                         {
-                                                            contadorInterno++;
-                                                            <tr>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    @contadorInterno
-                                                                </td>
-                                                                <td class="input-sm-fino" align="right">
-                                                                    @Html.DisplayFor(modelItem => item.chassi)
-                                                                </td>
-                                                                <td class="input-sm-fino" align="right">
-                                                                    @Html.DisplayFor(modelItem => item.renavam)
-                                                                </td>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    @(item.dta_inicio_contrato.HasValue ? item.dta_inicio_contrato.ToString().Substring(0, 10) : "")
-                                                                </td>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    @(item.dta_vecto_contrato.HasValue ? item.dta_vecto_contrato.ToString().Substring(0, 10) : "")
-                                                                </td>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    @(item.data_da_baixa.HasValue ? item.data_da_baixa.ToString().Substring(0, 10) : "")
-                                                                </td>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    @Html.DisplayFor(modelItem => item.impresso)
-                                                                </td>
-                                                                <td class="input-sm-fino" align="center">
-                                                                    <input type="checkbox" id='print_@contadorInterno'/>
-                                                                </td>
-                                                            </tr>
-                                                            <!--LEMBRANÇA, POSSO PRECISAR USAR AGORA!!! <text>*@@(item.pagamento_efet_banco.HasValue && item.pagamento_efet_banco.Value == true ? "SIM" : "NÃO")</text>-->
+                                                            if (item.contrato != null)
+                                                            {
+                                                                contadorInterno++;
+                                                                <tr>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @contadorInterno
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.chassi)
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.renavam)
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.dta_inicio_contrato.HasValue ? item.dta_inicio_contrato.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.dta_vecto_contrato.HasValue ? item.dta_vecto_contrato.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.data_da_baixa.HasValue ? item.data_da_baixa.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.tipo_impressao == "C" ? "COM DUT" : (item.tipo_impressao == "S" ? "SEM DUT" : (item.tipo_impressao == ">" ? "SEM DUT > C." : "")))
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        <input type="checkbox" id='print_@contadorInterno' />
+                                                                    </td>
+                                                                </tr>
+                                                        <!--LEMBRANÇA, POSSO PRECISAR USAR AGORA!!! <text>*@@(item.pagamento_efet_banco.HasValue && item.pagamento_efet_banco.Value == true ? "SIM" : "NÃO")</text>-->
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            </table>
-                                            <input type="hidden" id="contadorInterno" name="contadorInterno" value="@contadorInterno" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </tr>
-                        </table>
+                                                </table>
+                                                <input type="hidden" id="contadorInterno" name="contadorInterno" value="@contadorInterno" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </tr>
+                            </table>
                     </td>
                 </tr>
             </table>

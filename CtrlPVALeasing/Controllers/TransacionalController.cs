@@ -80,8 +80,13 @@ namespace CtrlPVALeasing.Controllers
 
                         join c in db.Tbl_Dut
                         on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                    into j1
-                    from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                        into j1
+                        from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                        join d in db.Tbl_Impressao
+                        on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                        into j2
+                        from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                         where a.dta_inicio_contrato >= dataInicio
                         where a.dta_inicio_contrato <= dataFim
@@ -142,7 +147,7 @@ namespace CtrlPVALeasing.Controllers
                             chassi_dut = c.chassi,
                             renavam_dut = c.renavam,
                             placa_dut = c.placa,
-                            impresso = c.impresso
+                            tipo_impressao = d.tipo_impressao
 
                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                         {
@@ -192,16 +197,122 @@ namespace CtrlPVALeasing.Controllers
                             chassi_dut = x.chassi_dut,
                             renavam_dut = x.renavam_dut,
                             placa_dut = x.placa_dut,
-                            impresso = x.impresso,
+                            tipo_impressao = x.tipo_impressao,
                             diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
 
                         }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
+            if (impresso.Trim() == "N")
+            {
+                //Não impresso
+                model = model
+                    .Where(x => x.tipo_impressao == "" || x.tipo_impressao == null); //Não está na tabela Tbl_Impressao
+
+                if (model.Count() > 0)
+                {
+
+                    if (DUT.Trim() == "C")
+                    {
+                        //Com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() == x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() == x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() == x.placa_dut);
+                    }
+                    else if (DUT.Trim() == "S")
+                    {
+                        //Com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+                    }
+                    else if (DUT.Trim() == ">")
+                    {
+                        //Com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                        // > Critério
+                        model = model
+                            .Where(x => x.diferenca.Days > criterio);
+                    }
+                }
+            }
+            else if (impresso.Trim() == "J")
+            {
+                //Já Impresso
+                model = model
+                    .Where(x => x.tipo_impressao == DUT);
+
+                if (model.Count() > 0)
+                {
+                    if (DUT.Trim() == "C")
+                    {
+                        //com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() == x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() == x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() == x.placa_dut);
+                    }
+                    else if (DUT.Trim() == "S")
+                    {
+                        //Com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+                    }
+                    else if (DUT.Trim() == ">")
+                    {
+                        //Com DUT
+                        model = model
+                            .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                            .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                            .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                        // > Critério
+                        model = model
+                            .Where(x => x.diferenca.Days > criterio);
+                    }
+                }
+            }
+            else if (impresso.Trim() == "T")
+            {
+
+                if (DUT.Trim() == "C")
+                {
+                    //com DUT
+                    model = model
+                        .Where(x => x.chassi.ToString().Trim() == x.chassi_dut)
+                        .Where(x => x.renavam.ToString().Trim() == x.renavam_dut)
+                        .Where(x => x.placa.ToString().Trim() == x.placa_dut);
+                }
+                else if (DUT.Trim() == "S")
+                {
+                    //Com DUT
+                    model = model
+                        .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                        .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                        .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+                }
+                else if (DUT.Trim() == ">")
+                {
+                    //Com DUT
+                    model = model
+                        .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                        .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                        .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                    // > Critério
+                    model = model
+                        .Where(x => x.diferenca.Days > criterio);
+                }
+            }
+
             model = (uf_cliente.Trim() == "SP" ? model.Where(x => x.uf_cliente == uf_cliente) : model.Where(x => x.uf_cliente != "SP" || x.uf_cliente == null));
-
-            model = (impresso.Trim() == "J" ? model.Where(x => x.impresso == DUT) : (impresso.Trim() == "N" ? model.Where(x => x.impresso == "" || x.impresso == null) : (impresso.Trim() == "T" ? model : model)));
-
-            model = (DUT.Trim() == "C" ? model.Where(x => x.chassi.ToString().Trim() == x.chassi_dut).Where(x => x.renavam.ToString().Trim() == x.renavam_dut).Where(x => x.placa.ToString().Trim() == x.placa_dut) : (DUT.Trim() == "S" ? model.Where(x => x.impresso != "C") : (DUT.Trim() == ">" ? model.Where(x => (x.impresso == "" || x.impresso == null)  && x.diferenca.Days > criterio) : model)));
 
             try
             {

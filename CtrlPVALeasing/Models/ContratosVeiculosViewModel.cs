@@ -298,7 +298,7 @@ namespace CtrlPVALeasing.Models
 
 
         [StringLength(1)]
-        public string impresso { get; set; }
+        public string tipo_impressao { get; set; }
         [StringLength(20)]
         public string renavam_dut { get; set; }
 

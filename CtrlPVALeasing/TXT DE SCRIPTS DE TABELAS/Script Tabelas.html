@@ -63,6 +63,19 @@ CREATE TABLE dbo.Arm_Veiculos
 	)
 GO
 
+IF OBJECT_ID ('dbo.Tbl_Agencias') IS NOT NULL
+	DROP TABLE dbo.Tbl_Agencias
+GO
+
+CREATE TABLE dbo.Tbl_Agencias
+	(
+	id                INT IDENTITY NOT NULL,
+	agencia           VARCHAR (5) NULL,
+	descricao_agencia VARCHAR (40) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
 IF OBJECT_ID ('dbo.Tbl_Bens') IS NOT NULL
 	DROP TABLE dbo.Tbl_Bens
 GO
@@ -160,16 +173,28 @@ GO
 
 CREATE TABLE dbo.Tbl_Dut
 	(
-	id       INT IDENTITY NOT NULL,
-	renavam  VARCHAR (20) NULL,
-	chassi   VARCHAR (20) NULL,
-	placa    VARCHAR (9) NULL,
-	impresso CHAR (1) NULL,
+	id      INT IDENTITY NOT NULL,
+	renavam VARCHAR (20) NULL,
+	chassi  VARCHAR (20) NULL,
+	placa   VARCHAR (9) NULL,
 	PRIMARY KEY (id)
 	)
 GO
 
+IF OBJECT_ID ('dbo.Tbl_Impressao') IS NOT NULL
+	DROP TABLE dbo.Tbl_Impressao
+GO
 
+CREATE TABLE dbo.Tbl_Impressao
+	(
+	id             INT IDENTITY NOT NULL,
+	renavam        VARCHAR (20) NULL,
+	chassi         VARCHAR (20) NULL,
+	placa          VARCHAR (9) NULL,
+	tipo_impressao CHAR (1) NULL,
+	PRIMARY KEY (id)
+	)
+GO
 
 IF OBJECT_ID ('dbo.Tbl_SCC') IS NOT NULL
 	DROP TABLE dbo.Tbl_SCC

@@ -21,6 +21,7 @@ namespace CtrlPVALeasing.Models
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_CCL> Tbl_CCL { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_SCC> Tbl_SCC { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Agencias> Tbl_Agencias { get; set; }
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Impressao> Tbl_Impressao { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

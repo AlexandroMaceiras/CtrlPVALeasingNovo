@@ -184,6 +184,7 @@
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
     <Compile Include="Models\Tbl_Dut.cs" />
+    <Compile Include="Models\Tbl_Impressao.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,6 +209,10 @@
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Modelo de Upload\UploadDebitoDeIPVA-gigante.csv" />
     <Content Include="Modelo de Upload\UploadDebitoDeIPVA.csv" />
+    <Content Include="Cartas\Carta de Comunicação Eletrônica.docx" />
+    <Content Include="Cartas\Carta de Liquidação.docx" />
+    <Content Include="Cartas\Recibo de Venda.docx" />
+    <Content Include="Cartas\Solicitação DUT.docx" />
     <None Include="Properties\PublishProfiles\CtrlIPVALeasing.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cldr.js" />

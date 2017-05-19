@@ -346,3 +346,355 @@ INSERT INTO dbo.Tbl_Dut (renavam, chassi, placa, impresso)
 VALUES ('00966820827', '9BD17164G85250709', 'HTC8835',NULL)
 
 
+======================================================================================================
+
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14700', '14700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00100', '00100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02300', '02300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17100', '17100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('05700', '05700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17300', '17300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02100', '02100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('06500', '06500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04100', '04100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('05600', '05600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('07600', '07600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('09700', '09700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('20700', '20700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01100', '01100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02600', '02600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13300', '13300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04400', '04400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14800', '14800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02700', '02700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03700', '03700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12600', '12600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00600', '00600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15500', '15500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15800', '15800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16000', '16000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('20400', '20400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00660', '00660')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01200', '01200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('07100', '07100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('08800', '08800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('10800', '10800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16900', '16900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18400', '18400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('05100', '05100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14400', '14400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18900', '18900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01000', '01000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01900', '01900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02000', '02000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03800', '03800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13200', '13200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17200', '17200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('20200', '20200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00200', '00200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02400', '02400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14500', '14500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00300', '00300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03400', '03400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('08300', '08300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13800', '13800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14000', '14000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15400', '15400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00101', '00101')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00700', '00700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('05400', '05400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12000', '12000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15700', '15700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16400', '16400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01800', '01800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('08700', '08700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13700', '13700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17800', '17800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18300', '18300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01400', '01400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12100', '12100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12500', '12500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13100', '13100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14600', '14600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15200', '15200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16200', '16200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('19600', '19600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('19900', '19900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02200', '02200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03000', '03000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03300', '03300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03500', '03500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04700', '04700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('11500', '11500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13400', '13400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14200', '14200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15100', '15100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01500', '01500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03600', '03600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('11200', '11200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12400', '12400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13600', '13600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15300', '15300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17600', '17600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18000', '18000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18800', '18800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('20100', '20100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00900', '00900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02500', '02500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04300', '04300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04900', '04900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('09300', '09300')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('09500', '09500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('11900', '11900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('15900', '15900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00109', '00109')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00500', '00500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('01600', '01600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02900', '02900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('03900', '03900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14900', '14900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16600', '16600')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('17900', '17900')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00400', '00400')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04800', '04800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('05200', '05200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('12200', '12200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('13500', '13500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('14100', '14100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16500', '16500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16800', '16800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18500', '18500')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('19700', '19700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('00800', '00800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('02800', '02800')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('04200', '04200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('06700', '06700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16100', '16100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('16700', '16700')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18100', '18100')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('18200', '18200')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('19000', '19000')
+GO
+INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('19800', '19800')
+GO
+
+===========================================================================
+
+INSERT INTO Tbl_DadosDaVenda (renavam, chassi, placa, nome_comprador, cpf_cnpj_comprador, rg_comprador, local_comprador, end_comprador, dta_da_compra, valor_da_compra) VALUES ('01017568674', '9BG144CP0EC467649', 'FYY1653', 'Comprador Alterado pela 4a VEZ', '3333', '444', 'LOCAL3 / SP', 'AV P J KUBITSCHECK - VL N CONCEICAO   - CEP: 04543011', '2017-05-02', 123)
+GO
+INSERT INTO Tbl_DadosDaVenda (renavam, chassi, placa, nome_comprador, cpf_cnpj_comprador, rg_comprador, local_comprador, end_comprador, dta_da_compra, valor_da_compra) VALUES ('00000000000', '9BD17106G72810778', '', 'BBD LOC DE VEICULOS LTDA                ', '7652489000125', '7652489000125', 'BARUERI / SP', 'PC DAS DRACENAS - CENTRO COML   - CEP: 06453009', '2017-05-04', 11000,8)
+GO
+
+========================================================================
+
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'PE', 'C', 12500, '2017', '1122112', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, 1, '2015-10-27', 'PR', 'SAP', 'SAP', 1250, 'qwqw eqweqw eqwe qwe qw q', 122, NULL, NULL, 1000, '2016-10-25', '2017-05-12', '11122123', '11221', '221166', '66745', '112211', '10')
+GO
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'AC', 'C', 12500, '2017', '334433', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-10-25', NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'AC', 'C', 12500, '2017', '14523', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-10-25', NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+
+============================================================
+
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('01017568674', '9BG144CP0EC467649', 'FYY1653')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00587897929', '93HGM2640EZ206467', 'GEO2228')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00587884401', '9BD1105BDE1565024', 'FPD7000')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00587898178', '93HGM2640EZ206448', 'GEO1117')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00984163859', '9BD15802A96180943', 'IPD6429')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00928266915', 'JTEBY25J070056315', 'JVE9185')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00982926383', '955L141389S277845', 'CUE0509')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00804034010', '9BM3840732B317482', 'JOZ7727')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00908699573', '8AC9036627A958600', 'DXB8476')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00981402496', '93ZC35A0188404871', 'DAJ8890')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00847006280', '9BD17241C53150355', 'IMH5027')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00927240335', '9BR53ZEC488684608', 'ECD1100')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00852757093', '9BD27801052461766', 'NFY3062')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00862052580', '9BD15802564735760', 'AMZ5316')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00871829991', 'JHLRD58806C200804', 'DRR5608')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00924192585', '9BG124JJ08C403640', 'NHU5006')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00902968220', 'JMYXRCU5W7U000571', 'DVN1622')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00851711642', '9BD15802564679965', 'AMQ1914')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00860658600', '93ZM2APH058701293', 'ATM1464')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00837439051', '9BW8C42R84R428080', 'JUP1447')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00896710203', '9BM6881566B477131', 'MQV9319')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00943768144', '9BFVCE1N16BB82155', 'APL4629')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00932556027', '9BM9584617B551774', 'MRH8924')
+GO
+INSERT INTO Tbl_Dut (renavam, chassi, placa) VALUES ('00966820827', '9BD17164G85250709', 'HTC8835')
+GO
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'PE', 'C', 12500, '2017', '1122112', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, 1, '2015-10-27', 'PR', 'SAP', 'SAP', 1250, 'qwqw eqweqw eqwe qwe qw q', 122, NULL, NULL, 1000, '2016-10-25', '2017-05-12', '11122123', '11221', '221166', '66745', '112211', '10')
+GO
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'AC', 'C', 12500, '2017', '334433', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-10-25', NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT INTO Tbl_DebitosEPagamentos_Veiculo (chassi, renavam, placa, dta_cobranca, uf_cobranca, tipo_cobranca, valor_divida, ano_exercicio, cda, valor_custas, debito_protesto, nome_cartorio, divida_ativa_serasa, protesto_serasa, valor_debito_total, pagamento_efet_banco, dta_pagamento, uf_pagamento, forma_pagamento_divida, forma_pagamento_custas, valor_pago_divida, obs_pagamento, valor_pago_custas, valor_pago_total, valor_recuperado, valor_total_recuperado, dta_pagamento_custas, dta_recuperacao, numero_miro_divida, numero_miro_custa, pci_debito_divida, pci_debito_custa, pci_credito, grupo_safra) VALUES ('9BG144CP0EC467649   ', '01017568674         ', 'FYY1653  ', '2016-10-12', 'AC', 'C', 12500, '2017', '14523', 545,87, 1, 'cartório do alexandro', 1, 1, 13045,87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-10-25', NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+
+
+==============================================================
+
+INSERT INTO Tbl_Impressao (renavam, chassi, placa, tipo_impressao) VALUES ('00587884401', '9BD1105BDE1565024', 'FPD7000', 'C')
+GO
+INSERT INTO Tbl_Impressao (renavam, chassi, placa, tipo_impressao) VALUES ('00587420812         ', '8AFAR23L4EJ162008   ', 'OOA6699  ', 'S')
+GO
+INSERT INTO Tbl_Impressao (renavam, chassi, placa, tipo_impressao) VALUES ('00587456779         ', '9BRK29BT5E0015110   ', 'OAZ3139  ', 'S')
+GO
+INSERT INTO Tbl_Impressao (renavam, chassi, placa, tipo_impressao) VALUES ('                    ', '1C3H8E3VX9Y500654   ', 'EJJ4647  ', 'M')
+GO
+
+
+=========================================================
+
+
+INSERT INTO Tbl_SCC (cpf_cnpj_cliente, perm_debito, sinal, saldo, agencia, conta) VALUES ('000052548435000179', 1, '+', 100000,76, '', '')
+GO
+INSERT INTO Tbl_SCC (cpf_cnpj_cliente, perm_debito, sinal, saldo, agencia, conta) VALUES ('000052548435000179', 1, '+', 70000,1, '', '')
+GO
+INSERT INTO Tbl_SCC (cpf_cnpj_cliente, perm_debito, sinal, saldo, agencia, conta) VALUES ('000052548435000179', 1, '+', 1500,09, '', '')
+GO
