@@ -197,11 +197,11 @@ namespace CtrlPVALeasing.Controllers
 
                         }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-            model = (uf_cliente.Trim() == "SP" ? model.Where(x => x.uf_cliente == uf_cliente) : model.Where(x => x.uf_cliente != "SP"));
+            model = (uf_cliente.Trim() == "SP" ? model.Where(x => x.uf_cliente == uf_cliente) : model.Where(x => x.uf_cliente != "SP" || x.uf_cliente == null));
 
             model = (impresso.Trim() == "J" ? model.Where(x => x.impresso == DUT) : (impresso.Trim() == "N" ? model.Where(x => x.impresso == "" || x.impresso == null) : (impresso.Trim() == "T" ? model : model)));
 
-            model = (DUT.Trim() == "C" ? model.Where(x => x.impresso == "C") : (DUT.Trim() == "S" ? model.Where(x => x.impresso != "C") : (DUT.Trim() == ">" ? model.Where(x => x.impresso != "C" && x.diferenca.Days > criterio) : model)));
+            model = (DUT.Trim() == "C" ? model.Where(x => x.chassi.ToString().Trim() == x.chassi_dut).Where(x => x.renavam.ToString().Trim() == x.renavam_dut).Where(x => x.placa.ToString().Trim() == x.placa_dut) : (DUT.Trim() == "S" ? model.Where(x => x.impresso != "C") : (DUT.Trim() == ">" ? model.Where(x => (x.impresso == "" || x.impresso == null)  && x.diferenca.Days > criterio) : model)));
 
             try
             {
