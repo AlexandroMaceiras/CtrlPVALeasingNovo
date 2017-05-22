@@ -17,6 +17,7 @@ namespace CtrlPVALeasing.Controllers
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
         Tbl_DadosDaVenda model2 = null;
+        Tbl_Impressao model3 = null;
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
@@ -60,6 +61,13 @@ namespace CtrlPVALeasing.Controllers
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
             model.Add(new ContratosVeiculosViewModel() { id = -2, agencia = " " });
+            return model;
+        }
+
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelAtualizaRegistroOk()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -5, agencia = " " });
             return model;
         }
 
@@ -201,7 +209,7 @@ namespace CtrlPVALeasing.Controllers
                             tipo_impressao = x.tipo_impressao,
                             diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
 
-                        }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
+                        }).OrderByDescending(x => x.tipo_impressao).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             if (impresso.Trim() == "N")
             {
@@ -227,6 +235,10 @@ namespace CtrlPVALeasing.Controllers
                             .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
                             .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
                             .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                        // > Critério
+                        //model = model
+                        //    .Where(x => x.diferenca.Days < criterio);
                     }
                     else if (DUT.Trim() == ">")
                     {
@@ -265,6 +277,10 @@ namespace CtrlPVALeasing.Controllers
                             .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
                             .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
                             .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                        // > Critério
+                        //model = model
+                        //    .Where(x => x.diferenca.Days < criterio);
                     }
                     else if (DUT.Trim() == ">")
                     {
@@ -298,6 +314,10 @@ namespace CtrlPVALeasing.Controllers
                         .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
                         .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
                         .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+
+                    // > Critério
+                    //model = model
+                    //    .Where(x => x.diferenca.Days < criterio);
                 }
                 else if (DUT.Trim() == ">")
                 {
@@ -332,6 +352,68 @@ namespace CtrlPVALeasing.Controllers
             {
                 return View(GetContratosVeiculosViewModelErro());
             }
+            
+            if (listaSelecionados != "")
+            {
+                // Controle de erros do ModelState
+                //var errors = ModelState
+                //.Where(x => x.Value.Errors.Count > 0)
+                //.Select(x => new { x.Key, x.Value.Errors })
+                //.ToArray();
+
+                string[] veiculosCheckbox = listaSelecionados.Split(';');
+
+                foreach (string item in veiculosCheckbox)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        string[] dadosVeiculo = item.Split(',');
+
+                        string porra1 = dadosVeiculo[0].ToString();
+                        string porra2 = dadosVeiculo[1].ToString();
+                        string porra3 = dadosVeiculo[2].ToString();
+
+                        var procuraRegistro = db.Tbl_Impressao
+                            .FirstOrDefault(c => c.chassi == porra1 || c.renavam == porra2 || c.placa == porra3);
+
+                        if (procuraRegistro != null)
+                        {
+                            procuraRegistro.tipo_impressao = DUT;
+
+                            db.Entry(procuraRegistro).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            model3 = new Tbl_Impressao
+                            {
+                                id = 0,
+                                chassi = dadosVeiculo[0],
+                                renavam = dadosVeiculo[1],
+                                placa = dadosVeiculo[2],
+
+                                tipo_impressao = DUT
+                            };
+
+                            if (db.Entry(model3).State == EntityState.Detached)
+                            {
+                                db.Tbl_Impressao.Add(model3);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
+                    }
+                }
+
+                //return View("Teste1",model);
+                return Content("<script>window.open('Teste1')</script>");
+
+            }
+
+
 
             if (escolha == true)
             {
@@ -624,6 +706,80 @@ namespace CtrlPVALeasing.Controllers
 
             return View("ImpressaoDUTAvulso", model);
         }
+
+
+        public ActionResult Teste1(string listaDeVeiculos)
+        {
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
+                     join d in db.Tbl_Bens
+                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+
+                         //join e in db.Tbl_CCL
+                         //on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+
+                         //where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
+
+                         //where a.origem.Equals("B")
+                         //where !b.origem.Contains("RECIBO VEN")
+
+                         //where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
+
+                         //where e.marca != "JUR"
+
+                         //where c.tipo_cobranca == "C"
+
+                     select new
+                     {
+                         contrato = a.contrato,
+                         status = a.status,
+                         nome_cliente = a.nome_cliente,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cep_cliente = a.cep_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         chassi = b.chassi,
+                         renavam = b.renavam,
+                         placa = b.placa,
+                         dta_cobranca = c.dta_cobranca,
+                         uf_cobranca = c.uf_cobranca,
+                         valor_divida = c.valor_divida,
+                         ano_exercicio = c.ano_exercicio
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         contrato = x.contrato,
+                         status = x.status,
+                         nome_cliente = x.nome_cliente,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cep_cliente = x.cep_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         chassi = x.chassi,
+                         renavam = x.renavam,
+                         placa = x.placa,
+                         dta_cobranca = x.dta_cobranca,
+                         uf_cobranca = x.uf_cobranca,
+                         valor_divida = x.valor_divida,
+                         ano_exercicio = x.ano_exercicio
+
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);//.Take(5);
+
+            return View("", model);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

@@ -328,6 +328,7 @@
     <Content Include="Views\Tbl_Agencias\Edit.cshtml" />
     <Content Include="Views\Tbl_Agencias\Index.cshtml" />
     <Content Include="Views\Transacional\Liquidados.cshtml" />
+    <Content Include="Views\Transacional\Teste1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

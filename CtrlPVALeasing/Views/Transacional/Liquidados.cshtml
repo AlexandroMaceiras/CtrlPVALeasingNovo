@@ -48,7 +48,7 @@
                     <th width="5%">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input onclick="validateForm(false);" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="PESQUISAR" /></div>
+                        <div id="fazSubmit"><input onclick="validateForm(false);" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
@@ -125,6 +125,9 @@
                                                             <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Renavam</div>
                                                         </th>
                                                         <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Placa</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
                                                             <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Início</div>
                                                         </th>
                                                         <th class="input-sm-fino" align="center" wi>
@@ -158,6 +161,9 @@
                                                                     <td class="input-sm-fino" align="right">
                                                                         @Html.DisplayFor(modelItem => item.renavam)
                                                                     </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.placa)
+                                                                    </td>
                                                                     <td class="input-sm-fino" align="center">
                                                                         @(item.dta_inicio_contrato.HasValue ? item.dta_inicio_contrato.ToString().Substring(0, 10) : "")
                                                                     </td>
@@ -190,13 +196,23 @@
             </div>
         </center>
     </div>
-}
+    if (MF.id == -5)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgOk").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+        }
+    }
 
 <script>
-
     caminho = document.getElementById("supergrid");
-
-    //Faz a soma da coluna 11 e a soma da coluna 4, checando o campo 12, automaticamente e atualiza no final.
     try {
         $("tr.grid-row").change(function () {
 
@@ -205,13 +221,16 @@
                 var tr = $(this);
                 var rows = $(tr).children();
 
-                if (rows[7].getElementsByTagName("input")[0].checked) {
-                    var valor2 = rows[1].innerHTML.trim();
+                if (rows[8].getElementsByTagName("input")[0].checked) {
+
+                    var valor1 = rows[1].innerHTML.trim();
+                    var valor2 = rows[2].innerHTML.trim();
+                    var valor3 = rows[3].innerHTML.trim();
 
                     if (tudo != "")
-                        tudo += ",";
+                        tudo += ";";
 
-                    tudo += valor2;
+                    tudo += valor1 + "," + valor2 + "," + valor3;
 
                 }
             });
@@ -239,7 +258,21 @@
 
     try {
         function validateForm(a) {
-            //alert(document.getElementById("listaSelecionados").value);
+            var AnoFim = document.getElementsByName('dataFim')[0].value.toString().substring(6, 10);
+            var AnoIni = document.getElementsByName('dataInicio')[0].value.toString().substring(6, 10);
+            var MesFim = document.getElementsByName('dataFim')[0].value.toString().substring(3, 5)
+            var MesIni = document.getElementsByName('dataInicio')[0].value.toString().substring(3, 5)
+
+            var diffMeses = ((AnoFim * 12) + (MesFim * 1)) - ((AnoIni * 12) + (MesIni * 1));
+
+            if (diffMeses != 0 && ( diffMeses > 12 || !eval(diffMeses))) {
+                $(document).ready(function () {
+                    $("#msgErro4").modal();
+                    return false;
+                });
+                return false;
+            }
+
             if (
                 document.getElementsByName('dataInicio')[0].value == "" ||
                 document.getElementsByName('dataFim')[0].value == "" ||
@@ -264,6 +297,7 @@
                     document.getElementById("escolha").value = false;
                 }
                 document.getElementById("FormAltera").submit();
+                //window.open("../Relatorio/RelatorioBensApreendidosDebtoIPVA");
                 return true;
             }
         }
@@ -286,6 +320,48 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data de Liquidação De:</td></tr><tr><td> - Data de Liquidação Até:</td></tr><tr><td> - Filtrar Estado<td></tr><tr><td> - Filtrar Impressão<td></tr><tr><td> - Filtrar DUT<td></tr><tr><td> - Critério<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido pesquisar intervalo de datas superior a 1 ano!</font></h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Todas impressões atualizadas no banco e enviadas para a impressora com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
