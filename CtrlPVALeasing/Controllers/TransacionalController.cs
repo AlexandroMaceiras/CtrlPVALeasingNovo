@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CtrlPVALeasing.Models;
+using System.IO;
 
 namespace CtrlPVALeasing.Controllers
 {
@@ -62,7 +63,7 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
-        public ActionResult Liquidados(DateTime? dataInicio, DateTime? dataFim, string uf_cliente, string impresso, string DUT, int? criterio)
+        public ActionResult Liquidados(DateTime? dataInicio, DateTime? dataFim, string uf_cliente, string impresso, string DUT, int? criterio, bool? escolha, string listaSelecionados)
         {
             if (dataInicio == null)
                 dataInicio = null;
@@ -331,6 +332,40 @@ namespace CtrlPVALeasing.Controllers
             {
                 return View(GetContratosVeiculosViewModelErro());
             }
+
+            if (escolha == true)
+            {
+                //Gera Resultado em CSV.
+                StringWriter sw = new StringWriter();
+
+                sw.WriteLine("Nº;Chassi;Renavam;Data de Início;Data de Vencimento;Data de Baixa;Impresso ?");
+
+                Response.ClearContent();
+                Response.AddHeader("content-disposition", "attachment;filename=Liquidados.csv");
+                Response.ContentType = "application/octet-stream";
+                Response.ContentEncoding = System.Text.Encoding.Default;
+
+                var users = db.Tbl_DadosDaVenda.ToList();
+
+                var contador = 1;
+
+                foreach (var elemento in model)
+                {
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};",
+
+                    contador++,
+                    elemento.chassi,
+                    elemento.renavam,
+                    (elemento.dta_inicio_contrato.HasValue ? elemento.dta_inicio_contrato.ToString().Substring(0, 10) : ""),
+                    (elemento.dta_vecto_contrato.HasValue ? elemento.dta_vecto_contrato.ToString().Substring(0, 10) : ""),
+                    (elemento.data_da_baixa.HasValue ? elemento.data_da_baixa.ToString().Substring(0, 10) : ""),
+                    (elemento.tipo_impressao == "" || elemento.tipo_impressao == null ? "Não" : elemento.tipo_impressao)
+                    ));
+                }
+                Response.Write(sw.ToString());
+                Response.End();
+            }
+
             return View("Liquidados", model);
         }
 
