@@ -420,7 +420,7 @@ namespace CtrlPVALeasing.Controllers
                 //ViewBag.Message = veiculosCheckbox;
 
                 //return Content("<script>window.open('Teste1')</script>");
-                return View("Teste1",model);
+                //return View("Teste1",model);
 
             }
 
@@ -452,13 +452,12 @@ namespace CtrlPVALeasing.Controllers
                     (elemento.dta_inicio_contrato.HasValue ? elemento.dta_inicio_contrato.ToString().Substring(0, 10) : ""),
                     (elemento.dta_vecto_contrato.HasValue ? elemento.dta_vecto_contrato.ToString().Substring(0, 10) : ""),
                     (elemento.data_da_baixa.HasValue ? elemento.data_da_baixa.ToString().Substring(0, 10) : ""),
-                    (elemento.tipo_impressao == "" || elemento.tipo_impressao == null ? "Não" : elemento.tipo_impressao)
+                    (elemento.tipo_impressao == "C" ? "COM DUT" : (elemento.tipo_impressao == "S" ? "SEM DUT" : (elemento.tipo_impressao == ">" ? "SEM DUT > C." : "Não")))
                     ));
                 }
                 Response.Write(sw.ToString());
                 Response.End();
             }
-
             return View("Liquidados", model);
         }
 
@@ -724,31 +723,40 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult Teste1(string listaSelecionados)
         {
+            string[] listaChassi = new string[999];
+            string[] listaRenavam = new string[999];
+            string[] listaPlaca = new string[999];
+            if (listaSelecionados != "")
+            {
+                string[] veiculosCheckbox = listaSelecionados.Split(';');
+
+
+                int cont = 0;
+
+                foreach (string item in veiculosCheckbox)
+                {
+                    string[] dadosVeiculo = item.Split(',');
+
+                    string chassi = dadosVeiculo[0].ToString();
+                    string renavam = dadosVeiculo[1].ToString();
+                    string placa = dadosVeiculo[2].ToString();
+
+                    listaChassi[cont] = chassi;
+                    listaRenavam[cont] = renavam;
+                    listaPlaca[cont] = placa;
+                    cont++;
+                }
+            }
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+                     where listaChassi.Contains(b.chassi.Trim())
+                     where a.status == false
 
-                         //join e in db.Tbl_CCL
-                         //on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
-
-                         //where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
-
-                         //where a.origem.Equals("B")
-                         //where !b.origem.Contains("RECIBO VEN")
-
-                         //where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
-
-                         //where e.marca != "JUR"
-
-                         //where c.tipo_cobranca == "C"
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
 
                      select new
                      {
@@ -763,11 +771,7 @@ namespace CtrlPVALeasing.Controllers
                          uf_cliente = a.uf_cliente,
                          chassi = b.chassi,
                          renavam = b.renavam,
-                         placa = b.placa,
-                         dta_cobranca = c.dta_cobranca,
-                         uf_cobranca = c.uf_cobranca,
-                         valor_divida = c.valor_divida,
-                         ano_exercicio = c.ano_exercicio
+                         placa = b.placa
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -782,13 +786,9 @@ namespace CtrlPVALeasing.Controllers
                          uf_cliente = x.uf_cliente,
                          chassi = x.chassi,
                          renavam = x.renavam,
-                         placa = x.placa,
-                         dta_cobranca = x.dta_cobranca,
-                         uf_cobranca = x.uf_cobranca,
-                         valor_divida = x.valor_divida,
-                         ano_exercicio = x.ano_exercicio
+                         placa = x.placa
 
-                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);//.Take(5);
+                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             return View("", model);
         }

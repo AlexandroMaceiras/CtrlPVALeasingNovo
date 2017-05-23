@@ -17,7 +17,7 @@
 
 </script>
 @{
-    ViewBag.Title = "Liquidados";
+    ViewBag.Title = "Liquidados Com e Sem DUT";
 }
 
 @using (Html.BeginForm("Liquidados", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
@@ -26,10 +26,10 @@
     <input type="hidden" name="escolha" id="escolha" value="false" />
     <input type="hidden" name="listaSelecionados" id="listaSelecionados" value="@Request["listaSelecionados"]"/>
     <div class="jumbotronFundo">
-        <h2>LIQUIDADOS</h2>
+        <h2>LIQUIDADOS COM E SEM DUT</h2>
         <br />
         <center>
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <table border="1" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <th class="busca" width="35%">
                         <b class="fonte-cinza-claro">Data de Liquidação dos Contratos: &nbsp;&nbsp;&nbsp;&nbsp;De:&nbsp;</b>
@@ -70,7 +70,7 @@
                             <option class='input-sm-ultra-fino' value='T' @(Request["impresso"] == "T" ? "selected" : "" )>TUDO</option>
                         </select>&nbsp;&nbsp;&nbsp;
                         <b class="fonte-cinza-claro">Filtrar DUT:&nbsp;</b>
-                        <select class="input-sm-ultra-fino2" name="DUT" id="DUT">
+                        <select class="input-sm-ultra-fino2 select-teste" name="DUT" id="DUT">
                             <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
                             <option class='input-sm-ultra-fino' value='C' @(Request["DUT"] == "C" ? "selected" : "" )>COM DUT</option>
                             <option class='input-sm-ultra-fino' value='S' @(Request["DUT"] == "S" ? "selected" : "" )>SEM DUT</option>
@@ -84,18 +84,42 @@
                         <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </td>
                 </tr>
-                @if (MF.chassi != "" && @MF.chassi != null)
-                {
-                    <tr colspan="2">
-                        <td>
-                            <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                            <input onclick="validateForm(false);" class="btn4 btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="ABRIR LISTAS DE IMPRESSÃO" />
-                            @Html.ActionLink("ABRIR LISTAS DE IMPRESSÃO", "Teste1", "Transacional", new { @class ="btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId", onclick = "validateForm(false);", target = "_blank" })
-                        </td>
-                    </tr>
-                }
             </table>
-            <hr />
+            @*@if (MF.chassi != "" && @MF.chassi != null)
+            {*@
+                <div id="botao1" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                @Html.ActionLink("IMPRESSÃO COM DUT", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateForm(false);", target = "_blank" })
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="botao2" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                @Html.ActionLink("IMPRESSÃO SEM DUT", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId2", onclick = "validateForm(false);", target = "_blank" })
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="botao3" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                @*@Html.ActionLink("IMPRESSÃO COM DUT > CRITÉRIO", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateForm(false);", target = "_blank" })*@
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            @*}*@
+
+        <hr />
         </center>
         <center>
             <div id="supergrid">
@@ -200,6 +224,7 @@
     </div>
     if (MF.id == -5)
     {
+        // Mostra erro através de modal em JS
         <script>
             try {
                 $(document).ready(function () {
@@ -214,19 +239,103 @@
     }
 
 <script>
-
-            $(function () {
-                $("#actionLinkId").on("click", function () {
-                    var url = $(this).attr("href");
-                    url += ((url.indexOf('?') == -1) ? '?' : '&');
-                    url += $.param({
-                        listaSelecionados: $("#listaSelecionados").val()
-                    });
-                    $(this).attr("href", url);
+    // Passa os parâmetros da página atravé de GET no Html.ActionLink (Só dá pra passar parâmetros de AcionLink assim!)
+    try {
+            $("#actionLinkId1").on("click", function () {
+                var url = $(this).attr("href");
+                url += ((url.indexOf('?') == -1) ? '?' : '&');
+                url += $.param({
+                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
                 });
-            })
+                $(this).attr("href", url);
+            });
+            $("#actionLinkId2").on("click", function () {
+                var url = $(this).attr("href");
+                url += ((url.indexOf('?') == -1) ? '?' : '&');
+                url += $.param({
+                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+                });
+                $(this).attr("href", url);
+            });
+            $("#actionLinkId3").on("click", function () {
+                var url = $(this).attr("href");
+                url += ((url.indexOf('?') == -1) ? '?' : '&');
+                url += $.param({
+                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+                });
+                $(this).attr("href", url);
+            });
+        }
+    catch (e) {
+        alert("Erro:" + e);
+    }
+
+    // Mostra e substitui botões de impressão e CSV
+    try {
+            if ($("select#DUT").val() == "C") {
+                //alert('oi');
+                $("div#botao1").fadeIn();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+            }
+            else if ($("select#DUT").val() == "S") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeIn();
+                $("div#botao3").fadeOut();
+            }
+            else if ($("select#DUT").val() == ">") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeIn();
+            }
+            else if ($("select#DUT").val() == "") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+            }
 
 
+            $("select#DUT").change(function () {
+                //alert($("select#DUT").val());
+            if ($("select#DUT").val() == "C") {
+                //alert('oi');
+                //$("div#botao1").fadeIn();
+                //$("div#botao2").fadeOut();
+                //$("div#botao3").fadeOut();
+                validateForm(false);
+            }
+            else if ($("select#DUT").val() == "S") {
+                //alert('oi');
+                //$("div#botao1").slideUp();
+                //$("div#botao2").slideDown();
+                //$("div#botao3").slideUp();
+                validateForm(false);
+            }
+            else if ($("select#DUT").val() == ">") {
+                //alert('oi');
+                //$("div#botao1").slideUp();
+                //$("div#botao2").slideUp();
+                //$("div#botao3").slideDown();
+                validateForm(false);
+            }
+            else if ($("select#DUT").val() == "") {
+                //alert('oi');
+                //$("div#botao1").slideUp();
+                //$("div#botao2").slideUp();
+                //$("div#botao3").slideDown();
+                validateForm(false);
+            }
+        });
+    }
+    catch (e)
+    {
+        alert("Erro:" + e);
+    }
+
+    // Concatena o CHASSI< RENAVAM E PLACA dos checkbox pra ser enviado como parâmetro para a impressão.
     caminho = document.getElementById("supergrid");
     try {
         $("tr.grid-row").change(function () {
@@ -270,8 +379,9 @@
         alert("Erro: " + e);
     }
 
-
+    // Valida entradas e o intervalo de meses entre os meses
     try {
+        var maxIntervEntreDatas = 12;
         function validateForm(a) {
             var AnoFim = document.getElementsByName('dataFim')[0].value.toString().substring(6, 10);
             var AnoIni = document.getElementsByName('dataInicio')[0].value.toString().substring(6, 10);
@@ -280,7 +390,7 @@
 
             var diffMeses = ((AnoFim * 12) + (MesFim * 1)) - ((AnoIni * 12) + (MesIni * 1));
 
-            if (diffMeses != 0 && ( diffMeses > 5000 || !eval(diffMeses))) {
+            if (diffMeses != 0 && (diffMeses > maxIntervEntreDatas || !eval(diffMeses))) {
                 $(document).ready(function () {
                     $("#msgErro4").modal();
                     return false;
@@ -320,8 +430,6 @@
     catch (e) {
         alert("Erro: " + e);
     }
-
-
 </script>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro5" tabindex="-1">
