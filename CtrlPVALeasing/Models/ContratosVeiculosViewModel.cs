@@ -310,5 +310,8 @@ namespace CtrlPVALeasing.Models
 
 
         public TimeSpan diferenca { get; set; }
+
+
+        public string listaSelecionados { get; set; }
     }
 }

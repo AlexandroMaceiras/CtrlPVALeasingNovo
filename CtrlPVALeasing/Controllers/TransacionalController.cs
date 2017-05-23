@@ -156,7 +156,9 @@ namespace CtrlPVALeasing.Controllers
                             chassi_dut = c.chassi,
                             renavam_dut = c.renavam,
                             placa_dut = c.placa,
-                            tipo_impressao = d.tipo_impressao
+                            tipo_impressao = d.tipo_impressao,
+
+                            listaSelecionados = listaSelecionados
 
                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                         {
@@ -208,6 +210,8 @@ namespace CtrlPVALeasing.Controllers
                             placa_dut = x.placa_dut,
                             tipo_impressao = x.tipo_impressao,
                             diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
+
+                            listaSelecionados = x.listaSelecionados
 
                         }).OrderByDescending(x => x.tipo_impressao).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
@@ -409,7 +413,14 @@ namespace CtrlPVALeasing.Controllers
                 }
 
                 //return View("Teste1",model);
-                return Content("<script>window.open('Teste1')</script>");
+                //string x = "1232kj12j3";
+                //return Content("<script>window.open('Teste1("+ x +")')</script>");
+
+                //ViewBag.obj = Newtonsoft.Json.JsonConvert.SerializeObject(new { id = 1, nome = "teste", sobrenome = "subteste" });
+                //ViewBag.Message = veiculosCheckbox;
+
+                //return Content("<script>window.open('Teste1')</script>");
+                return View("Teste1",model);
 
             }
 
@@ -450,6 +461,9 @@ namespace CtrlPVALeasing.Controllers
 
             return View("Liquidados", model);
         }
+
+
+
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam,
@@ -708,7 +722,7 @@ namespace CtrlPVALeasing.Controllers
         }
 
 
-        public ActionResult Teste1(string listaDeVeiculos)
+        public ActionResult Teste1(string listaSelecionados)
         {
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato

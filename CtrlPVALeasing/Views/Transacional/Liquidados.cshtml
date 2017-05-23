@@ -24,7 +24,7 @@
 {
     var MF = Model.First();
     <input type="hidden" name="escolha" id="escolha" value="false" />
-    <input type="hidden" name="listaSelecionados" id="listaSelecionados" value=""/>
+    <input type="hidden" name="listaSelecionados" id="listaSelecionados" value="@Request["listaSelecionados"]"/>
     <div class="jumbotronFundo">
         <h2>LIQUIDADOS</h2>
         <br />
@@ -90,6 +90,8 @@
                         <td>
                             <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
                             <input onclick="validateForm(false);" class="btn4 btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="ABRIR LISTAS DE IMPRESSÃO" />
+                            @Html.ActionLink("ABRIR LISTAS DE IMPRESSÃO", "Teste1", "Transacional", new { @class ="btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId", onclick = "validateForm(false);", target = "_blank" })
+                        </td>
                     </tr>
                 }
             </table>
@@ -212,6 +214,19 @@
     }
 
 <script>
+
+            $(function () {
+                $("#actionLinkId").on("click", function () {
+                    var url = $(this).attr("href");
+                    url += ((url.indexOf('?') == -1) ? '?' : '&');
+                    url += $.param({
+                        listaSelecionados: $("#listaSelecionados").val()
+                    });
+                    $(this).attr("href", url);
+                });
+            })
+
+
     caminho = document.getElementById("supergrid");
     try {
         $("tr.grid-row").change(function () {
@@ -265,7 +280,7 @@
 
             var diffMeses = ((AnoFim * 12) + (MesFim * 1)) - ((AnoIni * 12) + (MesIni * 1));
 
-            if (diffMeses != 0 && ( diffMeses > 12 || !eval(diffMeses))) {
+            if (diffMeses != 0 && ( diffMeses > 5000 || !eval(diffMeses))) {
                 $(document).ready(function () {
                     $("#msgErro4").modal();
                     return false;
