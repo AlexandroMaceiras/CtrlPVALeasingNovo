@@ -57,6 +57,16 @@ namespace CtrlPVALeasing.Controllers
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -1 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
         /// </summary>
         /// <returns></returns>
+        private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelErroNaoEncontrado()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -3, agencia = " " });
+            return model;
+        }
+        /// <summary>
+        /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -1 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<ContratosVeiculosViewModel> GetErroDeVenda()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
@@ -343,7 +353,7 @@ namespace CtrlPVALeasing.Controllers
             {
                 if (model.Count() == 0 || model == null)
                 {
-                    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                    return View(GetContratosVeiculosViewModelErroNaoEncontrado()); //RedirectToAction("ConsultaVeiculo");
                 }
 
                 if (model == null || model.Any() == false)
@@ -354,10 +364,10 @@ namespace CtrlPVALeasing.Controllers
             }
             catch
             {
-                return View(GetContratosVeiculosViewModelErro());
+                return View(GetContratosVeiculosViewModelErroNaoEncontrado());
             }
             
-            if (listaSelecionados != "")
+            if (listaSelecionados != "" && escolha == false)
             {
                 // Controle de erros do ModelState
                 //var errors = ModelState
@@ -412,7 +422,7 @@ namespace CtrlPVALeasing.Controllers
                     }
                 }
 
-                //return View("Teste1",model);
+                return View("ImpressaoDeRecibosDeVendas", model);
                 //string x = "1232kj12j3";
                 //return Content("<script>window.open('Teste1("+ x +")')</script>");
 
@@ -721,12 +731,16 @@ namespace CtrlPVALeasing.Controllers
         }
 
 
-        public ActionResult Teste1(string listaSelecionados)
+        public ActionResult ImpressaoDeRecibosDeVendas(string listaSelecionados)
         {
             string[] listaChassi = new string[999];
             string[] listaRenavam = new string[999];
             string[] listaPlaca = new string[999];
-            if (listaSelecionados != "")
+            if (listaSelecionados == "" || listaSelecionados == null)
+            {
+                return View(GetContratosVeiculosViewModelErro());
+            }
+            try
             {
                 string[] veiculosCheckbox = listaSelecionados.Split(';');
 
@@ -746,51 +760,75 @@ namespace CtrlPVALeasing.Controllers
                     listaPlaca[cont] = placa;
                     cont++;
                 }
+
+
+                model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                         join b in db.Arm_Veiculos
+                         on a.contrato equals b.contrato
+
+                         where listaChassi.Contains(b.chassi.Trim())
+                         where listaRenavam.Contains(b.renavam.Trim())
+                         where listaPlaca.Contains(b.placa.Trim())
+                         where a.status == false
+
+                         where a.origem.Equals("B")
+                         where !b.origem.Contains("RECIBO VEN")
+
+                         select new
+                         {
+                             contrato = a.contrato,
+                             status = a.status,
+                             nome_cliente = a.nome_cliente,
+                             cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                             end_cliente = a.end_cliente,
+                             bairro_cliente = a.bairro_cliente,
+                             cep_cliente = a.cep_cliente,
+                             cidade_cliente = a.cidade_cliente,
+                             uf_cliente = a.uf_cliente,
+                             chassi = b.chassi,
+                             renavam = b.renavam,
+                             placa = b.placa
+
+                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                         {
+                             contrato = x.contrato,
+                             status = x.status,
+                             nome_cliente = x.nome_cliente,
+                             cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                             end_cliente = x.end_cliente,
+                             bairro_cliente = x.bairro_cliente,
+                             cep_cliente = x.cep_cliente,
+                             cidade_cliente = x.cidade_cliente,
+                             uf_cliente = x.uf_cliente,
+                             chassi = x.chassi,
+                             renavam = x.renavam,
+                             placa = x.placa
+
+                         }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
+                try
+                {
+                    if (model.Count() == 0 || model == null)
+                    {
+                        return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+                    }
+
+                    if (model == null || model.Any() == false)
+                    {
+                        //return HttpNotFound();
+                        return RedirectToAction("Liquidados");
+                    }
+                }
+                catch
+                {
+                    return View(GetContratosVeiculosViewModelErro());
+                }
+
+                return View("", model);
             }
-
-            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
-
-                     where listaChassi.Contains(b.chassi.Trim())
-                     where a.status == false
-
-                     where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
-
-                     select new
-                     {
-                         contrato = a.contrato,
-                         status = a.status,
-                         nome_cliente = a.nome_cliente,
-                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
-                         end_cliente = a.end_cliente,
-                         bairro_cliente = a.bairro_cliente,
-                         cep_cliente = a.cep_cliente,
-                         cidade_cliente = a.cidade_cliente,
-                         uf_cliente = a.uf_cliente,
-                         chassi = b.chassi,
-                         renavam = b.renavam,
-                         placa = b.placa
-
-                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
-                     {
-                         contrato = x.contrato,
-                         status = x.status,
-                         nome_cliente = x.nome_cliente,
-                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
-                         end_cliente = x.end_cliente,
-                         bairro_cliente = x.bairro_cliente,
-                         cep_cliente = x.cep_cliente,
-                         cidade_cliente = x.cidade_cliente,
-                         uf_cliente = x.uf_cliente,
-                         chassi = x.chassi,
-                         renavam = x.renavam,
-                         placa = x.placa
-
-                     }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
-
-            return View("", model);
+            catch
+            {
+                return View(GetContratosVeiculosViewModelErro());
+            }
         }
 
 

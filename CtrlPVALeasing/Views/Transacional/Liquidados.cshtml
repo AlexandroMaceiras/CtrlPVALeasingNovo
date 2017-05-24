@@ -29,7 +29,7 @@
         <h2>LIQUIDADOS COM E SEM DUT</h2>
         <br />
         <center>
-            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <th class="busca" width="35%">
                         <b class="fonte-cinza-claro">Data de Liquidação dos Contratos: &nbsp;&nbsp;&nbsp;&nbsp;De:&nbsp;</b>
@@ -48,7 +48,7 @@
                     <th width="5%">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input onclick="validateForm(false);" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
+                        <div id="fazSubmit"><input onclick="limpaSelecionados();validateForm(false);" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
@@ -81,7 +81,7 @@
                         <b class="fonte-cinza-claro"> Dias</b>
                     </td>
                     <td>
-                        <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                        <a href="#" onclick="window.close();" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </td>
                 </tr>
             </table>
@@ -92,7 +92,9 @@
                         <tr>
                             <td colspan="2" class="botao-td">
                                 <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                                @Html.ActionLink("IMPRESSÃO COM DUT", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateForm(false);", target = "_blank" })
+                                @Html.ActionLink("IMPRIMIR DUTs", "ImpressaoDeDUTs", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateCheck();", target = "_blank" })
+                                <input onclick="validateForm(false);" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR RECIBOS DE VENDAS" />
+                                @*@Html.ActionLink("IMPRIMIR RECIBOS DE VENDAS", "ImpressaoDeRecibosDeVendas", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId2", onclick = "validateCheck();", target = "_blank" })*@
                             </td>
                         </tr>
                     </table>
@@ -102,7 +104,7 @@
                         <tr>
                             <td colspan="2" class="botao-td">
                                 <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                                @Html.ActionLink("IMPRESSÃO SEM DUT", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId2", onclick = "validateForm(false);", target = "_blank" })
+                                @Html.ActionLink("IMPRIMIR SOLICITAÇÕES DE DUT", "ImpressaoDasSolicitacoesDeDUTs", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateCheck();", target = "_blank" })
                             </td>
                         </tr>
                     </table>
@@ -112,7 +114,8 @@
                         <tr>
                             <td colspan="2" class="botao-td">
                                 <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                                @*@Html.ActionLink("IMPRESSÃO COM DUT > CRITÉRIO", "Teste1", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateForm(false);", target = "_blank" })*@
+                                @*@Html.ActionLink("IMPRESSÃO COM DUT > CRITÉRIO", "
+                                    ", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateForm(false);", target = "_blank" })*@
                             </td>
                         </tr>
                     </table>
@@ -235,36 +238,64 @@
                 alert(e);
             }
         </script>
-        }
     }
+    if (MF.id == -1)
+    {
+        // Mostra erro através de modal em JS
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    if (MF.id == -3)
+    {
+        // Mostra erro através de modal em JS
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro3").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }                                                            
+}
 
 <script>
     // Passa os parâmetros da página atravé de GET no Html.ActionLink (Só dá pra passar parâmetros de AcionLink assim!)
     try {
-            $("#actionLinkId1").on("click", function () {
-                var url = $(this).attr("href");
-                url += ((url.indexOf('?') == -1) ? '?' : '&');
-                url += $.param({
-                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-                });
-                $(this).attr("href", url);
+        $("#actionLinkId1").on("click", function () {
+            var url = $(this).attr("href");
+            url += ((url.indexOf('?') == -1) ? '?' : '&');
+            url += $.param({
+                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
             });
-            $("#actionLinkId2").on("click", function () {
-                var url = $(this).attr("href");
-                url += ((url.indexOf('?') == -1) ? '?' : '&');
-                url += $.param({
-                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-                });
-                $(this).attr("href", url);
+            $(this).attr("href", url);
+        });
+        $("#actionLinkId2").on("click", function () {
+            var url = $(this).attr("href");
+            url += ((url.indexOf('?') == -1) ? '?' : '&');
+            url += $.param({
+                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
             });
-            $("#actionLinkId3").on("click", function () {
-                var url = $(this).attr("href");
-                url += ((url.indexOf('?') == -1) ? '?' : '&');
-                url += $.param({
-                    listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-                });
-                $(this).attr("href", url);
+            $(this).attr("href", url);
+        });
+        $("#actionLinkId3").on("click", function () {
+            var url = $(this).attr("href");
+            url += ((url.indexOf('?') == -1) ? '?' : '&');
+            url += $.param({
+                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
             });
+            $(this).attr("href", url);
+        });
         }
     catch (e) {
         alert("Erro:" + e);
@@ -274,15 +305,15 @@
     try {
             if ($("select#DUT").val() == "C") {
                 //alert('oi');
-                $("div#botao1").fadeIn();
                 $("div#botao2").fadeOut();
                 $("div#botao3").fadeOut();
+                $("div#botao1").fadeIn();
             }
             else if ($("select#DUT").val() == "S") {
                 //alert('oi');
                 $("div#botao1").fadeOut();
-                $("div#botao2").fadeIn();
                 $("div#botao3").fadeOut();
+                $("div#botao2").fadeIn();
             }
             else if ($("select#DUT").val() == ">") {
                 //alert('oi');
@@ -302,31 +333,32 @@
                 //alert($("select#DUT").val());
             if ($("select#DUT").val() == "C") {
                 //alert('oi');
-                //$("div#botao1").fadeIn();
-                //$("div#botao2").fadeOut();
-                //$("div#botao3").fadeOut();
-                validateForm(false);
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao1").fadeIn();
+
+                //validateForm(false);
             }
             else if ($("select#DUT").val() == "S") {
                 //alert('oi');
-                //$("div#botao1").slideUp();
-                //$("div#botao2").slideDown();
-                //$("div#botao3").slideUp();
-                validateForm(false);
+                $("div#botao1").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao2").fadeIn();
+                //validateForm(false);
             }
             else if ($("select#DUT").val() == ">") {
                 //alert('oi');
-                //$("div#botao1").slideUp();
-                //$("div#botao2").slideUp();
-                //$("div#botao3").slideDown();
-                validateForm(false);
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeIn();
+                //validateForm(false);
             }
             else if ($("select#DUT").val() == "") {
                 //alert('oi');
-                //$("div#botao1").slideUp();
-                //$("div#botao2").slideUp();
-                //$("div#botao3").slideDown();
-                validateForm(false);
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+                //validateForm(false);
             }
         });
     }
@@ -372,6 +404,9 @@
             document.getElementById("limpaNaMarra1").setAttribute("value", "");
             document.getElementById("limpaNaMarra2").setAttribute("value", "");
             document.getElementById("limpaNaMarra3").setAttribute("value", "");
+            $("div#botao1").fadeOut();
+            $("div#botao2").fadeOut();
+            $("div#botao3").fadeOut();
             document.getElementById("Liquidados").submit();
         });
     }
@@ -379,10 +414,40 @@
         alert("Erro: " + e);
     }
 
+
+    try {
+        function validateCheck() {
+            //alert(document.getElementById("listaSelecionados").value);
+            if (document.getElementById("listaSelecionados").value == "")
+            {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                    return false;
+                });
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            return false;
+        }            
+    }
+    catch(e)
+    {
+        alert("Erro: " + e);
+    }
+
+    function limpaSelecionados()
+    {
+        document.getElementById("listaSelecionados").value = "";
+    }
+
     // Valida entradas e o intervalo de meses entre os meses
     try {
         var maxIntervEntreDatas = 12;
         function validateForm(a) {
+            //alert(document.getElementById("listaSelecionados"));
             var AnoFim = document.getElementsByName('dataFim')[0].value.toString().substring(6, 10);
             var AnoIni = document.getElementsByName('dataInicio')[0].value.toString().substring(6, 10);
             var MesFim = document.getElementsByName('dataFim')[0].value.toString().substring(3, 5)
@@ -485,6 +550,48 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(176, 172, 186)">Todas impressões atualizadas no banco e enviadas para a impressora com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Selecione algum veículo para poder imprimir!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro3" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Nenhum veículo encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

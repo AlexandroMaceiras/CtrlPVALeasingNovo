@@ -209,10 +209,9 @@
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Modelo de Upload\UploadDebitoDeIPVA-gigante.csv" />
     <Content Include="Modelo de Upload\UploadDebitoDeIPVA.csv" />
-    <Content Include="Cartas\Carta de Comunicação Eletrônica.docx" />
-    <Content Include="Cartas\Carta de Liquidação.docx" />
-    <Content Include="Cartas\Recibo de Venda.docx" />
     <Content Include="Cartas\Solicitação DUT.docx" />
+    <Content Include="Cartas\Layout DUT.pptx" />
+    <Content Include="Cartas\Recibo de Venda.docx" />
     <None Include="Properties\PublishProfiles\CtrlIPVALeasing.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cldr.js" />
@@ -328,7 +327,7 @@
     <Content Include="Views\Tbl_Agencias\Edit.cshtml" />
     <Content Include="Views\Tbl_Agencias\Index.cshtml" />
     <Content Include="Views\Transacional\Liquidados.cshtml" />
-    <Content Include="Views\Transacional\Teste1.cshtml" />
+    <Content Include="Views\Transacional\ImpressaoDeRecibosDeVendas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
