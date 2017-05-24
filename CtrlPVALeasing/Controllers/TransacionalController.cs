@@ -81,7 +81,7 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
-        public ActionResult Liquidados(DateTime? dataInicio, DateTime? dataFim, string uf_cliente, string impresso, string DUT, int? criterio, bool? escolha, string listaSelecionados)
+        public ActionResult Liquidados(DateTime? dataInicio, DateTime? dataFim, string uf_cliente, string impresso, string DUT, int? criterio, string escolha, string listaSelecionados)
         {
             if (dataInicio == null)
                 dataInicio = null;
@@ -367,7 +367,7 @@ namespace CtrlPVALeasing.Controllers
                 return View(GetContratosVeiculosViewModelErroNaoEncontrado());
             }
             
-            if (listaSelecionados != "" && escolha == false)
+            if (listaSelecionados != "" && escolha != "csv")
             {
                 // Controle de erros do ModelState
                 //var errors = ModelState
@@ -376,6 +376,10 @@ namespace CtrlPVALeasing.Controllers
                 //.ToArray();
 
                 string[] veiculosCheckbox = listaSelecionados.Split(';');
+
+                string porra11 = "";
+                string porra22 = "";
+                string porra33 = "";
 
                 foreach (string item in veiculosCheckbox)
                 {
@@ -386,6 +390,10 @@ namespace CtrlPVALeasing.Controllers
                         string porra1 = dadosVeiculo[0].ToString();
                         string porra2 = dadosVeiculo[1].ToString();
                         string porra3 = dadosVeiculo[2].ToString();
+
+                        porra11 += porra1;
+                        porra22 += porra2;
+                        porra33 += porra3;
 
                         var procuraRegistro = db.Tbl_Impressao
                             .FirstOrDefault(c => c.chassi == porra1 || c.renavam == porra2 || c.placa == porra3);
@@ -422,21 +430,19 @@ namespace CtrlPVALeasing.Controllers
                     }
                 }
 
-                return View("ImpressaoDeRecibosDeVendas", model);
-                //string x = "1232kj12j3";
-                //return Content("<script>window.open('Teste1("+ x +")')</script>");
+                // Filtrando o model com a listaSelecionados para a impressão
+                model = model.Where(o => porra11.Contains(o.chassi.ToString().Trim()) && porra22.Contains(o.renavam.ToString().Trim()) && porra33.Contains(o.placa.ToString().Trim()));
 
-                //ViewBag.obj = Newtonsoft.Json.JsonConvert.SerializeObject(new { id = 1, nome = "teste", sobrenome = "subteste" });
-                //ViewBag.Message = veiculosCheckbox;
-
-                //return Content("<script>window.open('Teste1')</script>");
-                //return View("Teste1",model);
+                if (escolha == "irdv")
+                    return View("ImpressaoDeRecibosDeVendas", model);
+                else if (escolha == "id")
+                    return View("ImpressaoDeDUTs", model);
 
             }
 
 
 
-            if (escolha == true)
+            if (escolha == "gcvs")
             {
                 //Gera Resultado em CSV.
                 StringWriter sw = new StringWriter();
@@ -730,6 +736,10 @@ namespace CtrlPVALeasing.Controllers
             return View("ImpressaoDUTAvulso", model);
         }
 
+        public ActionResult ImpressaoDeDUTs(string listaSelecionados)
+        {
+            return View();
+        }
 
         public ActionResult ImpressaoDeRecibosDeVendas(string listaSelecionados)
         {

@@ -646,7 +646,7 @@
                                             <div class="fonte-cinza-claro fonte-tamanho-form">Endereço: </div>
                                         </td>
                                         <td colspan="4">
-                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + MF.cep_cliente)" type="text" name="end_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
+                                            <input class="input-sm-fino" value="@(MF.end_comprador != null ? MF.end_comprador : (MF.end_cliente != null ? MF.end_cliente.ToString().Trim() + " - ":"") + (MF.bairro_cliente != null ? MF.bairro_cliente.ToString().Trim() + "   - CEP: ":"") + (MF.end_comprador != null ? "00000-00" : MF.cep_cliente))" type="text" name="end_comprador" maxlength="40" size="79" style="text-transform:uppercase" disabled="disabled" />
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

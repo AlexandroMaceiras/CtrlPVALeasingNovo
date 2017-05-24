@@ -23,7 +23,7 @@
 @using (Html.BeginForm("Liquidados", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
-    <input type="hidden" name="escolha" id="escolha" value="false" />
+    <input type="hidden" name="escolha" id="escolha" value="gcvs" />
     <input type="hidden" name="listaSelecionados" id="listaSelecionados" value="@Request["listaSelecionados"]"/>
     <div class="jumbotronFundo">
         <h2>LIQUIDADOS COM E SEM DUT</h2>
@@ -48,7 +48,7 @@
                     <th width="5%">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input onclick="limpaSelecionados();validateForm(false);" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
+                        <div id="fazSubmit"><input onclick="limpaSelecionados();validateForm('irdv');" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
@@ -91,9 +91,10 @@
                     <table>
                         <tr>
                             <td colspan="2" class="botao-td">
-                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                                @Html.ActionLink("IMPRIMIR DUTs", "ImpressaoDeDUTs", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateCheck();", target = "_blank" })
-                                <input onclick="validateForm(false);" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR RECIBOS DE VENDAS" />
+                                <input onclick="validateForm('gcvs');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                <input onclick="validateForm('id');" class="btn4 btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR DUTs" />
+                                <input onclick="validateForm('irdv');" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR RECIBOS DE VENDAS" />
+                                @*@Html.ActionLink("IMPRIMIR DUTs", "ImpressaoDeDUTs", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateCheck();", target = "_blank" })*@
                                 @*@Html.ActionLink("IMPRIMIR RECIBOS DE VENDAS", "ImpressaoDeRecibosDeVendas", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId2", onclick = "validateCheck();", target = "_blank" })*@
                             </td>
                         </tr>
@@ -271,35 +272,35 @@
 
 <script>
     // Passa os parâmetros da página atravé de GET no Html.ActionLink (Só dá pra passar parâmetros de AcionLink assim!)
-    try {
-        $("#actionLinkId1").on("click", function () {
-            var url = $(this).attr("href");
-            url += ((url.indexOf('?') == -1) ? '?' : '&');
-            url += $.param({
-                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-            });
-            $(this).attr("href", url);
-        });
-        $("#actionLinkId2").on("click", function () {
-            var url = $(this).attr("href");
-            url += ((url.indexOf('?') == -1) ? '?' : '&');
-            url += $.param({
-                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-            });
-            $(this).attr("href", url);
-        });
-        $("#actionLinkId3").on("click", function () {
-            var url = $(this).attr("href");
-            url += ((url.indexOf('?') == -1) ? '?' : '&');
-            url += $.param({
-                listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
-            });
-            $(this).attr("href", url);
-        });
-        }
-    catch (e) {
-        alert("Erro:" + e);
-    }
+    //try {
+    //    $("#actionLinkId1").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    $("#actionLinkId2").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    $("#actionLinkId3").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    }
+    //catch (e) {
+    //    alert("Erro:" + e);
+    //}
 
     // Mostra e substitui botões de impressão e CSV
     try {
@@ -478,13 +479,15 @@
             }
             else
             {
-                if (a == true)
+                if (a == "gcvs")
                 {
-                    document.getElementById("escolha").value = true;
+                    document.getElementById("escolha").value = "gcvs";
                 }
-                else
-                {
-                    document.getElementById("escolha").value = false;
+                else if (a == "irdv") {
+                    document.getElementById("escolha").value = "irdv";
+                }
+                else if (a == "id") {
+                    document.getElementById("escolha").value = "id";
                 }
                 document.getElementById("FormAltera").submit();
                 //window.open("../Relatorio/RelatorioBensApreendidosDebtoIPVA");
