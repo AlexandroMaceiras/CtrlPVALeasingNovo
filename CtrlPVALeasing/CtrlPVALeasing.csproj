@@ -196,6 +196,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\DUT.bmp" />
+    <Content Include="Imagens\DUT60.bmp" />
+    <Content Include="Imagens\DUT75SemBordas.bmp" />
+    <Content Include="Imagens\DUT85MiniBordas.bmp" />
     <Content Include="Imagens\fundo1.bmp" />
     <Content Include="Imagens\fundoPrincipal.jpg" />
     <Content Include="Imagens\GrafPizza.jpg" />
@@ -329,6 +333,7 @@
     <Content Include="Views\Transacional\Liquidados.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDeRecibosDeVendas.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDeDUTs.cshtml" />
+    <Content Include="Views\Transacional\ImpressaoDasSolicitacoesDeDUTs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

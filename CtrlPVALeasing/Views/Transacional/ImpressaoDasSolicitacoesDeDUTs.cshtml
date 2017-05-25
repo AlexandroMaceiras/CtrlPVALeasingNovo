@@ -1,0 +1,331 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressão de Recibos De Vendas</title>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<style type="text/css">
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .dl-horizontal dt {
+    } 
+    .input-sm-ultra-fino2 {
+      height: 20px;
+      padding: 1px 10px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-ultra-fino3 {
+        height: 20px;
+        padding: 1px 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        border-radius: 3px;
+        background-color: rgb(235,235,228);
+    }
+
+    .input-sm-ultra-fino {
+      height: 10px;
+      padding: 4px 5px;
+        font-size: 10px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-fino {
+      height: 20px;
+      padding: 1px 1px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino10 {
+      height: 60px;
+      padding: 10px 15px;
+      font-size: 10px;
+      line-height: 35.5;
+      border-radius: 12px;
+    }
+    .input-sm-fino11 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino12 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Impressão de Recibos De Vendas";
+    Layout = null;
+}
+<body>
+
+    @foreach (var item in Model)
+    {    
+        <br /><br />
+        <div class="jumbotronFundo">
+            <center><h5>RECIBO DE VENDA</h5></center>
+            <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="290"><font size="2">Prezado cliente:</font></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="290" align="justify"><font size="2">Recebemos a importância de R$ @item.valor_total_recuperado em pagamento do bem abaixo caracterizado, no estado em que se encontrae conforme examinado pelo comprador, objeto que foi do contrato de arrendamento a seguir especificado:</font></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <center>
+                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>CONTRATO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.contrato
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>VENDEDOR:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        Safra Leasing SA Arrendamento Mercantil
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>ENDEREÇO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        Avenida Brasil, nº 78 - Centro - Poá - SP
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>CNPJ:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        62.063.177/0001-94
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <center>
+                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>COMPRADOR:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @(item.nome_comprador != null ? item.nome_comprador : item.nome_cliente)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>ENDEREÇO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @(item.end_comprador != null ? item.end_comprador : item.end_cliente)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>BAIRRO - CIDADE - ESTADO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.bairro_cliente -  @(item.local_comprador != null ? item.local_comprador : (item.cidade_cliente != null ? item.cidade_cliente.ToString().Trim() + " / " + item.uf_cliente : ""))
+                                    </td>
+                                    <td>
+                                        <div><font size="2"><b>CEP:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @(item.end_comprador != null ? "00000-00" : item.cep_cliente)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>CNPJ/CPF:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @(item.cpf_cnpj_comprador != null ? item.cpf_cnpj_comprador : item.cpf_cnpj_cliente)
+                                    </td>
+                                    <td>
+                                        <div><font size="2"><b>RG:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @(item.rg_comprador != null ? item.rg_comprador : item.cpf_cnpj_cliente)
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <center><h5>CARACTERÍSTICAS DO BEM:</h5></center>
+            <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <center>
+                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>MARCA:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.marca
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <div><font size="2"><b>TIPO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.tipo
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>COR:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.cor
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>ANO/FAB:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.ano_mod/@item.ano_fab
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>MODELO:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.modelo
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>CHASSI:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.chassi
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>PLACA:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.placa
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div><font size="2"><b>RENAVAM:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                    <td>
+                                        @item.renavam
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="justify">
+                        <font size="2">
+                            À Fiscalização da Secretaria da Fazenda Estadual<br /><br />
+                            Declaramos  que  esta  empresa,  conforme   resposta  à   Consulta   nº 552/89,   formalizada pela ABEL - Associação Brasileira das Empresas de Leasing, aprovada em 17.09.90, pelo Coordenador da Administração Tributária, tendo,  portanto força de Ato Normativo, não é contribuinte do ICMS, não estando, desta forma, obrigada a emitir nota fiscal.
+                            <br /><br /><br />
+                            Declaração de Venda
+                            <br /><br />
+                            Declaramos para fins de obtenção do Certificado de Propriedade junto ao orgão de trânsito competente, que o veículo acima descrito, foi objeto de arrendamento mercantil, conforme contrato acima citado, estando desembaraçado de quaisquer ônus e a venda sem reserva de domínio.
+                            <br /><br /><br />
+                            Poá,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@DateTime.Today.Day/@DateTime.Today.Month/@DateTime.Today.Year
+                            <br /><br />
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <center>
+                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="50%">
+
+                                    </td width>
+                                    <td>
+                                        <div><font size="2"><b>SAFRA LEASING S/A ARRENDAMENTO MERCANTI:</b>&nbsp;&nbsp;</font></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td><br /><br /><br />
+                                        ____________________________________________
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br /><br />
+    }
+</body>
+<script>
+    //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+    setTimeout(function () {
+        window.print();
+        window.history.back();
+    }, 100)
+</script>
+</html>
