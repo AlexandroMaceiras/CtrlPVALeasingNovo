@@ -57,7 +57,7 @@
                                     <text>@(item.pagamento_efet_banco.HasValue && item.pagamento_efet_banco.Value == true ? "SIM" : "NÃO")</text>
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.DisplayFor(modelItem => item.valor_recuperado)
+                                    @Html.DisplayFor(modelItem => item.valor_total_recuperado)
                                 </td>
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.ano_exercicio)

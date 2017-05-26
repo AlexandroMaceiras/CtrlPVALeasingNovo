@@ -104,8 +104,9 @@
                     <table>
                         <tr>
                             <td colspan="2" class="botao-td">
-                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
-                                @Html.ActionLink("IMPRIMIR SOLICITAÇÕES DE DUT", "ImpressaoDasSolicitacoesDeDUTs", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateCheck();", target = "_blank" })
+                                <input onclick="validateForm('gcvs');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                <input onclick="validateForm('idsdd');" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR SOLICITAÇÕES DE DUT" />
+                                @*@Html.ActionLink("IMPRIMIR SOLICITAÇÕES DE DUT", "ImpressaoDasSolicitacoesDeDUTs", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateCheck();", target = "_blank" })*@
                             </td>
                         </tr>
                     </table>
@@ -488,6 +489,9 @@
                 }
                 else if (a == "id") {
                     document.getElementById("escolha").value = "id";
+                }
+                else if (a == "idsdd") {
+                    document.getElementById("escolha").value = "idsdd";
                 }
                 document.getElementById("FormAltera").submit();
                 //window.open("../Relatorio/RelatorioBensApreendidosDebtoIPVA");

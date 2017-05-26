@@ -437,6 +437,8 @@ namespace CtrlPVALeasing.Controllers
                     return View("ImpressaoDeRecibosDeVendas", model);
                 else if (escolha == "id")
                     return View("ImpressaoDeDUTs", model);
+                else if (escolha == "idsdd")
+                    return View("ImpressaoDasSolicitacoesDeDUTs", model);
 
             }
 
@@ -736,6 +738,11 @@ namespace CtrlPVALeasing.Controllers
             return View("ImpressaoDUTAvulso", model);
         }
 
+        public ActionResult ImpressaoDasSolicitacoesDeDUTs(string listaSelecionados)
+        {
+            return View();
+        }
+
         public ActionResult ImpressaoDeDUTs(string listaSelecionados)
         {
             return View();
@@ -840,7 +847,6 @@ namespace CtrlPVALeasing.Controllers
                 return View(GetContratosVeiculosViewModelErro());
             }
         }
-
 
 
         protected override void Dispose(bool disposing)
