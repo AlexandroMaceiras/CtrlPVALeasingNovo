@@ -18,5 +18,8 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(9)]
         public string placa { get; set; }
+
+        public bool? comVenda { get; set; }
+        public bool? comDUT { get; set; }
     }
 }

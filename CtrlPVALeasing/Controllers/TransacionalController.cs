@@ -160,7 +160,6 @@ namespace CtrlPVALeasing.Controllers
                             chassi = b.chassi,
                             placa = b.placa,
                             origem_v = b.origem,
-                            comunicado_venda = b.comunicado_venda,
 
                             //id_debito = c.id,
                             chassi_dut = c.chassi,
@@ -212,7 +211,6 @@ namespace CtrlPVALeasing.Controllers
                             chassi = x.chassi,
                             placa = x.placa,
                             origem_v = x.origem_v,
-                            comunicado_venda = x.comunicado_venda,
 
                             //id_debito = x.id_debito,
                             chassi_dut = x.chassi_dut,
@@ -567,7 +565,6 @@ namespace CtrlPVALeasing.Controllers
                              chassi             = b.chassi,
                              placa              = b.placa,
                              origem_v           = b.origem,
-                             comunicado_venda   = b.comunicado_venda,
 
                              dta_cobranca           = c.dta_cobranca,
                              valor_debito_total     = c.valor_debito_total,
@@ -630,7 +627,6 @@ namespace CtrlPVALeasing.Controllers
                              chassi             = x.chassi,
                              placa              = x.placa,
                              origem_v           = x.origem_v,
-                             comunicado_venda   = x.comunicado_venda,
 
                              dta_cobranca           = x.dta_cobranca,
                              valor_debito_total     = x.valor_debito_total,

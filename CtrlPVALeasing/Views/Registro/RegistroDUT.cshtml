@@ -67,12 +67,12 @@
         <center>
             <table width="100%" border="0" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
-                    <td colspan="0" align="justify">
+                    <td colspan="0" align="justify" width="25%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             DUT está com o Banco&nbsp;
-                            <input type="checkbox" name="pcv" @( MF.comunicado_venda != null && MF.comunicado_venda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" name="pcv" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
-                    <td>
+                    <td width="10%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             @{
                                 if (MF.contrato != "" && MF.contrato != null)
@@ -82,6 +82,7 @@
                                         <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                         <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                         <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+                                        <input type="hidden" name="comDUT" value="@MF.comDUT" />
                                     </div>
                                 }
                                 else
@@ -91,7 +92,36 @@
                             }
                         </div>
                     </td>
-                    <td width="65%"></td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td colspan="0" align="justify" width="25%" >
+                        <div class="fonte-cinza-claro fonte-tamanho-form">
+                            DUT Comunicado de Venda&nbsp;
+                            <input type="checkbox" name="pcv" @( MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fonte-cinza-claro fonte-tamanho-form">
+                            @{
+                                if (MF.contrato != "" && MF.contrato != null)
+                                {
+                                    <div id="fazSubmit">
+                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR COMUNICADO" />
+                                        <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
+                                        <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
+                                        <input type="hidden" name="placaPesquisada" value="@MF.placa" />
+                                        <input type="hidden" name="comVenda" value="@MF.comVenda" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("REGISTRAR DUT", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
+                                }
+                            }
+                        </div>
+                    </td>
+                    <td width="30%" ></td>
                 </tr>
             </table>
         </center>
@@ -187,7 +217,7 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.comunicado_venda != null && MF.comunicado_venda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
                                         <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>

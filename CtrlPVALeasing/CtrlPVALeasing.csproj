@@ -296,11 +296,6 @@
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual.cshtml" />
     <Content Include="Views\Registro\_GridDebitos.cshtml" />
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual2.cshtml" />
-    <Content Include="Views\Tbl_Dut\Create.cshtml" />
-    <Content Include="Views\Tbl_Dut\Delete.cshtml" />
-    <Content Include="Views\Tbl_Dut\Details.cshtml" />
-    <Content Include="Views\Tbl_Dut\Edit.cshtml" />
-    <Content Include="Views\Tbl_Dut\Index.cshtml" />
     <Content Include="Views\Registro\RegistroDUT.cshtml" />
     <Content Include="Views\Relatorio\RelatorioBensApreendidosDebtoIPVA.cshtml" />
     <Content Include="Views\Tbl_CCL\Create.cshtml" />
@@ -332,6 +327,11 @@
     <Content Include="Views\Transacional\ImpressaoDeDUTs.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDasSolicitacoesDeDUTs.cshtml" />
     <Content Include="Views\Home\Grafico.cshtml" />
+    <Content Include="Views\Tbl_Dut\Create.cshtml" />
+    <Content Include="Views\Tbl_Dut\Delete.cshtml" />
+    <Content Include="Views\Tbl_Dut\Details.cshtml" />
+    <Content Include="Views\Tbl_Dut\Edit.cshtml" />
+    <Content Include="Views\Tbl_Dut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,7 +46,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,renavam,chassi,placa")] Tbl_Dut tbl_Dut)
+        public ActionResult Create([Bind(Include = "id,renavam,chassi,placa,comVenda,comDUT")] Tbl_Dut tbl_Dut)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,renavam,chassi,placa")] Tbl_Dut tbl_Dut)
+        public ActionResult Edit([Bind(Include = "id,renavam,chassi,placa,comVenda,comDUT")] Tbl_Dut tbl_Dut)
         {
             if (ModelState.IsValid)
             {

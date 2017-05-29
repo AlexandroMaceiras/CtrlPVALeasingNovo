@@ -177,9 +177,12 @@ CREATE TABLE dbo.Tbl_Dut
 	renavam VARCHAR (20) NULL,
 	chassi  VARCHAR (20) NULL,
 	placa   VARCHAR (9) NULL,
+	comVenda bit NULL,
+	comDUT	 bit NULL,
 	PRIMARY KEY (id)
 	)
 GO
+
 
 IF OBJECT_ID ('dbo.Tbl_Impressao') IS NOT NULL
 	DROP TABLE dbo.Tbl_Impressao

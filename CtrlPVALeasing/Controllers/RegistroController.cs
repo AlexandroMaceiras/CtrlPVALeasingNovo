@@ -225,7 +225,7 @@ namespace CtrlPVALeasing.Controllers
 
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string Rd)
+        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string Rd, bool? comDUT, bool? comVenda)
         {
             if (chassi == null)
                 chassi = "";
@@ -295,11 +295,13 @@ namespace CtrlPVALeasing.Controllers
                          chassi = b.chassi,
                          placa = b.placa,
                          origem_v = b.origem,
-                         comunicado_venda = b.comunicado_venda,
+
 
                          renavam_bens = c.renavam,
                          chassi_bens = c.chassi,
-                         placa_bens = c.placa
+                         placa_bens = c.placa,
+                         comVenda = c.comVenda,
+                         comDUT = c.comDUT
 
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -344,11 +346,13 @@ namespace CtrlPVALeasing.Controllers
                          chassi = x.chassi,
                          placa = x.placa,
                          origem_v = x.origem_v,
-                         comunicado_venda = x.comunicado_venda,
+                         
 
                          renavam_bens = x.renavam_bens,
                          chassi_bens = x.chassi_bens,
-                         placa_bens = x.placa_bens
+                         placa_bens = x.placa_bens,
+                         comVenda = x.comVenda,
+                         comDUT = x.comDUT
 
                      });
 
@@ -386,12 +390,12 @@ namespace CtrlPVALeasing.Controllers
                     if (ModelState.IsValid)
                     {
                         var procuraRegistro = db.Tbl_Dut
-                            .FirstOrDefault(c => c.chassi == chassiPesquisado || c.renavam == renavamPesquisado || c.placa == placaPesquisada);
+                            .FirstOrDefault(c => c.chassi == chassiPesquisado.Trim() || c.renavam == renavamPesquisado.Trim() || c.placa == placaPesquisada.Trim());
                         if (procuraRegistro != null)
                         {
-                            procuraRegistro.chassi = chassiPesquisado;
-                            procuraRegistro.renavam = renavamPesquisado;
-                            procuraRegistro.placa = placaPesquisada;
+                            procuraRegistro.chassi = chassiPesquisado.Trim();
+                            procuraRegistro.renavam = renavamPesquisado.Trim();
+                            procuraRegistro.placa = placaPesquisada.Trim();
 
                             db.Entry(procuraRegistro).State = EntityState.Modified;
                             db.SaveChanges();
@@ -402,9 +406,9 @@ namespace CtrlPVALeasing.Controllers
                             model3 = new Tbl_Dut
                             {
                                 id = 0,
-                                chassi = chassiPesquisado,
-                                renavam = renavamPesquisado,
-                                placa = placaPesquisada
+                                chassi = chassiPesquisado.Trim(),
+                                renavam = renavamPesquisado.Trim(),
+                                placa = placaPesquisada.Trim()
                             };
 
                             if (db.Entry(model3).State == EntityState.Detached)
@@ -420,8 +424,9 @@ namespace CtrlPVALeasing.Controllers
                         return View(GetErroDeEntrada());
                     }
                 }
-                catch
+                catch(Exception e)
                 {
+                    Response.Write("<script>alert('" + e.InnerException + "')</script>");
                     return View(GetErroDeEntradaDesconhecido());
                 }
             }
@@ -511,7 +516,6 @@ namespace CtrlPVALeasing.Controllers
                          chassi = b.chassi,
                          placa = b.placa,
                          origem_v = b.origem,
-                         comunicado_venda = b.comunicado_venda,
 
                          id_debito = c.id,
                          dta_cobranca = c.dta_cobranca,
@@ -592,7 +596,6 @@ namespace CtrlPVALeasing.Controllers
                          chassi = x.chassi,
                          placa = x.placa,
                          origem_v = x.origem_v,
-                         comunicado_venda = x.comunicado_venda,
 
                          id_debito             = x.id_debito,
                          dta_cobranca = x.dta_cobranca,
@@ -817,7 +820,6 @@ namespace CtrlPVALeasing.Controllers
                          chassi = b.chassi,
                          placa = b.placa,
                          origem_v = b.origem,
-                         comunicado_venda = b.comunicado_venda,
 
                          id_debito             = c.id,
                          valor_debito_total = c.valor_debito_total,
@@ -877,7 +879,6 @@ namespace CtrlPVALeasing.Controllers
                          chassi = x.chassi,
                          placa = x.placa,
                          origem_v = x.origem_v,
-                         comunicado_venda = x.comunicado_venda,
 
                          id_debito             = x.id_debito,
                          valor_debito_total = x.valor_debito_total,
@@ -997,7 +998,6 @@ namespace CtrlPVALeasing.Controllers
                             chassi              = b.chassi,
                             placa               = b.placa,
                             origem_v            = b.origem,
-                            comunicado_venda    = b.comunicado_venda,
 
                             //id_debito             = c.id,
                             dta_cobranca            = c.dta_cobranca,
@@ -1061,7 +1061,6 @@ namespace CtrlPVALeasing.Controllers
                             chassi              = x.chassi,
                             placa               = x.placa,
                             origem_v            = x.origem_v,
-                            comunicado_venda    = x.comunicado_venda,
 
                             //id_debito             = x.id_debito,
                             dta_cobranca            = x.dta_cobranca,

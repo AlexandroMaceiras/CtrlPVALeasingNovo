@@ -138,7 +138,7 @@ namespace CtrlPVALeasing.Models
         public string origem_v { get; set; }
 
         public bool? status_v { get; set; }
-        public bool? comunicado_venda { get; set; }
+
 
 
 
@@ -313,5 +313,9 @@ namespace CtrlPVALeasing.Models
 
 
         public string listaSelecionados { get; set; }
+
+
+        public bool? comVenda { get; set; }
+        public bool? comDUT { get; set; }
     }
 }
