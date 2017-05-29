@@ -81,10 +81,11 @@
     Layout = null;
 }
 <body>
-
     @foreach (var item in Model)
     {
-
+        <br />
+        <br />
+        <br />
         <div class="jumbotronFundo">
             <center><h5>SOLICITAÇÃO DE DUT (DOCUMENTO ÚNICO DE TRANSFERÊNCIA)</h5></center>
             <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
@@ -178,7 +179,7 @@
                 </tr>
             </table>
             <center><h5>INTERESSADOS:</h5></center>
-            <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border-style:inherit">
+            <table width="100%" border="1" cellspacing="0" cellpadding="5" style="border-style:inherit">
                 <tr>
                     <td>
                         <center>
@@ -221,7 +222,7 @@
                                             <b>CLIENTE/ARRENDATÁRIO:&nbsp;&nbsp;&nbsp;</b>
                                         </font>
                                     </td>
-                                    <td>
+                                    <td colspan="3">
                                         <font size="2">
                                             @(item.nome_comprador != null ? item.nome_comprador : item.nome_cliente)&nbsp;&nbsp;&nbsp;
                                         <font />
@@ -294,7 +295,7 @@
                                     <td>
                                         <div><font size="2"><b>ENDEREÇO:</b>&nbsp;&nbsp;</font></div>
                                     </td>
-                                    <td colspan="2">
+                                    <td colspan="4">
                                         <font size="2">
                                             @(item.end_comprador != null ? item.end_comprador : item.end_cliente)<font />&nbsp;&nbsp;&nbsp;
                                     </td>
@@ -368,16 +369,13 @@
         <br />
         <br />
         <br />
-        <br />
-        <br />        <br />
-
-                                                }
+}
 </body>
 <script>
     //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
     setTimeout(function () {
-        window.print();
-        window.history.back();
+        //window.print();
+        //window.history.back();
     }, 100)
 </script>
 </html>

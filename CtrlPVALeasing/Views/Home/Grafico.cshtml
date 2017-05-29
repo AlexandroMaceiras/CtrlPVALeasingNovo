@@ -12,13 +12,10 @@
         @item.total2
     }
 
-    <table border="1">
+    <table border="1" width="50%">
         <tr>
             <td align="center">
                 <h2>CONTRATOS</h2>
-            </td>
-            <td>
-
             </td>
             <td align="center">
 
@@ -27,16 +24,28 @@
         </tr>
         <tr>
             <td>
+                @foreach (var item in Model)
+                {
+                    if (item.status == true)
+                    {
+                        <h2>- Verde LIQUIDADOS(@item.total) </h2>
+                    }
+                    else if (item.status == false)
+                    {
+                        <h2>- Vermelho ATIVOS (@item.total)</h2>
+                    }
+                }
+            </td>
+            <td>
+                <h2>- Vermelho ATIVOS - Verde LIQUIDADOS</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <img src="@Url.Action("_graficoContratos")" alt="" />
             </td>
             <td>
-                <h2>ATIVO<br />LIQUIDADO</h2>
-            </td>
-            <td>
                 <img src="@Url.Action("_graficoVeiculos")" alt="" />
-            </td>
-            <td>
-                <h2>ATIVO<br />LIQUIDADO</h2>
             </td>
         </tr>
     </table>
