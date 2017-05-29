@@ -23,6 +23,7 @@
 @using (Html.BeginForm("RegistroDUT", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
+    <input type="hidden" name="escolha" id="escolha" value="nada" />
     <div class="jumbotronFundo">
         <h2>REGISTRO DE DUT</h2>
         <br />
@@ -78,11 +79,11 @@
                                 if (MF.contrato != "" && MF.contrato != null)
                                 {
                                     <div id="fazSubmit">
-                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DUT" />
+                                        <input onclick="validateForm('rd');" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DUT" />
                                         <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                         <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                         <input type="hidden" name="placaPesquisada" value="@MF.placa" />
-                                        <input type="hidden" name="comDUT" value="@MF.comDUT" />
+                                        <input type="hidden" name="comDUT" value="@( MF.comDUT != null && MF.comDUT != false ? true : false )" />
                                     </div>
                                 }
                                 else
@@ -107,11 +108,11 @@
                                 if (MF.contrato != "" && MF.contrato != null)
                                 {
                                     <div id="fazSubmit">
-                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR COMUNICADO" />
+                                        <input onclick="validateForm('rc');" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR COMUNICADO" />
                                         <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                         <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                         <input type="hidden" name="placaPesquisada" value="@MF.placa" />
-                                        <input type="hidden" name="comVenda" value="@MF.comVenda" />
+                                        <input type="hidden" name="comVenda" value="@( MF.comVenda != null && MF.comVenda != false ? true : false )" />
                                     </div>
                                 }
                                 else
@@ -413,7 +414,7 @@
 
     try
     {
-        function validateForm()
+        function validateForm(a)
         {
             if (
                 document.getElementsByName('chassiPesquisado')[0].value == "" ||
@@ -428,7 +429,12 @@
             }
             else
             {
-                document.getElementById("Rd").value = true;
+                if (a == "rd") {
+                    document.getElementById("escolha").value = "rd";
+                }
+                else if (a == "rc") {
+                    document.getElementById("escolha").value = "rc";
+                }
                 document.getElementById("FormAltera").submit();
                 return true;
             }

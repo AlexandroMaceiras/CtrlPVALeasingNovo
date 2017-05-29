@@ -225,7 +225,7 @@ namespace CtrlPVALeasing.Controllers
 
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string Rd, bool? comDUT, bool? comVenda)
+        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string escolha, bool? comDUT, bool? comVenda)
         {
             if (chassi == null)
                 chassi = "";
@@ -376,9 +376,9 @@ namespace CtrlPVALeasing.Controllers
                 return RedirectToAction("RegistroDUT");
             }
 
-            if (Request.HttpMethod == "POST" && Rd == "true")
+            if (Request.HttpMethod == "POST" && (escolha == "rd" || escolha == "rc"))
             {
-                Rd = "false";
+
 
                 // Controle de erros do ModelState
                 var errors = ModelState
@@ -397,18 +397,30 @@ namespace CtrlPVALeasing.Controllers
                             procuraRegistro.renavam = renavamPesquisado.Trim();
                             procuraRegistro.placa = placaPesquisada.Trim();
 
+                            if (escolha == "rd")
+                                procuraRegistro.comDUT = true;
+                            else if (escolha == "rc")
+                                procuraRegistro.comVenda = true;
+
                             db.Entry(procuraRegistro).State = EntityState.Modified;
                             db.SaveChanges();
                             return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
                         }
                         else
                         {
+                            if (escolha == "rd")
+                                comDUT = true;
+                            else if (escolha == "rc")
+                                comVenda = true;
+
                             model3 = new Tbl_Dut
                             {
                                 id = 0,
                                 chassi = chassiPesquisado.Trim(),
                                 renavam = renavamPesquisado.Trim(),
-                                placa = placaPesquisada.Trim()
+                                placa = placaPesquisada.Trim(),
+                                comDUT = comDUT,
+                                comVenda = comVenda
                             };
 
                             if (db.Entry(model3).State == EntityState.Detached)
@@ -429,6 +441,7 @@ namespace CtrlPVALeasing.Controllers
                     Response.Write("<script>alert('" + e.InnerException + "')</script>");
                     return View(GetErroDeEntradaDesconhecido());
                 }
+                escolha = "nada";
             }
             return View("RegistroDUT", model);
         }
