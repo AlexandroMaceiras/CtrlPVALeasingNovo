@@ -186,6 +186,7 @@
     <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Models\Tbl_Impressao.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />
+    <Compile Include="Models\TesteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +331,7 @@
     <Content Include="Views\Transacional\ImpressaoDeRecibosDeVendas.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDeDUTs.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDasSolicitacoesDeDUTs.cshtml" />
+    <Content Include="Views\Home\Grafico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
