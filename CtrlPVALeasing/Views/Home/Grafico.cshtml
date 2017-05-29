@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.TesteViewModel>
+@{
+    ViewBag.Title = "Usando Chart Helper";
+    Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
+}
+<body><br /><br /><br /><br /><br /><br />
+    @foreach (var item in Model)
+    {
+        @item.status
+        @item.total
+        @item.status2
+        @item.total2
+    }
+
+    <table border="1">
+        <tr>
+            <td align="center">
+                <h2>CONTRATOS</h2>
+            </td>
+            <td>
+
+            </td>
+            <td align="center">
+
+                <h2>VEÍCULOS</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="@Url.Action("_graficoContratos")" alt="" />
+            </td>
+            <td>
+                <h2>ATIVO<br />LIQUIDADO</h2>
+            </td>
+            <td>
+                <img src="@Url.Action("_graficoVeiculos")" alt="" />
+            </td>
+            <td>
+                <h2>ATIVO<br />LIQUIDADO</h2>
+            </td>
+        </tr>
+    </table>
+</body>
