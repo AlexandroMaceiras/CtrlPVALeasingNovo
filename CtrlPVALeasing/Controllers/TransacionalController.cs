@@ -494,7 +494,7 @@ namespace CtrlPVALeasing.Controllers
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult ImpressaoDUTAvulso(string chassi, string placa, string renavam,
             string nome_cliente, string ic, string ac, int? id_comprador, string nome_comprador, string cpf_cnpj_comprador, 
-            string local_comprador, string rg_comprador, DateTime? dta_da_compra, string end_comprador, decimal? valor_da_compra)
+            string local_comprador, string rg_comprador, DateTime? dta_da_compra, string end_comprador, decimal? valor_da_compra, string escolha, string listaSelecionados)
         {
             try
             {
@@ -736,6 +736,85 @@ namespace CtrlPVALeasing.Controllers
                         return View(GetErroDeVenda());
                     }
                 }
+
+
+                if (listaSelecionados != "" && escolha != "inc")
+                {
+                    // Controle de erros do ModelState
+                    //var errors = ModelState
+                    //.Where(x => x.Value.Errors.Count > 0)
+                    //.Select(x => new { x.Key, x.Value.Errors })
+                    //.ToArray();
+
+                    string[] veiculosCheckbox = listaSelecionados.Split(';');
+
+                    string porra11 = "";
+                    string porra22 = "";
+                    string porra33 = "";
+
+                    foreach (string item in veiculosCheckbox)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            string[] dadosVeiculo = item.Split(',');
+
+                            string porra1 = dadosVeiculo[0].ToString();
+                            string porra2 = dadosVeiculo[1].ToString();
+                            string porra3 = dadosVeiculo[2].ToString();
+
+                            porra11 += porra1;
+                            porra22 += porra2;
+                            porra33 += porra3;
+
+                            var procuraRegistro = db.Tbl_Impressao
+                                .FirstOrDefault(c => c.chassi == porra1 || c.renavam == porra2 || c.placa == porra3);
+
+                            if (procuraRegistro != null)
+                            {
+                                procuraRegistro.tipo_impressao = DUT;
+
+                                db.Entry(procuraRegistro).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                model3 = new Tbl_Impressao
+                                {
+                                    id = 0,
+                                    chassi = dadosVeiculo[0],
+                                    renavam = dadosVeiculo[1],
+                                    placa = dadosVeiculo[2],
+
+                                    tipo_impressao = DUT
+                                };
+
+                                if (db.Entry(model3).State == EntityState.Detached)
+                                {
+                                    db.Tbl_Impressao.Add(model3);
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
+                        }
+                    }
+
+                    // Filtrando o model com a listaSelecionados para a impressão
+                    model = model.Where(o => porra11.Contains(o.chassi.ToString().Trim()) && porra22.Contains(o.renavam.ToString().Trim()) && porra33.Contains(o.placa.ToString().Trim()));
+
+                    if (escolha == "irdv")
+                        return View("ImpressaoDeRecibosDeVendas", model);
+                    else if (escolha == "id")
+                        return View("ImpressaoDeDUTs", model);
+                    else if (escolha == "idsdd")
+                        return View("ImpressaoDasSolicitacoesDeDUTs", model);
+
+                }
+
+
+
             }
             catch (Exception e)
             {

@@ -38,6 +38,8 @@
 @using (Html.BeginForm("ImpressaoDUTAvulso", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
+    <input type="hidden" name="escolha" id="escolha" value="nada" />
+    <input type="hidden" name="listaSelecionados" id="listaSelecionados" value="@Request["listaSelecionados"]" />
     <div class="jumbotronFundo">
 
         <h2>IMPRESSÃO DE DUT AVULSO</h2>
@@ -75,6 +77,7 @@
                     {
                     <th colspan="2">
                         <a href="/" class="btn3 btn-primary-imp btn-sm">IMPRIMIR O DUT</a>
+                        <input onclick="validateForm('id');" class="btn4 btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR DUTs" />
                     </th>
                     }
                     else
@@ -522,7 +525,7 @@
                                                     if (MF.contrato != "" && MF.contrato != null)
                                                     {
                                                         <div id="fazSubmit">
-                                                            <input  onclick="validateForm();" class="btn4 btn-primary-pesqui .btn-sm" type="button" value="INCLUIR NOVO COMPRADOR" />
+                                                            <input  onclick="validateForm('inc');" class="btn4 btn-primary-pesqui .btn-sm" type="button" value="INCLUIR NOVO COMPRADOR" />
                                                             <input type="hidden" name="ic" value="true" />
                                                             <input type="hidden" name="ac" value="false" />
                                                             <input type="hidden" name="id_comprador" value="0" />
@@ -732,8 +735,11 @@
                 });
                 return false;
             }
-            else
-            {
+            else {
+                if (a == "id") {
+                    document.getElementById("escolha").value = "id";
+                    listaSelecionados = document.getElementsByName("chassi")[0].value + ';' + document.getElementsByName("renavam")[0].value + ';' + document.getElementsByName("placa")[0].value;
+                }
                 document.getElementById("FormAltera").submit();
                 return true;
             }
