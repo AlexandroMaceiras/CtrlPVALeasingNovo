@@ -197,9 +197,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\azul.bmp" />
     <Content Include="Imagens\fundo1.bmp" />
     <Content Include="Imagens\fundoPrincipal.jpg" />
     <Content Include="Imagens\GrafPizza.jpg" />
+    <Content Include="Imagens\laranja.bmp" />
     <Content Include="Imagens\safra.jpg" />
     <Content Include="Imagens\safraBranco.jpg" />
     <Content Include="Imagens\safraONDA.jpg" />
