@@ -32,7 +32,7 @@ namespace CtrlPVALeasing.Controllers
         private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelAtualizaRegistroOk()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel() { id = -5, agencia = " " });
+            model.Add(new ContratosVeiculosViewModel() { id = -2, agencia = " " });
             return model;
         }
 
@@ -86,7 +86,6 @@ namespace CtrlPVALeasing.Controllers
             model.Add(new ContratosVeiculosViewModel() { id = -6, agencia = " " });
             return model;
         }
-
 
         public ActionResult UploadDebitoIPVA()
         {
@@ -387,8 +386,8 @@ namespace CtrlPVALeasing.Controllers
                 .ToArray();
                 try
                 {
-                    if (ModelState.IsValid)
-                    {
+                    //if (ModelState.IsValid)
+                    //{
                         var procuraRegistro = db.Tbl_Dut
                             .FirstOrDefault(c => c.chassi == chassiPesquisado.Trim() || c.renavam == renavamPesquisado.Trim() || c.placa == placaPesquisada.Trim());
                         if (procuraRegistro != null)
@@ -430,11 +429,11 @@ namespace CtrlPVALeasing.Controllers
                                 return View(GetContratosVeiculosViewModelRegistroOk());
                             }
                         }
-                    }
-                    else
-                    {
-                        return View(GetErroDeEntrada());
-                    }
+                    //}
+                    //else
+                    //{
+                    //    return View(GetErroDeEntrada());
+                    //}
                 }
                 catch(Exception e)
                 {

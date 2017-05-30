@@ -156,7 +156,7 @@ namespace CtrlPVALeasing.Controllers
                 return View("_graficoContratos",model);
             }
 
-            var myChart = new System.Web.Helpers.Chart(width: 230, height: 118, theme: Vanilla3D2)
+            var myChart = new System.Web.Helpers.Chart(width: 230, height: 118, theme: Vanilla3D3)
                 //.AddTitle("CONTRATOS")
                 //.AddLegend("LEGENDA")
                 //.Save(@"H:\Downloads\grafico.jpg")
