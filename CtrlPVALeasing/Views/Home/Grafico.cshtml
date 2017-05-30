@@ -1,25 +1,16 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.TesteViewModel>
 @{
-    ViewBag.Title = "Usando Chart Helper";
-    Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
+    ViewBag.Title = "Gráficos";
 }
 <body><br /><br /><br /><br /><br /><br />
-    @foreach (var item in Model)
-    {
-        @item.status
-        @item.total
-        @item.status2
-        @item.total2
-    }
-
     <table border="1" width="50%">
         <tr>
             <td align="center">
-                <h2>CONTRATOS</h2>
+                <h5>CONTRATOS</h5>
             </td>
             <td align="center">
 
-                <h2>VEÍCULOS</h2>
+                <h5>VEÍCULOS</h5>
             </td>
         </tr>
         <tr>
@@ -28,16 +19,26 @@
                 {
                     if (item.status == true)
                     {
-                        <h2>- Verde LIQUIDADOS(@item.total) </h2>
+                        <h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/verde.bmp" /> LIQUIDADOS(@item.total) </h5>
                     }
                     else if (item.status == false)
                     {
-                        <h2>- Vermelho ATIVOS (@item.total)</h2>
+                        <h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/vermelho.bmp" /> ATIVOS (@item.total)</h5>
                     }
                 }
             </td>
             <td>
-                <h2>- Vermelho ATIVOS - Verde LIQUIDADOS</h2>
+                @foreach (var item in Model)
+                {
+                    if (item.status2 == true)
+                    {
+                        <h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/verde.bmp" /> LIQUIDADOS(@item.total2) </h5>
+                    }
+                    else if (item.status2 == false)
+                    {
+                        <h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/vermelho.bmp" /> ATIVOS (@item.total2)</h5>
+                    }
+                }
             </td>
         </tr>
         <tr>
