@@ -203,6 +203,8 @@
     <Content Include="Imagens\safra.jpg" />
     <Content Include="Imagens\safraBranco.jpg" />
     <Content Include="Imagens\safraONDA.jpg" />
+    <Content Include="Imagens\verde.bmp" />
+    <Content Include="Imagens\vermelho.bmp" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />

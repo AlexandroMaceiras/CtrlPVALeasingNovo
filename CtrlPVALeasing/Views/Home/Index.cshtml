@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<CtrlPVALeasing.Models.TesteViewModel>
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -280,9 +281,10 @@
                         </tr>
                         <tr>
                             <td>
-                                &nbsp;
+                                <h4>&nbsp;</h4>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
 
@@ -291,12 +293,112 @@
                                         <td>
                                             <h3>&nbsp;&nbsp;&nbsp;Visão Geral</h3>
                                             <table border="0" cellspacing="0" cellpadding="0" width="81%">
+
                                                 <tr>
                                                     <td>
-                                                        <img width="127%" src="~/Imagens/GrafPizza.jpg" />
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;&nbsp;&nbsp;
+                                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                            <tr>
+                                                                <td align="center">
+                                                                    <h6><u><b>CONTRATOS</b></u></h6>
+                                                                </td>
+                                                                <td align="center">
+
+                                                                    <h6><u><b>VEÍCULOS</b></u></h6>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    @{ float? total = 0; float? liquidados = 0; float? ativos = 0; }
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.total.HasValue)
+                                                                        {
+                                                                            total += item.total;
+                                                                        }
+                                                                    }
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.status == true)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/verde.bmp" /> LIQUIDADOS (<b>@item.total</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total * 100 / total).ToString().IndexOf(",") == 2 ? (item.total * 100 / total).ToString().Substring(0, 5) : (item.total * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                        else if (item.status == false)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/vermelho.bmp" /> ATIVOS (<b>@item.total</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total * 100 / total).ToString().IndexOf(",") == 2 ? (item.total * 100 / total).ToString().Substring(0, 5) : (item.total * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.status2 == true)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/verde.bmp" /> LIQUIDADOS (<b>@item.total2</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total2 * 100 / total).ToString().IndexOf(",") == 2 ? (item.total2 * 100 / total).ToString().Substring(0, 5) : (item.total2 * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                        else if (item.status2 == false)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/vermelho.bmp" /> ATIVOS (<b>@item.total2</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total2 * 100 / total).ToString().IndexOf(",") == 2 ? (item.total2 * 100 / total).ToString().Substring(0, 5) : (item.total2 * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="@Url.Action("_graficoContratos")" alt="" />
+                                                                </td>
+                                                                <td>
+                                                                    <img src="@Url.Action("_graficoVeiculos")" alt="" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                             </table>
