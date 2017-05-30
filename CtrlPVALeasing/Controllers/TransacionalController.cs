@@ -165,6 +165,9 @@ namespace CtrlPVALeasing.Controllers
                             chassi_dut = c.chassi,
                             renavam_dut = c.renavam,
                             placa_dut = c.placa,
+                            comDUT = c.comDUT,
+                            comVenda = c.comVenda,
+
                             tipo_impressao = d.tipo_impressao,
 
                             listaSelecionados = listaSelecionados
@@ -216,6 +219,9 @@ namespace CtrlPVALeasing.Controllers
                             chassi_dut = x.chassi_dut,
                             renavam_dut = x.renavam_dut,
                             placa_dut = x.placa_dut,
+                            comDUT = x.comDUT,
+                            comVenda = x.comVenda,
+
                             tipo_impressao = x.tipo_impressao,
                             diferenca = (TimeSpan)(DateTime.Now - x.data_da_baixa),
 
@@ -315,17 +321,20 @@ namespace CtrlPVALeasing.Controllers
                 {
                     //com DUT
                     model = model
-                        .Where(x => x.chassi.ToString().Trim() == x.chassi_dut)
-                        .Where(x => x.renavam.ToString().Trim() == x.renavam_dut)
-                        .Where(x => x.placa.ToString().Trim() == x.placa_dut);
+                        .Where(x => x.comDUT == true);
+                    //.Where(x => x.chassi.ToString().Trim() == x.chassi_dut)
+                    //.Where(x => x.renavam.ToString().Trim() == x.renavam_dut)
+                    //.Where(x => x.placa.ToString().Trim() == x.placa_dut);
                 }
                 else if (DUT.Trim() == "S")
                 {
                     //Com DUT
                     model = model
-                        .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
-                        .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
-                        .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+                        .Where(x => x.comDUT != true);
+
+                    //    .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                    //    .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                    //    .Where(x => x.placa.ToString().Trim() != x.placa_dut);
 
                     // > Critério
                     //model = model
@@ -335,9 +344,11 @@ namespace CtrlPVALeasing.Controllers
                 {
                     //Com DUT
                     model = model
-                        .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
-                        .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
-                        .Where(x => x.placa.ToString().Trim() != x.placa_dut);
+                        .Where(x => x.comDUT != true);
+
+                    //    .Where(x => x.chassi.ToString().Trim() != x.chassi_dut)
+                    //    .Where(x => x.renavam.ToString().Trim() != x.renavam_dut)
+                    //    .Where(x => x.placa.ToString().Trim() != x.placa_dut);
 
                     // > Critério
                     model = model

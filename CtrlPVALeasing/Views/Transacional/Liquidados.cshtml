@@ -170,10 +170,23 @@
                                                         <th class="input-sm-fino" align="center">
                                                             <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Impresso?</div>
                                                         </th>
-                                                        <th class="input-sm-fino" align="center">
-                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
-                                                        </th>
+                                                        @{
+                                                            if (Request["DUT"] != ">")
+                                                            {
+                                                                <th class="input-sm-fino" align="center">
+                                                                    <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
+                                                                </th>
+                                                            }
+                                                            else
+                                                            {
+                                                                <th class="input-sm-fino" align="center">
+                                                                    <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Comun. Venda</div>
+                                                                </th>
+                                                            }
+                                                        }
+
                                                     </tr>
+
                                                     @{var contadorInterno = 0; }
                                                     @if (Model != null)
                                                     {
@@ -207,9 +220,20 @@
                                                                     <td class="input-sm-fino" align="center">
                                                                         @(item.tipo_impressao == "C" ? "COM DUT" : (item.tipo_impressao == "S" ? "SEM DUT" : (item.tipo_impressao == ">" ? "SEM DUT > C." : "Não")))
                                                                     </td>
-                                                                    <td class="input-sm-fino" align="center">
-                                                                        <input type="checkbox"/>
-                                                                    </td>
+                                                                    @{
+                                                                        if (Request["DUT"] != ">")
+                                                                        {
+                                                                            <td class="input-sm-fino" align="center">
+                                                                                <input type="checkbox"/>
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="input-sm-fino" align="center">
+                                                                                <input type="checkbox" @(item.comVenda.HasValue == true ? "checked='checked'" : "") disabled="disabled"/>
+                                                                            </td>
+                                                                        }
+                                                                    }
                                                                 </tr>
                                                             }
                                                         }
