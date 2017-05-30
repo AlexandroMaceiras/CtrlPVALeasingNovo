@@ -738,7 +738,7 @@ namespace CtrlPVALeasing.Controllers
                 }
 
 
-                if (listaSelecionados != "" && escolha != "inc")
+                if (listaSelecionados != "" && escolha == "id")
                 {
                     // Controle de erros do ModelState
                     //var errors = ModelState
@@ -771,7 +771,7 @@ namespace CtrlPVALeasing.Controllers
 
                             if (procuraRegistro != null)
                             {
-                                procuraRegistro.tipo_impressao = DUT;
+                                //procuraRegistro.tipo_impressao = DUT;
 
                                 db.Entry(procuraRegistro).State = EntityState.Modified;
                                 db.SaveChanges();
@@ -785,7 +785,7 @@ namespace CtrlPVALeasing.Controllers
                                     renavam = dadosVeiculo[1],
                                     placa = dadosVeiculo[2],
 
-                                    tipo_impressao = DUT
+                                    //tipo_impressao = DUT
                                 };
 
                                 if (db.Entry(model3).State == EntityState.Detached)
