@@ -440,7 +440,7 @@ namespace CtrlPVALeasing.Controllers
                 }
 
                 // Filtrando o model com a listaSelecionados para a impressão
-                model = model.Where(o => porra11.Contains(o.chassi.ToString().Trim()) && porra22.Contains(o.renavam.ToString().Trim()) && porra33.Contains(o.placa.ToString().Trim()));
+                model = model.Where(o => porra11.Contains(o.chassi.ToString().Trim()) || porra22.Contains(o.renavam.ToString().Trim()) || porra33.Contains(o.placa.ToString().Trim()));
 
                 if (escolha == "irdv")
                     return View("ImpressaoDeRecibosDeVendas", model);
@@ -802,19 +802,17 @@ namespace CtrlPVALeasing.Controllers
                     }
 
                     // Filtrando o model com a listaSelecionados para a impressão
-                    model = model.Where(o => porra11.Contains(o.chassi_bens.ToString().Trim()) && porra22.Contains(o.renavam_bens.ToString().Trim()) && porra33.Contains(o.placa_bens.ToString().Trim()));
+                    model = model.Where(o => porra11.Contains(o.chassi_bens.ToString().Trim()) || porra22.Contains(o.renavam_bens.ToString().Trim()) || porra33.Contains(o.placa_bens.ToString().Trim()));
 
-                    if (escolha == "irdv")
-                        return View("ImpressaoDeRecibosDeVendas", model);
-                    else if (escolha == "id")
+                    //if (escolha == "irdv")
+                    //    return View("ImpressaoDeRecibosDeVendas", model);
+                    //else 
+                    //if (escolha == "id")
                         return View("ImpressaoDeDUTs", model);
-                    else if (escolha == "idsdd")
-                        return View("ImpressaoDasSolicitacoesDeDUTs", model);
-
+                    //else 
+                    //if (escolha == "idsdd")
+                    //    return View("ImpressaoDasSolicitacoesDeDUTs", model);
                 }
-
-
-
             }
             catch (Exception e)
             {

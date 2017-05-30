@@ -738,10 +738,7 @@
             else {
                 if (a == "id") {
                     document.getElementById("escolha").value = "id";
-                    alert(document.getElementsByName("chassi")[0].value);
-                    alert(document.getElementsByName("renavam")[0].value);
-                    alert(document.getElementsByName("placa")[0].value);
-                    $("#listaSelecionados").val(document.getElementsByName("chassi")[0].value + ',' + document.getElementsByName("renavam")[0].value + ',' + document.getElementsByName("placa")[0].value);
+                    $("#listaSelecionados").val(document.getElementsByName("chassi")[1].value + ',' + document.getElementsByName("renavam")[1].value + ',' + document.getElementsByName("placa")[1].value);
                 }
                 document.getElementById("FormAltera").submit();
                 return true;
