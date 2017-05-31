@@ -159,6 +159,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GerencialController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\Tbl_BensController.cs" />
     <Compile Include="Controllers\Tbl_CCLController.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Tbl_DebitosEPagamentos_VeiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +183,7 @@
     <Compile Include="Models\Tbl_CCL.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
+    <Compile Include="Models\Tbl_DebitosEPagamentos_VeiculoController.cs" />
     <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Models\Tbl_Impressao.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />
@@ -275,11 +276,6 @@
     <Content Include="Views\Consulta\_GridContratos.cshtml" />
     <Content Include="Views\Consulta\ConsultaDebito.cshtml" />
     <Content Include="Views\Consulta\_GridDebitos.cshtml" />
-    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Create.cshtml" />
-    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Delete.cshtml" />
-    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Details.cshtml" />
-    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
-    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
     <Content Include="Views\Consulta\_valor_debito_total.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado.cshtml" />
@@ -336,6 +332,15 @@
     <Content Include="Views\Tbl_Dut\Details.cshtml" />
     <Content Include="Views\Tbl_Dut\Edit.cshtml" />
     <Content Include="Views\Tbl_Dut\Index.cshtml" />
+    <Content Include="Views\Gerencial\PagamentoIPVAPorStatusContrato.cshtml" />
+    <Content Include="Views\Gerencial\_ContadorDeGrid.cshtml" />
+    <Content Include="Views\Gerencial\_GridPagamentos.cshtml" />
+    <Content Include="Views\Gerencial\Menu.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Create.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Delete.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Details.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
+    <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

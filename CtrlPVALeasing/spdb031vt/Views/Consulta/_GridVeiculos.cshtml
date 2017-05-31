@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Modelo do veículo</div> @*@Html.DisplayNameFor(model => model.modelo)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Chassi</div> @*@Html.DisplayNameFor(model => model.chassi)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Renavam</div> @*@Html.DisplayNameFor(model => model.renavam)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Placa</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Status</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{var contadorInterno = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.modelo)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.chassi)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.renavam)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.placa)
+                                </td>
+                                <td class="input-sm-fino">
+                                    <text>@(item.status.HasValue && item.status.Value == true ? "ATIVO" : "LIQUIDADO")</text>
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.ActionLink("DETALHES", "ConsultaVeiculo", new { chassi = item.chassi, placa = item.placa, renavam = item.renavam }, new { @class = "btn2 btn-primary-detalhes btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+

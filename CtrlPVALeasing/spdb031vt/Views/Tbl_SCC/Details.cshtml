@@ -1,0 +1,66 @@
+﻿@model CtrlPVALeasing.Models.Tbl_SCC
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+<br /><br />
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Tbl_SCC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cpf_cnpj_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cpf_cnpj_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.perm_debito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.perm_debito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.saldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.agencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.agencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.conta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.conta)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

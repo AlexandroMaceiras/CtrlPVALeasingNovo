@@ -1,0 +1,218 @@
+﻿IF OBJECT_ID ('dbo.Arm_LiquidadosEAtivos_Contrato') IS NOT NULL
+	DROP TABLE dbo.Arm_LiquidadosEAtivos_Contrato
+GO
+
+CREATE TABLE dbo.Arm_LiquidadosEAtivos_Contrato
+	(
+	id                      INT IDENTITY NOT NULL,
+	contrato                VARCHAR (9) NULL,
+	tipo                    VARCHAR (4) NULL,
+	agencia                 VARCHAR (5) NULL,
+	dta_inicio_contrato     DATETIME NULL,
+	dta_vecto_contrato      DATETIME NULL,
+	origem                  CHAR (1) NULL,
+	cpf_cnpj_cliente        VARCHAR (18) NULL,
+	nome_cliente            VARCHAR (40) NULL,
+	ddd_cliente_particular  VARCHAR (4) NULL,
+	fone_cliente_particular VARCHAR (8) NULL,
+	rml_cliente_particular  VARCHAR (4) NULL,
+	end_cliente             VARCHAR (30) NULL,
+	bairro_cliente          VARCHAR (20) NULL,
+	cidade_cliente          VARCHAR (30) NULL,
+	uf_cliente              VARCHAR (2) NULL,
+	cep_cliente             VARCHAR (8) NULL,
+	filler                  CHAR (1) NULL,
+	ddd_cliente_cml         VARCHAR (4) NULL,
+	fone_cliente_cml        VARCHAR (8) NULL,
+	dta_ultimo_pagto        DATETIME NULL,
+	tipo_de_baixa           CHAR (1) NULL,
+	data_da_baixa           DATETIME NULL,
+	cod_empresa             VARCHAR (2) NULL,
+	num_end_cliente         VARCHAR (5) NULL,
+	comp_end_cliente        VARCHAR (15) NULL,
+	status                  BIT NULL
+	)
+GO
+
+CREATE CLUSTERED INDEX IDX_Contrato
+	ON dbo.Arm_LiquidadosEAtivos_Contrato (contrato)
+GO
+
+IF OBJECT_ID ('dbo.Arm_Veiculos') IS NOT NULL
+	DROP TABLE dbo.Arm_Veiculos
+GO
+
+CREATE TABLE dbo.Arm_Veiculos
+	(
+	id               INT IDENTITY NOT NULL,
+	contrato         VARCHAR (9) NULL,
+	tipo_registro    VARCHAR (4) NULL,
+	marca            VARCHAR (20) NULL,
+	modelo           VARCHAR (20) NULL,
+	tipo             VARCHAR (20) NULL,
+	ano_fab          VARCHAR (4) NULL,
+	ano_mod          VARCHAR (4) NULL,
+	cor              VARCHAR (10) NULL,
+	renavam          VARCHAR (20) NULL,
+	chassi           VARCHAR (20) NULL,
+	placa            VARCHAR (9) NULL,
+	origem           VARCHAR (92) NULL,
+	status           BIT NULL,
+	comunicado_venda BIT NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_Agencias') IS NOT NULL
+	DROP TABLE dbo.Tbl_Agencias
+GO
+
+CREATE TABLE dbo.Tbl_Agencias
+	(
+	id                INT IDENTITY NOT NULL,
+	agencia           VARCHAR (5) NULL,
+	descricao_agencia VARCHAR (40) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_Bens') IS NOT NULL
+	DROP TABLE dbo.Tbl_Bens
+GO
+
+CREATE TABLE dbo.Tbl_Bens
+	(
+	id      INT IDENTITY NOT NULL,
+	renavam VARCHAR (20) NULL,
+	chassi  VARCHAR (20) NULL,
+	placa   VARCHAR (9) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_CCL') IS NOT NULL
+	DROP TABLE dbo.Tbl_CCL
+GO
+
+CREATE TABLE dbo.Tbl_CCL
+	(
+	id               INT IDENTITY NOT NULL,
+	cpf_cnpj_cliente VARCHAR (20) NULL,
+	marca            VARCHAR (20) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_DadosDaVenda') IS NOT NULL
+	DROP TABLE dbo.Tbl_DadosDaVenda
+GO
+
+CREATE TABLE dbo.Tbl_DadosDaVenda
+	(
+	id                 INT IDENTITY NOT NULL,
+	renavam            VARCHAR (20) NULL,
+	chassi             VARCHAR (20) NULL,
+	placa              VARCHAR (9) NULL,
+	nome_comprador     VARCHAR (40) NULL,
+	cpf_cnpj_comprador VARCHAR (18) NULL,
+	rg_comprador       VARCHAR (18) NULL,
+	local_comprador    VARCHAR (80) NULL,
+	end_comprador      VARCHAR (80) NULL,
+	dta_da_compra      DATETIME NULL,
+	valor_da_compra    NUMERIC (18, 2) NULL
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_DebitosEPagamentos_Veiculo') IS NOT NULL
+	DROP TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
+GO
+
+CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
+	(
+	id                     INT IDENTITY NOT NULL,
+	chassi                 VARCHAR (20) NULL,
+	renavam                VARCHAR (20) NULL,
+	placa                  VARCHAR (9) NULL,
+	dta_cobranca           DATETIME NULL,
+	uf_cobranca            VARCHAR (2) NULL,
+	tipo_cobranca          CHAR (1) NULL,
+	valor_divida           NUMERIC (18, 2) NULL,
+	ano_exercicio          VARCHAR (4) NULL,
+	cda                    VARCHAR (10) NULL,
+	valor_custas           NUMERIC (18, 2) NULL,
+	debito_protesto        BIT NULL,
+	nome_cartorio          VARCHAR (40) NULL,
+	divida_ativa_serasa    BIT NULL,
+	protesto_serasa        BIT NULL,
+	valor_debito_total     NUMERIC (18, 2) NULL,
+	pagamento_efet_banco   BIT NULL,
+	dta_pagamento          DATETIME NULL,
+	uf_pagamento           VARCHAR (2) NULL,
+	forma_pagamento_divida VARCHAR (10) NULL,
+	forma_pagamento_custas VARCHAR (10) NULL,
+	valor_pago_divida      NUMERIC (18, 2) NULL,
+	obs_pagamento          VARCHAR (250) NULL,
+	valor_pago_custas      NUMERIC (18, 2) NULL,
+	valor_pago_total       NUMERIC (18, 2) NULL,
+	valor_recuperado       NUMERIC (18, 2) NULL,
+	valor_total_recuperado NUMERIC (18, 2) NULL,
+	dta_pagamento_custas   DATETIME NULL,
+	dta_recuperacao        DATETIME NULL,
+	numero_miro_divida     VARCHAR (10) NULL,
+	numero_miro_custa      VARCHAR (10) NULL,
+	pci_debito_divida      VARCHAR (15) NULL,
+	pci_debito_custa       VARCHAR (15) NULL,
+	pci_credito            VARCHAR (15) NULL,
+	grupo_safra            VARCHAR (6) NULL
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_Dut') IS NOT NULL
+	DROP TABLE dbo.Tbl_Dut
+GO
+
+CREATE TABLE dbo.Tbl_Dut
+	(
+	id      INT IDENTITY NOT NULL,
+	renavam VARCHAR (20) NULL,
+	chassi  VARCHAR (20) NULL,
+	placa   VARCHAR (9) NULL,
+	comVenda bit NULL,
+	comDUT	 bit NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+
+IF OBJECT_ID ('dbo.Tbl_Impressao') IS NOT NULL
+	DROP TABLE dbo.Tbl_Impressao
+GO
+
+CREATE TABLE dbo.Tbl_Impressao
+	(
+	id             INT IDENTITY NOT NULL,
+	renavam        VARCHAR (20) NULL,
+	chassi         VARCHAR (20) NULL,
+	placa          VARCHAR (9) NULL,
+	tipo_impressao CHAR (1) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+
+IF OBJECT_ID ('dbo.Tbl_SCC') IS NOT NULL
+	DROP TABLE dbo.Tbl_SCC
+GO
+
+CREATE TABLE dbo.Tbl_SCC
+	(
+	id               INT IDENTITY NOT NULL,
+	cpf_cnpj_cliente VARCHAR (18) NULL,
+	perm_debito      BIT NULL,
+	sinal            CHAR (1) NULL,
+	saldo            NUMERIC (18, 2) NULL,
+	agencia          VARCHAR (5) NULL,
+	conta            VARCHAR (10) NULL,
+	PRIMARY KEY (id)
+	)
+GO
+

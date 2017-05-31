@@ -1,0 +1,285 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
+    <!-- <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
+
+</head>
+<script>
+    function chamaErro2() {
+        $(document).ready(function () {
+            $("#msgErro2").modal();
+        });
+    }
+
+</script>
+@{
+    ViewBag.Title = "Pagamento Débito IPVA";
+}
+
+@using (Html.BeginForm("PagamentoDebitoIPVAManual", "Registro"))
+{
+        var MF = Model.First();
+    <div class="jumbotronFundo">
+        <h2>PAGAMENTO DÉBITO DE IPVA</h2>
+        <br />
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca" width="5%">
+                        <b class="fonte-cinza-claro">Chassi:</b>
+                    </th>
+                    <th class="busca" width="8%">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="5%">
+                        <b class="fonte-cinza-claro">Renavam:</b>
+                    </th>
+                    <th class="busca" width="8%">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="3%">
+                        <b class="fonte-cinza-claro">Placa:</b>
+                    </th>
+                    <th class="busca" width="8%">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="5%">
+                        <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
+                    </th>
+                    <th width="1%">
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    <th>
+                        <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </th>
+                </tr>
+            </table>
+            <hr />
+        </center>
+
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.marca" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.ano_fab" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.modelo" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.ano_mod" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.tipo_v" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cor" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 5px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Possui comunicação de venda&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Veículo apreendido pelo banco&nbsp;
+                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total do Débito: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_total_recuperado" type="text" name="valor_total_recuperado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_GridDebitos")
+                                }
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+
+    </div>
+
+    //Erro de veículo não encontrado
+    if (MF.id == -1)
+    {
+    <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro1").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+}
+
+<script>
+    //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
+    try {
+        $("#mudaReset").click(function () {
+            document.getElementById("limpaNaMarra1").setAttribute("value", "");
+            document.getElementById("limpaNaMarra2").setAttribute("value", "");
+            document.getElementById("limpaNaMarra3").setAttribute("value", "");
+            document.getElementById("ConsultaVeiculo").submit();
+        });
+    }
+    catch (e) {
+        alert(e);
+    }
+</script>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Veículo não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td><center><h4 style="color: black">Este veículo não contém nenhum débito de registro de IPVA.</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

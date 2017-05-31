@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Nº</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Chassi</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Renavam</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Placa</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">UF da Cobrança</div> 
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Ano Exercício</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Val.Debit.Total</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Val.Pag.Total</div>
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{var contadorInterno = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino">
+                                    @item.chassi.ToString()
+                                </td>
+                                <td class="input-sm-fino">
+                                    @item.renavam.ToString()
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.placa)
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0, 10) : "")
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.uf_cobranca)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.ano_exercicio)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @item.valor_debito_total.ToString()
+                                </td>
+                                <td class="input-sm-fino">
+                                    @(item.valor_pago_divida.HasValue && item.valor_pago_custas.HasValue ? item.valor_pago_divida + item.valor_pago_custas : 0)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+

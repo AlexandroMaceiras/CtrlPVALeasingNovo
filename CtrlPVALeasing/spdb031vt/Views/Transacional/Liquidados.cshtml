@@ -1,0 +1,634 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
+    <!-- <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
+
+</head>
+<script>
+    function chamaErro2() {
+        $(document).ready(function () {
+            $("#msgErro2").modal();
+        });
+    }
+
+</script>
+@{
+    ViewBag.Title = "Liquidados Com e Sem DUT";
+}
+
+@using (Html.BeginForm("Liquidados", "Transacional", FormMethod.Post, new { id = "FormAltera" }))
+{
+    var MF = Model.First();
+    <input type="hidden" name="escolha" id="escolha" value="gcvs" />
+    <input type="hidden" name="listaSelecionados" id="listaSelecionados" value="@Request["listaSelecionados"]"/>
+    <div class="jumbotronFundo">
+        <h2>LIQUIDADOS COM E SEM DUT</h2>
+        <br />
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca" width="35%">
+                        <b class="fonte-cinza-claro">Data de Liquidação dos Contratos: &nbsp;&nbsp;&nbsp;&nbsp;De:&nbsp;</b>
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["dataInicio"] != null ? Request["dataInicio"].Trim() : "")" type="text" name="dataInicio" size="15" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="5%">
+                        <b class="fonte-cinza-claro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Até:</b>
+                    </th>
+                    <th class="busca" width="5%">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["dataFim"] != null ? Request["dataFim"].Trim() : "")" type="text" name="dataFim" size="15" style="text-transform:uppercase">
+                    </th>
+                    <th class="busca" width="10%">
+                    </th>
+                    <th class="busca" width="5%">
+                    </th>
+                    <th width="5%">
+                    </th>
+                    <th class="busca" width="5%">
+                        <div id="fazSubmit"><input onclick="limpaSelecionados();validateForm('irdv');" class="btn2 btn-primary-pesqui .btn-sm" type="button" name="busca" value="SELECIONAR" /></div>
+                    </th>
+                    <th width="1%">
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="busca" width="5%" colspan="7">
+                        <b class="fonte-cinza-claro">Filtrar Estado:&nbsp;</b>
+                        <select class="input-sm-ultra-fino2" name="uf_cliente" id="uf_cliente">
+                            <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
+                            <option class='input-sm-ultra-fino' value='SP' @(Request["uf_cliente"] == "SP" ? "selected" : "" )>SP</option>
+                            <option class='input-sm-ultra-fino' value='DEMAIS' @(Request["uf_cliente"] == "DEMAIS" ? "selected" : "" )>DEMAIS</option>
+                        </select>&nbsp;&nbsp;&nbsp;
+                        <b class="fonte-cinza-claro">Filtrar Impressão:&nbsp;</b>
+                        <select class="input-sm-ultra-fino2" name="impresso" id="impresso">
+                            <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
+                            <option class='input-sm-ultra-fino' value='J' @(Request["impresso"] == "J" ? "selected" : "" )>JÁ IMPRESSO</option>
+                            <option class='input-sm-ultra-fino' value='N' @(Request["impresso"] == "N" ? "selected" : "" )>NÃO IMPRESSO</option>
+                            <option class='input-sm-ultra-fino' value='T' @(Request["impresso"] == "T" ? "selected" : "" )>TUDO</option>
+                        </select>&nbsp;&nbsp;&nbsp;
+                        <b class="fonte-cinza-claro">Filtrar DUT:&nbsp;</b>
+                        <select class="input-sm-ultra-fino2 select-teste" name="DUT" id="DUT">
+                            <option class='input-sm-ultra-fino' value=''>SELECIONE</option>
+                            <option class='input-sm-ultra-fino' value='C' @(Request["DUT"] == "C" ? "selected" : "" )>COM DUT</option>
+                            <option class='input-sm-ultra-fino' value='S' @(Request["DUT"] == "S" ? "selected" : "" )>SEM DUT</option>
+                            <option class='input-sm-ultra-fino' value='>' @(Request["DUT"] == ">" ? "selected" : "" )>SEM DUT > CRITÉRIO</option>
+                        </select>
+                        <b class="fonte-cinza-claro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Critério:</b>
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@Request["criterio"]" type="text" name="criterio" id="criterio" size="1" style="text-transform:uppercase">
+                        <b class="fonte-cinza-claro"> Dias</b>
+                    </td>
+                    <td>
+                        <a href="#" onclick="window.close();" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </td>
+                </tr>
+            </table>
+            @*@if (MF.chassi != "" && @MF.chassi != null)
+            {*@
+                <div id="botao1" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm('gcvs');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                <input onclick="validateForm('id');" class="btn4 btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR DUTs" />
+                                <input onclick="validateForm('irdv');" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR RECIBOS DE VENDAS" />
+                                @*@Html.ActionLink("IMPRIMIR DUTs", "ImpressaoDeDUTs", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId1", onclick = "validateCheck();", target = "_blank" })*@
+                                @*@Html.ActionLink("IMPRIMIR RECIBOS DE VENDAS", "ImpressaoDeRecibosDeVendas", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId2", onclick = "validateCheck();", target = "_blank" })*@
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="botao2" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm('gcvs');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                <input onclick="validateForm('idsdd');" class="btn3PDIPVA btn-primary-pesqui .btn-sm" type="button" name="Submit" id="Submit" value="IMPRIMIR SOLICITAÇÕES DE DUT" />
+                                @*@Html.ActionLink("IMPRIMIR SOLICITAÇÕES DE DUT", "ImpressaoDasSolicitacoesDeDUTs", "Transacional", new { @class = "btn3PDIPVA btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateCheck();", target = "_blank" })*@
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="botao3" hidden>
+                    <table>
+                        <tr>
+                            <td colspan="2" class="botao-td">
+                                <input onclick="validateForm(true);" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
+                                @*@Html.ActionLink("IMPRESSÃO COM DUT > CRITÉRIO", "
+                                    ", "Transacional", new { @class = "btn4 btn-primary-pesqui .btn-sm", id = "actionLinkId3", onclick = "validateForm(false);", target = "_blank" })*@
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            @*}*@
+
+        <hr />
+        </center>
+        <center>
+            <div id="supergrid">
+                <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                    <tr>
+                        <td>
+                            @if (Model.First().id > 0)
+                            {
+                                <b class="fonte-cinza-escuro">@Model.Count().ToString() VEÍCULOS DE @(Request["uf_cliente"] == "DEMAIS" ? "DEMAIS ESTADOS" : Request["uf_cliente"]), @(Request["DUT"] == "C" ? "COM DUT" : (Request["DUT"] == "S" ? "SEM DUT" : (Request["DUT"] == ">" ? "SEM DUT À MAIS DE " + Request["criterio"] + " DIAS" : "")))@(Request["impresso"] == "J" ? ", JÁ IMPRESSOS " : (Request["impresso"] == "N" ? ", NÃO IMPRESSOS " : (Request["impresso"] == "T" ? "" : ""))), DE @Request["dataInicio"] À @Request["dataFim"]:</b>
+                            }
+                            else
+                            {
+                                <b class="fonte-cinza-escuro">NENHUM VEÍCULO PESQUISADO</b>
+                            }
+                            <table border="0" style="border-style:inherit">
+                                <tr>
+                                    <table class="table" border="1" style="border-style:inherit">
+                                        <tr>
+                                            <td>
+                                                <table class="table" border="0">
+                                                    <tr>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Chassi</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Renavam</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Placa</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Início</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center" wi>
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Vencimento</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Baixa</div>
+                                                        </th>
+                                                        <th class="input-sm-fino" align="center">
+                                                            <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Impresso?</div>
+                                                        </th>
+                                                        @{
+                                                            if (Request["DUT"] != ">")
+                                                            {
+                                                                <th class="input-sm-fino" align="center">
+                                                                    <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Imprimir?</div>
+                                                                </th>
+                                                            }
+                                                            else
+                                                            {
+                                                                <th class="input-sm-fino" align="center">
+                                                                    <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Comun. Venda</div>
+                                                                </th>
+                                                            }
+                                                        }
+
+                                                    </tr>
+
+                                                    @{var contadorInterno = 0; }
+                                                    @if (Model != null)
+                                                    {
+                                                        foreach (var item in Model)
+                                                        {
+                                                            if (item.contrato != null)
+                                                            {
+                                                                contadorInterno++;
+                                                                <tr class="grid-row">
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @contadorInterno
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.chassi)
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.renavam)
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="right">
+                                                                        @Html.DisplayFor(modelItem => item.placa)
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.dta_inicio_contrato.HasValue ? item.dta_inicio_contrato.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.dta_vecto_contrato.HasValue ? item.dta_vecto_contrato.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.data_da_baixa.HasValue ? item.data_da_baixa.ToString().Substring(0, 10) : "")
+                                                                    </td>
+                                                                    <td class="input-sm-fino" align="center">
+                                                                        @(item.tipo_impressao == "C" ? "COM DUT" : (item.tipo_impressao == "S" ? "SEM DUT" : (item.tipo_impressao == ">" ? "SEM DUT > C." : "Não")))
+                                                                    </td>
+                                                                    @{
+                                                                        if (Request["DUT"] != ">")
+                                                                        {
+                                                                            <td class="input-sm-fino" align="center">
+                                                                                <input type="checkbox"/>
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="input-sm-fino" align="center">
+                                                                                <input type="checkbox" @(item.comVenda.HasValue == true ? "checked='checked'" : "") disabled="disabled"/>
+                                                                            </td>
+                                                                        }
+                                                                    }
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
+                                                </table>
+                                                <input type="hidden" id="contadorInterno" name="contadorInterno" value="@contadorInterno" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+    </div>
+    if (MF.id == -5)
+    {
+        // Mostra erro através de modal em JS
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgOk").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    if (MF.id == -1)
+    {
+        // Mostra erro através de modal em JS
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    if (MF.id == -3)
+    {
+        // Mostra erro através de modal em JS
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro3").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }                                                            
+}
+
+<script>
+    // Passa os parâmetros da página atravé de GET no Html.ActionLink (Só dá pra passar parâmetros de AcionLink assim!)
+    //try {
+    //    $("#actionLinkId1").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    $("#actionLinkId2").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    $("#actionLinkId3").on("click", function () {
+    //        var url = $(this).attr("href");
+    //        url += ((url.indexOf('?') == -1) ? '?' : '&');
+    //        url += $.param({
+    //            listaSelecionados: $("#listaSelecionados").val() //,$("#outroParametro").val()
+    //        });
+    //        $(this).attr("href", url);
+    //    });
+    //    }
+    //catch (e) {
+    //    alert("Erro:" + e);
+    //}
+
+    // Mostra e substitui botões de impressão e CSV
+    try {
+            if ($("select#DUT").val() == "C") {
+                //alert('oi');
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao1").fadeIn();
+            }
+            else if ($("select#DUT").val() == "S") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao2").fadeIn();
+            }
+            else if ($("select#DUT").val() == ">") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeIn();
+            }
+            else if ($("select#DUT").val() == "") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+            }
+
+
+            $("select#DUT").change(function () {
+                //alert($("select#DUT").val());
+            if ($("select#DUT").val() == "C") {
+                //alert('oi');
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao1").fadeIn();
+
+                //validateForm(false);
+            }
+            else if ($("select#DUT").val() == "S") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao3").fadeOut();
+                $("div#botao2").fadeIn();
+                //validateForm(false);
+            }
+            else if ($("select#DUT").val() == ">") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeIn();
+                //validateForm(false);
+            }
+            else if ($("select#DUT").val() == "") {
+                //alert('oi');
+                $("div#botao1").fadeOut();
+                $("div#botao2").fadeOut();
+                $("div#botao3").fadeOut();
+                //validateForm(false);
+            }
+        });
+    }
+    catch (e)
+    {
+        alert("Erro:" + e);
+    }
+
+    // Concatena o CHASSI< RENAVAM E PLACA dos checkbox pra ser enviado como parâmetro para a impressão.
+    caminho = document.getElementById("supergrid");
+    try {
+        $("tr.grid-row").change(function () {
+
+            var tudo ="";
+            $("tr.grid-row").each(function () {
+                var tr = $(this);
+                var rows = $(tr).children();
+
+                if (rows[8].getElementsByTagName("input")[0].checked) {
+
+                    var valor1 = rows[1].innerHTML.trim();
+                    var valor2 = rows[2].innerHTML.trim();
+                    var valor3 = rows[3].innerHTML.trim();
+
+                    if (tudo != "")
+                        tudo += ";";
+
+                    tudo += valor1 + "," + valor2 + "," + valor3;
+
+                }
+            });
+            //alert("-->" + tudo + "<--");
+            $("#listaSelecionados").val(tudo.toString());
+        });
+    }
+    catch (e) {
+        alert("Erro: " + e);
+    }
+
+    //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
+    try {
+        $("#mudaReset").click(function () {
+            document.getElementById("limpaNaMarra1").setAttribute("value", "");
+            document.getElementById("limpaNaMarra2").setAttribute("value", "");
+            document.getElementById("limpaNaMarra3").setAttribute("value", "");
+            $("div#botao1").fadeOut();
+            $("div#botao2").fadeOut();
+            $("div#botao3").fadeOut();
+            document.getElementById("Liquidados").submit();
+        });
+    }
+    catch (e) {
+        alert("Erro: " + e);
+    }
+
+
+    try {
+        function validateCheck() {
+            //alert(document.getElementById("listaSelecionados").value);
+            if (document.getElementById("listaSelecionados").value == "")
+            {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                    return false;
+                });
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            return false;
+        }            
+    }
+    catch(e)
+    {
+        alert("Erro: " + e);
+    }
+
+    function limpaSelecionados()
+    {
+        document.getElementById("listaSelecionados").value = "";
+    }
+
+    // Valida entradas e o intervalo de meses entre os meses
+    try {
+        var maxIntervEntreDatas = 12;
+        function validateForm(a) {
+            //alert(document.getElementById("listaSelecionados"));
+            var AnoFim = document.getElementsByName('dataFim')[0].value.toString().substring(6, 10);
+            var AnoIni = document.getElementsByName('dataInicio')[0].value.toString().substring(6, 10);
+            var MesFim = document.getElementsByName('dataFim')[0].value.toString().substring(3, 5)
+            var MesIni = document.getElementsByName('dataInicio')[0].value.toString().substring(3, 5)
+
+            var diffMeses = ((AnoFim * 12) + (MesFim * 1)) - ((AnoIni * 12) + (MesIni * 1));
+
+            if (diffMeses != 0 && (diffMeses > maxIntervEntreDatas || !eval(diffMeses))) {
+                $(document).ready(function () {
+                    $("#msgErro4").modal();
+                    return false;
+                });
+                return false;
+            }
+
+            if (
+                document.getElementsByName('dataInicio')[0].value == "" ||
+                document.getElementsByName('dataFim')[0].value == "" ||
+                document.getElementsByName('uf_cliente')[0].value == "" ||
+                document.getElementsByName('impresso')[0].value == "" ||
+                document.getElementsByName('DUT')[0].value == "" ||
+                document.getElementsByName('criterio')[0].value == "") {
+                $(document).ready(function () {
+                    $("#msgErro5").modal();
+                    return false;
+                });
+                return false;
+            }
+            else
+            {
+                if (a == "gcvs")
+                {
+                    document.getElementById("escolha").value = "gcvs";
+                }
+                else if (a == "irdv") {
+                    document.getElementById("escolha").value = "irdv";
+                }
+                else if (a == "id") {
+                    document.getElementById("escolha").value = "id";
+                }
+                else if (a == "idsdd") {
+                    document.getElementById("escolha").value = "idsdd";
+                }
+                document.getElementById("FormAltera").submit();
+                //window.open("../Relatorio/RelatorioBensApreendidosDebtoIPVA");
+                return true;
+            }
+        }
+    }
+    catch (e) {
+        alert("Erro: " + e);
+    }
+</script>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro5" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data de Liquidação De:</td></tr><tr><td> - Data de Liquidação Até:</td></tr><tr><td> - Filtrar Estado<td></tr><tr><td> - Filtrar Impressão<td></tr><tr><td> - Filtrar DUT<td></tr><tr><td> - Critério<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Atenção:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido pesquisar intervalo de datas superior a 1 ano!</font></h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Todas impressões atualizadas no banco e enviadas para a impressora com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Selecione algum veículo para poder imprimir!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro3" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>LIQUIDADOS</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Nenhum veículo encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

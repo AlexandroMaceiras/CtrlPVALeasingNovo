@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.Tbl_DebitosEPagamentos_Veiculo>
 
 @{
-    ViewBag.Title = "Débitos";
+    ViewBag.Title = "Index";
 }
-<br />
-<br />
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Incluir Novo Débito", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -77,6 +75,9 @@
             @Html.DisplayNameFor(model => model.valor_pago_divida)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.numero_miro_divida)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.numero_miro_custa)
         </th>
         <th>
@@ -87,6 +88,30 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.valor_pago_total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_recuperado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_total_recuperado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_pagamento_custas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_recuperacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pci_debito_divida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pci_debito_custa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pci_credito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grupo_safra)
         </th>
         <th></th>
     </tr>
@@ -157,6 +182,9 @@
             @Html.DisplayFor(modelItem => item.valor_pago_divida)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.numero_miro_divida)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.numero_miro_custa)
         </td>
         <td>
@@ -167,6 +195,30 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.valor_pago_total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_recuperado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_total_recuperado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_pagamento_custas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_recuperacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pci_debito_divida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pci_debito_custa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pci_credito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grupo_safra)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

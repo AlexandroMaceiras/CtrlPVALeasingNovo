@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar-fixed-top">
+        <div class="container">
+            <table border="0" width="100%" style="background-image: url('/Imagens/fundo1.bmp');">
+                <tr>
+                    <td width="290">
+                        <img src="~/Imagens/safra.jpg" />
+                    </td>
+                    <td>
+                        <table border="0" width="100%">
+                            <tr>
+                                <td style="padding-top:initial">
+                                    <font color="white"><h3>Controle <b>IPVA Leasing</h3></font></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <font color="white">Usuário:<b> @User.Identity.Name</b></font>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td rowspan="4">
+                        <img src="~/Imagens/safraONDA.jpg" />
+                    </td>
+                    <td>
+                        <table border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <p class="navbar-right"><font color="white">@DateTime.Now.ToLongDateString()</font>&nbsp;&nbsp;</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="navbar-right"><font color="white">@DateTime.Now.ToLongTimeString()</font>&nbsp;&nbsp;</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

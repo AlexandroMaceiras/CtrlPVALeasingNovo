@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+@{
+    ViewBag.Title = "Consultar Contrato de Leasing";
+    Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
+}
+@foreach (var item in Model)
+    {
+        <div class="fonte-cinza-claro fonte-tamanho-form">
+            Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="input-sm-fino" value="@item.valor_debito_total" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+        </div>
+}
+
+
+

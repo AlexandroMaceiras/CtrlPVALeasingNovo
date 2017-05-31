@@ -1,0 +1,226 @@
+﻿@model CtrlPVALeasing.Models.Tbl_DebitosEPagamentos_Veiculo
+
+@{
+    ViewBag.Title = "Delete";
+}
+<br />
+<br />
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tbl_DebitosEPagamentos_Veiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.renavam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.renavam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_cobranca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_cobranca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uf_cobranca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uf_cobranca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_cobranca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_cobranca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_divida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_divida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ano_exercicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ano_exercicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_custas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_custas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.debito_protesto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.debito_protesto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_cartorio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_cartorio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.divida_ativa_serasa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.divida_ativa_serasa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.protesto_serasa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.protesto_serasa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_debito_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_debito_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pagamento_efet_banco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pagamento_efet_banco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_pagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_pagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uf_pagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uf_pagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.forma_pagamento_divida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.forma_pagamento_divida)
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.forma_pagamento_custas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.forma_pagamento_custas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_pago_divida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_pago_divida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_miro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_miro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.obs_pagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.obs_pagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_pago_custas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_pago_custas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_pago_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_pago_total)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

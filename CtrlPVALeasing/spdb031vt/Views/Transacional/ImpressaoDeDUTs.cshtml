@@ -1,0 +1,234 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressão de DUTs</title>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<style type="text/css">
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+   margin: 0%
+}
+
+    @@page {
+   margin: 0%
+}
+
+    .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .dl-horizontal dt {
+    } 
+    .input-sm-ultra-fino2 {
+      height: 20px;
+      padding: 1px 10px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-ultra-fino3 {
+        height: 20px;
+        padding: 1px 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        border-radius: 3px;
+        background-color: rgb(235,235,228);
+    }
+
+    .input-sm-ultra-fino {
+      height: 10px;
+      padding: 4px 5px;
+        font-size: 10px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    .input-sm-fino {
+      height: 20px;
+      padding: 1px 1px;
+        font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino10 {
+      height: 60px;
+      padding: 10px 15px;
+      font-size: 10px;
+      line-height: 35.5;
+      border-radius: 12px;
+    }
+    .input-sm-fino11 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    .input-sm-fino12 {
+      height: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+</style>
+@{
+    ViewBag.Title = "Impressão de DUTs";
+    Layout = null;
+}
+<body >
+    @{ 
+        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("pt-BR");
+        System.Globalization.DateTimeFormatInfo dtfi = culture.DateTimeFormat;
+    }
+    @foreach (var item in Model)
+    {
+        <div class="jumbotronFundo">
+            <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <center>
+                            <table width="100%" border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="240px">
+                                    </td>
+                                    <td style="line-height: 1.6;"><br /><br />&nbsp;&nbsp;&nbsp;
+                                        <id ="P1" style="font-size: 11px;"><b>@item.valor_da_compra.ToString()</b></id>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 1.4;" colspan="2">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<id ="P2" style="font-size: 11px;"><b>@(item.nome_comprador != null ? item.nome_comprador : item.nome_cliente)</b></id>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 1.8;"  colspan="2">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;<id ="P3" style="font-size: 11px;">@*@(item.nome_comprador != null ? item.nome_comprador : item.nome_cliente)*@</id>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 2.4;" >
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<id ="P4" style="font-size: 11px;"><b>@(item.rg_comprador != null ? item.rg_comprador : item.cpf_cnpj_comprador)</b></id>
+                                    </td>
+                                    <td style="line-height: 1.8;">
+                                        &nbsp;<id ="P5" style="font-size: 11px;">
+                                        @{
+                                            var cliOUcomp = "";
+                                            if (item.cpf_cnpj_comprador != null)
+                                            {
+                                                cliOUcomp = item.cpf_cnpj_comprador;
+                                            }
+                                            else
+                                            {
+                                                cliOUcomp = item.cpf_cnpj_cliente;
+                                            }
+                                        }
+
+                                        @{
+                                            var cpfcnpjsemzeros = cliOUcomp.TrimStart('0');
+
+                                            var p1 = "";
+                                            var p2 = "";
+                                            var p3 = "";
+                                            var p4 = "";
+                                            var p5 = "";
+                                        }
+
+                                        @if (cpfcnpjsemzeros.Length > 11)
+                                        {
+                                            if (cpfcnpjsemzeros.Length == 14)
+                                            {
+                                                p1 = @cpfcnpjsemzeros.Substring(0, 2);
+                                                p2 = @cpfcnpjsemzeros.Substring(2, 3);
+                                                p3 = @cpfcnpjsemzeros.Substring(5, 3);
+                                                p4 = @cpfcnpjsemzeros.Substring(8, 4);
+                                                p5 = @cpfcnpjsemzeros.Substring(12, 2);
+                                            }
+                                            else if (cpfcnpjsemzeros.Length == 13)
+                                            {
+                                                p1 = @cpfcnpjsemzeros.Substring(0, 1);
+                                                p2 = @cpfcnpjsemzeros.Substring(1, 3);
+                                                p3 = @cpfcnpjsemzeros.Substring(4, 3);
+                                                p4 = @cpfcnpjsemzeros.Substring(7, 4);
+                                                p5 = @cpfcnpjsemzeros.Substring(11, 2);
+                                            }
+
+                                            <b><id>0</id>@p1.@p2.@p3/@p4-@p5</b>
+                                        }
+                                        else if (cpfcnpjsemzeros.Length == 11)
+                                        {
+                                            p1 = @cpfcnpjsemzeros.Substring(0, 3);
+                                            p2 = @cpfcnpjsemzeros.Substring(3, 3);
+                                            p3 = @cpfcnpjsemzeros.Substring(6, 3);
+                                            p4 = @cpfcnpjsemzeros.Substring(9, 2);
+
+                                            <b>@p1.@p2.@p3-@p4</b>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 1.5;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<id ="P6" style="font-size: 11px;"><b>@(item.end_comprador != null ? item.end_comprador : item.end_cliente)</b></id>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 1.4;" colspan="2">
+                                        &nbsp;&nbsp;&nbsp;<id ="P7" style="font-size: 11px;"><b>@(item.local_comprador != null ? "" : @item.bairro_cliente + "-" ) @(item.local_comprador != null ? item.local_comprador : (item.cidade_cliente != null ? item.cidade_cliente.ToString().Trim() + " / " + item.uf_cliente : "")) - CEP: @(item.end_comprador != null ? "00000-00" : item.cep_cliente)</b></id>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="line-height: 2.2;" colspan="2">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<id ="P8" style="font-size: 11px;"><b>Poá, @DateTime.Now.Day de @culture.TextInfo.ToTitleCase(dtfi.GetMonthName(DateTime.Now.Month)) de @DateTime.Now.Year</b></id>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <div style="font-size:7px">
+        <br />
+    </div>
+    }
+</body>
+<script>
+    //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+    //Imprime com margins zero na impressora para enquadrar correto os dados no DUT.
+    setTimeout(function () {
+        var css = '@@page {margin: None; }',
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+
+        head.appendChild(style);
+
+        window.print();
+        window.history.go(-1);
+    }, 1000)
+</script>
+</html>

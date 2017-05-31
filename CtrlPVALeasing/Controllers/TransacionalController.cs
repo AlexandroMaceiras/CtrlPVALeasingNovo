@@ -766,34 +766,34 @@ namespace CtrlPVALeasing.Controllers
                             porra22 += porra2;
                             porra33 += porra3;
 
-                            //var procuraRegistro = db.Tbl_Impressao
-                            //    .FirstOrDefault(c => c.chassi == porra1 || c.renavam == porra2 || c.placa == porra3);
+                            var procuraRegistro = db.Tbl_Impressao
+                                .FirstOrDefault(c => c.chassi == porra1 || c.renavam == porra2 || c.placa == porra3);
 
-                            //if (procuraRegistro != null)
-                            //{
-                            //    //procuraRegistro.tipo_impressao = DUT;
+                            if (procuraRegistro != null)
+                            {
+                                //procuraRegistro.tipo_impressao = DUT;
 
-                            //    db.Entry(procuraRegistro).State = EntityState.Modified;
-                            //    db.SaveChanges();
-                            //}
-                            //else
-                            //{
-                            //    model3 = new Tbl_Impressao
-                            //    {
-                            //        id = 0,
-                            //        chassi = dadosVeiculo[0],
-                            //        renavam = dadosVeiculo[1],
-                            //        placa = dadosVeiculo[2],
+                                db.Entry(procuraRegistro).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                model3 = new Tbl_Impressao
+                                {
+                                    id = 0,
+                                    chassi = dadosVeiculo[0],
+                                    renavam = dadosVeiculo[1],
+                                    placa = dadosVeiculo[2],
 
-                            //        //tipo_impressao = DUT
-                            //    };
+                                    //tipo_impressao = DUT
+                                };
 
-                            //    if (db.Entry(model3).State == EntityState.Detached)
-                            //    {
-                            //        db.Tbl_Impressao.Add(model3);
-                            //        db.SaveChanges();
-                            //    }
-                            //}
+                                if (db.Entry(model3).State == EntityState.Detached)
+                                {
+                                    db.Tbl_Impressao.Add(model3);
+                                    db.SaveChanges();
+                                }
+                            }
                         }
                         else
                         {

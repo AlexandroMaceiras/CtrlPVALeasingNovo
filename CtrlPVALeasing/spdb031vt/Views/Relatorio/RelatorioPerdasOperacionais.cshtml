@@ -1,0 +1,255 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+@{
+    ViewBag.Title = "Relatório - Perdas Operacionais";
+    Layout = null;
+}
+<div class="navbar-fixed-top">
+    <div class="container">
+        <table border="0" width="100%">
+            <tr>
+                <td width="290">
+                    <img src="~/Imagens/safraBranco.jpg" />
+                </td>
+                <td>
+                    <table border="0" width="100%">
+                        <tr>
+                            <td style="padding-top:initial">
+                                <font color="Black"><h3>Controle <b>IPVA Leasing</h3></font></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="Black">Usuário:<b> @User.Identity.Name</b></font>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td rowspan="4">
+                    <img src="" />
+                </td>
+                <td>
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <p class="navbar-right"><font color="Black">@DateTime.Now.ToLongDateString()</font>&nbsp;&nbsp;</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="navbar-right"><font color="Black">@DateTime.Now.ToLongTimeString()</font>&nbsp;&nbsp;</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h1>BENS APREENDIDOS COM DÉBITO DE IPVA</h1>
+<br />
+<table class="table" width="250%">
+    <tr>
+        <th>
+            Descrição (Chassi)
+        </th>
+        <th>
+            Nº Contrato
+        </th>
+        <th>
+            Nome Empresa
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Área Onde Ocorreu a Perda (Descrição Agência)
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Tipo do Evento - 1º Nível
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Tipo do Evento - 2º Nível
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Tipo do Evento - 3º Nível
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Fator de Risco
+        </th>
+        <th>
+            Id Evento Perdas Raiz
+        </th>
+        <th>
+            Sistema Envolvido
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Produto
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Data da Descoberta
+        </th>
+        <th>
+            Tipo de Risco Vinculado
+        </th>
+        <th>
+            Área que Cadastrou a Perda
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Segmento Comercial
+        </th>
+        <th>
+            Cód
+        </th>
+        <th>
+            Data Contábil
+        </th>
+        <th>
+            Valor
+        </th>
+        <th>
+            PCI/PCU
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.chassi)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.contrato)
+            </td>
+            <td align="center">
+                @(item.grupo_safra == "10" ? "BANCO SAFRA" : item.grupo_safra == "20" ? "BANCO J. SAFRA" : item.grupo_safra == "30" ? "SAFRA LEASING" : item.grupo_safra == "40" ? "JS ADM RECURSOS" : "" )
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.grupo_safra)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.descricao_agencia)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.agencia)
+            </td>
+            <td align="center">
+                7 - Práticas Inadequadas relativas a contrapartes, clientes
+            </td>
+            <td align="center">
+                7
+            </td>
+            <td align="center">
+                7_01 - Perdas na relação de negócios com clientes
+            </td>
+            <td align="center">
+                7_01
+            </td>
+            <td align="center">
+                7_01_03 - Outras perdas decorrentes da relação de negócios com clientes
+            </td>
+            <td align="center">
+                7_01_03
+            </td>
+            <td align="center">
+                Eventos Externos
+            </td>
+            <td align="center">
+
+            </td>
+            <td align="center">
+                Arrendamento Mercantil - Stored
+            </td>
+            <td align="center">
+                ARM
+            </td>
+            <td align="center">
+                LEASING
+            </td>
+            <td align="center">
+                104010000
+            </td>
+            <td align="center">
+                1
+            </td>
+            <td align="center">
+                ????????
+            </td>
+            <td align="center">
+                Crédito
+            </td>
+            <td align="center">
+                BO LEASING PESADOSPOA
+            </td>
+            <td align="center">
+                37470
+            </td>
+            <td align="center">
+                Bancos
+            </td>
+            <td align="center">
+                PEPD
+            </td>
+            <td align="center">
+                @(item.dta_pagamento.HasValue ? item.dta_pagamento.ToString().Substring(0,10) : "")
+            </td>
+            <td align="center">
+                @(Html.DisplayFor(ModelItem => item.valor_divida))
+            </td>
+            <td align="center">
+                @(Html.DisplayFor(ModelItem => item.pci_debito_divida))
+            </td>
+
+
+        </tr>
+    }
+</table>
+
+<script>
+    //Imprime em Landscape pra poder caber todas as colunas do relatório e Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Safra S/A.
+    setTimeout(function () {
+        var css = '@@page { size: landscape; }',
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+
+        head.appendChild(style);
+
+        window.print();
+        window.history.go(-1);
+    }, 1000)
+</script>

@@ -1,0 +1,93 @@
+﻿
+@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table" border="0">
+                <tr>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data da Cobrança</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">UF de Registro</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor da Cobrança</div>
+                    </th>
+                    <th class="input-sm-fino" align="center" wi>
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Débito pago pelo banco?</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Ano de Exercício</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Custas</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Pagamento</div>
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Recuperação</div>
+                    </th>
+                </tr>
+
+                @{var contadorInterno = 0; 
+                    foreach (var item in Model)
+                    {
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino" align="center">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.uf_pagamento)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @{ var total = (item.valor_divida.HasValue ? item.valor_divida.Value : 0) + (item.valor_custas.HasValue ? item.valor_custas.Value : 0);
+                                       @total
+                                    }
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    <text>@(item.pagamento_efet_banco.HasValue && item.pagamento_efet_banco.Value == true ? "SIM" : "NÃO")</text>
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.DisplayFor(modelItem => item.valor_total_recuperado)
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.ano_exercicio)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.DisplayFor(modelItem => item.valor_custas)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @if (item.uf_pagamento != "" && item.uf_pagamento != null)
+                                    {
+                                        @Html.ActionLink((item.valor_total_recuperado.HasValue ? "EDITAR" : "RECUPERAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null && item.valor_total_recuperado.HasValue ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+

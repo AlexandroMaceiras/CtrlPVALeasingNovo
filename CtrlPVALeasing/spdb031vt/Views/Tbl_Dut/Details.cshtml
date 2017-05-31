@@ -1,0 +1,58 @@
+﻿@model CtrlPVALeasing.Models.Tbl_Dut
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Dut</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.renavam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.renavam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comVenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comDUT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comDUT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

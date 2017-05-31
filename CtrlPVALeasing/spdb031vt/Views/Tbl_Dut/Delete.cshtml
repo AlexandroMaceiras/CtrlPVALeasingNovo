@@ -1,0 +1,64 @@
+﻿@model CtrlPVALeasing.Models.Tbl_Dut
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tbl_Dut</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.renavam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.renavam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chassi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chassi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comVenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comDUT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comDUT)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

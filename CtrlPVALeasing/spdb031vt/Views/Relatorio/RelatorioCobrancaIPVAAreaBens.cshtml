@@ -1,0 +1,113 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+@{
+    ViewBag.Title = "Relatório - Cobrança de IPVA - Área de Bens";
+    Layout = "~/Views/Shared/_LayoutImpressao.cshtml";
+}
+<br /><br />
+<h1>COBRANÇA DE IPVA - ÁREA DE BENS</h1>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Nº Contrato
+        </th>
+        <th>
+            Status do Contrato
+        </th>
+        <th>
+            Nome do Cliente
+        </th>
+        <th>
+            CPF/CNPJ
+        </th>
+        <th>
+            Marca
+        </th>
+        <th>
+            Chassi
+        </th>
+        <th>
+            Renavam
+        </th>
+        <th>
+            Placa
+        </th>
+        <th>
+            Valor da Dívida
+        </th>
+        <th>
+            Valor das Custas
+        </th>
+        <th>
+            Valor Débito Total
+        </th>
+        <th>
+            Ano de Execício
+        </th>
+        <th>
+            Valor Pago Total
+        </th>
+        @*<th>
+            pagamento_efet_banco
+        </th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.contrato)
+            </td>
+            <td align="center">
+                @(item.status.HasValue && item.status == true ? "Ativo" : (item.status.HasValue && item.status == false ? "Liquidado" : "" ))
+            </td>
+            <td align="left">
+                @Html.DisplayFor(modelItem => item.nome_cliente)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(modelItem => item.marca)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.chassi)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.renavam)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.placa)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_divida)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_custas)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_debito_total)
+            </td>
+            <td align="right">
+                @Html.DisplayFor(modelItem => item.ano_exercicio)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.valor_pago_total)
+            </td>
+            @*<td align="center">
+                @Html.DisplayFor(modelItem => item.pagamento_efet_banco)
+            </td>*@
+        </tr>
+    }
+</table>
+
+<script>
+    //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+    setTimeout(function () {
+        window.print();
+        window.close();
+    }, 1000)
+</script>

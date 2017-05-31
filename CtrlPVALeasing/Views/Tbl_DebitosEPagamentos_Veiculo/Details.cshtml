@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Details";
 }
-<br />
-<br />
 
 <h2>Details</h2>
 
@@ -181,11 +179,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.numero_miro)
+            @Html.DisplayNameFor(model => model.numero_miro_divida)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.numero_miro)
+            @Html.DisplayFor(model => model.numero_miro_divida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_miro_custa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_miro_custa)
         </dd>
 
         <dt>
@@ -210,6 +216,70 @@
 
         <dd>
             @Html.DisplayFor(model => model.valor_pago_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_recuperado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_recuperado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_total_recuperado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_total_recuperado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_pagamento_custas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_pagamento_custas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dta_recuperacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dta_recuperacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pci_debito_divida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pci_debito_divida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pci_debito_custa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pci_debito_custa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pci_credito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pci_credito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grupo_safra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grupo_safra)
         </dd>
 
     </dl>

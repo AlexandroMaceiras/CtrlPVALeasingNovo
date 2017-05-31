@@ -1,0 +1,526 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.TesteViewModel>
+@{
+    ViewBag.Title = "Controle IPVA Leasing";
+}
+
+<br />
+
+<div class="jumbotronFundo">
+    <center>
+        <table border="0" >
+            <tr>
+                <td>
+
+                    <table border="0" >
+                        <tr>
+                            <td>
+                                <table border="1"  style="border-style:inherit" width="100%">
+                                    <tr>
+                                        <td>      
+                                            <h3>&nbsp;&nbsp;&nbsp;Transacional</h3>
+                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Liquidados Com e Sem DUT&nbsp;&nbsp;&nbsp;</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Transacional/Liquidados?criterio=60" onclick="location.reload();" target="_blank" class="btn2 btn-primary-imp btn-sm">IMPRIMIR</a>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Transacional/Liquidados?criterio=60" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Impressão de DUT Avulso</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Transacional/ImpressaoDUTAvulso" class="btn2 btn-primary-imp btn-sm">IMPRIMIR</a>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                        <font size="0"><b>IMPRIMIR:</b> Listagem apenas com itens ainda não impressos.<br /></font>
+                                        <font size="0"><b>CONSULTAR:</b> Listagem com todos os itens, impressos ou não.<br /></font>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <table border="1" style="border-style:inherit" width="100%">
+                                    <tr>
+                                        <td>
+                                            <h3>&nbsp;&nbsp;&nbsp;Registros</h3>
+                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Registrar Débito de IPVA - Manual</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Registro/RegistroDebitoIPVAManual" class="btn2 btn-primary-reg btn-sm">REGISTRAR</a>&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Registrar Pagam./Recuper. de IPVA - Manual&nbsp;&nbsp;</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Registro/PagamentoDebitoIPVAManual" class="btn2 btn-primary-reg btn-sm">REGISTRAR</a>&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Registrar Débito de IPVA - Lote (Sefaz-SP)</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Registro/UploadDebitoIPVA" class="btn2 btn-primary-reg btn-sm">UPLOAD</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Registrar DUT</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Registro/RegistroDUT" class="btn2 btn-primary-reg btn-sm">REGISTRAR</a>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <table border="1" style="border-style:inherit">
+                                    <tr>
+                                        <td>
+                                            <h3>&nbsp;&nbsp;&nbsp;Consultas</h3>
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Consultar Contrato de Leasing</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Consulta/ConsultaContrato" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Consultar Veículo de Contrato de Leasing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Consulta/ConsultaVeiculo" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Consultar Cliente</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Consulta/ConsultaCliente" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Consultar Débito</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Consulta/ConsultaDebito" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+
+                    <table border="0">
+                        <tr>
+                            <td>
+
+                                <table border="1" style="border-style:inherit" width="100%">
+                                    <tr>
+                                        <td>
+                                            <h3>&nbsp;&nbsp;&nbsp;Relatórios</h3>
+                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Bens Apreendidos com Débito de IPVA&nbsp;&nbsp;&nbsp;</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioBensApreendidosDebtoIPVA" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Cobranças Simples para Pagamento</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioCobrancasSimplesParaPagamento" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Cobranca de IPVA - Área de Bens</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioCobrancaIPVAAreaBens" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Débito em Conta Corrente</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioDebitoEmContaCorrente" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                    <td>
+                                                        <h6>&nbsp;&nbsp;&nbsp;</h6>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Incorporação de Dívida - JUR</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioParaIncorporacaoDeDividaJurRat" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                    <td>
+                                                        <h6>&nbsp;&nbsp;&nbsp;</h6>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Incorporação de Dívida - RAT</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/RelatorioParaIncorporacaoDeDividaJurRat?RAT=true" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                    <td>
+                                                        <h6>&nbsp;&nbsp;&nbsp;</h6>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Relatório - Perdas Operacionais</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/EntradaRelatorioPerdasOperacionais" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                    <td>
+                                                        <h6>&nbsp;&nbsp;&nbsp;</h6>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Notificação de Débitos para Clientes</font></li></ul>
+                                                    </td>
+                                                    <td>
+                                                        <a href="~/Relatorio/NotificacaoDeDebitosDeIPVAParaClientes" onclick="location.reload();" target="_blank" class="btn2 btn-primary-cons btn-sm">GERAR</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>&nbsp;</h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+
+                                <table border="1" width="100%" style="border-style:inherit">
+                                    <tr>
+                                        <td>
+                                            <h3>&nbsp;&nbsp;&nbsp;Visão Geral</h3>
+                                            <table border="0" cellspacing="0" cellpadding="0" width="81%">
+
+                                                <tr>
+                                                    <td>
+                                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                            <tr>
+                                                                <td align="center">
+                                                                    <h6><u><b>CONTRATOS</b></u></h6>
+                                                                </td>
+                                                                <td align="center">
+
+                                                                    <h6><u><b>VEÍCULOS</b></u></h6>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    @{ float? total = 0; float? liquidados = 0; float? ativos = 0; }
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.total.HasValue)
+                                                                        {
+                                                                            total += item.total;
+                                                                        }
+                                                                    }
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.status == true)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/laranja.bmp" /> LIQUIDADOS (<b>@item.total</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total * 100 / total).ToString().IndexOf(",") == 2 ? (item.total * 100 / total).ToString().Substring(0, 5) : (item.total * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                        else if (item.status == false)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/azul.bmp" /> ATIVOS (<b>@item.total</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total * 100 / total).ToString().IndexOf(",") == 2 ? (item.total * 100 / total).ToString().Substring(0, 5) : (item.total * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @foreach (var item in Model)
+                                                                    {
+                                                                        if (item.status2 == true)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/laranja.bmp" /> LIQUIDADOS (<b>@item.total2</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total2 * 100 / total).ToString().IndexOf(",") == 2 ? (item.total2 * 100 / total).ToString().Substring(0, 5) : (item.total2 * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                        else if (item.status2 == false)
+                                                                        {
+                                                                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Imagens/azul.bmp" /> ATIVOS (<b>@item.total2</b>) </h6>
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <h6><b>@((item.total2 * 100 / total).ToString().IndexOf(",") == 2 ? (item.total2 * 100 / total).ToString().Substring(0, 5) : (item.total2 * 100 / total).ToString().Substring(0, 4)) %</b></h6>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        &nbsp;&nbsp;
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        }
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="@Url.Action("_graficoContratos")" alt="" />
+                                                                </td>
+                                                                <td>
+                                                                    <img src="@Url.Action("_graficoVeiculos")" alt="" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+
+
+                    </table>
+
+                </td>
+
+                <td>
+                    <h1>&nbsp;</h1>
+                </td>
+
+                <td>
+
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <center>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <a href="#" class="btn2 btn-primary-reg btn-sm">GERENCIAL</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="0"><h6></h6></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <a href="#" class="btn2 btn-primary-reg btn-sm">CONCILIAÇÃO</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="0"><h6></h6></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <a href="#" class="btn2 btn-primary-fim btn-sm">SAIR</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="0"><h6></h6></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <a href="#" class="btn2 btn-primary-fim     ">LOGOFF</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2>&nbsp;</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2>&nbsp;</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>&nbsp;</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2>&nbsp;</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>&nbsp;</h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2>&nbsp;</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>&nbsp;</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>&nbsp;</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>&nbsp;</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>&nbsp;</h3>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+    </center>
+
+</div>

@@ -1,0 +1,299 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
+    <!-- <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+
+    <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
+
+</head>
+<script>
+    function chamaErro4() {
+        $(document).ready(function () {
+            $("#msgErro4").modal();
+        });
+    }
+    function chamaErro3() {
+        $(document).ready(function () {
+            $("#msgErro3").modal();
+        });
+    }
+    function chamaErro1() {
+        $(document).ready(function () {
+            $("#msgErro1").modal();
+        });
+    }
+    function chamaErro7() {
+        $(document).ready(function () {
+            $("#msgErro7").modal();
+        });
+    }
+    function chamaErro8() {
+        $(document).ready(function () {
+            $("#msgErro8").modal();
+        });
+    }
+</script>
+@{
+    ViewBag.Title = "Registro Débito de IPVA";
+}
+
+@using (Html.BeginForm("UploadDebitoIPVA", "Registro", FormMethod.Post, new { id = "FormAltera", enctype = "multipart/form-data" }))
+{
+    var MF = Model.First();
+    <div class="jumbotronFundo">
+        <input type="hidden" name="rd" id="rd" value="false" />
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca" width="82%">
+                        <h2>UPLOAD DÉBITO DE IPVA</h2>
+                    </th>
+                    <th class="busca" width="18%" align="right">
+                        <br />
+                        <a href="/" onclick="javascript: window.close();" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR / MENU</a>
+                    </th>
+                </tr>
+            </table>
+            <hr />
+        </center>
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">REGISTRO DE DÉBITO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Para subir um arquivo com vários débitos, baixe <b><a href="~/Modelo de Upload/UploadDebitoDeIPVA.csv">ESTA</a></b> planilha e preencha ela com os dados em cada coluna correta de acordo com o nome do campo que está descrito no top da coluna. Não apague ou sobrescreva a descrição do top das colunas, somente preencha com os dados logo abaixo das descrições. Existem 2 linhas no top. A primeira linha indica o formato e o tamanho do dado que pode ser inserido naquela coluna, a segunda linha indica o nome do campo dquela coluna. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Salve a planilha contendos o cabeçalho das descrições do top e contendo os dados com o mesmo nome (UploadDebitoDeIPVA) e extensão (.csv) que você baixou. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - Clique em [Escolher arquivos] e selecione o UploadDebitoDeIPVA.csv do seu micro e logo após em [Subir]. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4 - Pronto, seus registros já subiram e estão agora na base de dados de débitos. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                        <table border="0" width="10%">
+                            <tr>
+                                <td>
+                                    <input class="input-sm-fino" type="file" name="Upload2" accept=".csv" multiple />
+                                </td>
+                                <td>
+                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="submit" name="Submit" id="Submit" value="Subir" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+
+    //Erro de veículo não encontrado
+    if (MF.id == -1)
+    {
+        <script>
+            try
+            {
+                $(document).ready(function () {
+                    $("#msgErro1").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -4)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro4").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -3)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgOk").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    //Erro de veículo não encontrado
+    if (MF.id == -6)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro6").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+}
+<script>
+    //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
+    try {
+        $("#mudaReset").click(function () {
+            document.getElementById("Upload").setAttribute("value", "");
+            document.getElementById("limpaNaMarra2").setAttribute("value", "");
+            document.getElementById("limpaNaMarra3").setAttribute("value", "");
+            document.getElementById("ConsultaVeiculo").submit();
+        });
+    }
+    catch (e) {
+        alert(e);
+    }
+
+    try
+    {
+        function validateForm()
+        {
+            if (
+                document.getElementsByName('Upload')[0].value == ""
+                )
+            {
+
+                $(document).ready(function () {
+                    $("#msgErro5").modal();
+                    return false;
+                });
+                return false;
+            }
+            else
+            {
+                document.getElementById("rd").value = true;
+                document.getElementById("FormAltera").submit();
+                return true;
+            }
+        }
+    }
+    catch(e)
+    {
+        alert(e);
+    }
+</script>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(206, 39, 39)">Planilha vazia ou algum erro na planilha, nenhum registro foi inserido no BD!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro4" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(206, 39, 39)">Erro na consistência dos dados da planilha!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registros da planilha incluídos no BD!<h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro6" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>UPLOAD DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Erro!</h4><h4 style="color: rgb(176, 172, 186)">Erro de entrada de dados!</center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

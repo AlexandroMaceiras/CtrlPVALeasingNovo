@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+@{
+    var contador = 0;
+    foreach (var item in Model)
+    {
+        if (item.nome_cliente != "" && item.nome_cliente != null)
+        {
+            contador++;
+        }
+    }
+}
+
+<td colspan="7">
+    <input class="input-sm-fino" value="@contador" type="text" name="contrato" maxlength="5" size="1" style="text-transform:uppercase" disabled="disabled" />
+</td>

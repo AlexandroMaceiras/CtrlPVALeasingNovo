@@ -1,0 +1,179 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.Tbl_DebitosEPagamentos_Veiculo>
+
+@{
+    ViewBag.Title = "Débitos";
+}
+<br />
+<br />
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Incluir Novo Débito", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.chassi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.renavam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_cobranca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uf_cobranca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_cobranca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_divida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ano_exercicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_custas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.debito_protesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nome_cartorio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.divida_ativa_serasa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.protesto_serasa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_debito_total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pagamento_efet_banco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_pagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uf_pagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.forma_pagamento_divida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.forma_pagamento_custas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_pago_divida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numero_miro_custa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.obs_pagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_pago_custas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor_pago_total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.chassi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.renavam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.placa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_cobranca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uf_cobranca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_cobranca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_divida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ano_exercicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_custas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.debito_protesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome_cartorio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.divida_ativa_serasa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.protesto_serasa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_debito_total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pagamento_efet_banco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_pagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uf_pagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.forma_pagamento_divida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.forma_pagamento_custas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_pago_divida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero_miro_custa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.obs_pagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_pago_custas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor_pago_total)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table" border="0">
+                <tr>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data da Cobrança</div> @*@Html.DisplayNameFor(model => model.modelo)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">UF de Registro</div> @*@Html.DisplayNameFor(model => model.chassi)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor da Cobrança</div> @*@Html.DisplayNameFor(model => model.renavam)*@
+                    </th>
+                    <th class="input-sm-fino" align="center" wi>
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Débito pago pelo banco?</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Ano de Exercício</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                    <th class="input-sm-fino" align="center">
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Custas</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                    </th>
+                </tr>
+
+                @{var contadorInterno = 0; 
+                    foreach (var item in Model)
+                    {
+                        if (item.contrato != null)
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino" align="center">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.uf_pagamento)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @{ var total = item.valor_divida.Value + item.valor_custas.Value;
+                                       @total
+                                    }
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    <text>@(item.pagamento_efet_banco.HasValue && item.pagamento_efet_banco.Value == true ? "SIM" : "NÃO")</text>
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.DisplayFor(modelItem => item.valor_total_recuperado)
+                                </td>
+                                <td class="input-sm-fino" align="center">
+                                    @Html.DisplayFor(modelItem => item.ano_exercicio)
+                                </td>
+                                <td class="input-sm-fino" align="right">
+                                    @Html.DisplayFor(modelItem => item.valor_custas)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+

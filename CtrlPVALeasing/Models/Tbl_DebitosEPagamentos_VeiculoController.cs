@@ -6,9 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using CtrlPVALeasing.Models;
 
-namespace CtrlPVALeasing.Controllers
+namespace CtrlPVALeasing.Models
 {
     public class Tbl_DebitosEPagamentos_VeiculoController : Controller
     {
@@ -46,7 +45,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,chassi,renavam,placa,dta_cobranca,uf_cobranca,tipo_cobranca,valor_divida,ano_exercicio,cda,valor_custas,debito_protesto,nome_cartorio,divida_ativa_serasa,protesto_serasa,valor_debito_total,pagamento_efet_banco,dta_pagamento,uf_pagamento,tipo_pagamento,valor_pago_divida,numero_miro,obs_pagamento,valor_pago_custas,valor_pago_total")] Tbl_DebitosEPagamentos_Veiculo tbl_DebitosEPagamentos_Veiculo)
+        public ActionResult Create([Bind(Include = "id,chassi,renavam,placa,dta_cobranca,uf_cobranca,tipo_cobranca,valor_divida,ano_exercicio,cda,valor_custas,debito_protesto,nome_cartorio,divida_ativa_serasa,protesto_serasa,valor_debito_total,pagamento_efet_banco,dta_pagamento,uf_pagamento,forma_pagamento_divida,forma_pagamento_custas,valor_pago_divida,numero_miro_divida,numero_miro_custa,obs_pagamento,valor_pago_custas,valor_pago_total,valor_recuperado,valor_total_recuperado,dta_pagamento_custas,dta_recuperacao,pci_debito_divida,pci_debito_custa,pci_credito,grupo_safra")] Tbl_DebitosEPagamentos_Veiculo tbl_DebitosEPagamentos_Veiculo)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +77,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,chassi,renavam,placa,dta_cobranca,uf_cobranca,tipo_cobranca,valor_divida,ano_exercicio,cda,valor_custas,debito_protesto,nome_cartorio,divida_ativa_serasa,protesto_serasa,valor_debito_total,pagamento_efet_banco,dta_pagamento,uf_pagamento,tipo_pagamento,valor_pago_divida,numero_miro,obs_pagamento,valor_pago_custas,valor_pago_total")] Tbl_DebitosEPagamentos_Veiculo tbl_DebitosEPagamentos_Veiculo)
+        public ActionResult Edit([Bind(Include = "id,chassi,renavam,placa,dta_cobranca,uf_cobranca,tipo_cobranca,valor_divida,ano_exercicio,cda,valor_custas,debito_protesto,nome_cartorio,divida_ativa_serasa,protesto_serasa,valor_debito_total,pagamento_efet_banco,dta_pagamento,uf_pagamento,forma_pagamento_divida,forma_pagamento_custas,valor_pago_divida,numero_miro_divida,numero_miro_custa,obs_pagamento,valor_pago_custas,valor_pago_total,valor_recuperado,valor_total_recuperado,dta_pagamento_custas,dta_recuperacao,pci_debito_divida,pci_debito_custa,pci_credito,grupo_safra")] Tbl_DebitosEPagamentos_Veiculo tbl_DebitosEPagamentos_Veiculo)
         {
             if (ModelState.IsValid)
             {
