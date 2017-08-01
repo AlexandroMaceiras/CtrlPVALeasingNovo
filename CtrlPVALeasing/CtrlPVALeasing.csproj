@@ -249,7 +249,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="TXT DE SCRIPTS DE TABELAS\Dados de teste das Tabelas" />
-    <Content Include="TXT DE SCRIPTS DE TABELAS\PAU-SERVIDOR.jpg" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\Script Tabelas.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
