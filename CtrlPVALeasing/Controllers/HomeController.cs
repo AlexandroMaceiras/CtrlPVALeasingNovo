@@ -18,7 +18,7 @@ namespace CtrlPVALeasing.Controllers
         private void ModelGeral()
         {
             model1 = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                      join b in db.Arm_Veiculos
+                      join b in db.Arm_Veiculos 
                       on a.contrato equals b.contrato
                       where a.origem.Equals("B")
                       where !b.origem.Contains("RECIBO VEN")
