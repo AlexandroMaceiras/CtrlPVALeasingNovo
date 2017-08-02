@@ -15,7 +15,7 @@ namespace CtrlPVALeasing.Controllers
         IEnumerable<TesteViewModel> model1 = null;
         IEnumerable<TesteViewModel> model2 = null;
 
-        public ActionResult Index()
+        private void ModelGeral()
         {
             model1 = (from a in db.Arm_LiquidadosEAtivos_Contrato
                       join b in db.Arm_Veiculos
@@ -50,7 +50,11 @@ namespace CtrlPVALeasing.Controllers
                           status2 = x.statusGoup.status,
                           total2 = x.totalGoup
                       }).ToList();
+        }
 
+        public ActionResult Index()
+        {
+            ModelGeral();
             return View(model1.Concat(model2));
         }
         public ActionResult Index_antigo()
@@ -72,43 +76,14 @@ namespace CtrlPVALeasing.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Este só serve para testar o Gráfico chamando ele por Home/Grafico.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Grafico()
         {
-            model1 = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
-                     where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
-                     group a by new { a.status } into g
-                     select new
-                     {
-                         statusGoup = g.Key,
-                         totalGoup = g.Count(c => c.status.HasValue)
-
-                     }).AsEnumerable().Select(x => new TesteViewModel
-                     {
-                         status = x.statusGoup.status,
-                         total = x.totalGoup
-                     }).ToList();
-
-            model2 = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
-                     where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
-                     group a by new { b.status } into g
-                     select new
-                     {
-                         statusGoup = g.Key,
-                         totalGoup = g.Count(c => c.status.HasValue)
-
-                     }).AsEnumerable().Select(x => new TesteViewModel
-                     {
-                         status2 = x.statusGoup.status,
-                         total2 = x.totalGoup
-                     }).ToList();
-
-                return PartialView(model1.Concat(model2));
+            ModelGeral();
+            return PartialView(model1.Concat(model2));
         }
 
         public const string Vanilla3D3 = "<Chart BackColor=\"#555\" BackGradientStyle=\"TopBottom\" BackSecondaryColor=\"White\" BorderColor=\"26, 59, 105\" BorderWidth=\"20\" BorderlineDashStyle=\"Solid\" Palette=\"BrightPastel\" AntiAliasing=\"All\">\r\n    <ChartAreas>\r\n        <ChartArea Name=\"Default\" _Template_=\"All\" BackColor=\"Transparent\" BackSecondaryColor=\"White\" BorderColor=\"121, 163, 196\" BorderDashStyle=\"Solid\" ShadowColor=\"Transparent\">\r\n            <Area3DStyle LightStyle=\"Simplistic\" Enable3D=\"True\" Inclination=\"55\" IsClustered=\"False\" IsRightAngleAxes=\"False\" Perspective=\"10\" Rotation=\"-30\" WallWidth=\"0\" />\r\n        </ChartArea>\r\n    </ChartAreas>\r\n</Chart>";
