@@ -58,22 +58,16 @@ namespace CtrlPVALeasing.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Sobre()
         {
-            ViewBag.Message = "A página de descrição da sua aplicação.  ";
-
-            return View();
-        }
-        public ActionResult Consulta()
-        {
-            ViewBag.Message = "A página de consulta.  ";
+            ViewBag.Message = "Sistema de Controle de IPVA em Leasing de Veículos do Banco SAFRA.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contato()
         {
-            ViewBag.Message = "Sua página de contato.";
+            ViewBag.Message = "Entre em contato para suporte e ampliação do sistema.";
 
             return View();
         }
