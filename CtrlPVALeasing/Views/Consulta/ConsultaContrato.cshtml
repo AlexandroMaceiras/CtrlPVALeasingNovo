@@ -34,7 +34,7 @@ function chamaErro() {
                         <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" type="text" name="contrato" size="40" style="text-transform:uppercase">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" type="text" name="contrato" size="40" style="text-transform:uppercase"  onkeypress="return SohNumeros(event)">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
@@ -336,6 +336,20 @@ function chamaErro() {
             document.getElementById("limpaNaMarra").setAttribute("value", "");
             document.getElementById("ConsultaContrato").submit();
         });
+    }
+    catch (e) {
+        alert(e);
+    }
+
+    try
+    {
+        function SohNumeros(e) {
+            document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+        }
     }
     catch (e) {
         alert(e);
