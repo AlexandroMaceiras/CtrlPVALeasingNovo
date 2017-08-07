@@ -629,7 +629,9 @@ namespace CtrlPVALeasing.Controllers
                      {
                          a.nome_cliente,
                          a.cpf_cnpj_cliente,
+                         a.ddd_cliente_particular,
                          a.fone_cliente_particular,
+                         a.ddd_cliente_cml,
                          a.fone_cliente_cml,
                          a.end_cliente,
                          a.bairro_cliente,
@@ -652,7 +654,9 @@ namespace CtrlPVALeasing.Controllers
                      {
                          g.Key.nome_cliente,
                          g.Key.cpf_cnpj_cliente,
+                         g.Key.ddd_cliente_particular,
                          g.Key.fone_cliente_particular,
+                         g.Key.ddd_cliente_cml,
                          g.Key.fone_cliente_cml,
                          g.Key.end_cliente,
                          g.Key.bairro_cliente,
@@ -670,7 +674,9 @@ namespace CtrlPVALeasing.Controllers
                      {
                          nome_cliente = x.nome_cliente,
                          cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
                          fone_cliente_particular = x.fone_cliente_particular,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
                          fone_cliente_cml = x.fone_cliente_cml,
                          end_cliente = x.end_cliente,
                          bairro_cliente = x.bairro_cliente,

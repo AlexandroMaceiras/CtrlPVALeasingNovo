@@ -85,7 +85,86 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CPF/ CNPJ: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    @{
+                                        try
+                                        {
+                                            var resultado = "";
+                                            var cpfcnpjsemzeros = "";
+                                            if (@MF.cpf_cnpj_cliente != "")
+                                            {
+                                                cpfcnpjsemzeros = MF.cpf_cnpj_cliente.TrimStart('0').Trim();
+                                            }
+
+                                            var p1 = "";
+                                            var p2 = "";
+                                            var p3 = "";
+                                            var p4 = "";
+                                            var p5 = "";
+
+                                            if (cpfcnpjsemzeros.Length > 11)
+                                            {
+                                                if (cpfcnpjsemzeros.Length == 14)
+                                                {
+                                                    p1 = @cpfcnpjsemzeros.Substring(0, 2);
+                                                    p2 = @cpfcnpjsemzeros.Substring(2, 3);
+                                                    p3 = @cpfcnpjsemzeros.Substring(5, 3);
+                                                    p4 = @cpfcnpjsemzeros.Substring(8, 4);
+                                                    p5 = @cpfcnpjsemzeros.Substring(12, 2);
+                                                    resultado = p1 + "." + p2 + "." + p3 + "/" + p4 + "-" + p5;
+                                                }
+                                                else if (cpfcnpjsemzeros.Length == 13)
+                                                {
+                                                    p1 = @cpfcnpjsemzeros.Substring(0, 1);
+                                                    p2 = @cpfcnpjsemzeros.Substring(1, 3);
+                                                    p3 = @cpfcnpjsemzeros.Substring(4, 3);
+                                                    p4 = @cpfcnpjsemzeros.Substring(7, 4);
+                                                    p5 = @cpfcnpjsemzeros.Substring(11, 2);
+                                                    resultado = "0" + p1 + "." + p2 + "." + p3 + "/" + p4 + "-" + p5;
+                                                }
+                                                else if (cpfcnpjsemzeros.Length == 12)
+                                                {
+                                                    p1 = @cpfcnpjsemzeros.Substring(0, 3);
+                                                    p2 = @cpfcnpjsemzeros.Substring(3, 3);
+                                                    p3 = @cpfcnpjsemzeros.Substring(6, 4);
+                                                    p4 = @cpfcnpjsemzeros.Substring(10, 2);
+                                                    resultado = p1 + "." + p2 + "/" + p3 + "-" + p4;
+                                                }
+                                            }
+                                            else if (cpfcnpjsemzeros.Length == 11)
+                                            {
+                                                p1 = @cpfcnpjsemzeros.Substring(0, 3);
+                                                p2 = @cpfcnpjsemzeros.Substring(3, 3);
+                                                p3 = @cpfcnpjsemzeros.Substring(6, 3);
+                                                p4 = @cpfcnpjsemzeros.Substring(9, 2);
+
+                                                resultado = p1 + "." + p2 + "." + p3 + "-" + p4;
+                                            }
+                                            else if (cpfcnpjsemzeros.Length < 11)
+                                            {
+                                                for (int i = 0; i <= cpfcnpjsemzeros.Length; i += 3)
+                                                {
+                                                    if (i < (cpfcnpjsemzeros.Length - 3))
+                                                    {
+                                                        resultado += cpfcnpjsemzeros.Substring(i, 3) + ".";
+                                                    }
+                                                    else
+                                                    {
+                                                        resultado += cpfcnpjsemzeros.Substring(i, cpfcnpjsemzeros.Length - i);
+                                                    }
+
+                                                    if (cpfcnpjsemzeros.Length < 4)
+                                                    {
+                                                        resultado = cpfcnpjsemzeros;
+                                                    }
+                                                }
+                                            }
+                                            <input class="input-sm-fino" value="@resultado" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                        catch
+                                        {
+                                            <input class="input-sm-fino" value="@MF.cpf_cnpj_cliente" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                    }
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -94,7 +173,37 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Com.: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.fone_cliente_cml" type="text" name="cliente" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    @{
+                                        try
+                                        {
+                                            var FoneSemZerosCom = "";
+                                            var dddCom = MF.ddd_cliente_cml;
+                                            var pa1 = "";
+                                            var pa2 = "";
+
+                                            if (@MF.fone_cliente_cml != "")
+                                            {
+                                                FoneSemZerosCom = MF.fone_cliente_cml.TrimStart('0').Trim();
+
+                                                if (FoneSemZerosCom.Length < 5)
+                                                {
+                                                    pa1 = FoneSemZerosCom;
+                                                }
+
+                                                if (FoneSemZerosCom.Length > 4)
+                                                {
+                                                    pa1 = FoneSemZerosCom.Substring(0, 4);
+                                                    pa2 = FoneSemZerosCom.Substring(4, FoneSemZerosCom.Length - 4);
+                                                }
+                                            }
+                                            FoneSemZerosCom = "(" + dddCom.Trim().Replace("0", "").Replace(" ", "") + ")" + " " + pa1 + "-" + pa2;
+                                            <input class="input-sm-fino" value="@FoneSemZerosCom" type="text" name="cliente" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                        catch
+                                        {
+                                            <input class="input-sm-fino" value="@MF.ddd_cliente_cml @MF.fone_cliente_cml" type="text" name="cliente" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                    }
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -103,7 +212,37 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Telefone Particular: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.fone_cliente_particular" type="text" name="cliente" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    @{
+                                        try
+                                        {
+                                            var FoneSemZerosPart = "";
+                                            var dddPart = MF.ddd_cliente_particular;
+                                            var pa1 = "";
+                                            var pa2 = "";
+
+                                            if (@MF.fone_cliente_particular != "")
+                                            {
+                                                FoneSemZerosPart = MF.fone_cliente_particular.TrimStart('0').Trim();
+
+                                                if (FoneSemZerosPart.Length < 5)
+                                                {
+                                                    pa1 = FoneSemZerosPart;
+                                                }
+
+                                                if (FoneSemZerosPart.Length > 4)
+                                                {
+                                                    pa1 = FoneSemZerosPart.Substring(0, 4);
+                                                    pa2 = FoneSemZerosPart.Substring(4, FoneSemZerosPart.Length - 4);
+                                                }
+                                            }
+                                            FoneSemZerosPart = "(" + dddPart.Trim().Replace("0", "").Replace(" ", "") + ")" + " " + pa1 + "-" + pa2;
+                                            <input class="input-sm-fino" value="@FoneSemZerosPart" type="text" name="cliente" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                        catch
+                                        {
+                                            <input class="input-sm-fino" value="@MF.ddd_cliente_particular @MF.fone_cliente_particular" type="text" name="cliente" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                        }
+                                    }
                                 </td>
                             </tr>
                             <tr>
