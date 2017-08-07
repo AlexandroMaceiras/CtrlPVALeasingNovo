@@ -602,7 +602,12 @@ namespace CtrlPVALeasing.Controllers
             }
             return View("ConsultaVeiculo", model);
         }
-        
+
+        public ActionResult TesteComMascara()
+        {
+            return View();
+        }
+
         //[Authorize, ActionName("ConsultaCliente"), HttpPost]
         public ActionResult ConsultaCliente(string cpf_cnpj_cliente)
         {
