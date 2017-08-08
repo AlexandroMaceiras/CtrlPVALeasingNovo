@@ -20,8 +20,14 @@
                     <th class="input-sm-fino">
                         <div class="fonte-cinza-claro fonte-tamanho-form">Placa</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
+                    @*<th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Status</div>
+                    </th>*@
                     <th class="input-sm-fino">
-                        <div class="fonte-cinza-claro fonte-tamanho-form">Status</div> @*@Html.DisplayNameFor(model => model.placa)*@
+                        <div class="fonte-cinza-claro fonte-tamanho-form">DUT</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Comum. Venda</div>
                     </th>
                     <th></th>
                 </tr>
@@ -48,8 +54,14 @@
                                 <td class="input-sm-fino">
                                     @Html.DisplayFor(modelItem => item.placa)
                                 </td>
-                                <td class="input-sm-fino">
+                                @*<td class="input-sm-fino">
                                     <text>@(item.status.HasValue && item.status.Value == true ? "ATIVO" : "LIQUIDADO")</text>
+                                </td>*@
+                                <td class="input-sm-fino">
+                                    <text>@(item.comDUT.HasValue && item.comDUT.Value == true ? "SIM" : "NÃO")</text>
+                                </td>
+                                <td class="input-sm-fino">
+                                    <text>@(item.comVenda.HasValue && item.comVenda.Value == true ? "SIM" : "NÃO")</text>
                                 </td>
                                 <td class="input-sm-fino">
                                     @Html.ActionLink("DETALHES", "ConsultaVeiculo", new { chassi = item.chassi, placa = item.placa, renavam = item.renavam }, new { @class = "btn2 btn-primary-detalhes btn-sm" })

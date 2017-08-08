@@ -341,6 +341,12 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
             join b in db.Arm_Veiculos
             on a.contrato equals b.contrato
+
+            join c in db.Tbl_Dut
+            on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+            into j1
+            from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
             where a.contrato.Contains(contrato)
             where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
             where a.origem.Equals("B")
@@ -386,9 +392,10 @@ namespace CtrlPVALeasing.Controllers
                 renavam = b.renavam,
                 chassi = b.chassi,
                 placa = b.placa,
-                origem_v = b.origem
+                origem_v = b.origem,
 
-
+                comDUT = c.comDUT,
+                comVenda = c.comVenda
 
             }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
             {
@@ -431,7 +438,10 @@ namespace CtrlPVALeasing.Controllers
                 renavam = x.renavam,
                 chassi = x.chassi,
                 placa = x.placa,
-                origem_v = x.origem_v
+                origem_v = x.origem_v,
+
+                comDUT = x.comDUT,
+                comVenda = x.comVenda
 
             }).OrderBy(x => x.placa).ToList();
 
@@ -477,6 +487,11 @@ namespace CtrlPVALeasing.Controllers
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     //join e in db.Tbl_Dut
+                     //on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                     //into j3
+                     //from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
@@ -534,7 +549,10 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens   = d.renavam,
                          chassi_bens    = d.chassi,
-                         placa_bens     = d.placa
+                         placa_bens     = d.placa,
+
+                         //comDUT     = e.comDUT,
+                         //comVenda   = e.comVenda
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -587,7 +605,10 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens   = x.renavam_bens,
                          chassi_bens    = x.chassi_bens,
-                         placa_bens     = x.placa_bens
+                         placa_bens     = x.placa_bens,
+
+                         //comDUT     = x.comDUT,
+                         //comVenda   = x.comVenda
                      });
 
             if (model.Count() == 0 || model == null)

@@ -149,6 +149,15 @@ function chamaErro() {
                                         <input class="input-sm-fino" value="@status" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                     }
                                 </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.data_da_baixa.HasValue ? MF.data_da_baixa.ToString().Substring(0,10) : "")" type="text" name="data_da_baixa" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="5">
