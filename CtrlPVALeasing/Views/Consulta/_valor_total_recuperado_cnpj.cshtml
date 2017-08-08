@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+@{
+    ViewBag.Title = "Consultar Contrato de Leasing";
+    Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
+}
+
+<div class="fonte-cinza-claro fonte-tamanho-form">
+    Valor de Débitos de IPVA (Cnpj): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input class="input-sm-fino" value="@Model.Sum(i => i.valor_total_recuperado)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+</div>
+
+<!-- Se não fizer o Model.Sum, fizer um for each, por exemplo, cada Model vai trazer a soma dos cada um dos carros do contrato! -->
+

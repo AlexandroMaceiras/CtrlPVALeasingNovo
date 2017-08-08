@@ -161,7 +161,8 @@ function chamaErro() {
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    @Html.Action("_valor_total_recuperado", "", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
+                                    @Html.Action("_valor_total_recuperado_cnpj", "", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
+                                    @Html.Action("_valor_total_recuperado_contrato", "", new { contrato = MF.contrato})
                                 </td>
                             </tr>
                         </table>

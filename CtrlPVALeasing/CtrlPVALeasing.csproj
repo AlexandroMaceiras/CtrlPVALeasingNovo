@@ -315,7 +315,7 @@
     <Content Include="Views\Consulta\_GridDebitos.cshtml" />
     <Content Include="Views\Consulta\_valor_debito_total.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
-    <Content Include="Views\Consulta\_valor_total_recuperado.cshtml" />
+    <Content Include="Views\Consulta\_valor_total_recuperado_cnpj.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDUTAvulso.cshtml" />
     <Content Include="Views\Transacional\_GridDebitos.cshtml" />
     <Content Include="Views\Transacional\_Repositorio.cshtml" />
@@ -379,6 +379,7 @@
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Edit.cshtml" />
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
     <Content Include="Views\Consulta\TesteComMascara.cshtml" />
+    <Content Include="Views\Consulta\_valor_total_recuperado_contrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
