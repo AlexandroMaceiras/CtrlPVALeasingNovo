@@ -292,8 +292,17 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marcas: </div>
                                 </td>
-                                <td colspan="7">
+                                <td>
                                     <!--Virá do CCL_Marcas--><input class="input-sm-fino" value="" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.data_da_baixa.HasValue ? MF.data_da_baixa.ToString().Substring(0,10) : "")" type="text" name="data_da_baixa" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>

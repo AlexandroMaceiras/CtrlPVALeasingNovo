@@ -2,11 +2,16 @@
 @{
     ViewBag.Title = "Consultar Contrato de Leasing";
     Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
-}
 
+    var total = Model.Sum(i => i.valor_debito_total);
+    if (total == 0)
+    {
+        total = null;
+    }
+}
 <div class="fonte-cinza-claro fonte-tamanho-form">
     Valor de Débitos de IPVA (Cliente): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input class="input-sm-fino" value="@Model.Sum(i => i.valor_debito_total)" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
+    <input class="input-sm-fino" value="@total" type="text" name="contrato" size="30" style="text-transform:uppercase" disabled="disabled" />
 </div>
 
 

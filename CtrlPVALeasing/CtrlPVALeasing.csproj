@@ -380,6 +380,7 @@
     <Content Include="Views\Tbl_DebitosEPagamentos_Veiculo\Index.cshtml" />
     <Content Include="Views\Consulta\TesteComMascara.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado_contrato.cshtml" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\MeuApontamento de alterações necessárias - Sistema de Controle IPVA - 19.06.2017.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

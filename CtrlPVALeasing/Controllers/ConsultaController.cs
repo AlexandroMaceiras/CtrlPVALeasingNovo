@@ -357,19 +357,6 @@ namespace CtrlPVALeasing.Controllers
 
                      });
 
-//SELECT sum(c.valor_debito_total), sum(c.valor_total_recuperado)
-//FROM    Arm_LiquidadosEAtivos_Contrato a
-//JOIN    Arm_Veiculos b
-//ON      a.contrato = b.contrato
-//JOIN    Tbl_DebitosEPagamentos_Veiculo c
-//on      b.chassi = c.chassi
-//AND     b.renavam = c.renavam
-//AND     b.placa = c.placa
-//WHERE   a.origem = 'B'
-//AND     b.origem NOT LIKE '%RECIBO VEN%'
-//AND     a.status = 1
-
-
             if (model.Count() == 0 || model == null)
             {
                 return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
@@ -552,10 +539,10 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     //join e in db.Tbl_Dut
-                     //on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
-                     //into j3
-                     //from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     join e in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                     into j3
+                     from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
@@ -615,8 +602,7 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens    = d.chassi,
                          placa_bens     = d.placa,
 
-                         //comDUT     = e.comDUT,
-                         //comVenda   = e.comVenda
+                         comVenda   = e.comVenda
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -671,8 +657,7 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens    = x.chassi_bens,
                          placa_bens     = x.placa_bens,
 
-                         //comDUT     = x.comDUT,
-                         //comVenda   = x.comVenda
+                         comVenda   = x.comVenda
                      });
 
             if (model.Count() == 0 || model == null)
@@ -705,7 +690,14 @@ namespace CtrlPVALeasing.Controllers
             string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.ToString().PadLeft(18, '0');
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos on a.contrato equals b.contrato
+                     join b in db.Arm_Veiculos 
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1
+                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where
                        a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente) && //Não estou usando o cpf_cnpj_clienteZEROS porque decidiu-se que aqui não deveria-se fazer uma pesquisa exata para podermos pesquisar por RAIZ de CNPJs de uma mesma empresa.
                        a.origem == "B" &&
@@ -729,6 +721,7 @@ namespace CtrlPVALeasing.Controllers
                          a.dta_vecto_contrato,
                          a.dta_ultimo_pagto,
                          a.origem,
+                         a.data_da_baixa,
                          column1 = b.origem
                      } into g
                       orderby g.Key.cpf_cnpj_cliente,
@@ -753,6 +746,7 @@ namespace CtrlPVALeasing.Controllers
                          g.Key.dta_inicio_contrato,
                          g.Key.dta_vecto_contrato,
                          g.Key.dta_ultimo_pagto,
+                         g.Key.data_da_baixa,
                          origemA = g.Key.origem,
                          origemB = g.Key.column1
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -773,6 +767,7 @@ namespace CtrlPVALeasing.Controllers
                          dta_inicio_contrato = x.dta_inicio_contrato,
                          dta_vecto_contrato = x.dta_vecto_contrato,
                          dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         data_da_baixa = x.data_da_baixa,
                          origem = x.origemA,
                          origem_v = x.origemB
                      });
