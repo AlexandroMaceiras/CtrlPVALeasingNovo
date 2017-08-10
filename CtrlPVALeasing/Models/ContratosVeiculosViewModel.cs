@@ -218,6 +218,8 @@ namespace CtrlPVALeasing.Models
 
         public DateTime? dta_pagamento_custas { get; set; }
 
+        public DateTime? dta_pagamento_divida { get; set; }
+
         public DateTime? dta_recuperacao { get; set; }
 
         [StringLength(15)]

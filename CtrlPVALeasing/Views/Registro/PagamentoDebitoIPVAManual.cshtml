@@ -155,7 +155,7 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda.HasValue != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
                                         <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>

@@ -172,7 +172,7 @@
                                         Possui comunicação de venda&nbsp;
                                         <input type="checkbox" name="pcv"  @(MF.comVenda.HasValue && MF.comVenda.Value == true ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb"  @(MF.pagamento_efet_banco.HasValue && MF.pagamento_efet_banco.Value == true ? "checked='checked'" : "" ) disabled="disabled" />
+                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>
                                 </td>
                             </tr>
@@ -290,9 +290,15 @@
                                         <input class="input-sm-fino" value="@status" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
                                     }
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.data_da_baixa.HasValue ? MF.data_da_baixa.ToString().Substring(0,10) : "")" type="text" name="data_da_baixa" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td align="right">
