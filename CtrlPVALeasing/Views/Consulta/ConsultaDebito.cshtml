@@ -53,7 +53,7 @@
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
-                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" onkeypress="document.getElementById('limpaNaMarra1').focus();" /></div>
                     </th>
                 </tr>
                 <tr>
@@ -170,9 +170,9 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv"  @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv"  @(MF.comVenda.HasValue && MF.comVenda.Value == true ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb"  @(MF.divida_ativa_serasa.HasValue && MF.divida_ativa_serasa.Value == true ? "checked='checked'" : "" ) disabled="disabled" />
+                                        <input type="checkbox" name="vapb"  @(MF.pagamento_efet_banco.HasValue && MF.pagamento_efet_banco.Value == true ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>
                                 </td>
                             </tr>
@@ -189,20 +189,14 @@
                         <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total do Débito: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                <td colspan="0">
+                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_total_recuperado" type="text" name="valor_total_recuperado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                <td colspan="0">
+                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                             </tr>
                             <tr>
@@ -324,9 +318,23 @@
         <br />
 
     </div>
-
     //Erro de veículo não encontrado
     if (MF.id == -1)
+    {
+    <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro2").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+    //Erro de veículo encontrado mas SEM debito
+    else if ((!MF.valor_divida.HasValue || !MF.valor_custas.HasValue) && (MF.id != -2))
     {
     <script>
         try{
@@ -338,7 +346,7 @@
         {
             alert(e);
         }
-    </script>
+    </script> 
     }
 }
 
@@ -357,6 +365,30 @@
     }
 </script>
 
+<script>
+    try {
+        document.getElementById("limpaNaMarra1").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra3").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+    }
+    catch (e) {
+        alert(e);
+    }
+
+</script>
+
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
@@ -367,7 +399,28 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo encontrado, mas não contém débitos!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

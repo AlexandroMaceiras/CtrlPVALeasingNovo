@@ -32,25 +32,28 @@
                     </th>
                 </tr>
 
-                @{var contadorInterno = 0; 
+                @{var contadorInterno = 0;
                     foreach (var item in Model)
                     {
                         if (item.contrato != null)
                         {
                             contadorInterno++;
+                            if (item.valor_divida.HasValue || item.valor_custas.HasValue)
+                            {
                             <tr>
                                 <td class="input-sm-fino" align="center">
                                     @contadorInterno
                                 </td>
                                 <td class="input-sm-fino" align="center">
-                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
+                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0, 10) : "")
                                 </td>
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.uf_pagamento)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @{ var total = item.valor_divida.Value + item.valor_custas.Value;
-                                       @total
+                                    @{  
+                                        var total = item.valor_divida.Value + item.valor_custas.Value;
+                                        @total
                                     }
                                 </td>
                                 <td class="input-sm-fino" align="center">
@@ -66,6 +69,7 @@
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                             </tr>
+                            }
                         }
                     }
                 }

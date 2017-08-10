@@ -313,7 +313,7 @@
     <Content Include="Views\Consulta\_GridContratos.cshtml" />
     <Content Include="Views\Consulta\ConsultaDebito.cshtml" />
     <Content Include="Views\Consulta\_GridDebitos.cshtml" />
-    <Content Include="Views\Consulta\_valor_debito_total.cshtml" />
+    <Content Include="Views\Consulta\_valor_debito_total_por_veiculo.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado_cnpj.cshtml" />
     <Content Include="Views\Transacional\ImpressaoDUTAvulso.cshtml" />
@@ -381,6 +381,8 @@
     <Content Include="Views\Consulta\TesteComMascara.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado_contrato.cshtml" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\MeuApontamento de alterações necessárias - Sistema de Controle IPVA - 19.06.2017.xls" />
+    <Content Include="Views\Consulta\_valor_total_recuperado_por_veiculo.cshtml" />
+    <Content Include="Views\Consulta\_valor_debito_total - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

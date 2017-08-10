@@ -34,7 +34,7 @@ function chamaErro() {
                         <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" type="text" name="contrato" size="40" style="text-transform:uppercase"  onkeypress="return SohNumeros(event)">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" type="text" name="contrato" size="40" style="text-transform:uppercase">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
@@ -160,9 +160,11 @@ function chamaErro() {
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
+                                    @Html.Action("_valor_total_recuperado_contrato", "", new { contrato = MF.contrato })
+                                </td>
+                                <td colspan="4">
                                     @Html.Action("_valor_total_recuperado_cnpj", "", new { cpf_cnpj_cliente = MF.cpf_cnpj_cliente })
-                                    @Html.Action("_valor_total_recuperado_contrato", "", new { contrato = MF.contrato})
                                 </td>
                             </tr>
                         </table>
@@ -492,12 +494,10 @@ function chamaErro() {
 
     try
     {
-        function SohNumeros(e) {
-            document.getElementById("limpaNaMarra").onkeypress = function (e) {
-                var chr = String.fromCharCode(e.which);
-                if ("1234567890".indexOf(chr) < 0)
-                    return false;
-            };
+        document.getElementById("limpaNaMarra").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
         }
     }
     catch (e) {

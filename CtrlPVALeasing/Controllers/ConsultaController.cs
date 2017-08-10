@@ -50,6 +50,12 @@ namespace CtrlPVALeasing.Controllers
             return model;
         }
 
+        private IEnumerable<ContratosVeiculosViewModel> Nada()
+        {
+            List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
+            model.Add(new ContratosVeiculosViewModel() { id = -2, agencia = " " });
+            return model;
+        }
 
         public ActionResult ConsultaDebito(string chassi, string placa, string renavam)
         {
@@ -62,14 +68,26 @@ namespace CtrlPVALeasing.Controllers
 
             if (chassi == "" && placa == "" && renavam == "")
             {
-                return View(GetContratosVeiculosViewModelPrimeira());
+                return View(Nada());
             }
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
+                     //join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
+
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1
+                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     join d in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
@@ -127,7 +145,9 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco   = c.pagamento_efet_banco,
                          valor_recuperado       = c.valor_recuperado,
                          valor_total_recuperado = c.valor_total_recuperado,
-                         divida_ativa_serasa    = c.divida_ativa_serasa
+                         divida_ativa_serasa    = c.divida_ativa_serasa,
+
+                         comVenda = d.comVenda
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -181,12 +201,20 @@ namespace CtrlPVALeasing.Controllers
                          pagamento_efet_banco   = x.pagamento_efet_banco,
                          valor_recuperado       = x.valor_recuperado,
                          valor_total_recuperado = x.valor_total_recuperado,
-                         divida_ativa_serasa    = x.divida_ativa_serasa
+                         divida_ativa_serasa    = x.divida_ativa_serasa,
+
+                         comVenda = x.comVenda
+
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             if (model.Count() == 0 || model == null)
             {
                 return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            }
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(Nada()); //RedirectToAction("ConsultaVeiculo");
             }
 
             if (model == null || model.Any() == false)
@@ -232,19 +260,6 @@ namespace CtrlPVALeasing.Controllers
                          valor_total_recuperado = x.soma_valor_total_recuperado
 
                      });
-
-            //SELECT sum(c.valor_debito_total), sum(c.valor_total_recuperado)
-            //FROM    Arm_LiquidadosEAtivos_Contrato a
-            //JOIN    Arm_Veiculos b
-            //ON      a.contrato = b.contrato
-            //JOIN    Tbl_DebitosEPagamentos_Veiculo c
-            //on      b.chassi = c.chassi
-            //AND     b.renavam = c.renavam
-            //AND     b.placa = c.placa
-            //WHERE   a.origem = 'B'
-            //AND     b.origem NOT LIKE '%RECIBO VEN%'
-            //AND     a.status = 1
-
 
             if (model.Count() == 0 || model == null)
             {
@@ -296,18 +311,107 @@ namespace CtrlPVALeasing.Controllers
 
                      });
 
-            //SELECT sum(c.valor_debito_total), sum(c.valor_total_recuperado)
-            //FROM    Arm_LiquidadosEAtivos_Contrato a
-            //JOIN    Arm_Veiculos b
-            //ON      a.contrato = b.contrato
-            //JOIN    Tbl_DebitosEPagamentos_Veiculo c
-            //on      b.chassi = c.chassi
-            //AND     b.renavam = c.renavam
-            //AND     b.placa = c.placa
-            //WHERE   a.origem = 'B'
-            //AND     b.origem NOT LIKE '%RECIBO VEN%'
-            //AND     a.status = 1
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
+            }
 
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
+            }
+
+            return PartialView(model);
+        }
+
+        public ActionResult _valor_total_recuperado_por_veiculo(string chassi, string placa, string renavam)
+        {
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     //where a.status.Equals(1)
+                     group c by new { c.chassi, c.renavam, c.placa } into g
+                     select new
+                     {
+                         soma_valor_total_recuperado = g.Sum(c => c.valor_total_recuperado)
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         valor_total_recuperado = x.soma_valor_total_recuperado
+
+                     });
+
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
+            }
+
+            return PartialView(model);
+        }
+
+        public ActionResult _valor_debito_total_por_veiculo(string chassi, string placa, string renavam)
+        {
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     //where a.status.Equals(1)
+                     group c by new { c.chassi, c.renavam, c.placa } into g
+                     select new
+                     {
+                         soma_valor_debito_total = g.Sum(c => c.valor_debito_total)
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         valor_debito_total = x.soma_valor_debito_total
+
+                     });
 
             if (model.Count() == 0 || model == null)
             {

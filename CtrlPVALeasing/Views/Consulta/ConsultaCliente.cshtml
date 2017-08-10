@@ -381,6 +381,18 @@
     catch (e) {
         alert(e);
     }
+
+    try {
+        document.getElementById("limpaNaMarra").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+    }
+    catch (e) {
+        alert(e);
+    }
+
 </script>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro" tabindex="-1">
