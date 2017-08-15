@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="padding: 0px;">      
+<body style="padding: 0px;">
     <div class="Top">
         <table border="0" width="100%">
             <tr>
@@ -57,10 +57,25 @@
     </div>
 
     <script>
-    //Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Logo Safra etc.
+    //Imprime em Landscape pra poder caber todas as colunas do relatório e Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Safra S/A.
     setTimeout(function () {
+        var css = '@@page { size: landscape; }',
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+
+        head.appendChild(style);
+
         window.print();
-        window.close();
+        window.history.go(-1);
     }, 1000)
     </script>
 

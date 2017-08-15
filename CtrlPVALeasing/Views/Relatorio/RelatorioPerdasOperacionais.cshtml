@@ -4,53 +4,11 @@
 </head>
 @{
     ViewBag.Title = "Relatório - Perdas Operacionais";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutImpressaoHorizontalPerdasOperacionais.cshtml";
 }
-<div class="navbar-fixed-top">
-    <div class="container">
-        <table border="0" width="100%">
-            <tr>
-                <td width="290">
-                    <img src="~/Imagens/safraBranco.jpg" />
-                </td>
-                <td>
-                    <table border="0" width="100%">
-                        <tr>
-                            <td style="padding-top:initial">
-                                <font color="Black"><h3>Controle <b>IPVA Leasing</h3></font></b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <font color="Black">Usuário:<b> @User.Identity.Name</b></font>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td rowspan="4">
-                    <img src="" />
-                </td>
-                <td>
-                    <table border="0" width="100%">
-                        <tr>
-                            <td>
-                                <p class="navbar-right"><font color="Black">@DateTime.Now.ToLongDateString()</font>&nbsp;&nbsp;</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="navbar-right"><font color="Black">@DateTime.Now.ToLongTimeString()</font>&nbsp;&nbsp;</p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
 <h1>BENS APREENDIDOS COM DÉBITO DE IPVA</h1>
 <br />
-<table class="table" width="250%">
+<table class="table" width="100%">
     <tr>
         <th>
             Descrição (Chassi)
@@ -231,25 +189,3 @@
     }
 </table>
 
-<script>
-    //Imprime em Landscape pra poder caber todas as colunas do relatório e Faz um delay antes de chamar a impressão para não comer o rodapé do layout de opágina com o Safra S/A.
-    setTimeout(function () {
-        var css = '@@page { size: landscape; }',
-            head = document.head || document.getElementsByTagName('head')[0],
-            style = document.createElement('style');
-
-        style.type = 'text/css';
-        style.media = 'print';
-
-        if (style.styleSheet) {
-            style.styleSheet.cssText = css;
-        } else {
-            style.appendChild(document.createTextNode(css));
-        }
-
-        head.appendChild(style);
-
-        window.print();
-        window.history.go(-1);
-    }, 1000)
-</script>
