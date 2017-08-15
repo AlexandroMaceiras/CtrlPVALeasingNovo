@@ -34,7 +34,7 @@ function chamaErro() {
                         <b class="fonte-cinza-claro">Contrato:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" type="text" name="contrato" size="40" style="text-transform:uppercase">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["contrato"] != null ? Request["contrato"].Trim() : "")" maxlength="9" type="text" name="contrato" size="40" style="text-transform:uppercase">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">

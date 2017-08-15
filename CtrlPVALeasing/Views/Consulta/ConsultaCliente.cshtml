@@ -27,7 +27,7 @@
                         <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["cpf_cnpj_cliente"] != null ? Request["cpf_cnpj_cliente"].TrimStart('0').Trim() : "")" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
+                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["cpf_cnpj_cliente"] != null ? Request["cpf_cnpj_cliente"].TrimStart('0').Trim() : "")"  maxlength="18" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">

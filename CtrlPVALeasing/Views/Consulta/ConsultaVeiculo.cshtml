@@ -39,19 +39,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" maxlength="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" maxlength="20" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20"  maxlength="9" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>

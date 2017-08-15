@@ -145,7 +145,8 @@ namespace CtrlPVALeasing.Controllers
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
 
-                     where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
+                     //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
 
                      where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
@@ -373,7 +374,8 @@ namespace CtrlPVALeasing.Controllers
 
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
 
-                     where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
+                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
+                     //where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
 
                      where (f.perm_debito == true)
 
@@ -477,7 +479,8 @@ namespace CtrlPVALeasing.Controllers
 
                      where c.pagamento_efet_banco == true
 
-                     where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
+                     //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
 
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
 
@@ -537,7 +540,8 @@ namespace CtrlPVALeasing.Controllers
 
                     where c.pagamento_efet_banco == true
 
-                    where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                    //COMENTADO TEMPORÁRIAMENTE PARA TESTES
+                    //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
 
                     where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
 

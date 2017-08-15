@@ -18,10 +18,10 @@ namespace CtrlPVALeasing.Controllers
         private void ModelGeral()
         {
             model1 = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                      join b in db.Arm_Veiculos 
-                      on a.contrato equals b.contrato
+                      //join b in db.Arm_Veiculos 
+                      //on a.contrato equals b.contrato
                       where a.origem.Equals("B")
-                      where !b.origem.Contains("RECIBO VEN")
+                      //where !b.origem.Contains("RECIBO VEN")
                       group a by new { a.status } into g
                       select new
                       {
@@ -99,10 +99,10 @@ namespace CtrlPVALeasing.Controllers
         public ActionResult _graficoContratos()
         {
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
+                     //join b in db.Arm_Veiculos
+                     //on a.contrato equals b.contrato
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     //where !b.origem.Contains("RECIBO VEN")
                      group a by new { a.status } into g
                      select new
                      {
