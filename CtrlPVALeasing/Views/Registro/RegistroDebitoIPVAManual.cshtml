@@ -132,7 +132,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.renavam != "" ? MF.renavam : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -209,7 +209,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -251,7 +252,8 @@
                                                 {"TO", "<option class='input-sm-ultra-fino' value='TO'>TO</option>"},
                                             };
 
-                                            var c = Request["uf_cobranca"] != null ? Request["uf_cobranca"] : "SELECIONE";
+                                            //var c = Request["uf_cobranca"] != null ? Request["uf_cobranca"] : "SELECIONE";
+                                            var c = "SELECIONE";
                                             var saida = "";
                                             for (int x = 0; x <= 27; x++)
                                             {
@@ -283,7 +285,8 @@
                                                 {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
                                             };
 
-                                            var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "SELECIONE";
+                                            //var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "SELECIONE";
+                                            var m = "SELECIONE";
                                             var saidam = "";
                                             for (int x = 0; x <= 2; x++)
                                             {
@@ -306,7 +309,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase"/>
+                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -315,7 +319,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Exercício: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase"/>
+                                    @*<input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -324,7 +329,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="cda" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -332,7 +338,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -344,7 +351,8 @@
                                 </td>
                                 <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        <input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "")/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @*<input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+                                        <input type="checkbox" name="debito_protesto" value="true"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -354,23 +362,27 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Dívida Ativa no Serasa:&nbsp;
-                                        <input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @*<input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+                                        <input type="checkbox" name="divida_ativa_serasa" value="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Protesto no Serasa:&nbsp;
-                                        <input type="checkbox" name="protesto_serasa" value="true"  @(Request["protesto_serasa"] == "true" ? "checked" : "")/>
+                                        @*<input type="checkbox" name="protesto_serasa" value="true" @(Request["protesto_serasa"] == "true" ? "checked" : "") />*@
+                                        <input type="checkbox" name="protesto_serasa" value="true"  />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />*@
+                                    <input class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -379,9 +391,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    @*<input class="input-sm-fino" value="@(Request["valor_debito_total"] != null ? Request["valor_debito_total"] : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />*@
-
-                                    <input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />*@
+                                    <input class="input-sm-fino" value="0" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>

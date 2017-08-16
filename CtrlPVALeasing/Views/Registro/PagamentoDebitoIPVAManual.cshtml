@@ -20,7 +20,7 @@
     ViewBag.Title = "Pagamento Débito IPVA";
 }
 
-@using (Html.BeginForm("PagamentoDebitoIPVAManual", "Registro", FormMethod.Post, new { id = "formCARACO" }))
+@using (Html.BeginForm("PagamentoDebitoIPVAManual", "Registro"))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
@@ -48,7 +48,7 @@
                         <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" maxlength="9" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input id="idbusca" class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
+                        <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
@@ -254,12 +254,6 @@
             var chr = String.fromCharCode(e.which);
             if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
-        }
-        document.getElementById("idbusca").onkeypress = function (e) {
-            alert('passou');
-            //document.getElementsByName["PagamentoDebitoIPVAManual"].reset();
-            document.getElementById["formCARACO"].reset();
-            return false;
         }
     }
     catch (e) {
