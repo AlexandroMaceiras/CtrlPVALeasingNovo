@@ -24,6 +24,9 @@
                         <div class="fonte-cinza-claro fonte-tamanho-form">Último Pagamento</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
                     <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa</div>
+                    </th>
+                    <th class="input-sm-fino">
                         <div class="fonte-cinza-claro fonte-tamanho-form">CPF/CNPJ</div> @*@Html.DisplayNameFor(model => model.placa)*@
                     </th>
                     <th></th>
@@ -53,6 +56,9 @@
                                 </td>
                                 <td class="input-sm-fino">
                                     @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
+                                </td>
+                                <td class="input-sm-fino">
+                                    @Html.DisplayFor(modelItem => item.data_da_baixa)
                                 </td>
                                 <td class="input-sm-fino">
                                     @{

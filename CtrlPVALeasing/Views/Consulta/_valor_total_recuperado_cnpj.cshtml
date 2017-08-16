@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
 @{
     ViewBag.Title = "Consultar Contrato de Leasing";
-    Layout = "~/Views/Shared/_LayoutConsultaContrato.cshtml";
+    Layout = null;
 
     var total = Model.Sum(i => i.valor_total_recuperado);
     if (total == 0)
