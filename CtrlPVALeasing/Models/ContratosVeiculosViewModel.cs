@@ -319,5 +319,9 @@ namespace CtrlPVALeasing.Models
 
         public bool? comVenda { get; set; }
         public bool? comDUT { get; set; }
+
+
+        [StringLength(20)]
+        public string CCL_marca { get; set; }
     }
 }

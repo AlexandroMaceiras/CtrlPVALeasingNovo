@@ -35,6 +35,11 @@
             $("#msgErro8").modal();
         });
     }
+    function chamaErro2() {
+        $(document).ready(function () {
+            $("#msgErro1").modal();
+        });
+    }
 </script>
 @{
     ViewBag.Title = "Registro Débito de IPVA";
@@ -72,7 +77,7 @@
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
-                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
                     </th>
                 </tr>
                 <tr>
@@ -115,7 +120,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.chassi : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.marca : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -158,7 +163,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : MF.placa)" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.placa != "" ? MF.placa : (Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : "") )" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -210,7 +215,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                    <input id="data1" class="input-sm-fino" value="" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -279,16 +284,17 @@
                                 <td>
                                     <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
                                         @{
-                                            string[,] strgtc = new string[3, 2] {
+                                            string[,] strgtc = new string[4, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
                                                 {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
                                             };
 
                                             //var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "SELECIONE";
                                             var m = "SELECIONE";
                                             var saidam = "";
-                                            for (int x = 0; x <= 2; x++)
+                                            for (int x = 0; x <= 3; x++)
                                             {
                                                 if (strgtc[x, 0] == m)
                                                 {
@@ -308,9 +314,9 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
+                                <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
+                                    <input id="valor1" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -320,7 +326,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="" maxlength="4" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -330,16 +336,16 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="" maxlength="10" type="text" name="cda" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
+                                <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="valor2" class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -363,7 +369,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["nome_cartorio"] != null ? Request["nome_cartorio"] : "")" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
+                                    <input id="nome_cartorio" class="input-sm-fino" maxlength="40" value="" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -382,7 +388,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="data2" class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -392,7 +398,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />*@
-                                    <input class="input-sm-fino" value="0" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input id="valor3" class="input-sm-fino" value="" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -438,6 +444,29 @@
             </table>
         </center>
     </div>
+    <center>
+        <div id="resultados" hidden>
+            <table border="0">
+                <tr>
+                    <td>
+                        <div id="soma1Total">
+                        </div>
+                    </td>
+
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+
+                    <td>
+                        <div id="soma2Total">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </center>
+
+    <input type="hidden" name="valor4" id="valor4" value="" />
 
     //Erro de veículo não encontrado
     if (MF.id == -1)
@@ -481,8 +510,40 @@
             }
         </script>
     }
+    else if (MF.id == -4)
+    {
+        <script>
+        try {
+                $(document).ready(function () {
+                    $("#msgErro2").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
 }
+
+@section Scripts {
 <script>
+    //Faz a soma do valor_debito_total dinamicamente.
+    try {
+        $("td.grid-row").focusout(function () {
+            var vd = document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', '');
+            var vc = document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', '');
+            var vt = (parseInt(vd) + parseInt(vc)).toString();
+            var resultado = vt.substring(0, vt.length - 2) + "," + vt.substring(vt.length - 2, vt.length);
+
+            if (resultado.toString() != "NaN")
+            {
+                document.getElementsByName("valor_debito_total")[0].value = resultado;
+            }
+        });
+    }
+    catch (e) {
+        alert(e);
+    }
     //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
     try {
         $("#mudaReset").click(function () {
@@ -543,6 +604,8 @@
             }
             else
             {
+                alert(document.getElementById("valor1").value);
+                document.getElementById("valor4").value = parseFloat(document.getElementById("valor1").value);
                 document.getElementById("rd").value = true;
                 document.getElementById("FormAltera").submit();
                 return true;
@@ -554,6 +617,60 @@
         alert(e);
     }
 </script>
+
+    <script>
+        $(document).ready(function ()
+        {
+            //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
+            //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
+            //$("#cep").inputmask("mask", { "mask": "99999-999" });
+            $("#data1").inputmask("mask", { "mask": "99/99/9999" });
+            $("#data2").inputmask("mask", { "mask": "99/99/9999" });
+            //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+            //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+            //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
+        });
+        $("#valor1").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        $("#valor2").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        $("#valor3").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+    </script>
+}
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">
@@ -576,6 +693,26 @@
     </div>
 </div>
 
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Há <a style="color: rgb(206, 39, 39)">Problemas</a> com os dados para incluir este registro!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro3" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">

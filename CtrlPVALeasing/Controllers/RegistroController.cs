@@ -386,8 +386,8 @@ namespace CtrlPVALeasing.Controllers
                 .ToArray();
                 try
                 {
-                    //if (ModelState.IsValid)
-                    //{
+                    if (ModelState.IsValid)
+                    {
                         var procuraRegistro = db.Tbl_Dut
                             .FirstOrDefault(c => c.chassi == chassiPesquisado.Trim() || c.renavam == renavamPesquisado.Trim() || c.placa == placaPesquisada.Trim());
                         if (procuraRegistro != null)
@@ -429,7 +429,7 @@ namespace CtrlPVALeasing.Controllers
                                 return View(GetContratosVeiculosViewModelRegistroOk());
                             }
                         }
-                    //}
+                    }
                     //else
                     //{
                     //    return View(GetErroDeEntrada());
@@ -933,7 +933,7 @@ namespace CtrlPVALeasing.Controllers
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
-            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, 
+            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, decimal? valor4,
             string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto, 
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa,decimal? valor_debito_total)
         {
@@ -962,6 +962,11 @@ namespace CtrlPVALeasing.Controllers
                         on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
                         into j2
                         from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                        join e in db.Tbl_Dut
+                        on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                        into j3
+                        from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                         where b.chassi.Contains(chassi)
                         where b.placa.Contains(placa)
@@ -1028,8 +1033,9 @@ namespace CtrlPVALeasing.Controllers
 
                             renavam_bens    = d.renavam,
                             chassi_bens     = d.chassi,
-                            placa_bens      = d.placa
+                            placa_bens      = d.placa,
 
+                            comVenda = e.comVenda
 
                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                         {
@@ -1091,7 +1097,9 @@ namespace CtrlPVALeasing.Controllers
 
                             renavam_bens    = x.renavam_bens,
                             chassi_bens     = x.chassi_bens,
-                            placa_bens      = x.placa_bens
+                            placa_bens      = x.placa_bens,
+
+                            comVenda = x.comVenda
 
                         });
 
@@ -1137,6 +1145,8 @@ namespace CtrlPVALeasing.Controllers
                     Response.Write("<script>alert('" + e.Message + "');</script>");
                 };
 
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+
                 if (ModelState.IsValid)
                 {
                     model2 = new Tbl_DebitosEPagamentos_Veiculo
@@ -1172,9 +1182,13 @@ namespace CtrlPVALeasing.Controllers
                         return View(GetContratosVeiculosViewModelRegistroOk());
                     }
                 }
+                else
+                {
+                    return View(GetErroDeEntrada());
+                }
             }
 
-           
+
             return View("RegistroDebitoIPVAManual", model);
         }
 
