@@ -933,10 +933,29 @@ namespace CtrlPVALeasing.Controllers
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
-            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida, decimal? valor4,
-            string ano_exercicio, string cda, decimal? valor_custas, bool? debito_protesto, 
-            string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa,decimal? valor_debito_total)
+            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, string valor_divida, 
+            string ano_exercicio, string cda, string valor_custas, bool? debito_protesto, 
+            string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa)
         {
+            decimal? valor_divida_unmask = null, valor_custas_unmask = null, valor_debito_total_unmask = null;
+            if (valor_divida != null)
+            {
+                try
+                {
+                    valor_divida_unmask = Convert.ToDecimal((valor_divida.Trim()));
+                }
+                catch { }
+            }
+
+            if (valor_custas != null)
+            {
+                try
+                {
+                    valor_custas_unmask = Convert.ToDecimal((valor_custas.Trim()));
+                }
+                catch { }
+            }
+
             if (chassi == null)
                 chassi = "";
             if (placa == null)
@@ -1134,9 +1153,9 @@ namespace CtrlPVALeasing.Controllers
                     .Where(c => c.cda == cda)
                     .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
                     .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
-                    .Where(c => c.valor_divida == valor_divida)
-                    .Where(c => c.valor_custas == valor_custas)
-                    .Where(c => c.valor_debito_total == valor_divida + valor_custas)
+                    .Where(c => c.valor_divida == valor_divida_unmask)
+                    .Where(c => c.valor_custas == valor_custas_unmask)
+                    .Where(c => c.valor_debito_total == valor_divida_unmask + valor_custas_unmask)
                     .Where(c => c.ano_exercicio == ano_exercicio)
                     .ToList().Count();
                 }
@@ -1159,15 +1178,15 @@ namespace CtrlPVALeasing.Controllers
                         dta_pagamento_custas    = dta_pagamento_custas,
                         uf_cobranca             = uf_cobranca,
                         tipo_cobranca           = tipo_cobranca,
-                        valor_divida            = valor_divida,
+                        valor_divida            = valor_divida_unmask,
                         ano_exercicio           = ano_exercicio,
                         cda                     = cda,
-                        valor_custas            = valor_custas,
+                        valor_custas            = valor_custas_unmask,
                         debito_protesto         = (debito_protesto == null ? false : true),
                         nome_cartorio           = nome_cartorio,
                         divida_ativa_serasa     = (divida_ativa_serasa == null ? false : true),
                         protesto_serasa         = (protesto_serasa == null ? false : true),
-                        valor_debito_total      = valor_divida + valor_custas
+                        valor_debito_total      = valor_divida_unmask + valor_custas_unmask
                     };
                         
                     if (idDoCara != 0)

@@ -316,7 +316,7 @@
                                 </td>
                                 <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
-                                    <input id="valor1" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
+                                    <input id="valor_divida" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -345,7 +345,7 @@
                                 </td>
                                 <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input id="valor2" class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="valor_custas" class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -398,7 +398,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />*@
-                                    <input id="valor3" class="input-sm-fino" value="" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input id="valor_debito_total" class="input-sm-fino" value="" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -465,9 +465,7 @@
             </table>
         </div>
     </center>
-
-    <input type="hidden" name="valor4" id="valor4" value="" />
-
+    
     //Erro de veículo não encontrado
     if (MF.id == -1)
     {
@@ -578,12 +576,6 @@
                 }
             }
 
-            //if (document.getElementsByName('debito_protesto') == "checked") {
-            //    if (document.getElementsByName('nome_cartorio')[0].value == "") {
-            //        chamaErro8();
-            //        return false;
-            //    }
-            //}
             if (
                 document.getElementsByName('dta_cobranca')[0].value == "" ||
                 document.getElementsByName('dta_pagamento_custas')[0].value == "" ||
@@ -604,8 +596,16 @@
             }
             else
             {
-                alert(document.getElementById("valor1").value);
-                document.getElementById("valor4").value = parseFloat(document.getElementById("valor1").value);
+                var vt = document.getElementById("valor_divida").value.toString().split(".").join("").replace(',', '');
+                var resultadoVD = vt.substring(0, vt.length - 2) + "," + vt.substring(vt.length - 2, vt.length);
+
+                document.getElementById("valor_divida").value = resultadoVD;
+
+                var vtc = document.getElementById("valor_custas").value.toString().split(".").join("").replace(',', '');
+                var resultadoVTC = vtc.substring(0, vtc.length - 2) + "," + vtc.substring(vtc.length - 2, vtc.length);
+
+                document.getElementById("valor_custas").value = resultadoVTC;
+
                 document.getElementById("rd").value = true;
                 document.getElementById("FormAltera").submit();
                 return true;
@@ -630,7 +630,7 @@
             //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
             //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
         });
-        $("#valor1").inputmask('decimal', {
+        $("#valor_divida").inputmask('decimal', {
             radixPoint: ",",
             groupSeparator: ".",
             autoGroup: true,
@@ -643,7 +643,7 @@
                 return value;
             }
         });
-        $("#valor2").inputmask('decimal', {
+        $("#valor_custas").inputmask('decimal', {
             radixPoint: ",",
             groupSeparator: ".",
             autoGroup: true,
@@ -656,7 +656,7 @@
                 return value;
             }
         });
-        $("#valor3").inputmask('decimal', {
+        $("#valor_debito_total").inputmask('decimal', {
             radixPoint: ",",
             groupSeparator: ".",
             autoGroup: true,
