@@ -312,7 +312,7 @@
     <Content Include="Views\Consulta\ConsultaCliente.cshtml" />
     <Content Include="Views\Consulta\_GridContratos.cshtml" />
     <Content Include="Views\Consulta\ConsultaDebito.cshtml" />
-    <Content Include="Views\Consulta\_GridDebitos.cshtml" />
+    <Content Include="Views\Consulta\_GridConsultaDebitos.cshtml" />
     <Content Include="Views\Consulta\_valor_debito_total_por_veiculo.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultaContrato.cshtml" />
     <Content Include="Views\Consulta\_valor_total_recuperado_cnpj.cshtml" />
@@ -331,7 +331,7 @@
     <Content Include="Views\Tbl_Bens\Edit.cshtml" />
     <Content Include="Views\Tbl_Bens\Index.cshtml" />
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual.cshtml" />
-    <Content Include="Views\Registro\_GridDebitos.cshtml" />
+    <Content Include="Views\Registro\_GridEdicaoDebitos.cshtml" />
     <Content Include="Views\Registro\PagamentoDebitoIPVAManual2.cshtml" />
     <Content Include="Views\Registro\RegistroDUT.cshtml" />
     <Content Include="Views\Relatorio\RelatorioBensApreendidosDebtoIPVA.cshtml" />
@@ -385,6 +385,10 @@
     <Content Include="Views\Consulta\_valor_debito_total.cshtml" />
     <Content Include="Views\Shared\_LayoutImpressaoHorizontal.cshtml" />
     <Content Include="Views\Shared\_LayoutImpressaoHorizontalPerdasOperacionais.cshtml" />
+    <Content Include="Views\Registro\_valor_debito_total_por_veiculo.cshtml" />
+    <Content Include="Views\Registro\_valor_total_recuperado_por_veiculo.cshtml" />
+    <Content Include="Views\Registro\_GridPagamentoDebitos.cshtml" />
+    <Content Include="Views\Registro\EditarRegistroDebitoIPVAManual.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

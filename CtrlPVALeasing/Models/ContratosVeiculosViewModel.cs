@@ -174,6 +174,9 @@ namespace CtrlPVALeasing.Models
         public bool? protesto_serasa { get; set; }
 
         [Column(TypeName = "numeric")]
+        public decimal? valor_debito_total_parc { get; set; }
+
+        [Column(TypeName = "numeric")]
         public decimal? valor_debito_total { get; set; }
 
         public bool? pagamento_efet_banco { get; set; }

@@ -111,7 +111,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.chassi != null && MF.chassi != "" ? MF.chassi : (Request["chassiPesquisado"] != null ? Request["chassiPesquisado"].Trim() : "") )" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.chassi != null && MF.chassi != "" ? MF.chassi : "" @*(Request["chassiPesquisado"] != null ? Request["chassiPesquisado"].Trim() : "")*@ )" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -120,7 +120,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.marca : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.marca : "" @*(Request["marca"] != null ? Request["marca"].Trim() : "")*@ )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -129,7 +129,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : (Request["ano_fab"] != null ? Request["ano_fab"].Trim() : "") )" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : "" @*(Request["ano_fab"] != null ? Request["ano_fab"].Trim() : "")*@ )" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -137,7 +137,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.renavam != "" ? MF.renavam : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.renavam != "" ? MF.renavam : "" @*(Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "")*@ )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -146,7 +146,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["modelo"] != null ? Request["modelo"].Trim() : MF.modelo)" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.modelo != null && MF.modelo != "" ? MF.modelo : "")" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -155,7 +155,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["ano_mod"] != null ? Request["ano_mod"].Trim() : MF.ano_mod)" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.ano_mod != null && MF.ano_mod != "" ? MF.ano_mod : "")" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -163,7 +163,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.placa != "" ? MF.placa : (Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : "") )" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.placa != null && MF.placa != "" ? MF.placa : "" @*(Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : "")*@ )" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -172,7 +172,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["tipo_v"] != null ? Request["tipo_v"].Trim() : MF.tipo_v)" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.tipo_v != null && MF.tipo_v != "" ? MF.tipo_v : "")" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -181,7 +181,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["cor"] != null ? Request["cor"].Trim() : MF.cor)" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.cor != null && MF.cor != "" ? MF.cor : "")" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -215,7 +215,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["dta_cobranca"] != null ? Request["dta_cobranca"] : "")" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />*@
-                                    <input id="data1" class="input-sm-fino" value="" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
+                                    <input id="dta_cobranca" class="input-sm-fino" value="" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -224,7 +224,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">UF da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino2" name="uf_cobranca" id="uf">
+                                    <select class="input-sm-ultra-fino2" name="uf_cobranca" id="uf_cobranca">
                                         @{
                                             string[,] strg = new string[28, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -316,7 +316,7 @@
                                 </td>
                                 <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
-                                    <input id="valor_divida" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
+                                    <input id="valor_divida" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" maxlength="21" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -326,7 +326,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["ano_exercicio"] != null ? Request["ano_exercicio"] : "")" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" maxlength="4" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
+                                    <input id="ano_exercicio" class="input-sm-fino" value="" maxlength="4" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -336,7 +336,7 @@
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["cda"] != null ? Request["cda"] : "")" type="text" name="cda" size="20" style="text-transform:uppercase" />*@
-                                    <input class="input-sm-fino" value="" maxlength="10" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="" maxlength="10" type="text" name="cda" id="cda" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -345,7 +345,7 @@
                                 </td>
                                 <td class="grid-row ">
                                     @*<input class="input-sm-fino" value="@(Request["valor_custas"] != null ? Request["valor_custas"] : "")" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input id="valor_custas" class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="valor_custas" class="input-sm-fino" value="" type="text" name="valor_custas" size="20" style="text-transform:uppercase" maxlength="21" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -358,7 +358,7 @@
                                 <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         @*<input type="checkbox" name="debito_protesto" value="true" @(Request["debito_protesto"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
-                                        <input type="checkbox" name="debito_protesto" value="true"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input id="debito_protesto" type="checkbox" name="debito_protesto" value="true"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </td>
                                 <td>
@@ -377,18 +377,18 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Dívida Ativa no Serasa:&nbsp;
                                         @*<input type="checkbox" name="divida_ativa_serasa" value="true" @(Request["divida_ativa_serasa"] == "true" ? "checked" : "") />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
-                                        <input type="checkbox" name="divida_ativa_serasa" value="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input id="divida_ativa_serasa" type="checkbox" name="divida_ativa_serasa" value="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Protesto no Serasa:&nbsp;
                                         @*<input type="checkbox" name="protesto_serasa" value="true" @(Request["protesto_serasa"] == "true" ? "checked" : "") />*@
-                                        <input type="checkbox" name="protesto_serasa" value="true"  />
+                                        <input id="protesto_serasa" type="checkbox" name="protesto_serasa" value="true"  />
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
                                     @*<input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input id="data2" class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="dta_pagamento_custas" class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -397,8 +397,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />*@
-                                    <input id="valor_debito_total" class="input-sm-fino" value="" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total_parc" size="20" style="text-transform:uppercase" disabled="disabled" />*@
+                                    <input id="valor_debito_total_parc" class="input-sm-fino" value="" type="text" name="valor_debito_total_parc" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -415,6 +415,7 @@
                                             if (MF.contrato != "" && MF.contrato != null)
                                             {
                                                 <div id="fazSubmit">
+                                                    @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "saveButton", onclick = "return false;" })
                                                     <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
@@ -432,7 +433,7 @@
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
                                             }
                                         }
                                     </div>
@@ -443,28 +444,60 @@
                 </tr>
             </table>
         </center>
-    </div>
-    <center>
-        <div id="resultados" hidden>
-            <table border="0">
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <div id="soma1Total">
-                        </div>
-                    </td>
-
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-
-                    <td>
-                        <div id="soma2Total">
-                        </div>
+                        <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
+                        <table border="0" style="border-style:inherit">
+                            @*<tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total do Débito: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.valor_total_recuperado" type="text" name="valor_total_recuperado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>*@
+                            <tr>
+                                <td colspan="0">
+                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td colspan="0">
+                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>    
+                                @*GRID PARALISADO !!!!!!!!!!!!!!!!*@
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_GridEdicaoDebitos")
+                                }
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
-        </div>
-    </center>
+        </center>
+    </div>
     
     //Erro de veículo não encontrado
     if (MF.id == -1)
@@ -498,7 +531,8 @@
     else if (MF.id == -3)
     {
         <script>
-            try {
+            try
+            {
                 $(document).ready(function () {
                     $("#msgOk").modal();
                 });
@@ -507,13 +541,30 @@
                 alert(e);
             }
         </script>
+
     }
     else if (MF.id == -4)
     {
         <script>
-        try {
+            try
+            {
                 $(document).ready(function () {
                     $("#msgErro2").modal();
+                });
+                window.location.reload();
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    else if (MF.id == -5)
+    {
+        <script>
+            try
+            {
+                $(document).ready(function () {
+                    $("#msgErro5").modal();
                 });
             }
             catch (e) {
@@ -522,10 +573,96 @@
         </script>
     }
 }
-
 @section Scripts {
 <script>
-    //Faz a soma do valor_debito_total dinamicamente.
+
+    try {
+        document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
+        document.getElementById("uf_cobranca").setAttribute("disabled", "disabled");
+        document.getElementById("valor_divida").setAttribute("disabled", "disabled");
+        document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
+        document.getElementById("cda").setAttribute("disabled", "disabled");
+        document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+        document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
+        document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
+        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+        document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+
+        $("#vdt").change(function () {
+            if (document.getElementById("vdt") != null)
+            if(document.getElementById("vdt").value == 'C')
+            {
+                document.getElementById("dta_cobranca").removeAttribute('disabled');
+                document.getElementById("uf_cobranca").removeAttribute('disabled');
+                document.getElementById("valor_divida").removeAttribute('disabled');
+                document.getElementById("ano_exercicio").removeAttribute('disabled');
+                document.getElementById("cda").setAttribute("disabled", "disabled");
+                document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+                document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
+                document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
+                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+            }
+            else if (document.getElementById("vdt").value == 'D')
+            {
+                document.getElementById("dta_cobranca").removeAttribute('disabled');
+                document.getElementById("uf_cobranca").removeAttribute('disabled');
+                document.getElementById("valor_divida").removeAttribute('disabled');
+                document.getElementById("ano_exercicio").removeAttribute('disabled');
+                document.getElementById("cda").removeAttribute('disabled');
+                document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+                document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
+                document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
+                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+            }
+            else if (document.getElementById("vdt").value == 'U')
+            {
+                document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
+                document.getElementById("uf_cobranca").setAttribute("disabled", "disabled");
+                document.getElementById("valor_divida").setAttribute("disabled", "disabled");
+                document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
+                document.getElementById("cda").setAttribute("disabled", "disabled");
+                document.getElementById("valor_custas").removeAttribute('disabled');
+                document.getElementById("debito_protesto").removeAttribute('disabled');
+                document.getElementById("nome_cartorio").removeAttribute('disabled');
+                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_pagamento_custas").removeAttribute('disabled');
+                document.getElementById("valor_debito_total_parc").value = "";
+            }
+            else {
+                document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
+                document.getElementById("uf_cobranca").setAttribute("disabled", "disabled");
+                document.getElementById("valor_divida").setAttribute("disabled", "disabled");
+                document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
+                document.getElementById("cda").setAttribute("disabled", "disabled");
+                document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+                document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
+                document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
+                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+            }
+
+        });
+    }
+    catch (e) {
+        alert(e);
+    }
+
+    $(document).ready(function () {
+        $('.saveButton').click(function () {
+            $(this).closest('form')[0].submit();
+        });
+    });
+
+    //Faz a soma do valor_debito_total_parc dinamicamente.
     try {
         $("td.grid-row").focusout(function () {
             var vd = document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', '');
@@ -535,7 +672,7 @@
 
             if (resultado.toString() != "NaN")
             {
-                document.getElementsByName("valor_debito_total")[0].value = resultado;
+                document.getElementsByName("valor_debito_total_parc")[0].value = resultado;
             }
         });
     }
@@ -577,17 +714,27 @@
             }
 
             if (
-                document.getElementsByName('dta_cobranca')[0].value == "" ||
-                document.getElementsByName('dta_pagamento_custas')[0].value == "" ||
-                document.getElementsByName('valor_divida')[0].value == "" ||
-                document.getElementsByName('valor_custas')[0].value == "" ||
-                document.getElementsByName('valor_debito_total')[0].value == "" ||
-                document.getElementsByName('ano_exercicio')[0].value == "" ||
-                document.getElementsByName('uf_cobranca')[0].value == "" ||
-                document.getElementsByName('tipo_cobranca')[0].value == ""
-                )
+            ((document.getElementById('vdt').value == "C") &&
+            (document.getElementsByName('dta_cobranca')[0].value == "" ||
+            document.getElementsByName('uf_cobranca')[0].value == "" ||
+            document.getElementsByName('valor_divida')[0].value == "" ||
+            document.getElementsByName('ano_exercicio')[0].value == "" ))
+            ||
+            ((document.getElementById('vdt').value == "D") &&
+            (document.getElementsByName('dta_cobranca')[0].value == "" ||
+            document.getElementsByName('uf_cobranca')[0].value == "" ||
+            document.getElementsByName('valor_divida')[0].value == "" ||
+            document.getElementsByName('ano_exercicio')[0].value == "" ||
+            document.getElementsByName('cda')[0].value == "" ))
+            ||
+            ((document.getElementById('vdt').value == "U") &&
+            (document.getElementsByName('debito_protesto')[0].value == "" ||
+            document.getElementsByName('nome_cartorio')[0].value == "" ||
+            document.getElementsByName('dta_pagamento_custas')[0].value == ""))
+            ||
+            ((document.getElementById('vdt').value == ""))
+            )
             {
-
                 $(document).ready(function () {
                     $("#msgErro5").modal();
                     return false;
@@ -616,60 +763,58 @@
     {
         alert(e);
     }
-</script>
 
-    <script>
-        $(document).ready(function ()
-        {
-            //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
-            //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
-            //$("#cep").inputmask("mask", { "mask": "99999-999" });
-            $("#data1").inputmask("mask", { "mask": "99/99/9999" });
-            $("#data2").inputmask("mask", { "mask": "99/99/9999" });
-            //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
-            //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
-            //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
-        });
-        $("#valor_divida").inputmask('decimal', {
-            radixPoint: ",",
-            groupSeparator: ".",
-            autoGroup: true,
-            digits: 2,
-            digitsOptional: false,
-            placeholder: '0',
-            rightAlign: false,
-            autoUnmask: true,
-            onBeforeMask: function (value, opts) {
-                return value;
-            }
-        });
-        $("#valor_custas").inputmask('decimal', {
-            radixPoint: ",",
-            groupSeparator: ".",
-            autoGroup: true,
-            digits: 2,
-            digitsOptional: false,
-            placeholder: '0',
-            rightAlign: false,
-            autoUnmask: true,
-            onBeforeMask: function (value, opts) {
-                return value;
-            }
-        });
-        $("#valor_debito_total").inputmask('decimal', {
-            radixPoint: ",",
-            groupSeparator: ".",
-            autoGroup: true,
-            digits: 2,
-            digitsOptional: false,
-            placeholder: '0',
-            rightAlign: false,
-            autoUnmask: true,
-            onBeforeMask: function (value, opts) {
-                return value;
-            }
-        });
-    </script>
+    $(document).ready(function ()
+    {
+        //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
+        //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
+        //$("#cep").inputmask("mask", { "mask": "99999-999" });
+        $("#dta_cobranca").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
+        //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
+    });
+    $("#valor_divida").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+    $("#valor_custas").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+    $("#valor_debito_total_parc").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+</script>
 }
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
@@ -703,7 +848,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Há <a style="color: rgb(206, 39, 39)">Problemas</a> com os dados para incluir este registro!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Há <a style="color: rgb(206, 39, 39)">Problemas</a> com os dados de inconsistência ou de datas fora da faixa permitida para poder incluir este registro!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -765,7 +910,8 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Cobrança</td></tr><tr><td> - Data do Pagamento</td></tr><tr><td> - Valor da Dívida<td></tr><tr><td> - Valor das Custas</td></tr><tr><td> - Valor do Débito Total</td></tr><tr><td> - UF da Cobrança</td></tr><tr><td> - Tipo de Cobrança</td></tr><tr><td> - Ano de Exercício</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                        @*<td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Cobrança</td></tr><tr><td> - Data do Pagamento</td></tr><tr><td> - Valor da Dívida<td></tr><tr><td> - Valor das Custas</td></tr><tr><td> - Valor do Débito Total</td></tr><tr><td> - UF da Cobrança</td></tr><tr><td> - Tipo de Cobrança</td></tr><tr><td> - Ano de Exercício</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>*@
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Selecione um Tipo de Cobrança e após isto<br />Preencha todos os campos habilitados que estiverem</font></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
