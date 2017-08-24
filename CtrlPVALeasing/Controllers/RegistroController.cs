@@ -92,6 +92,19 @@ namespace CtrlPVALeasing.Controllers
             return View(GetContratosVeiculosViewModelPrimeira());
         }
 
+        public ActionResult Teste()
+        {
+            int milliseconds = 10000;
+            System.Threading.Thread.Sleep(milliseconds);
+            return View();
+        }
+
+        public ActionResult Teste2()
+        {
+            System.Threading.Thread.Sleep(5000);
+            return View();
+        }
+
         [HttpPost]
         public ActionResult UploadDebitoIPVA(string Upload1, HttpPostedFileBase Upload2)
         {
@@ -1112,26 +1125,22 @@ namespace CtrlPVALeasing.Controllers
 
                     if (procuraRegistro != null)
                     {
-                        procuraRegistro.dta_pagamento = dta_pagamento;
-                        procuraRegistro.uf_pagamento = uf_pagamento;
-                        procuraRegistro.numero_miro_divida = numero_miro_divida;
-                        procuraRegistro.forma_pagamento_divida = forma_pagamento_divida;
-                        procuraRegistro.valor_pago_total = valor_pago_total;
-                        procuraRegistro.valor_pago_divida = valor_pago_divida;
+                        procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
+                        procuraRegistro.uf_cobranca = uf_cobranca;
+                        procuraRegistro.tipo_cobranca = tipo_cobranca;
 
-                        procuraRegistro.pagamento_efet_banco = true;
-                        procuraRegistro.grupo_safra = grupo_safra;
-                        procuraRegistro.pci_debito_divida = pci_debito_divida;
-                        procuraRegistro.pci_debito_custa = pci_debito_custa;
-                        procuraRegistro.numero_miro_custa = numero_miro_custa;
+                        procuraRegistro.valor_divida = valor_divida_unmask;
+                        procuraRegistro.ano_exercicio = ano_exercicio;
+                        procuraRegistro.cda = cda;
 
-                        procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
                         procuraRegistro.valor_pago_custas = valor_pago_custas;
-                        procuraRegistro.obs_pagamento = obs_pagamento;
+                        procuraRegistro.debito_protesto = (debito_protesto == null ? false : true);
+                        procuraRegistro.nome_cartorio = nome_cartorio;
 
-                        procuraRegistro.pci_credito = pci_credito;
-                        procuraRegistro.dta_recuperacao = dta_recuperacao;
-                        procuraRegistro.valor_total_recuperado = valor_total_recuperado;
+                        procuraRegistro.divida_ativa_serasa = (divida_ativa_serasa == null ? false : true);
+                        procuraRegistro.protesto_serasa = (protesto_serasa == null ? false : true);
+                        procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
+                        procuraRegistro.valor_debito_total = valor_divida_unmask + valor_custas_unmask;
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
@@ -1139,42 +1148,7 @@ namespace CtrlPVALeasing.Controllers
                     }
                     else
                     {
-                        model2 = new Tbl_DebitosEPagamentos_Veiculo
-                        {
-                            id = 0,
-                            chassi = chassi,
-                            renavam = renavam,
-                            placa = placa,
-
-                            dta_pagamento = dta_pagamento,
-                            uf_pagamento = uf_pagamento,
-                            numero_miro_divida = numero_miro_divida,
-                            forma_pagamento_divida = forma_pagamento_divida,
-                            valor_pago_total = valor_pago_total,
-                            valor_pago_divida = valor_pago_divida,
-
-                            pagamento_efet_banco = true,
-                            grupo_safra = grupo_safra,
-                            pci_debito_divida = pci_debito_divida,
-                            pci_debito_custa = pci_debito_custa,
-                            numero_miro_custa = numero_miro_custa,
-
-                            forma_pagamento_custas = forma_pagamento_custas,
-                            valor_pago_custas = valor_pago_custas,
-                            obs_pagamento = obs_pagamento,
-
-                            pci_credito = pci_credito,
-                            dta_recuperacao = dta_recuperacao,
-                            valor_total_recuperado = valor_total_recuperado
-
-                        };
-
-                        if (db.Entry(model2).State == EntityState.Detached)
-                        {
-                            db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
-                            db.SaveChanges();
-                            return View(GetContratosVeiculosViewModelRegistroOk());
-                        }
+                        return View(GetErroDeEntrada());
                     }
                 }
                 else
@@ -1465,7 +1439,7 @@ namespace CtrlPVALeasing.Controllers
                             placa               = b.placa,
                             origem_v            = b.origem,
 
-                            //id_debito             = c.id,
+                            id_debito             = c.id,
                             dta_cobranca            = c.dta_cobranca,
                             uf_cobranca             = c.uf_cobranca,
                             uf_pagamento            = c.uf_pagamento,
@@ -1535,7 +1509,7 @@ namespace CtrlPVALeasing.Controllers
                             placa               = x.placa,
                             origem_v            = x.origem_v,
 
-                            //id_debito             = x.id_debito,
+                            id_debito             = x.id_debito,
                             dta_cobranca            = x.dta_cobranca,
                             uf_cobranca             = x.uf_cobranca,
                             uf_pagamento            = x.uf_pagamento,
@@ -1641,7 +1615,7 @@ namespace CtrlPVALeasing.Controllers
                         {
                             db.Tbl_DebitosEPagamentos_Veiculo.Add(model2);
                             db.SaveChanges();
-                            return View(GetContratosVeiculosViewModelRegistroOk());
+                            return View("RegistroDebitoIPVAManual", model);
                         }
                         catch (Exception e)
                         {
@@ -1659,6 +1633,7 @@ namespace CtrlPVALeasing.Controllers
 
             return View("RegistroDebitoIPVAManual", model);
         }
+
 
         protected override void Dispose(bool disposing)
         {

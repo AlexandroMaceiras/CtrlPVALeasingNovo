@@ -61,7 +61,7 @@
                                 </td>
                                 <td class="input-sm-fino" align="right">
                                     @{
-                                        var total = item.valor_divida.Value + item.valor_custas.Value;
+                                        var total = (item.valor_divida.HasValue ? item.valor_divida.Value : 0) + (item.valor_custas.HasValue ? item.valor_custas.Value : 0);
                                         @total
                                     }
                                 </td>

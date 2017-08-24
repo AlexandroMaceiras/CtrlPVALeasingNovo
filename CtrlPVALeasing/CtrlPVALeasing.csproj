@@ -203,6 +203,7 @@
     <Content Include="Imagens\fundoPrincipal.jpg" />
     <Content Include="Imagens\GrafPizza.jpg" />
     <Content Include="Imagens\laranja.bmp" />
+    <Content Include="Imagens\loader.gif" />
     <Content Include="Imagens\safra.jpg" />
     <Content Include="Imagens\safraBranco.jpg" />
     <Content Include="Imagens\safraONDA.jpg" />
@@ -275,6 +276,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.globalize.js" />
     <Content Include="Scripts\jquery.validate.globalize.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -389,6 +392,8 @@
     <Content Include="Views\Registro\_valor_total_recuperado_por_veiculo.cshtml" />
     <Content Include="Views\Registro\_GridPagamentoDebitos.cshtml" />
     <Content Include="Views\Registro\EditarRegistroDebitoIPVAManual.cshtml" />
+    <Content Include="Views\Registro\Teste.cshtml" />
+    <Content Include="Views\Registro\Teste2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+<style type="text/css">
+    .progresso {
+        display: none;
+        position: fixed;
+        top: 360px;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: white;
+        border: 1px solid black;
+        height: 90px;
+        width: 120px;
+    }
+</style>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>
+                    Utilizando o objeto Ajax
+                    (classe AjaxHelper)
+                </h1>
+            </hgroup>
+        </div>
+    </section>
+}
+
+<h2>Consulta ao Cadastro de Produtos</h2>
+<br />
+Digite o nome do produto (ou parte desta identificação):
+
+@using (Ajax.BeginForm("Teste", "Registro", new AjaxOptions { UpdateTargetId = "divResultadoConsulta", LoadingElementId = "divCarregando" }))
+{
+    @Html.TextBox("nomeProduto")
+    <input type="submit" value="Pesquisar" />
+}
+
+<div id="divResultadoConsulta">
+</div>
+
+<div id="divCarregando" class="progresso">
+    <img src="@Url.Content("~/Imagens/loader.gif")" />
+    <br />
+    Carregando...
+</div>
