@@ -32,6 +32,9 @@
         });
     }
 </script>
+@{
+    ViewBag.Title = "Editar Débito de IPVA";
+}
 
 @using (Html.BeginForm("EditarRegistroDebitoIPVAManual", "Registro", FormMethod.Post, new { id = "FormAltera"}))
 {
@@ -256,9 +259,9 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
-                                    <input id="valor_divida" class="input-sm-fino" value="@(MF.valor_divida.HasValue ? MF.valor_divida.ToString() : (Request["valor_divida"] != null ? Request["valor_divida"] : ""))" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />
-                                </td>
+                                <td class="grid-row ">
+                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
+                                    <input id="valor_divida" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" maxlength="21" />                                </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
@@ -282,7 +285,7 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
+                                <td class="grid-row ">
                                     <input id="valor_custas" class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
@@ -446,7 +449,7 @@
         </script>
     }
 }
-
+@section Scripts {
 <script>
     function mudaDisableds() {
         if (document.getElementById("vdt") != null) {
@@ -620,59 +623,58 @@
     }
 
 
-    //$(document).ready(function ()
-    //{
-    //    //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
-    //    //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
-    //    //$("#cep").inputmask("mask", { "mask": "99999-999" });
-    //    $("#dta_cobranca").inputmask("mask", { "mask": "99/99/9999" });
-    //    $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
-    //    //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
-    //    //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
-    //    //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
-    //});
-    //$("#valor_divida").inputmask('decimal', {
-    //    radixPoint: ",",
-    //    groupSeparator: ".",
-    //    autoGroup: true,
-    //    digits: 2,
-    //    digitsOptional: false,
-    //    placeholder: '0',
-    //    rightAlign: false,
-    //    autoUnmask: true,
-    //    onBeforeMask: function (value, opts) {
-    //        return value;
-    //    }
-    //});
-    //$("#valor_custas").inputmask('decimal', {
-    //    radixPoint: ",",
-    //    groupSeparator: ".",
-    //    autoGroup: true,
-    //    digits: 2,
-    //    digitsOptional: false,
-    //    placeholder: '0',
-    //    rightAlign: false,
-    //    autoUnmask: true,
-    //    onBeforeMask: function (value, opts) {
-    //        return value;
-    //    }
-    //});
-    //$("#valor_debito_total_parc").inputmask('decimal', {
-    //    radixPoint: ",",
-    //    groupSeparator: ".",
-    //    autoGroup: true,
-    //    digits: 2,
-    //    digitsOptional: false,
-    //    placeholder: '0',
-    //    rightAlign: false,
-    //    autoUnmask: true,
-    //    onBeforeMask: function (value, opts) {
-    //        return value;
-    //    }
-    //});
+    $(document).ready(function ()
+    {
+        //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
+        //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
+        //$("#cep").inputmask("mask", { "mask": "99999-999" });
+        $("#dta_cobranca").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
+        //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
+    });
+    $("#valor_divida").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+    $("#valor_custas").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+    $("#valor_debito_total_parc").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
 </script>
-</script>
-
+}
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">

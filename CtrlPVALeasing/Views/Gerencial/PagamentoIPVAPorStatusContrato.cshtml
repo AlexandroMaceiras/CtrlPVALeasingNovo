@@ -13,21 +13,24 @@
     ViewBag.Title = "Pagamento de IPVA por Status de Contrato";
 }
 
+@using (Html.BeginForm("PagamentoIPVAPorStatusContrato", "Gerencial", FormMethod.Post, new { id = "FormAltera" }))
+{
     <div class="jumbotronFundo">
-
+        <input type="hidden" name="escolha" id="escolha" value="nada" />
         <center>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                    <th class="busca" width="90%"><h2>PAGAMENTO DE IPVA POR SATATUS DE CONTRATO</h2>
+                    <th class="busca" width="90%">
+                        <h2>PAGAMENTO DE IPVA POR SATATUS DE CONTRATO</h2>
                     </th>
 
                     <th>
-                        <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                        <a href="/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
                 <tr>
                     <td>
-                        <div></div>
+                        <input onclick="validateForm('gcvs');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="GERAR CSV" />
                     </td>
 
                 </tr>
@@ -66,3 +69,18 @@
         </center>
 
     </div>
+}
+<script>
+    try {
+        function validateForm(a) {
+            if (a == "gcvs") {
+                document.getElementById("escolha").value = "gcvs";
+            }
+            document.getElementById("FormAltera").submit();
+            return true;
+        }
+    }
+    catch (e) {
+        alert("Erro: " + e);
+    }
+</script>

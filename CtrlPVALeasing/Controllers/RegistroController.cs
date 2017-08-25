@@ -1109,7 +1109,7 @@ namespace CtrlPVALeasing.Controllers
                 return RedirectToAction("EditarRegistroDebitoIPVAManual");
             }
 
-            if (Request.HttpMethod == "POST" && rd == "true")
+            if (Request.HttpMethod == "GET" && rd == "")
             {
 
                 // Controle de erros do ModelState
