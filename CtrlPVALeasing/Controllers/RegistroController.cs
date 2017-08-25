@@ -933,7 +933,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
-                     //where c.id.Equals(id_debito)
+                     where c.id.Equals(id_debito)
                      select new
                      {
                          id = a.id,
@@ -1109,7 +1109,7 @@ namespace CtrlPVALeasing.Controllers
                 return RedirectToAction("EditarRegistroDebitoIPVAManual");
             }
 
-            if (Request.HttpMethod == "GET" && rd == "")
+            if (Request.HttpMethod == "POST" && rd == "true")
             {
 
                 // Controle de erros do ModelState
@@ -1133,14 +1133,14 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.ano_exercicio = ano_exercicio;
                         procuraRegistro.cda = cda;
 
-                        procuraRegistro.valor_pago_custas = valor_pago_custas;
+                        procuraRegistro.valor_custas = valor_custas_unmask;
                         procuraRegistro.debito_protesto = (debito_protesto == null ? false : true);
                         procuraRegistro.nome_cartorio = nome_cartorio;
 
                         procuraRegistro.divida_ativa_serasa = (divida_ativa_serasa == null ? false : true);
                         procuraRegistro.protesto_serasa = (protesto_serasa == null ? false : true);
                         procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
-                        procuraRegistro.valor_debito_total = valor_divida_unmask + valor_custas_unmask;
+                        procuraRegistro.valor_debito_total = (valor_divida_unmask.HasValue ? valor_divida_unmask : 0) + (valor_custas_unmask.HasValue ? valor_custas_unmask : 0);
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
@@ -1426,43 +1426,43 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = a.comp_end_cliente,
                             status                  = a.status,
 
-                            contrato_v          = b.contrato,
-                            tipo_registro       = b.tipo_registro,
-                            marca               = b.marca,
-                            modelo              = b.modelo,
-                            tipo_v              = b.tipo,
-                            ano_fab             = b.ano_fab,
-                            ano_mod             = b.ano_mod,
-                            cor                 = b.cor,
-                            renavam             = b.renavam,
-                            chassi              = b.chassi,
-                            placa               = b.placa,
-                            origem_v            = b.origem,
+                            contrato_v = b.contrato,
+                            tipo_registro = b.tipo_registro,
+                            marca = b.marca,
+                            modelo = b.modelo,
+                            tipo_v = b.tipo,
+                            ano_fab = b.ano_fab,
+                            ano_mod = b.ano_mod,
+                            cor = b.cor,
+                            renavam = b.renavam,
+                            chassi = b.chassi,
+                            placa = b.placa,
+                            origem_v = b.origem,
 
-                            id_debito             = c.id,
-                            dta_cobranca            = c.dta_cobranca,
-                            uf_cobranca             = c.uf_cobranca,
-                            uf_pagamento            = c.uf_pagamento,
-                            tipo_cobranca           = c.tipo_cobranca,
-                            valor_divida            = c.valor_divida,
-                            ano_exercicio           = c.ano_exercicio,
-                            cda                     = c.cda,
-                            valor_custas            = c.valor_custas,
-                            pagamento_efet_banco    = c.pagamento_efet_banco,
-                            valor_recuperado        = c.valor_recuperado,
-                            valor_total_recuperado  = c.valor_total_recuperado,
-                            debito_protesto         = c.debito_protesto,
-                            nome_cartorio           = c.nome_cartorio,
-                            divida_ativa_serasa     = c.divida_ativa_serasa,
-                            protesto_serasa         = c.protesto_serasa,
+                            id_debito = c.id,
+                            dta_cobranca = c.dta_cobranca,
+                            uf_cobranca = c.uf_cobranca,
+                            uf_pagamento = c.uf_pagamento,
+                            tipo_cobranca = c.tipo_cobranca,
+                            valor_divida = c.valor_divida,
+                            ano_exercicio = c.ano_exercicio,
+                            cda = c.cda,
+                            valor_custas = c.valor_custas,
+                            pagamento_efet_banco = c.pagamento_efet_banco,
+                            valor_recuperado = c.valor_recuperado,
+                            valor_total_recuperado = c.valor_total_recuperado,
+                            debito_protesto = c.debito_protesto,
+                            nome_cartorio = c.nome_cartorio,
+                            divida_ativa_serasa = c.divida_ativa_serasa,
+                            protesto_serasa = c.protesto_serasa,
                             valor_debito_total_parc = c.valor_divida + c.valor_custas,
-                            valor_debito_total      = c.valor_debito_total,
+                            valor_debito_total = c.valor_debito_total,
 
-                            dta_pagamento_custas    = c.dta_pagamento_custas,
+                            dta_pagamento_custas = c.dta_pagamento_custas,
 
-                            renavam_bens    = d.renavam,
-                            chassi_bens     = d.chassi,
-                            placa_bens      = d.placa,
+                            renavam_bens = d.renavam,
+                            chassi_bens = d.chassi,
+                            placa_bens = d.placa,
 
                             comVenda = e.comVenda
 
@@ -1496,42 +1496,42 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = x.comp_end_cliente,
                             status                  = x.status,
 
-                            contrato_v          = x.contrato_v,
-                            tipo_registro       = x.tipo_registro,
-                            marca               = x.marca,
-                            modelo              = x.modelo,
-                            tipo_v              = x.tipo_v,
-                            ano_fab             = x.ano_fab,
-                            ano_mod             = x.ano_mod,
-                            cor                 = x.cor,
-                            renavam             = x.renavam,
-                            chassi              = x.chassi,
-                            placa               = x.placa,
-                            origem_v            = x.origem_v,
+                            contrato_v = x.contrato_v,
+                            tipo_registro = x.tipo_registro,
+                            marca = x.marca,
+                            modelo = x.modelo,
+                            tipo_v = x.tipo_v,
+                            ano_fab = x.ano_fab,
+                            ano_mod = x.ano_mod,
+                            cor = x.cor,
+                            renavam = x.renavam,
+                            chassi = x.chassi,
+                            placa = x.placa,
+                            origem_v = x.origem_v,
 
-                            id_debito             = x.id_debito,
-                            dta_cobranca            = x.dta_cobranca,
-                            uf_cobranca             = x.uf_cobranca,
-                            uf_pagamento            = x.uf_pagamento,
-                            tipo_cobranca           = x.tipo_cobranca,
-                            valor_divida            = x.valor_divida,
-                            ano_exercicio           = x.ano_exercicio,
-                            cda                     = x.cda,
-                            valor_custas            = x.valor_custas,
-                            pagamento_efet_banco    = x.pagamento_efet_banco,
-                            valor_recuperado        = x.valor_recuperado,
-                            valor_total_recuperado  = x.valor_total_recuperado,
-                            debito_protesto         = x.debito_protesto,
-                            nome_cartorio           = x.nome_cartorio,
-                            divida_ativa_serasa     = x.divida_ativa_serasa,
-                            protesto_serasa         = x.protesto_serasa,
+                            id_debito = x.id_debito,
+                            dta_cobranca = x.dta_cobranca,
+                            uf_cobranca = x.uf_cobranca,
+                            uf_pagamento = x.uf_pagamento,
+                            tipo_cobranca = x.tipo_cobranca,
+                            valor_divida = x.valor_divida,
+                            ano_exercicio = x.ano_exercicio,
+                            cda = x.cda,
+                            valor_custas = x.valor_custas,
+                            pagamento_efet_banco = x.pagamento_efet_banco,
+                            valor_recuperado = x.valor_recuperado,
+                            valor_total_recuperado = x.valor_total_recuperado,
+                            debito_protesto = x.debito_protesto,
+                            nome_cartorio = x.nome_cartorio,
+                            divida_ativa_serasa = x.divida_ativa_serasa,
+                            protesto_serasa = x.protesto_serasa,
                             valor_debito_total_parc = x.valor_divida + x.valor_custas,
-                            valor_debito_total      = x.valor_debito_total,
-                            dta_pagamento_custas    = x.dta_pagamento_custas,
+                            valor_debito_total = x.valor_debito_total,
+                            dta_pagamento_custas = x.dta_pagamento_custas,
 
-                            renavam_bens    = x.renavam_bens,
-                            chassi_bens     = x.chassi_bens,
-                            placa_bens      = x.placa_bens,
+                            renavam_bens = x.renavam_bens,
+                            chassi_bens = x.chassi_bens,
+                            placa_bens = x.placa_bens,
 
                             comVenda = x.comVenda
 

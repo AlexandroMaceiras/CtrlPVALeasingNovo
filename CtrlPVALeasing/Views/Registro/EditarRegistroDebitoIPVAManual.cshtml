@@ -49,7 +49,7 @@
                     </th>
                     <th class="busca" width="18%" align="right">
                         <br />
-                        <a href="javascript: history.go(-1);" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>
+                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -259,9 +259,9 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td class="grid-row ">
+                                <td class="grid-row">
                                     @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null ? Request["valor_divida"] : "")" type="text" name="valor_divida" size="20" style="text-transform:uppercase" />*@
-                                    <input id="valor_divida" class="input-sm-fino" value="" type="text" name="valor_divida" size="20" style="text-transform:uppercase" maxlength="21" />                                </td>
+                                    <input id="valor_divida" class="input-sm-fino" value="@(MF.valor_divida != null ? MF.valor_divida.ToString() : (Request["valor_divida"] != null ? Request["valor_divida"] :""))" type="text" name="valor_divida" size="20" style="text-transform:uppercase" maxlength="21" />                                </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
@@ -269,7 +269,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Exercício: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="ano_exercicio" class="input-sm-fino" value="@(MF.ano_exercicio != null ? MF.ano_exercicio.ToString() : (Request["ano_exercicio"] != null ? Request["ano_exercicio"] :""))" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
+                                    <input id="ano_exercicio"  maxlength="4" class="input-sm-fino" value="@(MF.ano_exercicio != null ? MF.ano_exercicio.ToString() : (Request["ano_exercicio"] != null ? Request["ano_exercicio"] :""))" type="text" name="ano_exercicio" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -278,14 +278,14 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CDA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="cda" class="input-sm-fino" value="@(MF.cda != null ? MF.cda.ToString() : (Request["cda"] != null ? Request["cda"] :""))" type="text" name="cda" size="20" style="text-transform:uppercase" />
+                                    <input id="cda" class="input-sm-fino" maxlength="10" value="@(MF.cda != null ? MF.cda.ToString() : (Request["cda"] != null ? Request["cda"] :""))" type="text" name="cda" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td class="grid-row ">
+                                <td class="grid-row">
                                     <input id="valor_custas" class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
@@ -308,7 +308,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Nome do Cartório:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="nome_cartorio" class="input-sm-fino" value="@(MF.nome_cartorio != null ? MF.nome_cartorio.ToString() : (Request["nome_cartorio"] != null ? Request["nome_cartorio"] :""))" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
+                                    <input id="nome_cartorio" class="input-sm-fino" maxlength="40" value="@(MF.nome_cartorio != null ? MF.nome_cartorio.ToString() : (Request["nome_cartorio"] != null ? Request["nome_cartorio"] :""))" type="text" name="nome_cartorio" size="40" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -333,7 +333,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Débito Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="valor_debito_total_parc" class="input-sm-fino" value="@(MF.valor_debito_total.HasValue ? MF.valor_debito_total.ToString() : (Request["valor_debito_total"] != null ? Request["valor_debito_total"] : ""))" type="text" name="valor_debito_total" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["valor_divida"] != null && Request["valor_custas"] != null ? Convert.ToDecimal(Request["valor_divida"].AsDecimal()+Request["valor_custas"].AsDecimal()).ToString("0.00") : "")" type="text" name="valor_debito_total_parc" size="20" style="text-transform:uppercase" disabled="disabled" />*@
+                                    <input id="valor_debito_total_parc" class="input-sm-fino" value="" type="text" name="valor_debito_total_parc" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -402,7 +403,7 @@
             try
             {
                 $(document).ready(function () {
-                    $("#msgErro6").modal();
+                    $("#msgOk").modal();
                 });
             }
             catch (e) {
@@ -449,6 +450,8 @@
         </script>
     }
 }
+
+<!-- O section Scripts é necessário para funcionar algumas mascaras -->
 @section Scripts {
 <script>
     function mudaDisableds() {
@@ -536,9 +539,14 @@
     //Faz a soma do valor_debito_total_parc dinamicamente.
     try {
         $("td.grid-row").focusout(function () {
-            var vd = document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', '');
-            var vc = document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', '');
-            var vt = (parseInt(vd) + parseInt(vc)).toString();
+            var vd = parseInt(document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', ''));
+            var vc = parseInt(document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', ''));
+            var vt = 0;
+            if (vd != null) { if (vd == "" || vd.toString() == "NaN") { vd = 0 } vt += vd;}
+            if (vc != null) { if (vc == "" || vc.toString() == "NaN") { vc = 0 } vt += vc;}
+
+            var vt = vt.toString();
+
             var resultado = vt.substring(0, vt.length - 2) + "," + vt.substring(vt.length - 2, vt.length);
 
             if (resultado.toString() != "NaN") {
@@ -814,7 +822,7 @@
                         <td><center><h4 style="color: rgb(176, 172, 186)">Pagamento de Debito de IPVA Registrado com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                        <td align="right"><button onclick="history.go(-1);" type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
                     </tr>
                 </table>
             </div>

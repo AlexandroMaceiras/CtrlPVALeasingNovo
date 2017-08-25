@@ -59,19 +59,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : MF.chassi)" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" maxlength="20" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : MF.chassi)" type="text" name="chassi" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : MF.renavam)" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" maxlength="20" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : MF.renavam)" type="text" name="renavam" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : MF.placa)" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" maxlength="9" value="@(Request["placa"] != null ? Request["placa"].Trim() : MF.placa)" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
@@ -574,8 +574,31 @@
         </script>
     }
 }
+
+<!-- O section Scripts é necessário para funcionar algumas mascaras -->
 @section Scripts {
 <script>
+
+    try {
+        document.getElementById("limpaNaMarra1").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra3").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+    }
+    catch (e) {
+        alert(e);
+    }
 
     try {
         document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
@@ -664,9 +687,14 @@
     //Faz a soma do valor_debito_total_parc dinamicamente.
     try {
         $("td.grid-row").focusout(function () {
-            var vd = document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', '');
-            var vc = document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', '');
-            var vt = (parseInt(vd) + parseInt(vc)).toString();
+            var vd = parseInt(document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', ''));
+            var vc = parseInt(document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', ''));
+            var vt = 0;
+            if (vd != null) { if (vd == "" || vd.toString() == "NaN") { vd = 0 } vt += vd; }
+            if (vc != null) { if (vc == "" || vc.toString() == "NaN") { vc = 0 } vt += vc; }
+
+            var vt = vt.toString();
+
             var resultado = vt.substring(0, vt.length - 2) + "," + vt.substring(vt.length - 2, vt.length);
 
             if (resultado.toString() != "NaN") {
@@ -677,6 +705,7 @@
     catch (e) {
         alert(e);
     }
+
     //Limpa os campos mesmo que eles tenham sito recuperados pelo request.
     try {
         $("#mudaReset").click(function () {
