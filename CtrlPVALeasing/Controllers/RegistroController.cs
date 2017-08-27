@@ -1439,7 +1439,7 @@ namespace CtrlPVALeasing.Controllers
                             placa = b.placa,
                             origem_v = b.origem,
 
-                            id_debito = c.id,
+                            id_debito = (c.id != null ? c.id : 0),
                             dta_cobranca = c.dta_cobranca,
                             uf_cobranca = c.uf_cobranca,
                             uf_pagamento = c.uf_pagamento,
@@ -1509,7 +1509,7 @@ namespace CtrlPVALeasing.Controllers
                             placa = x.placa,
                             origem_v = x.origem_v,
 
-                            id_debito = x.id_debito,
+                            id_debito = x.id_debito, 
                             dta_cobranca = x.dta_cobranca,
                             uf_cobranca = x.uf_cobranca,
                             uf_pagamento = x.uf_pagamento,

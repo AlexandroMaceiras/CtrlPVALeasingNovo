@@ -38,12 +38,14 @@
                     </th>
                 </tr>
 
-                @{var contadorInterno = 0; 
+                @{var contadorInterno = 0;
                     foreach (var item in Model)
                     {
                         if (item.contrato != null)
                         {
                             contadorInterno++;
+                            if (item.valor_divida.HasValue || item.valor_custas.HasValue)
+                            {
                             <tr>
                                 <td class="input-sm-fino" align="center">
                                     @contadorInterno
@@ -78,6 +80,7 @@
                                     @Html.ActionLink("EDITAR", "../Registro/EditarRegistroDebitoIPVAManual", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = "btn2 btn-primary-menu btn-sm" })
                                 </td>
                             </tr>
+                            }
                         }
                     }
                 }
