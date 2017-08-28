@@ -1,0 +1,374 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+@{
+    ViewBag.Title = "Registro de Veículo";
+}
+<script>
+    function chamaErro2() {
+        $(document).ready(function () {
+            $("#msgErro2").modal();
+        });
+    }
+    function chamaErro1() {
+        $(document).ready(function () {
+            $("#msgErro1").modal();
+        });
+    }
+</script>
+@using (Html.BeginForm("RegistroVeiculo", "Registro"))
+{
+    var MF = Model.First();
+    <div class="jumbotronFundo">
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td class="busca" width="90%">
+                        <h2>REGISTRO DE VEÍCULO</h2>
+                    </td>
+                    <td align="right" width="9%">
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="limpar" value="LIMPAR" /></div>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+        </center>
+
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.marca" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.ano_fab" type="text" name="ano_fab" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.modelo" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.ano_mod" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.tipo_v" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.cor" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 5px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" align="justify">
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Possui comunicação de venda&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Veículo apreendido pelo banco&nbsp;
+                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DO CONTRATO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.contrato" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Agência: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@MF.agencia" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data de Vencimento: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.dta_vecto_contrato.HasValue ? MF.dta_vecto_contrato.ToString().Substring(0,10) : "")" type="text" name="dta_vecto_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data de início: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.dta_inicio_contrato.HasValue ? MF.dta_vecto_contrato.ToString().Substring(0,10) : "")" type="text" name="dta_inicio_contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Conta: </div>
+                                </td>
+                                <td>
+                                    <!--AINDA NÃO DEFINIDO!--><input class="input-sm-fino" value="" type="text" name="agencia" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data do Último Pagamento: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.dta_ultimo_pagto.HasValue ? MF.dta_ultimo_pagto.ToString().Substring(0,10) : "")" type="text" name="dta_ultimo_pagto" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Status do Contrato: </div>
+                                </td>
+                                <td>
+                                    @{
+                                        var status = "";
+                                        if (@MF.status == true)
+                                        {
+                                            status = "Ativo";
+                                        }
+                                        else if (@MF.status == false)
+                                        {
+                                            status = "Liquidado";
+                                        }
+                                        <input class="input-sm-fino" value="@status" type="text" name="contrato" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                    }
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@(MF.data_da_baixa.HasValue ? MF.data_da_baixa.ToString().Substring(0,10) : "")" type="text" name="data_da_baixa" size="25" style="text-transform:uppercase" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right">
+                                    <div id="outrosContratos">
+                                        @{
+                                            if (MF.contrato != "" && MF.contrato != null)
+                                            {
+                                                @Html.ActionLink("REGISTRAR", "RegistroVeiculo", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("REGISTRAR", "RegistroVeiculo", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro2(); return false;" })
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+
+                                        //Erro de veículo não encontrado
+                                        if (MF.id == -1)
+                                        {
+        <script>
+        try{
+            $(document).ready(function () {
+                $("#msgErro1").modal();
+            });
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    </script>
+    }
+}
+
+@section Scripts{
+<script>
+
+    $("#valor_debito_total").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#valor_pago_total").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#_valor_debito_total_por_veiculo").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#_valor_total_recuperado_por_veiculo").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+</script>
+}
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro2" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>CONSULTA DE VEÍCULO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

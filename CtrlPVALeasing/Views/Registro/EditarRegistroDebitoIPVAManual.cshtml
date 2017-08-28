@@ -630,7 +630,6 @@
         alert(e);
     }
 
-
     $(document).ready(function ()
     {
         //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
@@ -642,6 +641,7 @@
         //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
         //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
     });
+
     $("#valor_divida").inputmask('decimal', {
         radixPoint: ",",
         groupSeparator: ".",
@@ -655,6 +655,7 @@
             return value;
         }
     });
+
     $("#valor_custas").inputmask('decimal', {
         radixPoint: ",",
         groupSeparator: ".",
@@ -668,6 +669,7 @@
             return value;
         }
     });
+
     $("#valor_debito_total_parc").inputmask('decimal', {
         radixPoint: ",",
         groupSeparator: ".",
@@ -681,6 +683,15 @@
             return value;
         }
     });
+
+    $("#msgOk").on("hidden.bs.modal", function () {
+        history.go(-1);
+    });
+
+    $("#msgErro9").on("hidden.bs.modal", function () {
+        history.go(-1);
+    });
+
 </script>
 }
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
@@ -822,7 +833,7 @@
                         <td><center><h4 style="color: rgb(176, 172, 186)">Pagamento de Debito de IPVA Registrado com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
-                        <td align="right"><button onclick="history.go(-1);" type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
                     </tr>
                 </table>
             </div>
@@ -843,7 +854,7 @@
                         <td><center><h4 style="color: rgb(176, 172, 186)">O conteúdo de algum campo está inválido, verifique!</h4></center></td>
                     </tr>
                     <tr>
-                        <td align="right"><button onclick="history.go(-1);" type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
                     </tr>
                 </table>
             </div>

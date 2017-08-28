@@ -191,11 +191,14 @@
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
+                                @*<td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total dos Débitos de IPVA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" id="valor_debito_total" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>*@
+                                <td colspan="0">
+                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                             </tr>
                             <tr>
@@ -208,11 +211,14 @@
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
+                                @*<td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total das Recuperações de IPVA: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.valor_pago_total" type="text" name="valor_pago_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.valor_pago_total" type="text" id="valor_pago_total" name="valor_pago_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>*@
+                                <td colspan="0">
+                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                             </tr>
                             <tr>
@@ -604,6 +610,7 @@
     }
 }
 
+@section Scripts{
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
@@ -638,7 +645,64 @@
     catch (e) {
         alert(e);
     }
+
+    $("#valor_debito_total").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#valor_pago_total").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#_valor_debito_total_por_veiculo").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
+
+    $("#_valor_total_recuperado_por_veiculo").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
 </script>
+}
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">

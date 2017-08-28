@@ -105,6 +105,308 @@ namespace CtrlPVALeasing.Controllers
             return View();
         }
 
+
+        public ActionResult RegistroContrato(string contrato, string cpf_cnpj_cliente)
+        {
+            if (contrato == "" || contrato == null || contrato == "-1")
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            if (cpf_cnpj_cliente != "" && cpf_cnpj_cliente != null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.ToString().PadLeft(18, '0');
+            }
+            else
+            {
+                cpf_cnpj_cliente = "";
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1
+                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     where a.contrato.Contains(contrato)
+                     where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     select new
+                     {
+                         id = a.id,
+                         contrato = a.contrato,
+                         tipo = a.tipo,
+                         agencia = a.agencia,
+                         dta_inicio_contrato = a.dta_inicio_contrato,
+                         dta_vecto_contrato = a.dta_vecto_contrato,
+                         origem = a.origem,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         nome_cliente = a.nome_cliente,
+                         ddd_cliente_particular = a.ddd_cliente_particular,
+                         fone_cliente_particular = a.fone_cliente_particular,
+                         rml_cliente_particular = a.rml_cliente_particular,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         cep_cliente = a.cep_cliente,
+                         filler = a.filler,
+                         ddd_cliente_cml = a.ddd_cliente_cml,
+                         fone_cliente_cml = a.fone_cliente_cml,
+                         dta_ultimo_pagto = a.dta_ultimo_pagto,
+                         tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
+                         cod_empresa = a.cod_empresa,
+                         num_end_cliente = a.num_end_cliente,
+                         comp_end_cliente = a.comp_end_cliente,
+                         status = a.status,
+
+                         contrato_v = b.contrato,
+                         tipo_registro = b.tipo_registro,
+                         marca = b.marca,
+                         modelo = b.modelo,
+                         tipo_v = b.tipo,
+                         ano_fab = b.ano_fab,
+                         ano_mod = b.ano_mod,
+                         cor = b.cor,
+                         renavam = b.renavam,
+                         chassi = b.chassi,
+                         placa = b.placa,
+                         origem_v = b.origem,
+
+                         comDUT = c.comDUT,
+                         comVenda = c.comVenda
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         id = x.id,
+                         contrato = x.contrato,
+                         tipo = x.tipo,
+                         agencia = x.agencia,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         origem = x.origem,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         nome_cliente = x.nome_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         rml_cliente_particular = x.rml_cliente_particular,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         filler = x.filler,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
+                         cod_empresa = x.cod_empresa,
+                         num_end_cliente = x.num_end_cliente,
+                         comp_end_cliente = x.comp_end_cliente,
+                         status = x.status,
+
+                         contrato_v = x.contrato_v,
+                         tipo_registro = x.tipo_registro,
+                         marca = x.marca,
+                         modelo = x.modelo,
+                         tipo_v = x.tipo,
+                         ano_fab = x.ano_fab,
+                         ano_mod = x.ano_mod,
+                         cor = x.cor,
+                         renavam = x.renavam,
+                         chassi = x.chassi,
+                         placa = x.placa,
+                         origem_v = x.origem_v,
+
+                         comDUT = x.comDUT,
+                         comVenda = x.comVenda
+
+                     }).OrderBy(x => x.placa).ToList();
+
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
+            }
+            return View(model);
+        }
+
+        // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
+        public ActionResult RegistroVeiculo(string chassi, string placa, string renavam)
+        {
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     into j1
+                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     join d in db.Tbl_Bens
+                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     join e in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                     into j3
+                     from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     select new
+                     {
+                         id = a.id,
+                         contrato = a.contrato,
+                         tipo = a.tipo,
+                         agencia = a.agencia,
+                         dta_inicio_contrato = a.dta_inicio_contrato,
+                         dta_vecto_contrato = a.dta_vecto_contrato,
+                         origem = a.origem,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         nome_cliente = a.nome_cliente,
+                         ddd_cliente_particular = a.ddd_cliente_particular,
+                         fone_cliente_particular = a.fone_cliente_particular,
+                         rml_cliente_particular = a.rml_cliente_particular,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         cep_cliente = a.cep_cliente,
+                         filler = a.filler,
+                         ddd_cliente_cml = a.ddd_cliente_cml,
+                         fone_cliente_cml = a.fone_cliente_cml,
+                         dta_ultimo_pagto = a.dta_ultimo_pagto,
+                         tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
+                         cod_empresa = a.cod_empresa,
+                         num_end_cliente = a.num_end_cliente,
+                         comp_end_cliente = a.comp_end_cliente,
+                         status = a.status,
+
+                         contrato_v = b.contrato,
+                         tipo_registro = b.tipo_registro,
+                         marca = b.marca,
+                         modelo = b.modelo,
+                         tipo_v = b.tipo,
+                         ano_fab = b.ano_fab,
+                         ano_mod = b.ano_mod,
+                         cor = b.cor,
+                         renavam = b.renavam,
+                         chassi = b.chassi,
+                         placa = b.placa,
+                         origem_v = b.origem,
+
+                         dta_cobranca = c.dta_cobranca,
+                         valor_debito_total = c.valor_debito_total,
+                         dta_pagamento = c.dta_pagamento,
+                         valor_pago_total = c.valor_pago_total,
+                         divida_ativa_serasa = c.divida_ativa_serasa,
+
+                         renavam_bens = d.renavam,
+                         chassi_bens = d.chassi,
+                         placa_bens = d.placa,
+
+                         comVenda = e.comVenda
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         id = x.id,
+                         contrato = x.contrato,
+                         tipo = x.tipo,
+                         agencia = x.agencia,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         origem = x.origem,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         nome_cliente = x.nome_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         rml_cliente_particular = x.rml_cliente_particular,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         filler = x.filler,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
+                         cod_empresa = x.cod_empresa,
+                         num_end_cliente = x.num_end_cliente,
+                         comp_end_cliente = x.comp_end_cliente,
+                         status = x.status,
+
+                         contrato_v = x.contrato_v,
+                         tipo_registro = x.tipo_registro,
+                         marca = x.marca,
+                         modelo = x.modelo,
+                         tipo_v = x.tipo_v,
+                         ano_fab = x.ano_fab,
+                         ano_mod = x.ano_mod,
+                         cor = x.cor,
+                         renavam = x.renavam,
+                         chassi = x.chassi,
+                         placa = x.placa,
+                         origem_v = x.origem_v,
+
+                         dta_cobranca = x.dta_cobranca,
+                         valor_debito_total = x.valor_debito_total,
+                         dta_pagamento = x.dta_pagamento,
+                         valor_pago_total = x.valor_pago_total,
+                         divida_ativa_serasa = x.divida_ativa_serasa,
+
+                         renavam_bens = x.renavam_bens,
+                         chassi_bens = x.chassi_bens,
+                         placa_bens = x.placa_bens,
+
+                         comVenda = x.comVenda
+                     });
+
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaVeiculo");
+            }
+            return View("ConsultaVeiculo", model);
+        }
+
         [HttpPost]
         public ActionResult UploadDebitoIPVA(string Upload1, HttpPostedFileBase Upload2)
         {
@@ -564,11 +866,30 @@ namespace CtrlPVALeasing.Controllers
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
-            string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
-            decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
+            string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, string valor_pago_custas,
+            string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto, decimal? valor_total_recuperado,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
         {
+            decimal? valor_pago_divida_unmask = null, valor_pago_custas_unmask = null;
+            if (valor_divida != null)
+            {
+                try
+                {
+                    valor_pago_divida_unmask = Convert.ToDecimal((valor_pago_divida.Trim()));
+                }
+                catch { }
+            }
+
+            if (valor_custas != null)
+            {
+                try
+                {
+                    valor_pago_custas_unmask = Convert.ToDecimal((valor_pago_custas.Trim()));
+                }
+                catch { }
+            }
+
             if (chassi == null)
                 chassi = "";
             if (placa == null)
@@ -803,7 +1124,7 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.numero_miro_divida = numero_miro_divida;
                         procuraRegistro.forma_pagamento_divida = forma_pagamento_divida;
                         procuraRegistro.valor_pago_total = valor_pago_total;
-                        procuraRegistro.valor_pago_divida = valor_pago_divida;
+                        procuraRegistro.valor_pago_divida = valor_pago_divida_unmask;
 
                         procuraRegistro.pagamento_efet_banco = true;
                         procuraRegistro.grupo_safra = grupo_safra;
@@ -812,7 +1133,7 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.numero_miro_custa = numero_miro_custa;
 
                         procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
-                        procuraRegistro.valor_pago_custas = valor_pago_custas;
+                        procuraRegistro.valor_pago_custas = valor_pago_custas_unmask;
                         procuraRegistro.obs_pagamento = obs_pagamento;
 
                         procuraRegistro.pci_credito = pci_credito;
@@ -837,7 +1158,7 @@ namespace CtrlPVALeasing.Controllers
                             numero_miro_divida = numero_miro_divida,
                             forma_pagamento_divida = forma_pagamento_divida,
                             valor_pago_total = valor_pago_total,
-                            valor_pago_divida = valor_pago_divida,
+                            valor_pago_divida = valor_pago_divida_unmask,
 
                             pagamento_efet_banco = true,
                             grupo_safra = grupo_safra,
@@ -846,7 +1167,7 @@ namespace CtrlPVALeasing.Controllers
                             numero_miro_custa = numero_miro_custa,
 
                             forma_pagamento_custas = forma_pagamento_custas,
-                            valor_pago_custas = valor_pago_custas,
+                            valor_pago_custas = valor_pago_custas_unmask,
                             obs_pagamento = obs_pagamento,
 
                             pci_credito = pci_credito,
@@ -1189,6 +1510,11 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+                     join e in db.Tbl_Dut
+                     on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                     into j3
+                     from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
@@ -1237,7 +1563,7 @@ namespace CtrlPVALeasing.Controllers
                          placa = b.placa,
                          origem_v = b.origem,
 
-                         id_debito             = c.id,
+                         id_debito = (c.id != null ? c.id : 0), //Isto é necessário apesar de aqui aparecer que não é. Sem isto, veículos sem débitos causam erro por vir null e não aparecem os dados dele.
                          valor_debito_total = c.valor_debito_total,
                          dta_cobranca = c.dta_cobranca,
                          uf_pagamento = c.uf_pagamento,
@@ -1251,7 +1577,9 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens = d.renavam,
                          chassi_bens = d.chassi,
-                         placa_bens = d.placa
+                         placa_bens = d.placa,
+
+                         comVenda = e.comVenda
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -1310,7 +1638,9 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens = x.renavam_bens,
                          chassi_bens = x.chassi_bens,
-                         placa_bens = x.placa_bens
+                         placa_bens = x.placa_bens,
+
+                         comVenda = x.comVenda
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
@@ -1439,7 +1769,7 @@ namespace CtrlPVALeasing.Controllers
                             placa = b.placa,
                             origem_v = b.origem,
 
-                            id_debito = (c.id != null ? c.id : 0),
+                            id_debito = (c.id != null ? c.id : 0), //Isto é necessário apesar de aqui aparecer que não é. Sem isto, veículos sem débitos causam erro por vir null e não aparecem os dados dele.
                             dta_cobranca = c.dta_cobranca,
                             uf_cobranca = c.uf_cobranca,
                             uf_pagamento = c.uf_pagamento,

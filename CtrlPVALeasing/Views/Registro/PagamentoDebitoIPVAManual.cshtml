@@ -51,7 +51,7 @@
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
-                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
                     </th>
                 </tr>
                 <tr>
@@ -155,9 +155,9 @@
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
                                         Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.comVenda.HasValue != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
+                                        <input type="checkbox" name="vapb" @((MF.chassi_bens != null && MF.chassi_bens != "") || (MF.renavam_bens != null && MF.renavam_bens != "") || (MF.placa_bens != null && MF.placa_bens != "") ? "checked='checked'" : "" ) disabled="disabled" />
                                     </div>
                                 </td>
                             </tr>
@@ -174,20 +174,26 @@
                         <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
-                                <td>
+                                @*<td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total do Débito: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
                                     <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>*@
+                                <td colspan="0">
+                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
-                                <td>
+                                @*<td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
                                     <input class="input-sm-fino" value="@MF.valor_total_recuperado" type="text" name="valor_total_recuperado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                </td>*@
+                                <td colspan="0">
+                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                             </tr>
                             <tr>
@@ -207,8 +213,21 @@
 
     </div>
 
-    //Erro de veículo não encontrado
-    if (MF.id == -1)
+    //Erro de débito não encontrado
+    if (MF.id != 0 && MF.id_debito == 0)
+    {
+        <script>
+            try {
+                $(document).ready(function () {
+                    $("#msgErro9").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    else if (MF.id == -1)
     {
     <script>
         try{
@@ -224,43 +243,120 @@
     }
 }
 
-<script>
-    //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
-    try {
-        $("#mudaReset").click(function () {
-            document.getElementById("limpaNaMarra1").setAttribute("value", "");
-            document.getElementById("limpaNaMarra2").setAttribute("value", "");
-            document.getElementById("limpaNaMarra3").setAttribute("value", "");
-            document.getElementById("ConsultaVeiculo").submit();
+@section Scripts{
+    <script>
+        //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
+        try {
+            $("#mudaReset").click(function () {
+                document.getElementById("limpaNaMarra1").setAttribute("value", "");
+                document.getElementById("limpaNaMarra2").setAttribute("value", "");
+                document.getElementById("limpaNaMarra3").setAttribute("value", "");
+                document.getElementById("ConsultaVeiculo").submit();
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+
+        try {
+            document.getElementById("limpaNaMarra1").onkeypress = function (e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            }
+            document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            }
+            document.getElementById("limpaNaMarra3").onkeypress = function (e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            }
+        }
+        catch (e) {
+            alert(e);
+        }
+
+        $("#_valor_debito_total_por_veiculo").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
         });
-    }
-    catch (e) {
-        alert(e);
-    }
 
+        $("#_valor_total_recuperado_por_veiculo").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+    </script>
 
-    try {
-        document.getElementById("limpaNaMarra1").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                return false;
-        }
-        document.getElementById("limpaNaMarra2").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if ("1234567890".indexOf(chr) < 0)
-                return false;
-        }
-        document.getElementById("limpaNaMarra3").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                return false;
-        }
-    }
-    catch (e) {
-        alert(e);
-    }
+    <!-- Mascaras do Grid -->
+    @for (var i = 1; i < Model.Count() + 1; i++)
+    {
+        <script>
 
-</script>
+            $("#valor_divida@(i)").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+
+        $("#valor_total_recuperado@(i)").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+
+        $("#valor_custas@(i)").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        </script>
+    }
+}
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">
@@ -297,6 +393,27 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(176, 172, 186)">Contrato não encontrado!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro9" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo encontrado, mas não contém débitos!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

@@ -395,6 +395,8 @@
     <Content Include="Views\Registro\Teste.cshtml" />
     <Content Include="Views\Registro\Teste2.cshtml" />
     <Content Include="Views\Gerencial\PagamentoIPVAPorStatusContrato_ANTIGO.cshtml" />
+    <Content Include="Views\Registro\RegistroContrato.cshtml" />
+    <Content Include="Views\Registro\RegistroVeiculo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

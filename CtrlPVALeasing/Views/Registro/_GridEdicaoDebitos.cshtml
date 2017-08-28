@@ -62,16 +62,16 @@
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.ano_exercicio)
                                 </td>
-                                <td class="input-sm-fino" align="right">
+                                <td class="input-sm-fino" align="right" id="valor_dividaGRID@(contadorInterno)">
                                     @Html.DisplayFor(modelItem => item.valor_divida)
                                 </td>
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.cda)
                                 </td>
-                                <td class="input-sm-fino" align="right">
+                                <td class="input-sm-fino" align="right" id="valor_custasGRID@(contadorInterno)">
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
-                                <td class="input-sm-fino" align="right">
+                                <td class="input-sm-fino" align="right" id="valor_total_debitoGRID@(contadorInterno)">
                                     @{ var total = (item.valor_divida.HasValue ? item.valor_divida.Value : 0) + (item.valor_custas.HasValue ? item.valor_custas.Value : 0);
                                         @total
                                     }

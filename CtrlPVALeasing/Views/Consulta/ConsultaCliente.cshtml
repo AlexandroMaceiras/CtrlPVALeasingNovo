@@ -351,31 +351,47 @@
         }
     }
 
-<script>
-    //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
-    try {
-        $("#mudaReset").click(function () {
-            document.getElementById("limpaNaMarra").setAttribute("value", "");
-            document.getElementById("ConsultaContrato").submit();
-        });
-    }
-    catch (e) {
-        alert(e);
-    }
-
-    try {
-        document.getElementById("limpaNaMarra").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if ("1234567890".indexOf(chr) < 0)
-                return false;
+@section Scripts{
+    <script>
+        //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
+        try {
+            $("#mudaReset").click(function () {
+                document.getElementById("limpaNaMarra").setAttribute("value", "");
+                document.getElementById("ConsultaContrato").submit();
+            });
         }
-    }
-    catch (e) {
-        alert(e);
-    }
+        catch (e) {
+            alert(e);
+        }
 
-</script>
+        try {
+            document.getElementById("limpaNaMarra").onkeypress = function (e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            }
+        }
+        catch (e) {
+            alert(e);
+        }
 
+
+        $("#_valor_debito_total").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+
+    </script>
+}
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
