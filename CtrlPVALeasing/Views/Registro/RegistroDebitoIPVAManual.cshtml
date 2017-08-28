@@ -419,7 +419,7 @@
                                                 <div id="fazSubmit">
                                                     @*Isto faz uma ActionLink usando POST, junto com um JS que ele chama*@
                                                     @*@Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "saveButton", onclick = "validateForm();return false;" })*@
-                                                    <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
+                                                    <input id="btnRD" onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DÉBITO" />
                                                     <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
                                                     <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
                                                     <input type="hidden" name="placaPesquisada" value="@MF.placa" />
@@ -454,26 +454,6 @@
                     <td>
                         <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
                         <table border="0" style="border-style:inherit">
-                            @*<tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total do Débito: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_debito_total" type="text" name="valor_debito_total" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@MF.valor_total_recuperado" type="text" name="valor_total_recuperado" size="30" style="text-transform:uppercase" disabled="disabled" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="input-sm-fino">&nbsp;</td>
-                            </tr>*@
                             <tr>
                                 <td colspan="0">
                                     @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
@@ -503,7 +483,7 @@
     </div>
     
     //Erro de débito não encontrado
-    if (MF.id != 0 && MF.id_debito == 0)
+    if (MF.id > 0 && MF.id_debito == 0)
     {
         <script>
             try
@@ -552,6 +532,12 @@
             {
                 $(document).ready(function () {
                     $("#msgOk").modal();
+                    $("#msgOk").on("hidden.bs.modal", function () {
+                        //document.getElementById("btnRD").removeAttribute('disabled');
+                        document.getElementById("btnRD").setAttribute("disabled", "disabled");
+                        document.getElementById("fazSubmit").setAttribute("disabled", "disabled");
+                        document.getElementById("mudaReset").setAttribute("disabled", "disabled");
+                    });
                 });
             }
             catch (e) {
@@ -567,8 +553,17 @@
             {
                 $(document).ready(function () {
                     $("#msgErro2").modal();
+                    $("#msgErro2").on("hidden.bs.modal", function () {
+                        //document.getElementById("btnRD").removeAttribute('disabled');
+                        document.getElementById("btnRD").setAttribute("disabled", "disabled");
+                        document.getElementById("fazSubmit").setAttribute("disabled", "disabled");
+                        document.getElementById("mudaReset").setAttribute("disabled", "disabled");
+                        document.getElementById("FormAltera").submit();
+                    });
                 });
-                window.location.reload();
+
+                //document.getElementById("FormAltera").submit();
+                //window.location.reload();
             }
             catch (e) {
                 alert(e);
@@ -625,8 +620,8 @@
             document.getElementById("valor_custas").setAttribute("disabled", "disabled");
             document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
             document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-            document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-            document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+            //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+            //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
             document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
 
             $("#vdt").change(function () {
@@ -637,11 +632,11 @@
                         document.getElementById("valor_divida").removeAttribute('disabled');
                         document.getElementById("ano_exercicio").removeAttribute('disabled');
                         document.getElementById("cda").setAttribute("disabled", "disabled");
-                        document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+                        document.getElementById("valor_custas").removeAttribute('disabled');
                         document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
                         document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
                         document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
                     }
@@ -654,8 +649,8 @@
                         document.getElementById("valor_custas").setAttribute("disabled", "disabled");
                         document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
                         document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
                         document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
                     }
@@ -668,8 +663,8 @@
                         document.getElementById("valor_custas").removeAttribute('disabled');
                         document.getElementById("debito_protesto").removeAttribute('disabled');
                         document.getElementById("nome_cartorio").removeAttribute('disabled');
-                        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
                         document.getElementById("dta_pagamento_custas").removeAttribute('disabled');
                         document.getElementById("valor_debito_total_parc").value = "";
                     }
@@ -682,8 +677,8 @@
                         document.getElementById("valor_custas").setAttribute("disabled", "disabled");
                         document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                        //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
                         document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
                     }
 
@@ -700,9 +695,9 @@
         //    });
         //});
 
-        //Faz a soma do valor_debito_total_parc dinamicamente.
         try {
-            $("td.grid-row").focusout(function () {
+            //Faz a soma do valor_debito_total_parc dinamicamente.
+            function mostraVDT() {
                 var vd = parseInt(document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', ''));
                 var vc = parseInt(document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', ''));
                 var vt = 0;
@@ -716,6 +711,14 @@
                 if (resultado.toString() != "NaN") {
                     document.getElementsByName("valor_debito_total_parc")[0].value = resultado;
                 }
+            };
+
+            $("td.grid-row").bind('focusin focusout mouseover mouseleave on load mouseenter mouseleave', function () {
+                mostraVDT();
+            });
+
+            $("#vdt").bind('change click',function () {
+                mostraVDT();
             });
         }
         catch (e) {
@@ -793,6 +796,9 @@
                     document.getElementById("valor_custas").value = resultadoVTC;
 
                     document.getElementById("rd").value = true;
+                    document.getElementById("btnRD").setAttribute("disabled", "disabled");
+                    document.getElementById("fazSubmit").setAttribute("disabled", "disabled");
+                    document.getElementById("mudaReset").setAttribute("disabled", "disabled");
                     document.getElementById("FormAltera").submit();
 
                     $(document).ready(function () {

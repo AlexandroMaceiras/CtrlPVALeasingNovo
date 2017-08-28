@@ -73,10 +73,15 @@ namespace CtrlPVALeasing.Controllers
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -4 para se injetar na view quando for retorno de pesquisa sem resposta dando erro.
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ContratosVeiculosViewModel> GetErroDeEntrada()
+        private IEnumerable<ContratosVeiculosViewModel> GetErroDeEntrada(ContratosVeiculosViewModel mmm)
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel() { id = -4, agencia = " " });
+
+            if (mmm != null)
+                model.Add(new ContratosVeiculosViewModel() { id = -4, agencia = " ", chassi = mmm.chassi, renavam = mmm.renavam, placa = mmm.placa, marca = mmm.marca, modelo = mmm.modelo, tipo_v = mmm.tipo_v, ano_fab = mmm.ano_fab, ano_mod = mmm.ano_mod, cor = mmm.cor });
+            else
+                model.Add(new ContratosVeiculosViewModel() { id = -4, agencia = " " });
+
             return model;
         }
 
@@ -526,7 +531,7 @@ namespace CtrlPVALeasing.Controllers
                     }
                     else
                     {
-                        return View(GetErroDeEntrada());
+                        return View(GetErroDeEntrada(null));
                     }
                 }
                 catch
@@ -1186,7 +1191,7 @@ namespace CtrlPVALeasing.Controllers
                 }
                 else
                 {
-                    return View(GetErroDeEntrada());
+                    return View(GetErroDeEntrada(null));
                 }
 
             }
@@ -1469,12 +1474,12 @@ namespace CtrlPVALeasing.Controllers
                     }
                     else
                     {
-                        return View(GetErroDeEntrada());
+                        return View(GetErroDeEntrada(null));
                     }
                 }
                 else
                 {
-                    return View(GetErroDeEntrada());
+                    return View(GetErroDeEntrada(null));
                 }
 
             }
@@ -1950,13 +1955,13 @@ namespace CtrlPVALeasing.Controllers
                         catch (Exception e)
                         {
                             //if(e.GetType)
-                            return View(GetErroDeEntrada());
+                            return View(GetErroDeEntrada(model.First()));
                         };
                     }
                 }
                 else
                 {
-                    return View(GetErroDeEntrada());
+                    return View(GetErroDeEntrada(null));
                 }
             }
 
