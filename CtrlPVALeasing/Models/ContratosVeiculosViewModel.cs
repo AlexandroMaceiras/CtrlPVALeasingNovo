@@ -237,6 +237,8 @@ namespace CtrlPVALeasing.Models
         [StringLength(6)]
         public string grupo_safra { get; set; }
 
+        public DateTime? dta_custas { get; set; }
+
 
 
 

@@ -321,10 +321,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="dta_pagamento_custas" class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    <input id="dta_custas" class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null ? Request["dta_custas"] : ""))" type="text" name="dta_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -465,10 +465,16 @@
                 document.getElementById("valor_custas").setAttribute("disabled", "disabled");
                 document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                 document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_custas").setAttribute("disabled", "disabled");
                 document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+
+                document.getElementById("cda").value = null;
+                document.getElementById("valor_custas").value = null;
+                document.getElementById("debito_protesto").checked = false;
+                document.getElementById("nome_cartorio").value = null;
+                document.getElementById("dta_custas").value = null;
             }
             else if (document.getElementById("vdt").value == 'D') {
                 document.getElementById("dta_cobranca").removeAttribute('disabled');
@@ -476,13 +482,15 @@
                 document.getElementById("valor_divida").removeAttribute('disabled');
                 document.getElementById("ano_exercicio").removeAttribute('disabled');
                 document.getElementById("cda").removeAttribute('disabled');
-                document.getElementById("valor_custas").setAttribute("disabled", "disabled");
-                document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
-                document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                document.getElementById("valor_custas").removeAttribute('disabled');
+                document.getElementById("debito_protesto").removeAttribute('disabled');
+                document.getElementById("nome_cartorio").removeAttribute('disabled');
+                //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_custas").removeAttribute('disabled');
                 document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+
+                //document.getElementById("dta_custas").value = null;
             }
             else if (document.getElementById("vdt").value == 'U') {
                 document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
@@ -493,10 +501,16 @@
                 document.getElementById("valor_custas").removeAttribute('disabled');
                 document.getElementById("debito_protesto").removeAttribute('disabled');
                 document.getElementById("nome_cartorio").removeAttribute('disabled');
-                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("dta_pagamento_custas").removeAttribute('disabled');
+                //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_custas").removeAttribute('disabled');
                 document.getElementById("valor_debito_total_parc").value = "";
+
+                document.getElementById("dta_cobranca").value = null;
+                document.getElementById("uf_cobranca").value = '';
+                document.getElementById("valor_divida").value = null;
+                document.getElementById("ano_exercicio").value = null;
+                document.getElementById("cda").value = null;
             }
             else {
                 document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
@@ -507,9 +521,21 @@
                 document.getElementById("valor_custas").setAttribute("disabled", "disabled");
                 document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                 document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-                document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+                //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+                document.getElementById("dta_custas").setAttribute("disabled", "disabled");
+
+                document.getElementById("cda").value = null;
+                document.getElementById("valor_custas").value = null;
+                document.getElementById("debito_protesto").checked = false;
+                document.getElementById("nome_cartorio").value = null;
+                document.getElementById("dta_custas").value = null;
+                document.getElementById("dta_cobranca").value = null;
+                document.getElementById("uf_cobranca").value = '';
+                document.getElementById("valor_divida").value = null;
+                document.getElementById("ano_exercicio").value = null;
+                document.getElementById("divida_ativa_serasa").checked = false;
+                document.getElementById("protesto_serasa").checked = false;
             }
         }
     }
@@ -523,9 +549,9 @@
         document.getElementById("valor_custas").setAttribute("disabled", "disabled");
         document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
-        document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
-        document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-        document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+        //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
+        //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
+        document.getElementById("dta_custas").setAttribute("disabled", "disabled");
         mudaDisableds();
 
         $("#vdt").change(function () {
@@ -536,14 +562,15 @@
         alert(e);
     }
 
-    //Faz a soma do valor_debito_total_parc dinamicamente.
+
     try {
-        $("td.grid-row").focusout(function () {
+        //Faz a soma do valor_debito_total_parc dinamicamente.
+        function mostraVDT() {
             var vd = parseInt(document.getElementsByName("valor_divida")[0].value.toString().split(".").join("").replace(',', ''));
             var vc = parseInt(document.getElementsByName("valor_custas")[0].value.toString().split(".").join("").replace(',', ''));
             var vt = 0;
-            if (vd != null) { if (vd == "" || vd.toString() == "NaN") { vd = 0 } vt += vd;}
-            if (vc != null) { if (vc == "" || vc.toString() == "NaN") { vc = 0 } vt += vc;}
+            if (vd != null) { if (vd == "" || vd.toString() == "NaN") { vd = 0 } vt += vd; }
+            if (vc != null) { if (vc == "" || vc.toString() == "NaN") { vc = 0 } vt += vc; }
 
             var vt = vt.toString();
 
@@ -552,11 +579,21 @@
             if (resultado.toString() != "NaN") {
                 document.getElementsByName("valor_debito_total_parc")[0].value = resultado;
             }
+        };
+
+        $("td.grid-row").bind('focusin focusout mouseover mouseleave on load mouseenter mouseleave', function () {
+            mostraVDT();
+        });
+
+        $("#vdt").bind('change click', function () {
+            mostraVDT();
         });
     }
     catch (e) {
         alert(e);
     }
+
+    mostraVDT(); //Aqui roda no load da tela!
 
     try
     {
@@ -596,7 +633,7 @@
             ((document.getElementById('vdt').value == "U") &&
             (document.getElementsByName('debito_protesto')[0].value == "" ||
             document.getElementsByName('nome_cartorio')[0].value == "" ||
-            document.getElementsByName('dta_pagamento_custas')[0].value == ""))
+            document.getElementsByName('dta_custas')[0].value == ""))
             ||
             ((document.getElementById('vdt').value == ""))
             )
@@ -636,7 +673,7 @@
         //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
         //$("#cep").inputmask("mask", { "mask": "99999-999" });
         $("#dta_cobranca").inputmask("mask", { "mask": "99/99/9999" });
-        $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dta_custas").inputmask("mask", { "mask": "99/99/9999" });
         //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
         //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
         //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
@@ -746,7 +783,8 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data de Pagamento</td></tr><tr><td> - UF de Pagamento</td></tr><tr><td> - Número MIRO<td></tr><tr><td> - Forma de Pagto - Dívida</td></tr><tr><td> - Valor Pago Total</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                        @*<td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Cobrança</td></tr><tr><td> - Data do Pagamento</td></tr><tr><td> - Valor da Dívida<td></tr><tr><td> - Valor das Custas</td></tr><tr><td> - Valor do Débito Total</td></tr><tr><td> - UF da Cobrança</td></tr><tr><td> - Tipo de Cobrança</td></tr><tr><td> - Ano de Exercício</td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>*@
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Selecione um Tipo de Cobrança e após isto<br />Preencha todos os campos habilitados que estiverem</font></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

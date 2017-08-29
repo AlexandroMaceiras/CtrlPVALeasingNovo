@@ -71,7 +71,8 @@
                 }
                     <th class="busca" width="18%" align="right">
                         <br />
-                        <a href="~/PagmentoDebitoIPVAManual" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>
+                        @Html.ActionLink("VOLTAR", "PagamentoDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
+                        @*<a href="JavaScript: history.go(-1);" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>*@
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -613,7 +614,7 @@
                             </tr>
                         </table>
                         <table border="0" style="border-style:inherit">
-                            <tr>
+                            @*<tr>
                                 <td colspan="8">
                                 </td>
                                 <td>
@@ -621,7 +622,7 @@
                                 <td align="right">
                                     <div id="valor_pago_total" class="fonte-cinza-claro fonte-tamanho-form">Valor Pago Total:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="input-sm-fino" value="@(MF.valor_pago_divida.HasValue && MF.valor_pago_custas.HasValue ? MF.valor_pago_divida + MF.valor_pago_custas : 0)" type="text" name="valor_pago_total" size="10" style="text-transform:uppercase" disabled="disabled" /></div>
                                 </td>
-                            </tr>
+                            </tr>*@
                             <tr>
                                 <td colspan="1" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Obs. Pagamento: &nbsp;&nbsp;&nbsp;</div>
@@ -651,6 +652,7 @@
                                                 <input type="hidden" name="placaPesquisada" value="@MF.placa" />
 
                                                 <input type="hidden" name="Rc" value="@Request["Rc"]" />
+                                                <input type="hidden" name="Flag" value="true" />
 
                                                 <input type="hidden" name="marca" value="@MF.marca" />
                                                 <input type="hidden" name="ano_fab" value="@MF.ano_fab" />
@@ -970,8 +972,8 @@
 
             function validateForm()
             {
-                alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
-                alert("valor_pago_divida')[0].value = " + document.getElementsByName('valor_pago_divida')[0].value);
+                //alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
+                //alert("valor_pago_divida')[0].value = " + document.getElementsByName('valor_pago_divida')[0].value);
 
 
                 if (document.getElementsByName('forma_pagamento_divida')[0].value != "") {
@@ -981,8 +983,8 @@
                     }
                 }
 
-                alert("forma_pagamento_custas')[0].value = " + document.getElementsByName('forma_pagamento_custas')[0].value);
-                alert("valor_pago_custas')[0].value = " + document.getElementsByName('valor_pago_custas')[0].value);
+                //alert("forma_pagamento_custas')[0].value = " + document.getElementsByName('forma_pagamento_custas')[0].value);
+                //alert("valor_pago_custas')[0].value = " + document.getElementsByName('valor_pago_custas')[0].value);
 
 
                 if (document.getElementsByName('forma_pagamento_custas')[0].value != "") {
@@ -992,11 +994,11 @@
                     }
                 }
 
-                alert("dta_pagamento')[0].value = " + document.getElementsByName('dta_pagamento')[0].value);
-                alert("uf_pagamento')[0].value = " + document.getElementsByName('uf_pagamento')[0].value);
-                alert("numero_miro_divida')[0].value = " + document.getElementsByName('numero_miro_divida')[0].value);
-                alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
-                alert("valor_debito_total_parc')[0].value = " + document.getElementsByName('valor_debito_total_parc')[0].value);
+                //alert("dta_pagamento')[0].value = " + document.getElementsByName('dta_pagamento')[0].value);
+                //alert("uf_pagamento')[0].value = " + document.getElementsByName('uf_pagamento')[0].value);
+                //alert("numero_miro_divida')[0].value = " + document.getElementsByName('numero_miro_divida')[0].value);
+                //alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
+                //alert("valor_debito_total_parc')[0].value = " + document.getElementsByName('valor_debito_total_parc')[0].value);
 
                 if (
                     document.getElementsByName('dta_pagamento')[0].value == "" ||

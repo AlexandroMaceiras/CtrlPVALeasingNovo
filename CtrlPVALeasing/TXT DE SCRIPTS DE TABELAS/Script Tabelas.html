@@ -63,6 +63,7 @@ CREATE TABLE dbo.Arm_Veiculos
 	)
 GO
 
+
 IF OBJECT_ID ('dbo.Tbl_Agencias') IS NOT NULL
 	DROP TABLE dbo.Tbl_Agencias
 GO
@@ -122,7 +123,6 @@ CREATE TABLE dbo.Tbl_DadosDaVenda
 	valor_da_compra    NUMERIC (18, 2) NULL
 	)
 GO
-
 IF OBJECT_ID ('dbo.Tbl_DebitosEPagamentos_Veiculo') IS NOT NULL
 	DROP TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
 GO
@@ -165,7 +165,8 @@ CREATE TABLE dbo.Tbl_DebitosEPagamentos_Veiculo
 	numero_miro_custa      VARCHAR (10) NULL,
 	pci_debito_custa       VARCHAR (15) NULL,
 	pci_credito            VARCHAR (15) NULL,
-	grupo_safra            VARCHAR (6) NULL
+	grupo_safra            VARCHAR (6) NULL,
+	dta_custas             DATETIME NULL
 	)
 GO
 

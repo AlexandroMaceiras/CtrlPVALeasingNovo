@@ -461,7 +461,7 @@ namespace CtrlPVALeasing.Controllers
                     //valor_pago_total         = x[23],
                     //valor_recuperado         = x[24],
                     //valor_total_recuperado   = x[25],
-                    //dta_pagamento_custas     = x[26],
+                    //dta_custas     = x[26],
                     //dta_recuperacao          = x[27],
                     //pci_debito_divida        = x[28],
                     //pci_debito_custa         = x[29],
@@ -499,7 +499,7 @@ namespace CtrlPVALeasing.Controllers
                     //valor_pago_total         = (a.valor_pago_total.Trim() == "" || a.valor_pago_total.Trim() == "null" || a.valor_pago_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_total)),
                     //valor_recuperado         = (a.valor_recuperado.Trim() == "" || a.valor_recuperado.Trim() == "null" || a.valor_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_recuperado)),
                     //valor_total_recuperado   = (a.valor_total_recuperado.Trim() == "" || a.valor_total_recuperado.Trim() == "null" || a.valor_total_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_total_recuperado)),
-                    //dta_pagamento_custas     = (a.dta_pagamento_custas.Trim() == "" || a.dta_pagamento_custas.Trim() == "null" || a.dta_pagamento_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento_custas)),
+                    //dta_custas     = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
                     //dta_recuperacao          = (a.dta_recuperacao.Trim() == "" || a.dta_recuperacao.Trim() == "null" || a.dta_recuperacao.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_recuperacao)),
                     //pci_debito_divida        = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
                     //pci_debito_custa         = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
@@ -870,7 +870,7 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
-            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
+            DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, string valor_pago_custas,
             string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto, decimal? valor_total_recuperado,
@@ -983,7 +983,7 @@ namespace CtrlPVALeasing.Controllers
                          divida_ativa_serasa = c.divida_ativa_serasa,
                          protesto_serasa = c.protesto_serasa,
                          valor_debito_total = c.valor_debito_total,
-                         dta_pagamento_custas = c.dta_pagamento_custas,
+                         dta_custas = c.dta_custas,
 
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
@@ -1063,7 +1063,7 @@ namespace CtrlPVALeasing.Controllers
                          divida_ativa_serasa = x.divida_ativa_serasa,
                          protesto_serasa = x.protesto_serasa,
                          valor_debito_total = x.valor_debito_total,
-                         dta_pagamento_custas = x.dta_pagamento_custas,
+                         dta_custas = x.dta_custas,
 
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
@@ -1201,7 +1201,7 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult EditarRegistroDebitoIPVAManual(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
-            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, string valor_divida,
+            DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, string valor_divida,
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, decimal? valor_pago_custas,
             decimal? valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
             string ano_exercicio, string valor_custas, bool? debito_protesto, decimal? valor_total_recuperado,
@@ -1317,7 +1317,7 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = c.protesto_serasa,
                          valor_debito_total_parc = c.valor_divida + c.valor_custas,
                          valor_debito_total = c.valor_debito_total,
-                         dta_pagamento_custas = c.dta_pagamento_custas,
+                         dta_custas = c.dta_custas,
 
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
@@ -1394,7 +1394,7 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = x.protesto_serasa,
                          valor_debito_total_parc = x.valor_divida + x.valor_custas,
                          valor_debito_total = x.valor_debito_total,
-                         dta_pagamento_custas = x.dta_pagamento_custas,
+                         dta_custas = x.dta_custas,
 
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
@@ -1451,7 +1451,7 @@ namespace CtrlPVALeasing.Controllers
 
                     if (procuraRegistro != null)
                     {
-                        procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
+                        procuraRegistro.dta_custas = dta_custas;
                         procuraRegistro.uf_cobranca = uf_cobranca;
                         procuraRegistro.tipo_cobranca = tipo_cobranca;
 
@@ -1465,7 +1465,7 @@ namespace CtrlPVALeasing.Controllers
 
                         procuraRegistro.divida_ativa_serasa = (divida_ativa_serasa == null ? false : true);
                         procuraRegistro.protesto_serasa = (protesto_serasa == null ? false : true);
-                        procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
+                        procuraRegistro.dta_custas = dta_custas;
                         procuraRegistro.valor_debito_total = (valor_divida_unmask.HasValue ? valor_divida_unmask : 0) + (valor_custas_unmask.HasValue ? valor_custas_unmask : 0);
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
@@ -1672,7 +1672,7 @@ namespace CtrlPVALeasing.Controllers
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult RegistroDebitoIPVAManual(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string rd,
-            DateTime? dta_cobranca, DateTime? dta_pagamento_custas, string uf_cobranca, string tipo_cobranca, string valor_divida, 
+            DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, string valor_divida, 
             string ano_exercicio, string cda, string valor_custas, bool? debito_protesto, 
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa)
         {
@@ -1761,43 +1761,42 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = a.comp_end_cliente,
                             status                  = a.status,
 
-                            contrato_v = b.contrato,
-                            tipo_registro = b.tipo_registro,
-                            marca = b.marca,
-                            modelo = b.modelo,
-                            tipo_v = b.tipo,
-                            ano_fab = b.ano_fab,
-                            ano_mod = b.ano_mod,
-                            cor = b.cor,
-                            renavam = b.renavam,
-                            chassi = b.chassi,
-                            placa = b.placa,
-                            origem_v = b.origem,
+                            contrato_v      = b.contrato,
+                            tipo_registro   = b.tipo_registro,
+                            marca           = b.marca,
+                            modelo          = b.modelo,
+                            tipo_v          = b.tipo,
+                            ano_fab         = b.ano_fab,
+                            ano_mod         = b.ano_mod,
+                            cor             = b.cor,
+                            renavam         = b.renavam,
+                            chassi          = b.chassi,
+                            placa           = b.placa,
+                            origem_v        = b.origem,
 
-                            id_debito = (c.id != null ? c.id : 0), //Isto é necessário apesar de aqui aparecer que não é. Sem isto, veículos sem débitos causam erro por vir null e não aparecem os dados dele.
-                            dta_cobranca = c.dta_cobranca,
-                            uf_cobranca = c.uf_cobranca,
-                            uf_pagamento = c.uf_pagamento,
-                            tipo_cobranca = c.tipo_cobranca,
-                            valor_divida = c.valor_divida,
-                            ano_exercicio = c.ano_exercicio,
-                            cda = c.cda,
-                            valor_custas = c.valor_custas,
-                            pagamento_efet_banco = c.pagamento_efet_banco,
-                            valor_recuperado = c.valor_recuperado,
-                            valor_total_recuperado = c.valor_total_recuperado,
-                            debito_protesto = c.debito_protesto,
-                            nome_cartorio = c.nome_cartorio,
-                            divida_ativa_serasa = c.divida_ativa_serasa,
-                            protesto_serasa = c.protesto_serasa,
+                            id_debito               = (c.id != null ? c.id : 0), //Isto é necessário apesar de aqui aparecer que não é. Sem isto, veículos sem débitos causam erro por vir null e não aparecem os dados dele.
+                            dta_cobranca            = c.dta_cobranca,
+                            uf_cobranca             = c.uf_cobranca,
+                            uf_pagamento            = c.uf_pagamento,
+                            tipo_cobranca           = c.tipo_cobranca,
+                            valor_divida            = c.valor_divida,
+                            ano_exercicio           = c.ano_exercicio,
+                            cda                     = c.cda,
+                            valor_custas            = c.valor_custas,
+                            pagamento_efet_banco    = c.pagamento_efet_banco,
+                            valor_recuperado        = c.valor_recuperado,
+                            valor_total_recuperado  = c.valor_total_recuperado,
+                            debito_protesto         = c.debito_protesto,
+                            nome_cartorio           = c.nome_cartorio,
+                            divida_ativa_serasa     = c.divida_ativa_serasa,
+                            protesto_serasa         = c.protesto_serasa,
                             valor_debito_total_parc = c.valor_divida + c.valor_custas,
-                            valor_debito_total = c.valor_debito_total,
+                            valor_debito_total      = c.valor_debito_total,
+                            dta_custas              = c.dta_custas,
 
-                            dta_pagamento_custas = c.dta_pagamento_custas,
-
-                            renavam_bens = d.renavam,
-                            chassi_bens = d.chassi,
-                            placa_bens = d.placa,
+                            renavam_bens    = d.renavam,
+                            chassi_bens     = d.chassi,
+                            placa_bens      = d.placa,
 
                             comVenda = e.comVenda
 
@@ -1831,42 +1830,42 @@ namespace CtrlPVALeasing.Controllers
                             comp_end_cliente        = x.comp_end_cliente,
                             status                  = x.status,
 
-                            contrato_v = x.contrato_v,
-                            tipo_registro = x.tipo_registro,
-                            marca = x.marca,
-                            modelo = x.modelo,
-                            tipo_v = x.tipo_v,
-                            ano_fab = x.ano_fab,
-                            ano_mod = x.ano_mod,
-                            cor = x.cor,
-                            renavam = x.renavam,
-                            chassi = x.chassi,
-                            placa = x.placa,
-                            origem_v = x.origem_v,
+                            contrato_v      = x.contrato_v,
+                            tipo_registro   = x.tipo_registro,
+                            marca           = x.marca,
+                            modelo          = x.modelo,
+                            tipo_v          = x.tipo_v,
+                            ano_fab         = x.ano_fab,
+                            ano_mod         = x.ano_mod,
+                            cor             = x.cor,
+                            renavam         = x.renavam,
+                            chassi          = x.chassi,
+                            placa           = x.placa,
+                            origem_v        = x.origem_v,
 
-                            id_debito = x.id_debito, 
-                            dta_cobranca = x.dta_cobranca,
-                            uf_cobranca = x.uf_cobranca,
-                            uf_pagamento = x.uf_pagamento,
-                            tipo_cobranca = x.tipo_cobranca,
-                            valor_divida = x.valor_divida,
-                            ano_exercicio = x.ano_exercicio,
-                            cda = x.cda,
-                            valor_custas = x.valor_custas,
-                            pagamento_efet_banco = x.pagamento_efet_banco,
-                            valor_recuperado = x.valor_recuperado,
-                            valor_total_recuperado = x.valor_total_recuperado,
-                            debito_protesto = x.debito_protesto,
-                            nome_cartorio = x.nome_cartorio,
-                            divida_ativa_serasa = x.divida_ativa_serasa,
-                            protesto_serasa = x.protesto_serasa,
+                            id_debito               = x.id_debito, 
+                            dta_cobranca            = x.dta_cobranca,
+                            uf_cobranca             = x.uf_cobranca,
+                            uf_pagamento            = x.uf_pagamento,
+                            tipo_cobranca           = x.tipo_cobranca,
+                            valor_divida            = x.valor_divida,
+                            ano_exercicio           = x.ano_exercicio,
+                            cda                     = x.cda,
+                            valor_custas            = x.valor_custas,
+                            pagamento_efet_banco    = x.pagamento_efet_banco,
+                            valor_recuperado        = x.valor_recuperado,
+                            valor_total_recuperado  = x.valor_total_recuperado,
+                            debito_protesto         = x.debito_protesto,
+                            nome_cartorio           = x.nome_cartorio,
+                            divida_ativa_serasa     = x.divida_ativa_serasa,
+                            protesto_serasa         = x.protesto_serasa,
                             valor_debito_total_parc = x.valor_divida + x.valor_custas,
-                            valor_debito_total = x.valor_debito_total,
-                            dta_pagamento_custas = x.dta_pagamento_custas,
+                            valor_debito_total      = x.valor_debito_total,
+                            dta_custas              = x.dta_custas,
 
-                            renavam_bens = x.renavam_bens,
-                            chassi_bens = x.chassi_bens,
-                            placa_bens = x.placa_bens,
+                            renavam_bens    = x.renavam_bens,
+                            chassi_bens     = x.chassi_bens,
+                            placa_bens      = x.placa_bens,
 
                             comVenda = x.comVenda
 
@@ -1902,7 +1901,7 @@ namespace CtrlPVALeasing.Controllers
                     .Where(c => c.chassi == chassiPesquisado || c.renavam == renavamPesquisado || c.placa == placaPesquisada)
                     .Where(c => c.cda == cda)
                     .Where(c => DbFunctions.TruncateTime(c.dta_cobranca) == dta_cobranca)
-                    .Where(c => DbFunctions.TruncateTime(c.dta_pagamento_custas) == dta_pagamento_custas)
+                    .Where(c => DbFunctions.TruncateTime(c.dta_custas) == dta_custas)
                     .Where(c => c.valor_divida == valor_divida_unmask)
                     .Where(c => c.valor_custas == valor_custas_unmask)
                     .Where(c => c.valor_debito_total == valor_divida_unmask + valor_custas_unmask)
@@ -1925,7 +1924,7 @@ namespace CtrlPVALeasing.Controllers
                         renavam                 = renavamPesquisado,
                         placa                   = placaPesquisada,
                         dta_cobranca            = dta_cobranca,
-                        dta_pagamento_custas    = dta_pagamento_custas,
+                        dta_custas    = dta_custas,
                         uf_cobranca             = uf_cobranca,
                         tipo_cobranca           = tipo_cobranca,
                         valor_divida            = valor_divida_unmask,

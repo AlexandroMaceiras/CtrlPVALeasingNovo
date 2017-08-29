@@ -389,8 +389,8 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    @*<input class="input-sm-fino" value="@(Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : "")" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />*@
-                                    <input id="dta_pagamento_custas" class="input-sm-fino" value="" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" />
+                                    @*<input class="input-sm-fino" value="@(Request["dta_custas"] != null ? Request["dta_custas"] : "")" type="text" name="dta_custas" size="20" style="text-transform:uppercase" />*@
+                                    <input id="dta_custas" class="input-sm-fino" value="" type="text" name="dta_custas" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -618,11 +618,12 @@
             document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
             document.getElementById("cda").setAttribute("disabled", "disabled");
             document.getElementById("valor_custas").setAttribute("disabled", "disabled");
+            document.getElementById("valor_custas").value = "";
             document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
             document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
             //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
             //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-            document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+            document.getElementById("dta_custas").setAttribute("disabled", "disabled");
 
             $("#vdt").change(function () {
                 if (document.getElementById("vdt") != null)
@@ -632,13 +633,19 @@
                         document.getElementById("valor_divida").removeAttribute('disabled');
                         document.getElementById("ano_exercicio").removeAttribute('disabled');
                         document.getElementById("cda").setAttribute("disabled", "disabled");
-                        document.getElementById("valor_custas").removeAttribute('disabled');
+                        document.getElementById("valor_custas").setAttribute("disabled", "disabled");
                         document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
                         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
                         //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
                         //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                        document.getElementById("dta_custas").setAttribute("disabled", "disabled");
                         document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+
+                        document.getElementById("cda").value = null;
+                        document.getElementById("valor_custas").value = null;
+                        document.getElementById("debito_protesto").checked = false;
+                        document.getElementById("nome_cartorio").value = null;
+                        document.getElementById("dta_custas").value = null;
                     }
                     else if (document.getElementById("vdt").value == 'D') {
                         document.getElementById("dta_cobranca").removeAttribute('disabled');
@@ -646,13 +653,15 @@
                         document.getElementById("valor_divida").removeAttribute('disabled');
                         document.getElementById("ano_exercicio").removeAttribute('disabled');
                         document.getElementById("cda").removeAttribute('disabled');
-                        document.getElementById("valor_custas").setAttribute("disabled", "disabled");
-                        document.getElementById("debito_protesto").setAttribute("disabled", "disabled");
-                        document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
+                        document.getElementById("valor_custas").removeAttribute('disabled');
+                        document.getElementById("debito_protesto").removeAttribute('disabled');
+                        document.getElementById("nome_cartorio").removeAttribute('disabled');
                         //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
                         //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                        document.getElementById("dta_custas").removeAttribute('disabled');
                         document.getElementById("valor_debito_total_parc").value = document.getElementById("valor_divida").valor;
+
+                        //document.getElementById("dta_custas").value = null;
                     }
                     else if (document.getElementById("vdt").value == 'U') {
                         document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
@@ -665,8 +674,14 @@
                         document.getElementById("nome_cartorio").removeAttribute('disabled');
                         //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
                         //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("dta_pagamento_custas").removeAttribute('disabled');
+                        document.getElementById("dta_custas").removeAttribute('disabled');
                         document.getElementById("valor_debito_total_parc").value = "";
+
+                        document.getElementById("dta_cobranca").value = null;
+                        document.getElementById("uf_cobranca").value = '';
+                        document.getElementById("valor_divida").value = null;
+                        document.getElementById("ano_exercicio").value = null;
+                        document.getElementById("cda").value = null;
                     }
                     else {
                         document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
@@ -679,7 +694,19 @@
                         document.getElementById("nome_cartorio").setAttribute("disabled", "disabled");
                         //document.getElementById("divida_ativa_serasa").setAttribute("disabled", "disabled");
                         //document.getElementById("protesto_serasa").setAttribute("disabled", "disabled");
-                        document.getElementById("dta_pagamento_custas").setAttribute("disabled", "disabled");
+                        document.getElementById("dta_custas").setAttribute("disabled", "disabled");
+
+                        document.getElementById("cda").value = null;
+                        document.getElementById("valor_custas").value = null;
+                        document.getElementById("debito_protesto").checked = false;
+                        document.getElementById("nome_cartorio").value = null;
+                        document.getElementById("dta_custas").value = null;
+                        document.getElementById("dta_cobranca").value = null;
+                        document.getElementById("uf_cobranca").value = '';
+                        document.getElementById("valor_divida").value = null;
+                        document.getElementById("ano_exercicio").value = null;
+                        document.getElementById("divida_ativa_serasa").checked = false;
+                        document.getElementById("protesto_serasa").checked = false;
                     }
 
             });
@@ -774,7 +801,7 @@
                 ((document.getElementById('vdt').value == "U") &&
                 (document.getElementsByName('debito_protesto')[0].value == "" ||
                 document.getElementsByName('nome_cartorio')[0].value == "" ||
-                document.getElementsByName('dta_pagamento_custas')[0].value == ""))
+                document.getElementsByName('dta_custas')[0].value == ""))
                 ||
                 ((document.getElementById('vdt').value == ""))
                 ) {
@@ -819,7 +846,7 @@
             //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
             //$("#cep").inputmask("mask", { "mask": "99999-999" });
             $("#dta_cobranca").inputmask("mask", { "mask": "99/99/9999" });
-            $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
+            $("#dta_custas").inputmask("mask", { "mask": "99/99/9999" });
             //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
             //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
             //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
