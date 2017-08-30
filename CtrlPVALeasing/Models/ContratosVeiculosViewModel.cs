@@ -239,6 +239,8 @@ namespace CtrlPVALeasing.Models
 
         public DateTime? dta_custas { get; set; }
 
+        [StringLength(1)]
+        public string status_recuperacao { get; set; }
 
 
 

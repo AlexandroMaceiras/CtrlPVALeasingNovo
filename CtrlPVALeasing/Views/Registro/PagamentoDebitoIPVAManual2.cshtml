@@ -46,10 +46,10 @@
         ViewBag.Title = "Pagamento Débito de IPVA";
     }
 
-        
+
 }
 
-@using (Html.BeginForm("PagamentoDebitoIPVAManual2", "Registro", FormMethod.Post, new { id = "FormAltera"}))
+@using (Html.BeginForm("PagamentoDebitoIPVAManual2", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
     <div class="jumbotronFundo">
@@ -71,8 +71,16 @@
                 }
                     <th class="busca" width="18%" align="right">
                         <br />
+                @{
+                    if (Request["deb"] == "true")
+                    {
+                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { id_debito = @MF.id_debito, chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
+                    }
+                    else
+                    {
                         @Html.ActionLink("VOLTAR", "PagamentoDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
-                        @*<a href="JavaScript: history.go(-1);" class="btn2 btn-primary-pesqui .btn-sm">VOLTAR</a>*@
+                    }
+                }
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -347,10 +355,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null ? Request["dta_custas"] : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -450,10 +458,10 @@
                                         @{
                                             string[,] strg3 = new string[5, 2] {
                                                     {"", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
-                                                    {"1", "<option class='input-sm-ultra-fino' value='10'>BANCO SAFRA</option>"},
-                                                    {"2", "<option class='input-sm-ultra-fino' value='20'>BANCO J. SAFRA</option>"},
-                                                    {"3", "<option class='input-sm-ultra-fino' value='30'>SAFRA LEASING</option>"},
-                                                    {"4", "<option class='input-sm-ultra-fino' value='40'>JS ADM RECURSOS</option>"},
+                                                    {"10", "<option class='input-sm-ultra-fino' value='10'>BANCO SAFRA</option>"},
+                                                    {"20", "<option class='input-sm-ultra-fino' value='20'>BANCO J. SAFRA</option>"},
+                                                    {"30", "<option class='input-sm-ultra-fino' value='30'>SAFRA LEASING</option>"},
+                                                    {"40", "<option class='input-sm-ultra-fino' value='40'>JS ADM RECURSOS</option>"},
                                                 };
 
                                             var c3 = Request["grupo_safra"] != null ? Request["grupo_safra"] : MF.grupo_safra;
@@ -537,7 +545,31 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input maxlength="15" class="input-sm-fino" value="@(MF.pci_debito_divida != "" ? MF.pci_debito_divida : (Request["pci_debito_divida"] != null ? Request["pci_debito_divida"] : ""))" type="text" name="pci_debito_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <select name="pci_debito_divida" id="pci_debito_divida" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
+                                        @{
+                                            string[,] strgtc3 = new string[4, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"8176900036", "<option class='input-sm-ultra-fino' value='8176900036'>8176900036</option>"},
+                                                {"8179900038", "<option class='input-sm-ultra-fino' value='8179900038'>8179900038</option>"},
+                                                {"8176900029", "<option class='input-sm-ultra-fino' value='8176900029'>8176900029</option>"},
+                                            };
+
+                                            var m3 = Request["pci_debito_divida"] != null ? Request["pci_debito_divida"] : MF.pci_debito_divida;
+                                            var saidam3 = "";
+                                            for (int x = 0; x <= 3; x++)
+                                            {
+                                                if (strgtc3[x, 0] == m3)
+                                                {
+                                                    saidam3 += strgtc3[x, 1].Substring(0, 7) + " selected " + strgtc3[x, 1].Substring(7, strgtc3[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam3 += strgtc3[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam3)
+                                    </select>
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -606,8 +638,33 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input maxlength="15" class="input-sm-fino" value="@(MF.pci_debito_custa != "" ? MF.pci_debito_custa : (Request["pci_debito_custa"] != null ? Request["pci_debito_custa"] : ""))" type="text" name="pci_debito_custa" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <select name="pci_debito_custa" id="pci_debito_custa" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
+                                        @{
+                                            string[,] strgtc4 = new string[4, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"8176900036", "<option class='input-sm-ultra-fino' value='8176900036'>8176900036</option>"},
+                                                {"8179900038", "<option class='input-sm-ultra-fino' value='8179900038'>8179900038</option>"},
+                                                {"8176900029", "<option class='input-sm-ultra-fino' value='8176900029'>8176900029</option>"},
+                                            };
+
+                                            var m4 = Request["pci_debito_custa"] != null ? Request["pci_debito_custa"] : MF.pci_debito_custa;
+                                            var saidam4 = "";
+                                            for (int x = 0; x <= 3; x++)
+                                            {
+                                                if (strgtc4[x, 0] == m4)
+                                                {
+                                                    saidam4 += strgtc4[x, 1].Substring(0, 7) + " selected " + strgtc4[x, 1].Substring(7, strgtc4[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam4 += strgtc4[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam4)
+                                    </select>
                                 </td>
+
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
@@ -640,7 +697,7 @@
                                 <td align="right">
                                     <div id="Detalhes">
                                     <!-- É para o botão desaparecer durante o flash de tela e o usuário não poder reapertar -->
-                                    @if(Request["transicao1"] != "true")
+                                    @if((Request["transicao1"] != "true") || (Request["deb"] == "true"))
                                     {
                                         if (MF.contrato != "" && MF.contrato != null)
                                         {
@@ -735,7 +792,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Recuperação:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_recuperacao.HasValue ? MF.dta_recuperacao.ToString().Substring(0, 10) : (Request["dta_recuperacao"] != null ? Request["dta_recuperacao"] : ""))" type="text" name="dta_recuperacao" size="10" style="text-transform:uppercase" />
+                                    <input id="dta_recuperacao" class="input-sm-fino" value="@(MF.dta_recuperacao.HasValue ? MF.dta_recuperacao.ToString().Substring(0, 10) : (Request["dta_recuperacao"] != null ? Request["dta_recuperacao"] : ""))" type="text" name="dta_recuperacao" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -744,7 +801,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.valor_total_recuperado.HasValue ? MF.valor_total_recuperado.ToString() : (Request["valor_total_recuperado"] != null ? Request["valor_total_recuperado"] : ""))" type="text" name="valor_total_recuperado" size="10" style="text-transform:uppercase" />
+                                    <input id="valor_total_recuperado" class="input-sm-fino" value="@(MF.valor_total_recuperado.HasValue ? MF.valor_total_recuperado.ToString() : (Request["valor_total_recuperado"] != null ? Request["valor_total_recuperado"] : ""))" type="text" name="valor_total_recuperado" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -753,11 +810,44 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI de Crédito: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.pci_credito != "" ? MF.pci_credito : (Request["pci_credito"] != null ? Request["pci_credito"] : ""))" type="text" name="pci_credito" size="10" style="text-transform:uppercase" />
+                                    <input id="pci_credito" maxlength="15" class="input-sm-fino" value="@(MF.pci_credito != "" ? MF.pci_credito : (Request["pci_credito"] != null ? Request["pci_credito"] : ""))" type="text" name="pci_credito" size="15" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Status: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select name="status_recuperacao" id="status_recuperacao" class="input-sm-ultra-fino2"  >
+                                        @{
+                                            string[,] strgtc5 = new string[3, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"IRRECUPERÁVEL", "<option class='input-sm-ultra-fino' value='IRRECUPERÁVEL'>IRRECUPERÁVEL</option>"},
+                                                {"FINALIZADO", "<option class='input-sm-ultra-fino' value='FINALIZADO'>FINALIZADO</option>"},
+                                            };
+
+                                            var m5 = Request["status_recuperacao"] != null ? Request["status_recuperacao"] : MF.status_recuperacao;
+                                            var saidam5 = "";
+                                            for (int x = 0; x <= 2; x++)
+                                            {
+                                                if (strgtc5[x, 0] == m5)
+                                                {
+                                                    saidam5 += strgtc5[x, 1].Substring(0, 7) + " selected " + strgtc5[x, 1].Substring(7, strgtc5[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam5 += strgtc5[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam5)
+
+                                    </select>
                                 </td>
                             </tr>
                         </table>
-
+                        <br />
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td width="90%"></td>
@@ -1036,6 +1126,7 @@
             //$("#cep").inputmask("mask", { "mask": "99999-999" });
             $("#dta_pagamento").inputmask("mask", { "mask": "99/99/9999" });
             $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
+            $("#dta_recuperacao").inputmask("mask", { "mask": "99/99/9999" });            
             //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
             //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
             //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
@@ -1082,6 +1173,21 @@
                 return value;
             }
         });
+
+        $("#valor_total_recuperado").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        
 
         $("#msgOk").on("hidden.bs.modal", function () {
             history.go(-1);

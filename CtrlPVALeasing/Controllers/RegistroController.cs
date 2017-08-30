@@ -869,14 +869,14 @@ namespace CtrlPVALeasing.Controllers
         }
 
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
-            bool? pagamento_efet_banco, DateTime? dta_pagamento, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
+            bool? pagamento_efet_banco, DateTime? dta_pagamento, DateTime? dta_pagamento_custas, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, string valor_pago_custas,
             string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
-            string ano_exercicio, decimal? valor_custas, bool? debito_protesto, decimal? valor_total_recuperado,
+            string ano_exercicio, decimal? valor_custas, bool? debito_protesto, string valor_total_recuperado,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
         {
-            decimal? valor_pago_divida_unmask = null, valor_pago_custas_unmask = null;
+            decimal? valor_pago_divida_unmask = null, valor_pago_custas_unmask = null, valor_total_recuperado_unmask = null;
             if (valor_divida != null)
             {
                 try
@@ -894,6 +894,13 @@ namespace CtrlPVALeasing.Controllers
                 }
                 catch { }
             }
+
+            try
+            {
+                valor_total_recuperado_unmask = Convert.ToDecimal((valor_total_recuperado.Trim()));
+            }
+            catch { }
+
 
             if (chassi == null)
                 chassi = "";
@@ -984,6 +991,8 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = c.protesto_serasa,
                          valor_debito_total = c.valor_debito_total,
                          dta_custas = c.dta_custas,
+                         dta_pagamento_custas = c.dta_pagamento_custas,
+                         status_recuperacao = c.status_recuperacao,
 
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
@@ -1064,6 +1073,8 @@ namespace CtrlPVALeasing.Controllers
                          protesto_serasa = x.protesto_serasa,
                          valor_debito_total = x.valor_debito_total,
                          dta_custas = x.dta_custas,
+                         dta_pagamento_custas = x.dta_pagamento_custas,
+                         status_recuperacao = x.status_recuperacao,
 
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
@@ -1137,13 +1148,14 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.pci_debito_custa = pci_debito_custa;
                         procuraRegistro.numero_miro_custa = numero_miro_custa;
 
+                        procuraRegistro.dta_pagamento_custas = dta_pagamento_custas;
                         procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
                         procuraRegistro.valor_pago_custas = valor_pago_custas_unmask;
                         procuraRegistro.obs_pagamento = obs_pagamento;
 
                         procuraRegistro.pci_credito = pci_credito;
                         procuraRegistro.dta_recuperacao = dta_recuperacao;
-                        procuraRegistro.valor_total_recuperado = valor_total_recuperado;
+                        procuraRegistro.valor_total_recuperado = valor_total_recuperado_unmask;
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
@@ -1171,13 +1183,14 @@ namespace CtrlPVALeasing.Controllers
                             pci_debito_custa = pci_debito_custa,
                             numero_miro_custa = numero_miro_custa,
 
+                            dta_pagamento_custas = dta_pagamento_custas,
                             forma_pagamento_custas = forma_pagamento_custas,
                             valor_pago_custas = valor_pago_custas_unmask,
                             obs_pagamento = obs_pagamento,
 
                             pci_credito = pci_credito,
                             dta_recuperacao = dta_recuperacao,
-                            valor_total_recuperado = valor_total_recuperado
+                            valor_total_recuperado = valor_total_recuperado_unmask
 
                     };
 

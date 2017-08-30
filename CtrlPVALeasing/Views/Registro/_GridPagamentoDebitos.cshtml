@@ -32,23 +32,10 @@
                     </th>
                     <th class="input-sm-fino" align="center">
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data de Pagamento Custas</div>
-                    </th>
-
-
-
-                    
-
-
-
-
-
+                    </th>               
                     <th class="input-sm-fino" align="center">
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Valor Recuperado</div>
-                    </th>
-
-
-
-                    
+                    </th>                                       
                     <th class="input-sm-fino" align="center">
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Pagamento</div>
                     </th>
@@ -95,17 +82,9 @@
                                 <td class="input-sm-fino" align="right">
                                     @Html.DisplayFor(modelItem => item.dta_pagamento_custas)
                                 </td>
-
-
-
-
                                 <td class="input-sm-fino" align="right" id="valor_total_recuperado@(contadorInterno)">
                                     @Html.DisplayFor(modelItem => item.valor_total_recuperado)
                                 </td>
-
-
-
-
                                 <td class="input-sm-fino" align="right">
                                     @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
                                 </td>

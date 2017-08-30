@@ -468,8 +468,7 @@
                             <tr>
                                 <td class="input-sm-fino">&nbsp;</td>
                             </tr>
-                            <tr>    
-                                @*GRID PARALISADO !!!!!!!!!!!!!!!!*@
+                            <tr>
                                 @if (Model != null)
                                 {
                                     @Html.Partial("_GridEdicaoDebitos")
@@ -965,6 +964,10 @@
                     return value;
                 }
             });
+
+            $("#msgOk").on("hidden.bs.modal", function () {
+                $("#msgOk").modal();
+            });
         </script>
     }
 }
@@ -1162,7 +1165,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>*@
                 <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
@@ -1171,7 +1174,17 @@
                         <td><center><h4 style="color: rgb(176, 172, 186)">Registro de Debito Incluído com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
-                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                        @*<td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>*@
+                        <td>
+                            <center>
+                                <h4 style="color: rgb(176, 172, 186)">
+                                    Carregando...
+                                    </h4>
+                                    <img src="~/Imagens/loader.gif" />
+                            </center>
+                        </td>
+                        </center>
+                        </td>
                     </tr>
                 </table>
             </div>
