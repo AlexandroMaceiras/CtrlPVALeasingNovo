@@ -872,7 +872,7 @@ namespace CtrlPVALeasing.Controllers
             bool? pagamento_efet_banco, DateTime? dta_pagamento, DateTime? dta_pagamento_custas, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, string valor_pago_custas,
-            string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao,
+            string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao, string status_recuperacao,
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto, string valor_total_recuperado,
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
         {
@@ -1157,6 +1157,8 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.dta_recuperacao = dta_recuperacao;
                         procuraRegistro.valor_total_recuperado = valor_total_recuperado_unmask;
 
+                        procuraRegistro.status_recuperacao = status_recuperacao;
+
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
                         return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
@@ -1190,9 +1192,11 @@ namespace CtrlPVALeasing.Controllers
 
                             pci_credito = pci_credito,
                             dta_recuperacao = dta_recuperacao,
-                            valor_total_recuperado = valor_total_recuperado_unmask
+                            valor_total_recuperado = valor_total_recuperado_unmask,
 
-                    };
+                            status_recuperacao = status_recuperacao,
+
+                        };
 
                         if (db.Entry(model2).State == EntityState.Detached)
                         {

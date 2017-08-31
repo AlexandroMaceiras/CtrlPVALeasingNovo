@@ -194,6 +194,38 @@
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt" disabled="disabled">
+                                        @{
+                                            string[,] strgtc = new string[3, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
+                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                            };
+
+                                            var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
+                                            var saidam = "";
+                                            for (int x = 0; x <= 2; x++)
+                                            {
+                                                if (strgtc[x, 0] == m)
+                                                {
+                                                    saidam += strgtc[x, 1].Substring(0, 7) + " selected " + strgtc[x, 1].Substring(7, strgtc[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam += strgtc[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam)
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
@@ -254,38 +286,6 @@
                                             }
                                         }
                                         @Html.Raw(saida)
-                                    </select>
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt" disabled="disabled">
-                                        @{
-                                            string[,] strgtc = new string[3, 2] {
-                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
-                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
-                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
-                                            };
-
-                                            var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
-                                            var saidam = "";
-                                            for (int x = 0; x <= 2; x++)
-                                            {
-                                                if (strgtc[x, 0] == m)
-                                                {
-                                                    saidam += strgtc[x, 1].Substring(0, 7) + " selected " + strgtc[x, 1].Substring(7, strgtc[x, 1].Length - 7);
-                                                }
-                                                else
-                                                {
-                                                    saidam += strgtc[x, 1];
-                                                }
-                                            }
-                                        }
-                                        @Html.Raw(saidam)
                                     </select>
                                 </td>
                             </tr>
@@ -430,7 +430,8 @@
                                                 {"TO", "<option class='input-sm-ultra-fino' value='TO'>TO</option>"},
                                             };
 
-                                            var c2 = Request["uf_pagamento"] != null ? Request["uf_pagamento"] : MF.uf_pagamento;
+                                            //Aqui estamos herdando a uf da cobrança para facilitar o usuário a não precisar repetir isto aqui na hora de entrar com o pagamento.
+                                            var c2 = Request["uf_cobranca"] != null ? Request["uf_cobranca"] : MF.uf_cobranca;
                                             var saida2 = "";
                                             for (int x = 0; x <= 27; x++)
                                             {
@@ -527,8 +528,8 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
-                                    <input id="valor_pago_divida" class="input-sm-fino" value="@(MF.valor_pago_divida.HasValue ? MF.valor_pago_divida.ToString() : (Request["valor_pago_divida"] != null ? Request["valor_pago_divida"] : ""))" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                <td><!--Aqui estamos herdando o valor_divida da cobrança para facilitar o usuário a não precisar repetir isto aqui na hora de entrar com o pagamento.-->
+                                    <input id="valor_pago_divida" class="input-sm-fino" value="@(MF.valor_divida.HasValue ? MF.valor_divida.ToString() : (Request["valor_divida"] != null ? Request["valor_divida"] : ""))" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -620,8 +621,8 @@
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
-                                <td>
-                                    <input id="valor_pago_custas" class="input-sm-fino" value="@(MF.valor_pago_custas.HasValue ? MF.valor_pago_custas.ToString() : (Request["valor_pago_custas"] != null ? Request["valor_pago_custas"] : ""))" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                <td><!--Aqui estamos herdando o valor_custas da cobrança para facilitar o usuário a não precisar repetir isto aqui na hora de entrar com o pagamento.-->
+                                    <input id="valor_pago_custas" class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1400,7 +1401,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Recuperação</td></tr><tr><td> - Valor Total Recuperado</td></tr><tr><td> - PCI de Crédito<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                        <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Recuperação</td></tr><tr><td> - Valor Recuperado</td></tr><tr><td> - PCI de Crédito<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
