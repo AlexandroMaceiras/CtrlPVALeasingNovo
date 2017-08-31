@@ -463,6 +463,12 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td colspan="0">
+                                    @Html.Action("_valor_pago_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td colspan="0">
                                     @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
                                 </td>
                             </tr>
@@ -903,6 +909,22 @@
                 return value;
             }
         });
+
+        
+        $("#_valor_pago_total_por_veiculo").inputmask('decimal', {
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+
         $("#_valor_total_recuperado_por_veiculo").inputmask('decimal', {
             radixPoint: ",",
             groupSeparator: ".",

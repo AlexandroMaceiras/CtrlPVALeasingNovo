@@ -868,6 +868,57 @@ namespace CtrlPVALeasing.Controllers
             return PartialView(model);
         }
 
+        public ActionResult _valor_pago_total_por_veiculo(string chassi, string placa, string renavam)
+        {
+            if (chassi == null)
+                chassi = "";
+            if (placa == null)
+                placa = "";
+            if (renavam == null)
+                renavam = "";
+
+            if (chassi == "" && placa == "" && renavam == "")
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     where b.chassi.Contains(chassi)
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     //where a.status.Equals(1)
+                     group c by new { c.chassi, c.renavam, c.placa } into g
+                     select new
+                     {
+                         soma_valor_debito_total = g.Sum(c => c.valor_pago_divida + c.valor_pago_custas)
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         valor_debito_total = x.soma_valor_debito_total
+
+                     });
+
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaContrato");
+            }
+
+            if (model == null || model.Any() == false)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("ConsultaContrato");
+            }
+
+            return PartialView(model);
+        }
+
         public ActionResult PagamentoDebitoIPVAManual2(int id_debito, string chassi, string placa, string renavam,
             bool? pagamento_efet_banco, DateTime? dta_pagamento, DateTime? dta_pagamento_custas, string uf_pagamento, string grupo_safra, string pci_debito_divida, string pci_debito_custa, string cda, string rd,
             DateTime? dta_cobranca, DateTime? dta_custas, string uf_cobranca, string tipo_cobranca, decimal? valor_divida,

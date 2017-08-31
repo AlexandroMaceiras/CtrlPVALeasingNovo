@@ -399,6 +399,7 @@
     <Content Include="Views\Gerencial\PagamentoIPVAPorStatusContrato_ANTIGO.cshtml" />
     <Content Include="Views\Registro\RegistroContrato.cshtml" />
     <Content Include="Views\Registro\RegistroVeiculo.cshtml" />
+    <Content Include="Views\Registro\_valor_pago_total_por_veiculo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

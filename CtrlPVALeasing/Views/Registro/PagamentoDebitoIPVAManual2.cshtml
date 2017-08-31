@@ -55,7 +55,7 @@
     <div class="jumbotronFundo">
         <input type="hidden" name="rd" id="rd" value="false" />
         <center>
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
                 <tr>
                 @if (Request["Rc"] == "true")
                 {
@@ -69,8 +69,8 @@
                         <h2>PAGAMENTO DÉBITO DE IPVA</h2>
                     </th>
                 }
-                    <th class="busca" width="18%" align="right">
-                        <br />
+                <th class="busca" width="18%" align="right">
+                    <br />
                 @{
                     if (Request["deb"] == "true")
                     {
@@ -93,7 +93,7 @@
         <input type="hidden" id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : MF.placa)" type="text" name="placa" size="20" style="text-transform:uppercase">
 
         <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+            <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-style:inherit">
                 <tr>
                     <td>
                         <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
@@ -187,7 +187,7 @@
         </center>
         <br />
         <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+            <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-style:inherit">
                 <tr>
                     <td>
                         <b class="fonte-cinza-escuro">REGISTRO DE DÉBITO:</b>
