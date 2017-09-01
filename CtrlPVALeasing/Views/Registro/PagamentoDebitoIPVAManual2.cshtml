@@ -197,17 +197,18 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt" disabled="disabled">
+                                    <select class="input-sm-ultra-fino3" name="tipo_cobranca" id="vdt1" disabled="disabled">
                                         @{
-                                            string[,] strgtc = new string[3, 2] {
+                                            string[,] strgtc = new string[4, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
                                                 {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
                                                 {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
                                             };
 
                                             var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
                                             var saidam = "";
-                                            for (int x = 0; x <= 2; x++)
+                                            for (int x = 0; x <= 3; x++)
                                             {
                                                 if (strgtc[x, 0] == m)
                                                 {
@@ -488,7 +489,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Divida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="dta_pagamento" class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : (Request["dta_pagamento"] != null ? Request["dta_pagamento"] : ""))" type="text" name="dta_pagamento" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input id="dta_pagamento" class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : (Request["dta_pagamento"] != null ? Request["dta_pagamento"] : ""))" type="text" name="dta_pagamento" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -497,7 +498,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Forma de Pagto - Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select name="forma_pagamento_divida" id="vdt" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2") >
+                                    <select name="forma_pagamento_divida" id="vdt2" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2") >
                                         @{
                                             string[,] strgtc2 = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -529,7 +530,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td><!--Aqui estamos herdando o valor_divida da cobrança para facilitar o usuário a não precisar repetir isto aqui na hora de entrar com o pagamento.-->
-                                    <input id="valor_pago_divida" class="input-sm-fino" value="@(MF.valor_divida.HasValue ? MF.valor_divida.ToString() : (Request["valor_divida"] != null ? Request["valor_divida"] : ""))" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input id="valor_pago_divida" class="input-sm-fino" value="@(MF.valor_divida.HasValue ? MF.valor_divida.ToString() : (Request["valor_divida"] != null ? Request["valor_divida"] : ""))" type="text" name="valor_pago_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -538,7 +539,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_divida != "" || MF.numero_miro_divida != null ? MF.numero_miro_divida : (Request["numero_miro_divida"] != null ? Request["numero_miro_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_divida != "" || MF.numero_miro_divida != null ? MF.numero_miro_divida : (Request["numero_miro_divida"] != null ? Request["numero_miro_divida"] : ""))" type="text" name="numero_miro_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled'" : "") />
                                 </td>
                             </tr>
                             <tr>
@@ -546,7 +547,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Dívida: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select name="pci_debito_divida" id="pci_debito_divida" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
+                                    <select name="pci_debito_divida" id="pci_debito_divida" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
                                         @{
                                             string[,] strgtc3 = new string[4, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -581,7 +582,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Custa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="dta_pagamento_custas" class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input id="dta_pagamento_custas" class="input-sm-fino" value="@(MF.dta_pagamento_custas.HasValue ? MF.dta_pagamento_custas.ToString().Substring(0,10) : (Request["dta_pagamento_custas"] != null ? Request["dta_pagamento_custas"] : ""))" type="text" name="dta_pagamento_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C") ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -590,7 +591,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Forma de Pagto - Custas: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select name="forma_pagamento_custas" id="vdt" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2") >
+                                    <select name="forma_pagamento_custas" id="vdt3" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C")  ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2") >
                                         @{
                                             string[,] strgtc1 = new string[3, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -622,7 +623,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Valor de Pagto - Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td><!--Aqui estamos herdando o valor_custas da cobrança para facilitar o usuário a não precisar repetir isto aqui na hora de entrar com o pagamento.-->
-                                    <input id="valor_pago_custas" class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input id="valor_pago_custas" class="input-sm-fino" value="@(MF.valor_custas != null ? MF.valor_custas.ToString() : (Request["valor_custas"] != null ? Request["valor_custas"] :""))" type="text" name="valor_pago_custas" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C")  ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -631,7 +632,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_custa != "" ? MF.numero_miro_custa : (Request["numero_miro_custa"] != null ? Request["numero_miro_custa"] : ""))" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") />
+                                    <input maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_custa != "" ? MF.numero_miro_custa : (Request["numero_miro_custa"] != null ? Request["numero_miro_custa"] : ""))" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C")  ? "disabled='disabled'" : "") />
                                 </td>
                             </tr>
                             <tr>
@@ -639,7 +640,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">PCI Débito Custa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <select name="pci_debito_custa" id="pci_debito_custa" @(Request["Rc"] == "true" ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
+                                    <select name="pci_debito_custa" id="pci_debito_custa" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C") ? "disabled='disabled' class=input-sm-ultra-fino3 " : "class=input-sm-ultra-fino2")>
                                         @{
                                             string[,] strgtc4 = new string[4, 2] {
                                                 {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
@@ -1120,6 +1121,32 @@
         catch (e) {
             alert(e);
         }
+        
+        try {
+
+            $("select#vdt2").change(function () {
+                if ($("select#vdt2").val().toString() == "")
+                    $("select#pci_debito_divida").val("").change();
+                if ($("select#vdt2").val().toString() == "SAP")
+                    $("select#pci_debito_divida").val("8176900036").change();
+                if ($("select#vdt2").val().toString() == "PAG SAFRA")
+                    $("select#pci_debito_divida").val("8176900029").change();
+            });
+
+            $("select#vdt3").change(function () {
+                if ($("select#vdt3").val().toString() == "")
+                    $("select#pci_debito_custa").val("").change();
+                if ($("select#vdt3").val().toString() == "SAP")
+                    $("select#pci_debito_custa").val("8179900038").change();
+                if ($("select#vdt3").val().toString() == "PAG SAFRA")
+                    $("select#pci_debito_custa").val("8176900029").change();
+            });
+
+        }
+        catch (e) {
+            alert("Erro:" + e);
+        }
+
 
         $(document).ready(function () {
             //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });

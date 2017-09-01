@@ -400,6 +400,7 @@
     <Content Include="Views\Registro\RegistroContrato.cshtml" />
     <Content Include="Views\Registro\RegistroVeiculo.cshtml" />
     <Content Include="Views\Registro\_valor_pago_total_por_veiculo.cshtml" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\Todas Tabelas Com poucos dados.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
