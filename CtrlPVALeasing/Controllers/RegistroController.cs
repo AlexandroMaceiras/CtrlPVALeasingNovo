@@ -1647,6 +1647,9 @@ namespace CtrlPVALeasing.Controllers
                          valor_recuperado = c.valor_recuperado,
                          valor_total_recuperado = c.valor_total_recuperado,
                          divida_ativa_serasa = c.divida_ativa_serasa,
+                         dta_pagamento_custas = c.dta_pagamento_custas,
+                         dta_pagamento = c.dta_pagamento,
+                         dta_pagamento_divida = c.dta_pagamento_divida,
 
                          renavam_bens = d.renavam,
                          chassi_bens = d.chassi,
@@ -1708,6 +1711,9 @@ namespace CtrlPVALeasing.Controllers
                          valor_recuperado = x.valor_recuperado,
                          valor_total_recuperado = x.valor_total_recuperado,
                          divida_ativa_serasa = x.divida_ativa_serasa,
+                         dta_pagamento_custas = x.dta_pagamento_custas,
+                         dta_pagamento = x.dta_pagamento,
+                         dta_pagamento_divida = x.dta_pagamento_divida,
 
                          renavam_bens = x.renavam_bens,
                          chassi_bens = x.chassi_bens,
@@ -1753,6 +1759,10 @@ namespace CtrlPVALeasing.Controllers
                 }
                 catch { }
             }
+            else
+            {
+                valor_divida_unmask = 0;
+            }
 
             if (valor_custas != null)
             {
@@ -1761,6 +1771,10 @@ namespace CtrlPVALeasing.Controllers
                     valor_custas_unmask = Convert.ToDecimal((valor_custas.Trim()));
                 }
                 catch { }
+            }
+            else
+            {
+                valor_custas_unmask = 0;
             }
 
             if (chassi == null)

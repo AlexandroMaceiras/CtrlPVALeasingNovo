@@ -50,7 +50,7 @@
                                         <div class="fonte-cinza-claro fonte-tamanho-form">Data de Início do Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                     </td>
                                     <td>
-                                        <input class="input-sm-fino" type="text" name="dataInicio" />
+                                        <input size="12" class="input-sm-fino" type="text" name="dataInicio" id="dataInicio" />
                                     </td>
                                     <td>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -59,7 +59,7 @@
                                         <div class="fonte-cinza-claro fonte-tamanho-form">Data de Fim do Pagamento:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                     </td>
                                     <td>
-                                        <input class="input-sm-fino" type="text" name="dataFim" />
+                                        <input size="12" class="input-sm-fino" type="text" name="dataFim" id="dataFim" />
                                     </td>
                                     <td>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,6 +136,12 @@
     {
         alert(e);
     }
+
+    $(document).ready(function () {
+        $("#dataInicio").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dataFim").inputmask("mask", { "mask": "99/99/9999" });
+    });
+
 </script>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">

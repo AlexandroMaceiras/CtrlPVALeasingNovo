@@ -54,7 +54,7 @@
                                     @contadorInterno
                                 </td>
                                 <td class="input-sm-fino" align="center">
-                                   @(item.dta_pagamento_divida.HasValue ? item.dta_pagamento_divida.ToString().Substring(0,10) : "")
+                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
                                 </td>
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.uf_cobranca)

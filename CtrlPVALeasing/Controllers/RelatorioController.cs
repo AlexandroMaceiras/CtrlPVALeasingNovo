@@ -40,8 +40,11 @@ namespace CtrlPVALeasing.Controllers
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     into j1
+                     from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
                      where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
@@ -140,17 +143,22 @@ namespace CtrlPVALeasing.Controllers
                      on a.contrato equals b.contrato
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j0
+                     from d in j0.DefaultIfEmpty()
+
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     into j1
+                     from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
-                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
-                     //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                     where (d.chassi == null || d.renavam == null || d.placa == null)
 
                      where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
-                     where e.marca.Equals("JUR")
+                     where (e.marca.Equals("JUR") || e.marca == null)
 
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
@@ -247,6 +255,7 @@ namespace CtrlPVALeasing.Controllers
                      on a.contrato equals b.contrato
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
 
@@ -256,11 +265,12 @@ namespace CtrlPVALeasing.Controllers
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
                      where c.pagamento_efet_banco == true
-
+                     
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
-
+                     
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
+                     
                      select new
                      {
                          contrato = a.contrato,
@@ -361,27 +371,28 @@ namespace CtrlPVALeasing.Controllers
                      join f in db.Tbl_SCC
                      on a.cpf_cnpj_cliente equals f.cpf_cnpj_cliente
 
-
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
-                     where c.pagamento_efet_banco == true
-
-                     where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
 
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
 
-                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
-                     //where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
+                     where (d.chassi == null || d.renavam == null || d.placa == null)
+
+                     where (c.pagamento_efet_banco == true || c.pagamento_efet_banco != null)
+
+                     where (!e.marca.Contains("JUR") || e.marca == null)
 
                      where (f.perm_debito == true)
 
                      where (f.sinal == "+")
 
                      where (f.saldo >= c.valor_debito_total)
+
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
 
                      select new
                      {
@@ -472,22 +483,28 @@ namespace CtrlPVALeasing.Controllers
                      on a.contrato equals b.contrato
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                      on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
-
-                     where c.pagamento_efet_banco == true
-
-                     //COMENTADO TEMPORÁRIAMENTE PARA TESTES
-                     //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                     into j1
+                     from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
+
+                     where (d.chassi == null || d.renavam == null || d.placa == null)
+
+                     where (c.pagamento_efet_banco == true || c.pagamento_efet_banco != null)
 
                      where e.marca.Equals("JUR")
 
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
+
                      select new
                      {
                          contrato = a.contrato,
@@ -529,27 +546,32 @@ namespace CtrlPVALeasing.Controllers
         private void ModelRelatorioParaIncorporacaoDeDividaRat()
         {
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                    join b in db.Arm_Veiculos
-                    on a.contrato equals b.contrato
-                    join c in db.Tbl_DebitosEPagamentos_Veiculo
-                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                    join d in db.Tbl_Bens
-                    on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                    join e in db.Tbl_CCL
-                    on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     join b in db.Arm_Veiculos
+                     on a.contrato equals b.contrato
+                     join c in db.Tbl_DebitosEPagamentos_Veiculo
+                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                    where c.pagamento_efet_banco == true
+                     join d in db.Tbl_Bens
+                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
-                    //COMENTADO TEMPORÁRIAMENTE PARA TESTES
-                    //where (d.chassi != c.chassi || d.renavam != c.renavam || d.placa != c.placa)
+                     join e in db.Tbl_CCL
+                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     into j1
+                     from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
-                    where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
+                     where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
 
-                    where e.marca != "JUR"
+                     where (d.chassi == null || d.renavam == null || d.placa == null)
 
-                    where a.origem.Equals("B")
-                    where !b.origem.Contains("RECIBO VEN")
-                    select new
+                     where (c.pagamento_efet_banco == true || c.pagamento_efet_banco != null)
+
+                     where e.marca != "JUR"
+
+                     where a.origem.Equals("B")
+                     where !b.origem.Contains("RECIBO VEN")
+                     select new
                     {
                         contrato = a.contrato,
                         status = a.status,
@@ -684,7 +706,8 @@ namespace CtrlPVALeasing.Controllers
 
                          c.dta_pagamento,
                          c.valor_divida,
-                         c.pci_debito_divida
+                         c.pci_debito_divida,
+                         c.dta_cobranca
 
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -698,7 +721,8 @@ namespace CtrlPVALeasing.Controllers
 
                          dta_pagamento      = x.dta_pagamento,
                          valor_divida       = x.valor_divida,
-                         pci_debito_divida  = x.pci_debito_divida
+                         pci_debito_divida  = x.pci_debito_divida,
+                         dta_cobranca       = x.dta_cobranca
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
@@ -707,7 +731,51 @@ namespace CtrlPVALeasing.Controllers
                 //Gera Resultado em CSV.
                 StringWriter sw = new StringWriter();
 
-                sw.WriteLine("Descrição(Chassi); Nº Contrato; Nome Empresa; Cód; Área Onde Ocorreu a Perda (Descrição Agência); Cód; Tipo do Evento - 1º Nível; Cód; Tipo do Evento - 2º Nível; Cód; Tipo do Evento - 3º Nível; Cód; Fator de Risco; Id Evento Perdas Raiz; Sistema Envolvido; Cód;Produto; Cód; Cód; Data da Descoberta; Tipo de Risco Vinculado; Área que Cadastrou a Perda; Cód; Segmento Comercial; Cód; Data Contábil; Valor; PCI / PCU");
+                string cabecalho = "";
+                cabecalho += "BO_LEASING" + "_" + dataInicio.ToString().Substring(6,4) + ";";
+                cabecalho += "Descrição;";
+                cabecalho += "No Contrato/Processo;";
+                cabecalho += "Nome Empresa;";
+                cabecalho += "Cód;";
+                cabecalho += "Área Onde Ocorreu a Perda;";
+                cabecalho += "Cód;";
+                cabecalho += "Tipo do Evento - 1º Nível;";
+                cabecalho += "Cód;";
+                cabecalho += "Tipo do Evento - 2º Nível;";
+                cabecalho += "Cód;";
+                cabecalho += "Tipo do Evento - 3º Nível;";
+                cabecalho += "Cód;";
+                cabecalho += "Fator de Risco;";
+                cabecalho += "Cód;";
+                cabecalho += "Subfator de Risco;";
+                cabecalho += "Cód;";
+                cabecalho += "Causa da Perda;";
+                cabecalho += "Id Evento Perdas Raiz;";
+                cabecalho += "Sistema Envolvido;";
+                cabecalho += "Cód;";
+                cabecalho += "Produto;";
+                cabecalho += "Cód;";
+                cabecalho += "Canal de Distribuição;";
+                cabecalho += "Cód;";
+                cabecalho += "Tipo de Evento;";
+                cabecalho += "Data de Incidente;";
+                cabecalho += "Data da Descoberta;";
+                cabecalho += "Tipo de Risco Vinculado;";
+                cabecalho += "Cód;";
+                cabecalho += "Área que Cadastrou a Perda;";
+                cabecalho += "Cód;";
+                cabecalho += "Linha de Negócio;";
+                cabecalho += "Cód;";
+                cabecalho += "Segmento Comercial;";
+                cabecalho += "Cód;";
+                cabecalho += "Tipo Financeiro;";
+                cabecalho += "Tipo de Lançamento;";
+                cabecalho += "Cód;";
+                cabecalho += "Data Contábil;";
+                cabecalho += "Valor;";
+                cabecalho += "PCI / PCU";
+
+                sw.WriteLine(cabecalho);
 
                 Response.ClearContent();
                 Response.AddHeader("content-disposition", "attachment;filename=RelatorioPerdasOperacionais.csv");
@@ -716,37 +784,54 @@ namespace CtrlPVALeasing.Controllers
 
                 var users = db.Tbl_DadosDaVenda.ToList();
 
+                int contador = 0;
+
                 foreach (var elemento in model)
                 {
-                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};",
+                    contador++;
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40};{41};",
 
-                    elemento.chassi,
+                    "BO_LEASING_" + dataInicio.ToString().Substring(0, 10) + "_" + dataFim.ToString().Substring(0, 10) + "_" + contador,
+                    "PAG IPVA, CHASSI:" + elemento.chassi,
                     elemento.contrato,
-                    (elemento.grupo_safra == "10" ? "BANCO SAFRA" : (elemento.grupo_safra == "20" ? "BANCO J. SAFRA" : (elemento.grupo_safra == "30" ? "SAFRA LEASING" : (elemento.grupo_safra == "40" ? "JS ADM RECURSOS" : "")))),
+                    (elemento.grupo_safra == "0514" ? "BANCO SAFRA S/A" : (elemento.grupo_safra == "0658" ? "BANCO J. SAFRA S/A" : (elemento.grupo_safra == "0521" ? "SAFRA LEASING S/A ARRENDAMENTO MERCANTIL" : (elemento.grupo_safra == "0000" ? "JS ADM RECURSOS" : "")))),
                     elemento.grupo_safra,
                     elemento.descricao_agencia,
                     elemento.agencia,
-                    "7 - Práticas Inadequadas relativas a contrapartes, clientes",
+                    "7 - Práticas Inadequadas relativas a contrapartes, clientes, produtos e serviços",
                     "7",
                     "7_01 - Perdas na relação de negócios com clientes",
                     "7_01",
                     "7_01_03 - Outras perdas decorrentes da relação de negócios com clientes",
                     "7_01_03",
                     "Eventos Externos",
+                    "EVEX",
+                    "Cliente",
+                    "CLIE",
+                    "Não pagamento de IPVA contratos Leasing",
                     "",
-                    "Arrendamento Mercantil - Stored",
+                    "Arrendamento Mercantil - Sicred",
                     "ARM",
                     "LEASING",
                     "104010000",
+                    "Agências",
                     "1",
-                    "????????",
+                    "Perda Efetiva",
+                    elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0,10) : "",
+                    elemento.dta_cobranca.HasValue ? elemento.dta_cobranca.ToString().Substring(0, 10) : "",
                     "Crédito",
+                    "C",
                     "BO LEASING PESADOSPOA",
                     "37470",
+                    "Banco Comercial",
+                    "BCOCOM",
                     "Bancos",
+                    "BANCOS",
+                    "PERDA_DIRETA",
+                    "Perda Financeira Direta",
                     "PEPD",
-                    (elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : ""),
-                    elemento.valor_divida,
+                    elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : "",
+                    "R$ " + elemento.valor_divida,
                     elemento.pci_debito_divida
                     ));
                 }

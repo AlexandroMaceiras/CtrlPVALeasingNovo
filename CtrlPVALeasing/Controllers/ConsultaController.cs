@@ -803,7 +803,7 @@ namespace CtrlPVALeasing.Controllers
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
 
-            string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.ToString().PadLeft(18, '0');
+            string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.Trim().ToString().PadLeft(18, '0');
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos 

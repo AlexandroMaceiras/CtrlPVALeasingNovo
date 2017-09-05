@@ -39,7 +39,7 @@ namespace CtrlPVALeasing.Controllers
                       on a.contrato equals b.contrato
                       where a.origem.Equals("B")
                       where !b.origem.Contains("RECIBO VEN")
-                      group a by new { b.status } into g
+                      group a by new { a.status } into g
                       select new
                       {
                           statusGoup = g.Key,
@@ -143,7 +143,7 @@ namespace CtrlPVALeasing.Controllers
                      on a.contrato equals b.contrato
                      where a.origem.Equals("B")
                      where !b.origem.Contains("RECIBO VEN")
-                     group a by new { b.status } into g
+                     group a by new { a.status } into g
                      select new
                      {
                          statusGoup = g.Key,

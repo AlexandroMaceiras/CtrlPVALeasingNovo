@@ -74,13 +74,13 @@
                                     }
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.DisplayFor(modelItem => item.dta_pagamento_divida)
+                                    @(item.dta_pagamento.HasValue ? item.dta_pagamento.ToString().Substring(0, 10) : "")
                                 </td>
                                 <td class="input-sm-fino" align="right" id="valor_custas@(contadorInterno)">
                                     @Html.DisplayFor(modelItem => item.valor_custas)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.DisplayFor(modelItem => item.dta_pagamento_custas)
+                                    @(item.dta_pagamento_custas.HasValue ? item.dta_pagamento_custas.ToString().Substring(0, 10) : "")
                                 </td>
                                 <td class="input-sm-fino" align="right" id="valor_total_recuperado@(contadorInterno)">
                                     @Html.DisplayFor(modelItem => item.valor_total_recuperado)
