@@ -158,6 +158,40 @@
                         <table border="0" style="border-style:inherit">
                             <tr>
                                 <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
+                                        @{
+                                            string[,] strgtc = new string[4, 2] {
+                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
+                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
+                                            };
+
+                                            var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
+                                            //var m = "SELECIONE";
+                                            var saidam = "";
+                                            for (int x = 0; x <= 3; x++)
+                                            {
+                                                if (strgtc[x, 0] == m)
+                                                {
+                                                    saidam += strgtc[x, 1].Substring(0, 7) + " selected " + strgtc[x, 1].Substring(7, strgtc[x, 1].Length - 7);
+                                                }
+                                                else
+                                                {
+                                                    saidam += strgtc[x, 1];
+                                                }
+                                            }
+                                        }
+                                        @Html.Raw(saidam)
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Cobrança:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
@@ -218,40 +252,6 @@
                                             }
                                         }
                                         @Html.Raw(saida)
-                                    </select>
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo de Cobrança: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
-                                        @{
-                                            string[,] strgtc = new string[4, 2] {
-                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
-                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
-                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
-                                                {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
-                                            };
-
-                                            var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
-                                            //var m = "SELECIONE";
-                                            var saidam = "";
-                                            for (int x = 0; x <= 3; x++)
-                                            {
-                                                if (strgtc[x, 0] == m)
-                                                {
-                                                    saidam += strgtc[x, 1].Substring(0, 7) + " selected " + strgtc[x, 1].Substring(7, strgtc[x, 1].Length - 7);
-                                                }
-                                                else
-                                                {
-                                                    saidam += strgtc[x, 1];
-                                                }
-                                            }
-                                        }
-                                        @Html.Raw(saidam)
                                     </select>
                                 </td>
                             </tr>
@@ -494,7 +494,7 @@
             }
             else if (document.getElementById("vdt").value == 'U') {
                 document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
-                document.getElementById("uf_cobranca").setAttribute("disabled", "disabled");
+                document.getElementById("uf_cobranca").removeAttribute('disabled');
                 document.getElementById("valor_divida").setAttribute("disabled", "disabled");
                 document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
                 document.getElementById("cda").setAttribute("disabled", "disabled");
@@ -507,7 +507,6 @@
                 document.getElementById("valor_debito_total_parc").value = "";
 
                 document.getElementById("dta_cobranca").value = null;
-                document.getElementById("uf_cobranca").value = '';
                 document.getElementById("valor_divida").value = null;
                 document.getElementById("ano_exercicio").value = null;
                 document.getElementById("cda").value = null;

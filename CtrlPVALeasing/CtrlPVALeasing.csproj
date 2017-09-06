@@ -183,7 +183,7 @@
     <Compile Include="Models\Tbl_CCL.cs" />
     <Compile Include="Models\Tbl_DadosDaVenda.cs" />
     <Compile Include="Models\Tbl_DebitosEPagamentos_Veiculo.cs" />
-    <Compile Include="Models\Tbl_DebitosEPagamentos_VeiculoController.cs" />
+    <Compile Include="Controllers\Tbl_DebitosEPagamentos_VeiculoController.cs" />
     <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Models\Tbl_Impressao.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />

@@ -32,10 +32,10 @@
                     <th></th>
                 </tr>
 
-                @{var contadorInterno = 0;
+                @{var contadorInterno = 0; var MF = Model.First();
                     foreach (var item in Model)
                     {
-                        if (item.contrato != null)
+                        if (item.contrato != null && item.cpf_cnpj_cliente == MF.cpf_cnpj_cliente)
                         {
                             contadorInterno++;
                             <tr>

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
 
 @{
-    var contador = 0;
+    var contador = 0; var MF = Model.First();
     foreach (var item in Model)
     {
-        if (item.nome_cliente != "" && item.nome_cliente != null)
+        if (item.nome_cliente != "" && item.nome_cliente != null && item.contrato == MF.contrato)
         {
             contador++;
         }

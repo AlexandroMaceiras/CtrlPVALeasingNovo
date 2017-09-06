@@ -925,7 +925,8 @@ namespace CtrlPVALeasing.Controllers
             string numero_miro_divida, string numero_miro_custa, string forma_pagamento_divida, string forma_pagamento_custas, string valor_pago_custas,
             string valor_pago_divida, decimal? valor_pago_total, string obs_pagamento, string pci_credito, DateTime? dta_recuperacao, string status_recuperacao,
             string ano_exercicio, decimal? valor_custas, bool? debito_protesto, string valor_total_recuperado,
-            string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total)
+            string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa, decimal? valor_debito_total, 
+            DateTime? dta_contabil_divida, DateTime? dta_contabil_custa)
         {
             decimal? valor_pago_divida_unmask = null, valor_pago_custas_unmask = null, valor_total_recuperado_unmask = null;
             if (valor_divida != null)
@@ -1044,6 +1045,8 @@ namespace CtrlPVALeasing.Controllers
                          dta_custas = c.dta_custas,
                          dta_pagamento_custas = c.dta_pagamento_custas,
                          status_recuperacao = c.status_recuperacao,
+                         dta_contabil_divida = c.dta_contabil_divida,
+                         dta_contabil_custa = c.dta_contabil_custa,
 
                          pagamento_efet_banco = c.pagamento_efet_banco,
                          dta_pagamento = c.dta_pagamento,
@@ -1126,6 +1129,8 @@ namespace CtrlPVALeasing.Controllers
                          dta_custas = x.dta_custas,
                          dta_pagamento_custas = x.dta_pagamento_custas,
                          status_recuperacao = x.status_recuperacao,
+                         dta_contabil_divida = x.dta_contabil_divida,
+                         dta_contabil_custa = x.dta_contabil_custa,
 
                          pagamento_efet_banco = x.pagamento_efet_banco,
                          dta_pagamento = x.dta_pagamento,
@@ -1203,6 +1208,9 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.forma_pagamento_custas = forma_pagamento_custas;
                         procuraRegistro.valor_pago_custas = valor_pago_custas_unmask;
                         procuraRegistro.obs_pagamento = obs_pagamento;
+                        procuraRegistro.dta_contabil_divida = dta_contabil_divida;
+                        procuraRegistro.dta_contabil_custa = dta_contabil_custa;
+
 
                         procuraRegistro.pci_credito = pci_credito;
                         procuraRegistro.dta_recuperacao = dta_recuperacao;
@@ -1240,8 +1248,11 @@ namespace CtrlPVALeasing.Controllers
                             forma_pagamento_custas = forma_pagamento_custas,
                             valor_pago_custas = valor_pago_custas_unmask,
                             obs_pagamento = obs_pagamento,
+                            dta_contabil_divida = dta_contabil_divida,
+                            dta_contabil_custa = dta_contabil_custa,
 
-                            pci_credito = pci_credito,
+
+                        pci_credito = pci_credito,
                             dta_recuperacao = dta_recuperacao,
                             valor_total_recuperado = valor_total_recuperado_unmask,
 
@@ -1534,6 +1545,8 @@ namespace CtrlPVALeasing.Controllers
                         procuraRegistro.divida_ativa_serasa = (divida_ativa_serasa == null ? false : true);
                         procuraRegistro.protesto_serasa = (protesto_serasa == null ? false : true);
                         procuraRegistro.dta_custas = dta_custas;
+                        procuraRegistro.dta_cobranca = dta_cobranca;
+
                         procuraRegistro.valor_debito_total = (valor_divida_unmask.HasValue ? valor_divida_unmask : 0) + (valor_custas_unmask.HasValue ? valor_custas_unmask : 0);
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;

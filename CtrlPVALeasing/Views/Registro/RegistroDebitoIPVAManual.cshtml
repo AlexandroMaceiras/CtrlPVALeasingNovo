@@ -671,7 +671,7 @@
                     }
                     else if (document.getElementById("vdt").value == 'U') {
                         document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");
-                        document.getElementById("uf_cobranca").setAttribute("disabled", "disabled");
+                        document.getElementById("uf_cobranca").removeAttribute('disabled');
                         document.getElementById("valor_divida").setAttribute("disabled", "disabled");
                         document.getElementById("ano_exercicio").setAttribute("disabled", "disabled");
                         document.getElementById("cda").setAttribute("disabled", "disabled");

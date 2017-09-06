@@ -174,38 +174,6 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
                 <tr>
                     <td>
-                        <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
-                        <table border="0" style="border-style:inherit">
-                            <tr>
-                                <td colspan="0">
-                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td colspan="0">
-                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="input-sm-fino">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                @if (Model != null)
-                                {
-                                    @Html.Partial("_GridConsultaDebitos")
-                                }
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </center>
-        <br />
-        <center>
-            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
-                <tr>
-                    <td>
                         <b class="fonte-cinza-escuro">DADOS DO CONTRATO:</b>
                         <table border="0" style="border-style:inherit">
                             <tr>
@@ -301,8 +269,40 @@
                                                 @Html.ActionLink("OUTROS CONTRATOS", "ConsultaCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro2(); return false;" })
                                             }
                                         }
-                                     </div>
+                                    </div>
                                 </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DE DÉBITOS:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td colspan="0">
+                                    @Html.Action("_valor_debito_total_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td colspan="0">
+                                    @Html.Action("_valor_total_recuperado_por_veiculo", "", new { chassi = MF.chassi, renavam = MF.renavam, placa = MF.placa })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_GridConsultaDebitos")
+                                }
                             </tr>
                         </table>
                     </td>

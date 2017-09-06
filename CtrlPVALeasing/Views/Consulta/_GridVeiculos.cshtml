@@ -32,10 +32,10 @@
                     <th></th>
                 </tr>
 
-                @{var contadorInterno = 0;
+                @{var contadorInterno = 0; var MF = Model.First();
                     foreach (var item in Model)
                     {
-                        if (item.contrato != null)
+                        if (item.contrato != null && item.contrato == MF.contrato)
                         {
                             contadorInterno++;
                             <tr>

@@ -242,7 +242,9 @@ namespace CtrlPVALeasing.Models
         [StringLength(1)]
         public string status_recuperacao { get; set; }
 
+        public DateTime? dta_contabil_divida { get; set; }
 
+        public DateTime? dta_contabil_custa { get; set; }
 
 
 
