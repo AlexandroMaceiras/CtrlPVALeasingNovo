@@ -289,6 +289,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\consistencia.txt" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\CTRL_IPVA_LEASING.zip" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\2CTRL_IPVA_LEASING.zip" />
     <None Include="TXT DE SCRIPTS DE TABELAS\Dados de teste das Tabelas" />
