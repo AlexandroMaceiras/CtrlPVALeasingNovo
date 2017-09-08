@@ -9,7 +9,7 @@
     <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
 
 </head>
-<script>
+@*<script>
     function chamaErro4() {
         $(document).ready(function () {
             $("#msgErro4").modal();
@@ -35,7 +35,7 @@
             $("#msgErro8").modal();
         });
     }
-</script>
+</script>*@
 @{
     if (Request["Rc"] == "true")
     {
@@ -230,7 +230,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data da Dívida:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) : (Request["dta_cobranca"] != null ? Request["dta_cobranca"].Substring(0,10) : ""))" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_cobranca.HasValue ? MF.dta_cobranca.ToString().Substring(0,10) : (Request["dta_cobranca"] != null && Request["dta_cobranca"].Length > 10 ? Request["dta_cobranca"].Substring(0,10) : ""))" type="text" name="dta_cobranca" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -359,7 +359,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null ? Request["dta_custas"] : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null && Request["dta_custas"].Length > 10 ? Request["dta_custas"].Substring(0,10) : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -642,7 +642,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Número MIRO Custa: &nbsp;</div>
                                 </td>
                                 <td>
-                                    <input maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_custa != "" ? MF.numero_miro_custa : (Request["numero_miro_custa"] != null ? Request["numero_miro_custa"] : ""))" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C")  ? "disabled='disabled'" : "") />
+                                    <input id="numero_miro_custa" maxlength="10" class="input-sm-fino" value="@(MF.numero_miro_custa != "" ? MF.numero_miro_custa : (Request["numero_miro_custa"] != null ? Request["numero_miro_custa"] : ""))" type="text" name="numero_miro_custa" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "C" || MF.tipo_cobranca == "C")  ? "disabled='disabled'" : "") />
                                 </td>
                             </tr>
                             <tr>
@@ -706,7 +706,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Obs. Pagamento: &nbsp;</div>
                                 </td>
                                 <td colspan="10">
-                                    <textarea maxlength="250" style="height: 55px;text-transform:uppercase;" rows="3" cols="150" class="input-sm-fino" value="" type="text" name="obs_pagamento" size="250" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") >@(MF.obs_pagamento != "" ? MF.obs_pagamento : (Request["obs_pagamento"] != null ? Request["obs_pagamento"] : ""))</textarea>
+                                    <textarea id="obs_pagamento" maxlength="250" style="height: 55px;text-transform:uppercase;" rows="3" cols="150" class="input-sm-fino" value="" type="text" name="obs_pagamento" size="250" @(Request["Rc"] == "true" ? "disabled='disabled'" : "") >@(MF.obs_pagamento != "" ? MF.obs_pagamento : (Request["obs_pagamento"] != null ? Request["obs_pagamento"] : ""))</textarea>
                                 </td>
                             </tr>
                         </table>
@@ -772,14 +772,19 @@
                                                 <input type="hidden" name="pci_credito" value="@MF.pci_credito" />
                                                 <input type="hidden" name="dta_recuperacao" value="@MF.dta_recuperacao" />
                                                 <input type="hidden" name="valor_total_recuperado" value="@MF.valor_total_recuperado" />
-
+                                                <input type="hidden" name="dta_custas" value="@MF.dta_custas" />
+                                                <input type="hidden" name="forma_pagamento_custas" value="@MF.forma_pagamento_custas" />
+                                                <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
+                                                <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
+                                                <input type="hidden" name="obs_pagamento" value="@MF.obs_pagamento" />
+                                                
 
 
                                             </div>
                                         }
                                         else
                                         {
-                                            @Html.ActionLink("REGISTRAR PAGAMENTO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                            @Html.ActionLink("REGISTRAR PAGAMENTO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "$('#msgErro3').modal(); return false;" })
                                         }
                                     }
                                     else
@@ -923,12 +928,20 @@
                                                     <input type="hidden" name="pci_debito_divida" value="@MF.pci_debito_divida" />
                                                     <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
                                                     <input type="hidden" name="transicao2" value="true" />
+                                                    <input type="hidden" name="dta_custas" value="@MF.dta_custas" />
+                                                    <input type="hidden" name="forma_pagamento_custas" value="@MF.forma_pagamento_custas" />
+                                                    <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
+                                                    <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
+                                                    <input type="hidden" name="obs_pagamento" value="@MF.obs_pagamento" />
+
+
+                                                    
 
                                                 </div>
                                             }
                                             else
                                             {
-                                                @Html.ActionLink("REGISTRAR RECUPERAÇÃO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
+                                                @Html.ActionLink("REGISTRAR RECUPERAÇÃO", "PagamentoDebitoIPVAManual2", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "$('#msgErro3').modal(); return false;" })
                                             }
                                         }
                                         else
@@ -1017,7 +1030,7 @@
             }
         </script>
     }
-}
+
 
 @section Scripts{
     <script>
@@ -1083,69 +1096,122 @@
 
             function validateForm()
             {
-                ////alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
-                ////alert("valor_pago_divida')[0].value = " + document.getElementsByName('valor_pago_divida')[0].value);
+                if (document.getElementsByName('forma_pagamento_custas')[0].value != "") {
+                    if (document.getElementsByName('valor_pago_custas')[0].value == "") {
+                        $("#msgErro11").modal();
+                        return false;
+                    }
+                }
+
+                //alert("dta_pagamento')[0].value = " + document.getElementsByName('dta_pagamento')[0].value);
+                //alert("uf_pagamento')[0].value = " + document.getElementsByName('uf_pagamento')[0].value);
+                //alert("numero_miro_divida')[0].value = " + document.getElementsByName('numero_miro_divida')[0].value);
+                //alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
+                //alert("valor_debito_total_parc')[0].value = " + document.getElementsByName('valor_debito_total_parc')[0].value);
 
 
-                //if (document.getElementsByName('forma_pagamento_divida')[0].value != "") {
-                //    if (document.getElementsByName('valor_pago_divida')[0].value == "") {
-                //        chamaErro7();
-                //        return false;
-                //    }
-                //}
+                if (@(MF.debito_protesto.HasValue && MF.debito_protesto.Value == true ? "true" : (Request["debito_protesto"] != null ? Request["debito_protesto"] : "false")) == "true") {
+                    if (document.getElementById('nome_cartorio').value == "") {
+                        $("#msgErro9").modal();
+                        return false;
+                    }
+                }
 
-                ////alert("forma_pagamento_custas')[0].value = " + document.getElementsByName('forma_pagamento_custas')[0].value);
-                ////alert("valor_pago_custas')[0].value = " + document.getElementsByName('valor_pago_custas')[0].value);
+                if (
+                    (@(MF.tipo_cobranca == "U" ? "true" : (Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "false")))
+                    &&
+                    (
+                        document.getElementById('uf_pagamento').value == ""
+                        ||
+                        document.getElementById('grupo_safra').value == ""
+                        ||
+                        document.getElementById('dta_pagamento_custas').value == ""
+                        ||
+                        document.getElementById('vdt3').value == ""
+                        ||
+                        document.getElementById('valor_pago_custas').value == ""
+                        ||
+                        document.getElementById('pci_debito_custa').value == ""
+                    )
+                ) {
 
+                    $(document).ready(function () {
+                        $("#msgErro11").modal();
+                        return false;
+                    });
+                    return false;
+                }
+                else
+                if (
+                    (@(MF.tipo_cobranca == "D" ? "true" : (Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "false")))
+                    &&
+                    (
+                        document.getElementById('uf_pagamento').value == ""
+                        ||
+                        document.getElementById('grupo_safra').value == ""
+                        ||
+                        document.getElementById('dta_pagamento_custas').value == ""
+                        ||
+                        document.getElementById('vdt3').value == ""
+                        ||
+                        document.getElementById('valor_pago_custas').value == ""
+                        ||
+                        document.getElementById('dta_pagamento').value == ""
+                        ||
+                        document.getElementById('vdt2').value == ""
+                        ||
+                        document.getElementById('valor_pago_divida').value == ""
+                        ||
+                        document.getElementById('pci_debito_divida').value == ""
+                        
+                    )
+                ) {
 
-                //if (document.getElementsByName('forma_pagamento_custas')[0].value != "") {
-                //    if (document.getElementsByName('valor_pago_custas')[0].value == "") {
-                //        chamaErro8();
-                //        return false;
-                //    }
-                //}
+                    $(document).ready(function () {
+                        $("#msgErro11").modal();
+                        return false;
+                    });
+                    return false;
+                }
+                else
+                if (
+                    (@(MF.tipo_cobranca == "C" ? "true" : (Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "false")))
+                    &&
+                    (
+                        document.getElementById('uf_pagamento').value == ""
+                        ||
+                        document.getElementById('grupo_safra').value == ""
+                        ||
+                        document.getElementById('dta_pagamento').value == ""
+                        ||
+                        document.getElementById('vdt2').value == ""
+                        ||
+                        document.getElementById('valor_pago_divida').value == ""
+                        ||
+                        document.getElementById('pci_debito_divida').value == ""
+                    )
+                ) {
 
-                ////alert("dta_pagamento')[0].value = " + document.getElementsByName('dta_pagamento')[0].value);
-                ////alert("uf_pagamento')[0].value = " + document.getElementsByName('uf_pagamento')[0].value);
-                ////alert("numero_miro_divida')[0].value = " + document.getElementsByName('numero_miro_divida')[0].value);
-                ////alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
-                ////alert("valor_debito_total_parc')[0].value = " + document.getElementsByName('valor_debito_total_parc')[0].value);
-
-                //if (
-                //    document.getElementsByName('dta_pagamento')[0].value == "" ||
-                //    document.getElementsByName('uf_pagamento')[0].value == "" ||
-                //    document.getElementsByName('numero_miro_divida')[0].value == "" ||
-                //    document.getElementsByName('forma_pagamento_divida')[0].value == "" ||
-                //    document.getElementsByName('valor_debito_total_parc')[0].value == ""
-                //    )
-                //{
-
-                //    $(document).ready(function () {
-                //        $("#msgErro5").modal();
-                //        return false;
-                //    });
-                //    return false;
-                //}
-                //else
-                //{
-                alert('1');
+                    $(document).ready(function () {
+                        $("#msgErro11").modal();
+                        return false;
+                    });
+                    return false;
+                }
+                else
+                {
                     document.getElementById("botaoDeSubmit1").setAttribute("disabled", "disabled");
-
                     document.getElementById("rd").value = true;
                     document.getElementsByName("id_debito").value = "@Request["id_debito"]";
-
-
-                alert('2    ');
-
                     document.getElementById("FormAltera").submit();
                     return true;
-                //}
+                }
             }
         }
         catch (e) {
             alert(e);
         }
-        
+
         try {
 
             $("select#vdt2").change(function () {
@@ -1241,7 +1307,7 @@
                 return value;
             }
         });
-        
+
 
         $("#msgOk").on("hidden.bs.modal", function () {
             history.go(-1);
@@ -1253,7 +1319,7 @@
 
     </script>
 }
-
+}
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">
@@ -1455,6 +1521,28 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(206, 39, 39)">Observação:</h4><h4 style="color: rgb(176, 172, 186)"><font color="Black">Não é permitido deixar:</font><br /><br /><table><tr><td> - Data da Recuperação</td></tr><tr><td> - Valor Recuperado</td></tr><tr><td> - PCI de Crédito<td></tr></table></h4><h4 style="color: rgb(206, 39, 39)">Em branco!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro11" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO/REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">O conteúdo de algum campo está inválido, verifique!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
