@@ -1,0 +1,184 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.contrato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.agencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_inicio_contrato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_vecto_contrato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.origem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cpf_cnpj_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nome_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ddd_cliente_particular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fone_cliente_particular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rml_cliente_particular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.end_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bairro_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cidade_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uf_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cep_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.filler)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ddd_cliente_cml)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fone_cliente_cml)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dta_ultimo_pagto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_de_baixa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_da_baixa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cod_empresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.num_end_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comp_end_cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.contrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.agencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_inicio_contrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_vecto_contrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.origem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cpf_cnpj_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ddd_cliente_particular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fone_cliente_particular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rml_cliente_particular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.end_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bairro_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cidade_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uf_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cep_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.filler)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ddd_cliente_cml)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fone_cliente_cml)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dta_ultimo_pagto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_de_baixa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_da_baixa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cod_empresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.num_end_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comp_end_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

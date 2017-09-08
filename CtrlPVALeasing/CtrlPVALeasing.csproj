@@ -159,6 +159,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\NovoController.cs" />
+    <Compile Include="Controllers\Arm_VeiculosController.cs" />
     <Compile Include="Controllers\GerencialController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\Tbl_BensController.cs" />
@@ -404,6 +406,17 @@
     <Content Include="Views\Registro\RegistroVeiculo.cshtml" />
     <Content Include="Views\Registro\_valor_pago_total_por_veiculo.cshtml" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\Todas Tabelas Com poucos dados.zip" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\Create.cshtml" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\Delete.cshtml" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\Details.cshtml" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\Edit.cshtml" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\Index.cshtml" />
+    <Content Include="Views\Arm_Veiculos\Create.cshtml" />
+    <Content Include="Views\Arm_Veiculos\Delete.cshtml" />
+    <Content Include="Views\Arm_Veiculos\Details.cshtml" />
+    <Content Include="Views\Arm_Veiculos\Edit.cshtml" />
+    <Content Include="Views\Arm_Veiculos\Index.cshtml" />
+    <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\CriarContrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.Arm_Veiculos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.contrato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_registro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ano_fab)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ano_mod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.renavam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.chassi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.origem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comunicado_venda)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.contrato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_registro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ano_fab)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ano_mod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.renavam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chassi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.placa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.origem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comunicado_venda)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
