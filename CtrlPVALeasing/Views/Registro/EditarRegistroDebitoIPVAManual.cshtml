@@ -163,17 +163,45 @@
                                 <td>
                                     <select class="input-sm-ultra-fino2" name="tipo_cobranca" id="vdt">
                                         @{
-                                            string[,] strgtc = new string[4, 2] {
-                                                {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
-                                                {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
-                                                {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
-                                                {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
-                                            };
-
                                             var m = Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : MF.tipo_cobranca;
+                                            int tamanho;
+                                            string[,] strgtc = null;
+
+                                            if (m == "C")
+                                            {
+                                                strgtc = new string[2, 2] {
+                                                    {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
+                                                    {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                };
+                                                tamanho = 1;
+                                            }
+                                            else if (m == "D")
+                                            {
+                                                strgtc = new string[1, 2] {
+                                                    {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                };
+                                                tamanho = 0;
+                                            }
+                                            else if (m == "U")
+                                            {
+                                                strgtc = new string[1, 2] {
+                                                    {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
+                                                };
+                                                tamanho = 0;
+                                            }
+                                            else
+                                            {
+                                                strgtc = new string[4, 2] {
+                                                    {"SELECIONE", "<option class='input-sm-ultra-fino' value=''>SELECIONE</option>"},
+                                                    {"C", "<option class='input-sm-ultra-fino' value='C'>COBRANÇA SIMPLES</option>"},
+                                                    {"D", "<option class='input-sm-ultra-fino' value='D'>DÍVIDA ATIVA</option>"},
+                                                    {"U", "<option class='input-sm-ultra-fino' value='U'>CUSTAS</option>"},
+                                                };
+                                                tamanho = 3;
+                                            }
                                             //var m = "SELECIONE";
                                             var saidam = "";
-                                            for (int x = 0; x <= 3; x++)
+                                            for (int x = 0; x <= tamanho; x++)
                                             {
                                                 if (strgtc[x, 0] == m)
                                                 {
@@ -454,7 +482,8 @@
 <!-- O section Scripts é necessário para funcionar algumas mascaras -->
 @section Scripts {
 <script>
-    function mudaDisableds() {
+
+    function mudaDisableds() {  
         if (document.getElementById("vdt") != null) {
             if (document.getElementById("vdt").value == 'C') {
                 document.getElementById("dta_cobranca").removeAttribute('disabled');
@@ -538,6 +567,7 @@
             }
         }
     }
+
 
     try {
         document.getElementById("dta_cobranca").setAttribute("disabled", "disabled");

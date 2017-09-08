@@ -707,7 +707,8 @@ namespace CtrlPVALeasing.Controllers
                          c.dta_pagamento,
                          c.valor_divida,
                          c.pci_debito_divida,
-                         c.dta_cobranca
+                         c.dta_cobranca,
+                         c.dta_contabil_divida
 
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -719,10 +720,11 @@ namespace CtrlPVALeasing.Controllers
                          descricao_agencia  = x.descricao_agencia,
                          agencia            = x.agencia,
 
-                         dta_pagamento      = x.dta_pagamento,
-                         valor_divida       = x.valor_divida,
-                         pci_debito_divida  = x.pci_debito_divida,
-                         dta_cobranca       = x.dta_cobranca
+                         dta_pagamento          = x.dta_pagamento,
+                         valor_divida           = x.valor_divida,
+                         pci_debito_divida      = x.pci_debito_divida,
+                         dta_cobranca           = x.dta_cobranca,
+                         dta_contabil_divida    = x.dta_contabil_divida
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
@@ -830,7 +832,7 @@ namespace CtrlPVALeasing.Controllers
                     "PERDA_DIRETA",
                     "Perda Financeira Direta",
                     "PEPD",
-                    elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : "",
+                    elemento.dta_contabil_divida.HasValue ? elemento.dta_contabil_divida.ToString().Substring(0, 10) : "",
                     "R$ " + elemento.valor_divida,
                     elemento.pci_debito_divida
                     ));
