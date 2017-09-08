@@ -289,11 +289,13 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\Contratos2.txt" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\CTRL_IPVA_LEASING.zip" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\2CTRL_IPVA_LEASING.zip" />
     <None Include="TXT DE SCRIPTS DE TABELAS\Dados de teste das Tabelas" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\Todos sripts e dados menos os 600 e 300 mil carros e devedores.html" />
     <Content Include="TXT DE SCRIPTS DE TABELAS\Script Tabelas.html" />
+    <Content Include="TXT DE SCRIPTS DE TABELAS\Veiculos2.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
