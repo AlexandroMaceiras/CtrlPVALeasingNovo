@@ -159,7 +159,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\NovoController.cs" />
+    <Compile Include="Controllers\Arm_LiquidadosEAtivos_ContratoController.cs" />
     <Compile Include="Controllers\Arm_VeiculosController.cs" />
     <Compile Include="Controllers\GerencialController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />

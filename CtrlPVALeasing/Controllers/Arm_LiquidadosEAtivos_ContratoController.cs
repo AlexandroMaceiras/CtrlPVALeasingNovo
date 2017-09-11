@@ -135,14 +135,31 @@ namespace CtrlPVALeasing.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status")] Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(arm_LiquidadosEAtivos_Contrato);
+                // Controle de erros do ModelState
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+                if (ModelState.IsValid)
+                {
+                    db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
+                    db.SaveChanges();
+                    ViewBag.Message = "Incluido com Sucesso!";
+                }
+                else
+                {
+                    ViewBag.Message = "Erro: Algum campo está inválido!";
+                }
+            }
+            catch(Exception e)
+            {
+                ViewBag.Message = e.Message.ToString();
+            }
+            return View();
         }
 
 
