@@ -567,6 +567,11 @@ namespace CtrlPVALeasing.Controllers
                      into j1
                      from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+                     join d in db.Tbl_SCC
+                     on new { a.cpf_cnpj_cliente } equals new { d.cpf_cnpj_cliente }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
@@ -620,7 +625,9 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens = c.chassi,
                          placa_bens = c.placa,
                          comVenda = c.comVenda,
-                         comDUT = c.comDUT
+                         comDUT = c.comDUT,
+
+                         conta = d.conta
 
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -671,7 +678,9 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens = x.chassi_bens,
                          placa_bens = x.placa_bens,
                          comVenda = x.comVenda,
-                         comDUT = x.comDUT
+                         comDUT = x.comDUT,
+
+                         conta = x.conta
 
                      });
 

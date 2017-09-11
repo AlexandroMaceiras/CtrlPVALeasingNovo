@@ -90,6 +90,11 @@ namespace CtrlPVALeasing.Controllers
                      into j3
                      from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+                     join f in db.Tbl_SCC
+                     on new { a.cpf_cnpj_cliente } equals new { f.cpf_cnpj_cliente }
+                     into j4
+                     from f in j4.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
@@ -155,7 +160,9 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens   = e.renavam,
                          chassi_bens    = e.chassi,
-                         placa_bens     = e.placa
+                         placa_bens     = e.placa,
+
+                         conta = f.conta
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -215,7 +222,9 @@ namespace CtrlPVALeasing.Controllers
 
                          renavam_bens   = x.renavam,
                          chassi_bens    = x.chassi,
-                         placa_bens     = x.placa
+                         placa_bens     = x.placa,
+
+                         conta = x.conta
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
@@ -514,6 +523,16 @@ namespace CtrlPVALeasing.Controllers
             into j1
             from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+            join d in db.Tbl_CCL
+            on new { a.cpf_cnpj_cliente } equals new { d.cpf_cnpj_cliente }
+            into j2
+            from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+            join e in db.Tbl_SCC
+            on new { a.cpf_cnpj_cliente } equals new { e.cpf_cnpj_cliente }
+            into j3
+            from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+
             where a.contrato.Contains(contrato)
             where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
             where a.origem.Equals("B")
@@ -562,7 +581,11 @@ namespace CtrlPVALeasing.Controllers
                 origem_v = b.origem,
 
                 comDUT = c.comDUT,
-                comVenda = c.comVenda
+                comVenda = c.comVenda,
+
+                marcas = d.marca,
+
+                conta = e.conta
 
             }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
             {
@@ -608,7 +631,11 @@ namespace CtrlPVALeasing.Controllers
                 origem_v = x.origem_v,
 
                 comDUT = x.comDUT,
-                comVenda = x.comVenda
+                comVenda = x.comVenda,
+
+                CCL_marca = x.marcas,
+
+                conta = x.conta
 
             }).OrderBy(x => x.placa).ToList();
 
@@ -659,6 +686,16 @@ namespace CtrlPVALeasing.Controllers
                      on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
                      into j3
                      from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     join f in db.Tbl_CCL
+                     on new { a.cpf_cnpj_cliente } equals new { f.cpf_cnpj_cliente }
+                     into j4
+                     from f in j4.DefaultIfEmpty() //Isto é um LEFT JOIN
+
+                     join g in db.Tbl_SCC
+                     on new { a.cpf_cnpj_cliente } equals new { g.cpf_cnpj_cliente }
+                     into j5
+                     from g in j5.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      where b.chassi.Contains(chassi)
                      where b.placa.Contains(placa)
@@ -718,7 +755,11 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens    = d.chassi,
                          placa_bens     = d.placa,
 
-                         comVenda   = e.comVenda
+                         comVenda   = e.comVenda,
+
+                         marcas = f.marca,
+
+                         conta = g.conta
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -773,7 +814,11 @@ namespace CtrlPVALeasing.Controllers
                          chassi_bens    = x.chassi_bens,
                          placa_bens     = x.placa_bens,
 
-                         comVenda   = x.comVenda
+                         comVenda   = x.comVenda,
+
+                         CCL_marca = x.marcas,
+
+                         conta = x.conta
                      });
 
             if (model.Count() == 0 || model == null)
@@ -814,6 +859,11 @@ namespace CtrlPVALeasing.Controllers
                      into j1
                      from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+                     join d in db.Tbl_CCL
+                     on new { a.cpf_cnpj_cliente } equals new { d.cpf_cnpj_cliente }
+                     into j2
+                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+
                      where
                        a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente) && //Não estou usando o cpf_cnpj_clienteZEROS porque decidiu-se que aqui não deveria-se fazer uma pesquisa exata para podermos pesquisar por RAIZ de CNPJs de uma mesma empresa.
                        a.origem == "B" &&
@@ -838,7 +888,8 @@ namespace CtrlPVALeasing.Controllers
                          a.dta_ultimo_pagto,
                          a.origem,
                          a.data_da_baixa,
-                         column1 = b.origem
+                         column1 = b.origem,
+                         d.marca
                      } into g
                       orderby g.Key.cpf_cnpj_cliente,
                               g.Key.contrato,
@@ -864,7 +915,8 @@ namespace CtrlPVALeasing.Controllers
                          g.Key.dta_ultimo_pagto,
                          g.Key.data_da_baixa,
                          origemA = g.Key.origem,
-                         origemB = g.Key.column1
+                         origemB = g.Key.column1,
+                         g.Key.marca
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
                          nome_cliente = x.nome_cliente,
@@ -885,7 +937,8 @@ namespace CtrlPVALeasing.Controllers
                          dta_ultimo_pagto = x.dta_ultimo_pagto,
                          data_da_baixa = x.data_da_baixa,
                          origem = x.origemA,
-                         origem_v = x.origemB
+                         origem_v = x.origemB,
+                         CCL_marca = x.marca
                      });
 
             if (model.Count() == 0 || model == null)
