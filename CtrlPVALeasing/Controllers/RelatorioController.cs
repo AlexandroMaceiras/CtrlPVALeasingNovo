@@ -49,7 +49,7 @@ namespace CtrlPVALeasing.Controllers
                      where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          contrato = a.contrato,
@@ -161,7 +161,7 @@ namespace CtrlPVALeasing.Controllers
                      where (e.marca.Equals("JUR") || e.marca == null)
 
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          contrato = a.contrato,
@@ -269,8 +269,8 @@ namespace CtrlPVALeasing.Controllers
                      where (c.dta_recuperacao == null || c.valor_recuperado == null || c.valor_total_recuperado == null)
                      
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
-                     
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+
                      select new
                      {
                          contrato = a.contrato,
@@ -392,7 +392,7 @@ namespace CtrlPVALeasing.Controllers
                      where (f.saldo >= c.valor_debito_total)
 
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
 
                      select new
                      {
@@ -503,7 +503,7 @@ namespace CtrlPVALeasing.Controllers
                      where e.marca.Equals("JUR")
 
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
 
                      select new
                      {
@@ -570,7 +570,7 @@ namespace CtrlPVALeasing.Controllers
                      where e.marca != "JUR"
 
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                     {
                         contrato = a.contrato,
@@ -694,7 +694,7 @@ namespace CtrlPVALeasing.Controllers
                      where c.dta_pagamento >= dataInicio
                      where c.dta_pagamento <= dataFim
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          chassi             = b.chassi,
@@ -870,7 +870,7 @@ namespace CtrlPVALeasing.Controllers
                      //where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
                      //where a.origem.Equals("B")
-                     //where !b.origem.Contains("RECIBO VEN")
+                     //where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
 
                      //where (b.chassi != d.chassi || b.renavam != d.renavam || b.placa != b.placa)
 

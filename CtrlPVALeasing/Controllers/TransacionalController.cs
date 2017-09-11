@@ -117,7 +117,7 @@ namespace CtrlPVALeasing.Controllers
                         where a.status == false
 
                         where a.origem.Equals("B")
-                        where !b.origem.Contains("RECIBO VEN")
+                        where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                         select new
                         {
                             id = a.id,
@@ -533,7 +533,7 @@ namespace CtrlPVALeasing.Controllers
                          where b.placa.Contains(placa)
                          where b.renavam.Contains(renavam)
                          where a.origem.Equals("B")
-                         where !b.origem.Contains("RECIBO VEN")
+                         where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                          select new
                          {
                              id                         = a.id,
@@ -873,7 +873,7 @@ namespace CtrlPVALeasing.Controllers
                          where a.status == false
 
                          where a.origem.Equals("B")
-                         where !b.origem.Contains("RECIBO VEN")
+                         where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
 
                          select new
                          {

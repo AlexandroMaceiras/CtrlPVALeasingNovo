@@ -141,7 +141,7 @@ namespace CtrlPVALeasing.Controllers
                      where a.contrato.Contains(contrato)
                      where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id = a.id,
@@ -287,7 +287,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id = a.id,
@@ -447,8 +447,9 @@ namespace CtrlPVALeasing.Controllers
                     nome_cartorio            = x[11],
                     divida_ativa_serasa      = x[12],
                     protesto_serasa          = x[13],
-                    valor_debito_total       = x[14]
-                    
+                    valor_debito_total       = x[14],
+                    dta_custas               = x[15],
+
                     //,
                     //pagamento_efet_banco     = x[15],
                     //dta_pagamento            = x[16],
@@ -461,7 +462,7 @@ namespace CtrlPVALeasing.Controllers
                     //valor_pago_total         = x[23],
                     //valor_recuperado         = x[24],
                     //valor_total_recuperado   = x[25],
-                    //dta_custas     = x[26],
+
                     //dta_recuperacao          = x[27],
                     //pci_debito_divida        = x[28],
                     //pci_debito_custa         = x[29],
@@ -488,6 +489,8 @@ namespace CtrlPVALeasing.Controllers
                     divida_ativa_serasa      = (a.divida_ativa_serasa.Trim() == "1" ? true : false),
                     protesto_serasa          = (a.protesto_serasa.Trim() == "1" ? true : false),
                     valor_debito_total       = (a.valor_debito_total.Trim() == "" || a.valor_debito_total.Trim() == "null" || a.valor_debito_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_debito_total)),
+                    dta_custas               = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
+
                     //pagamento_efet_banco     = (a.pagamento_efet_banco.Trim() == "1" ? true : false),
                     //dta_pagamento            = (a.dta_pagamento.Trim() == "" || a.dta_pagamento.Trim() == "null" || a.dta_pagamento.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento)),
                     //uf_pagamento             = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
@@ -499,7 +502,7 @@ namespace CtrlPVALeasing.Controllers
                     //valor_pago_total         = (a.valor_pago_total.Trim() == "" || a.valor_pago_total.Trim() == "null" || a.valor_pago_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_total)),
                     //valor_recuperado         = (a.valor_recuperado.Trim() == "" || a.valor_recuperado.Trim() == "null" || a.valor_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_recuperado)),
                     //valor_total_recuperado   = (a.valor_total_recuperado.Trim() == "" || a.valor_total_recuperado.Trim() == "null" || a.valor_total_recuperado.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_total_recuperado)),
-                    //dta_custas     = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
+
                     //dta_recuperacao          = (a.dta_recuperacao.Trim() == "" || a.dta_recuperacao.Trim() == "null" || a.dta_recuperacao.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_recuperacao)),
                     //pci_debito_divida        = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
                     //pci_debito_custa         = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
@@ -576,7 +579,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id = a.id,
@@ -799,7 +802,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -850,7 +853,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -901,7 +904,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -993,7 +996,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
                      select new
                      {
@@ -1346,7 +1349,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
                      select new
                      {
@@ -1614,7 +1617,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id = a.id,
@@ -1834,7 +1837,7 @@ namespace CtrlPVALeasing.Controllers
                         where b.placa.Contains(placa)
                         where b.renavam.Contains(renavam)
                         where a.origem.Equals("B")
-                        where !b.origem.Contains("RECIBO VEN")
+                        where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                         select new
                         {
                             id                      = a.id,

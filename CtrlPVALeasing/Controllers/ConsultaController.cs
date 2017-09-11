@@ -99,7 +99,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id                         = a.id,
@@ -269,7 +269,7 @@ namespace CtrlPVALeasing.Controllers
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                      where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -319,7 +319,7 @@ namespace CtrlPVALeasing.Controllers
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
                      where a.contrato.Contains(contrato)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -370,7 +370,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -421,7 +421,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -467,7 +467,7 @@ namespace CtrlPVALeasing.Controllers
                     on a.contrato equals b.contrato
                     where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
                     where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Value.Equals(true)
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
@@ -536,7 +536,7 @@ namespace CtrlPVALeasing.Controllers
             where a.contrato.Contains(contrato)
             where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
             where a.origem.Equals("B")
-            where !b.origem.Contains("RECIBO VEN")
+            where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
             select new
             {
                 id = a.id,
@@ -701,7 +701,7 @@ namespace CtrlPVALeasing.Controllers
                      where b.placa.Contains(placa)
                      where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id                         = a.id,
@@ -867,7 +867,7 @@ namespace CtrlPVALeasing.Controllers
                      where
                        a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente) && //Não estou usando o cpf_cnpj_clienteZEROS porque decidiu-se que aqui não deveria-se fazer uma pesquisa exata para podermos pesquisar por RAIZ de CNPJs de uma mesma empresa.
                        a.origem == "B" &&
-                       !b.origem.Contains("RECIBO VEN")
+                       (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      group new { a, b } by new
                      {
                          a.nome_cliente,
