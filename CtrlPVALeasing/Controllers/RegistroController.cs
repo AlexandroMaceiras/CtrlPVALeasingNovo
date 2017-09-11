@@ -283,9 +283,7 @@ namespace CtrlPVALeasing.Controllers
                      into j3
                      from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -575,9 +573,7 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -798,9 +794,7 @@ namespace CtrlPVALeasing.Controllers
 
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
@@ -849,9 +843,7 @@ namespace CtrlPVALeasing.Controllers
 
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
@@ -900,9 +892,7 @@ namespace CtrlPVALeasing.Controllers
 
                      join c in db.Tbl_DebitosEPagamentos_Veiculo
                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      //where a.status.Equals(1)
@@ -992,9 +982,7 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
@@ -1345,9 +1333,7 @@ namespace CtrlPVALeasing.Controllers
                      into j1
                      from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
@@ -1613,9 +1599,7 @@ namespace CtrlPVALeasing.Controllers
                      into j3
                      from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -1833,10 +1817,8 @@ namespace CtrlPVALeasing.Controllers
                         into j3
                         from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                        where b.chassi.Contains(chassi)
-                        where b.placa.Contains(placa)
-                        where b.renavam.Contains(renavam)
-                        where a.origem.Equals("B")
+                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
+                     where a.origem.Equals("B")
                         where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                         select new
                         {

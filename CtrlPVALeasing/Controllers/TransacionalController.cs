@@ -529,9 +529,7 @@ namespace CtrlPVALeasing.Controllers
                          into j3
                          from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                         where b.chassi.Contains(chassi)
-                         where b.placa.Contains(placa)
-                         where b.renavam.Contains(renavam)
+                         where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
                          where a.origem.Equals("B")
                          where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                          select new
