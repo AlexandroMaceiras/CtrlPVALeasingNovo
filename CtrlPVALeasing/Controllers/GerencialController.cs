@@ -719,7 +719,9 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where (b.chassi.Contains(chassi) || b.origem == null) && (b.placa.Contains(placa) || b.placa == null) && (b.renavam.Contains(renavam) || b.renavam == null)
+                     where b.chassi.Contains(chassi) 
+                     where b.placa.Contains(placa)
+                     where b.renavam.Contains(renavam)
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
