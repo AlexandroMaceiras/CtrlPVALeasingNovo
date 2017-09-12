@@ -59,17 +59,17 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult ConsultaDebito(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(Nada());
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
@@ -95,11 +95,9 @@ namespace CtrlPVALeasing.Controllers
                      into j4
                      from f in j4.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
-                     where !b.origem.Contains("RECIBO VEN")
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
                          id                         = a.id,
@@ -656,17 +654,17 @@ namespace CtrlPVALeasing.Controllers
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
         public ActionResult ConsultaVeiculo(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
@@ -697,9 +695,7 @@ namespace CtrlPVALeasing.Controllers
                      into j5
                      from g in j5.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new

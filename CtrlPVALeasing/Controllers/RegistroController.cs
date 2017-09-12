@@ -967,16 +967,17 @@ namespace CtrlPVALeasing.Controllers
 
 
             if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
+                if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
+                {
+                    return View(GetContratosVeiculosViewModelPrimeira());
+                }
 
-            if (chassi == "" && placa == "" && renavam == "" && (rd == "false" || rd == null))
-            {
-                return View(GetContratosVeiculosViewModelPrimeira());
-            }
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
@@ -992,9 +993,8 @@ namespace CtrlPVALeasing.Controllers
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa) 
-                     where b.renavam.Contains(renavam)
+
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
@@ -1582,17 +1582,17 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult PagamentoDebitoIPVAManual(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
@@ -1613,9 +1613,7 @@ namespace CtrlPVALeasing.Controllers
                      into j3
                      from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -1775,6 +1773,18 @@ namespace CtrlPVALeasing.Controllers
             string ano_exercicio, string cda, string valor_custas, bool? debito_protesto, 
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa)
         {
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null) && (rd == "false" || rd == null))
+            {
+                return View(GetContratosVeiculosViewModelPrimeira());
+            }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
+
             decimal? valor_divida_unmask = null, valor_custas_unmask = null;
             if (valor_divida != null)
             {
@@ -1802,24 +1812,14 @@ namespace CtrlPVALeasing.Controllers
                 valor_custas_unmask = 0;
             }
 
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "" && (rd == "false" || rd == null))
-            {
-                return View(GetContratosVeiculosViewModelPrimeira());
-            }
-
-            model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                model = (
+                        from a in db.Arm_LiquidadosEAtivos_Contrato
                         join b in db.Arm_Veiculos
                         on a.contrato equals b.contrato
 
                         join c in db.Tbl_DebitosEPagamentos_Veiculo
-                        on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                        on b.chassi equals c.chassi
+                        //where (c.chassi == b.chassi || c.renavam == b.renavam)
                         into j1
                         from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
@@ -1833,10 +1833,8 @@ namespace CtrlPVALeasing.Controllers
                         into j3
                         from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi) 
-                     where b.placa.Contains(placa) 
-                     where b.renavam.Contains(renavam)
-                     where a.origem.Equals("B")
+                        where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
+                        where a.origem.Equals("B")
                         where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                         select new
                         {
@@ -1977,8 +1975,6 @@ namespace CtrlPVALeasing.Controllers
                             comVenda = x.comVenda
 
                         }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
-
-
 
             try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
             {

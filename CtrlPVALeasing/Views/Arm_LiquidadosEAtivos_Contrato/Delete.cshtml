@@ -1,13 +1,14 @@
 ﻿@model CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Deletar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+<br />
+<h2>Deletar</h2>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que quer deletar este registro?</h3>
 <div>
     <h4>Arm_LiquidadosEAtivos_Contrato</h4>
     <hr />
@@ -227,7 +228,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Voltar", "Index")
         </div>
     }
 </div>

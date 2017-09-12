@@ -80,10 +80,10 @@ function chamaErro() {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Conta: </div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@Request["conta"]" type="text" name="conta" id="conta" size="25" maxlength="10" style="text-transform:uppercase" />
+                                    <input class="input-sm-fino" value="@Request["data_da_baixa"]" type="text" name="data_da_baixa" id="data_da_baixa" size="20" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -125,15 +125,6 @@ function chamaErro() {
                                         }
                                         @Html.Raw(saidam)
                                     </select>
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Data da Baixa: &nbsp;&nbsp;&nbsp;</div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Request["data_da_baixa"]" type="text" name="data_da_baixa" id="data_da_baixa" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             @*<tr>
@@ -222,27 +213,21 @@ function chamaErro() {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Estado: </div>
-                                </td>
-                                <td>
-                                    <input class="input-sm-fino" value="@Request["uf_cliente"]" type="text" name="uf_cliente" id="uf_cliente" maxlength="2" size="2" style="text-transform:uppercase" />
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">
+                                        Estado:
+                                        <input class="input-sm-fino" value="@Request["uf_cliente"]" type="text" name="uf_cliente" id="uf_cliente" maxlength="2" size="2" style="text-transform:uppercase" />
+                                    </div>
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
                                 </td>
                                 <td>
                                     <div class="fonte-cinza-claro fonte-tamanho-form">CEP: </div>
                                 </td>
                                 <td>
                                     <input class="input-sm-fino" value="@Request["cep_cliente"]" type="text" name="cep_cliente" id="cep_cliente" maxlength="8" size="8" style="text-transform:uppercase" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marcas: </div>
-                                </td>
-                                <td colspan="7">
-                                    <input class="input-sm-fino" value="@Request["marcas"]" type="text" name="marcas" id="marcas" maxlength="20" size="20" style="text-transform:uppercase" />
                                 </td>
                             </tr>
                             <tr>
@@ -319,7 +304,6 @@ function chamaErro() {
         $("#mudaReset").click(function () {
             document.getElementById("numerocontrato").setAttribute("value", "");
             document.getElementById("agencia").setAttribute("value", "");
-            document.getElementById("conta").setAttribute("value", "");
             document.getElementById("nome_cliente").setAttribute("value", "");
             document.getElementById("cpf_cnpj_cliente").setAttribute("value", "");
             document.getElementById("ddd_cliente_cml").setAttribute("value", "");
@@ -333,7 +317,6 @@ function chamaErro() {
             document.getElementById("cidade_cliente").setAttribute("value", "");
             document.getElementById("uf_cliente").setAttribute("value", "");
             document.getElementById("cep_cliente").setAttribute("value", "");
-            document.getElementById("marcas").setAttribute("value", "");
             document.getElementById("dta_vecto_contrato").setAttribute("value", "");
             document.getElementById("dta_inicio_contrato").setAttribute("value", "");
             document.getElementById("dta_ultimo_pagto").setAttribute("value", "");
@@ -356,14 +339,9 @@ function chamaErro() {
             if ("1234567890".indexOf(chr) < 0)
                 return false;
         }
-        document.getElementById("conta").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if ("1234567890".indexOf(chr) < 0)
-                return false;
-        }
         document.getElementById("nome_cliente").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            if (" áàéèíìóòùúãõâêîôû1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
         document.getElementById("cpf_cnpj_cliente").onkeypress = function (e) {
@@ -393,7 +371,7 @@ function chamaErro() {
         }
         document.getElementById("end_cliente").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            if (" áàéèíìóòùúãõâêîôû/\|[]{}<>-_+=?!#$%&*()1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
         document.getElementById("num_end_cliente").onkeypress = function (e) {
@@ -403,17 +381,17 @@ function chamaErro() {
         }
         document.getElementById("comp_end_cliente").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            if (" áàéèíìóòùúãõâêîôû/\|[]{}<>-_+=?!#$%&*()1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
         document.getElementById("bairro_cliente").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            if (" áàéèíìóòùúãõâêîôû/\|[]{}<>-_+=?!#$%&*()1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
         document.getElementById("cidade_cliente").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            if (" áàéèíìóòùúãõâêîôû/\|[]{}<>-_+=?!#$%&*()1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
         document.getElementById("uf_cliente").onkeypress = function (e) {
@@ -425,13 +403,7 @@ function chamaErro() {
             var chr = String.fromCharCode(e.which);
             if ("1234567890".indexOf(chr) < 0)
                 return false;
-        }
-        document.getElementById("marcas").onkeypress = function (e) {
-            var chr = String.fromCharCode(e.which);
-            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                return false;
         }       
-        
     }
     catch (e) {
         alert(e);

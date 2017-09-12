@@ -17,7 +17,7 @@ namespace CtrlPVALeasing.Controllers
         // GET: Arm_LiquidadosEAtivos_Contrato
         public ActionResult Index()
         {
-            return View(db.Arm_LiquidadosEAtivos_Contrato.ToList());
+            return View(db.Arm_LiquidadosEAtivos_Contrato.OrderByDescending(x => x.id).Take(100).ToList());
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
@@ -151,13 +151,13 @@ namespace CtrlPVALeasing.Controllers
 
                     if (procuraRegistro == null)
                     {
+                        //Transforma tudo pra maiúsculas. 
                         procuraRegistro.nome_cliente.ToUpper();
                         procuraRegistro.end_cliente.ToUpper();
                         procuraRegistro.comp_end_cliente.ToUpper();
                         procuraRegistro.bairro_cliente.ToUpper();
                         procuraRegistro.cidade_cliente.ToUpper();
                         procuraRegistro.uf_cliente.ToUpper();
-                        //procuraRegistro.marcas.ToUpper();
 
                         db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
                         db.SaveChanges();

@@ -1,11 +1,12 @@
 ﻿@model CtrlPVALeasing.Models.Arm_LiquidadosEAtivos_Contrato
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
+<br />
+<br />
+<h2>Detalhes</h2>
 
 <div>
     <h4>Arm_LiquidadosEAtivos_Contrato</h4>
@@ -222,6 +223,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Editar", new { id = Model.id }) |
+    @Html.ActionLink("Voltar", "Index")
 </p>
