@@ -82,10 +82,10 @@
                                     }
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.ActionLink("EDIT. REGISTRO", "../Registro/EditarRegistroDebitoIPVAManual", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = "btn2 btn-primary-menu btn-sm" })
+                                    @Html.ActionLink("EDIT. DÉBITO", "../Registro/EditarRegistroDebitoIPVAManual", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = "btn2 btn-primary-menu btn-sm" })
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDIT. DÉBITO" : "PAGAR DÉBITO"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false", deb = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR PGTO." : "PAGAR DÉBITO"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false", deb = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
                                 </td>
                             </tr>
                             }

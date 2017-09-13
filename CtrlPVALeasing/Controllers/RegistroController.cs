@@ -780,29 +780,29 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult _valor_total_recuperado_por_veiculo(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -831,40 +831,40 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult _valor_debito_total_por_veiculo(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
 
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
+
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
+                    join b in db.Arm_Veiculos
+                    on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi)
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
-                     where a.origem.Equals("B")
-                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
-                     //where a.status.Equals(1)
-                     group c by new { c.chassi, c.renavam, c.placa } into g
-                     select new
-                     {
-                         soma_valor_debito_total = g.Sum(c => c.valor_debito_total)
+                    from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                    (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
 
-                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
-                     {
-                         valor_debito_total = x.soma_valor_debito_total
+                    where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
+                    where a.origem.Equals("B")
+                    where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
 
-                     });
+                    //where a.status.Equals(1)
+                    group c by new { c.chassi, c.renavam, c.placa } into g
+                    select new
+                    {
+                    soma_valor_debito_total = g.Sum(c => c.valor_debito_total)
+
+                    }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                    {
+                    valor_debito_total = x.soma_valor_debito_total
+
+                    });
 
             if (model.Count() == 0 || model == null)
             {
@@ -882,29 +882,29 @@ namespace CtrlPVALeasing.Controllers
 
         public ActionResult _valor_pago_total_por_veiculo(string chassi, string placa, string renavam)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "")
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                    on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     where b.chassi.Contains(chassi) 
-                     where b.placa.Contains(placa)
-                     where b.renavam.Contains(renavam)
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+
                      //where a.status.Equals(1)
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
@@ -983,20 +983,21 @@ namespace CtrlPVALeasing.Controllers
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     into j1
-                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
+                     //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     //into j1
+                     //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-
                      where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+
                      where c.id.Equals(id_debito)
                      select new
                      {
@@ -1299,23 +1300,23 @@ namespace CtrlPVALeasing.Controllers
             string nome_cartorio, bool? divida_ativa_serasa, bool? protesto_serasa,
             string chassiPesquisado, string placaPesquisada, string renavamPesquisado)
         {
-            if (chassi == null)
-                chassi = "";
-            if (placa == null)
-                placa = "";
-            if (renavam == null)
-                renavam = "";
-
-            if (chassi == "" && placa == "" && renavam == "" && (rd == "false" || rd == null))
+            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null) && (rd == "false" || rd == null))
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
-            else if (chassi == "" && placa == "" && renavam == "")
+            else if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
                 chassi = chassiPesquisado;
                 placa = placaPesquisada;
                 renavam = renavamPesquisado;
             }
+
+            if (chassi == "" || chassi == null)
+                chassi = "ø";
+            if (placa == "" || placa == null)
+                placa = "ø";
+            if (renavam == "" || renavam == null)
+                renavam = "ø";
 
             decimal? valor_divida_unmask = null, valor_custas_unmask = null;
             if (valor_divida != null)
@@ -1340,14 +1341,13 @@ namespace CtrlPVALeasing.Controllers
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     into j1
-                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
+                     //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     //into j1
+                     //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     where b.chassi.Contains(chassi) 
-                     where b.placa.Contains(placa) 
-                     where b.renavam.Contains(renavam)
+                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      where c.id.Equals(id_debito)
@@ -1598,10 +1598,11 @@ namespace CtrlPVALeasing.Controllers
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     into j1
-                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
+                    //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                    //into j1
+                    //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }

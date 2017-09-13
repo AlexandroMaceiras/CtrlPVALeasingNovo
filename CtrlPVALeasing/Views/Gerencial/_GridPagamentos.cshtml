@@ -46,10 +46,10 @@
                                     @contadorInterno
                                 </td>
                                 <td class="input-sm-fino">
-                                    @item.chassi.ToString()
+                                    @(item.chassi == null ? "" : item.chassi.ToString())
                                 </td>
                                 <td class="input-sm-fino">
-                                    @item.renavam.ToString()
+                                    @(item.renavam == null ? "" : item.renavam.ToString())
                                 </td>
                                 <td class="input-sm-fino">
                                     @Html.DisplayFor(modelItem => item.placa)

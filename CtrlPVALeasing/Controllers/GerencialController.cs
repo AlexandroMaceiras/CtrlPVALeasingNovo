@@ -198,8 +198,10 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -355,16 +357,18 @@ namespace CtrlPVALeasing.Controllers
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
-            if (model.Count() == 0 || model == null)
-            {
-                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
-            }
+            //Foi comentado pois o Bruno pediu para que gerasse um csv mesmo que estivesse vazio.
 
-            if (model == null || model.Any() == false)
-            {
-                //return HttpNotFound();
-                return RedirectToAction("PagamentoIPVAPorStatusContrato");
-            }
+            //if (model.Count() == 0 || model == null)
+            //{
+            //    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            //}
+
+            //if (model == null || model.Any() == false)
+            //{
+            //    //return HttpNotFound();
+            //    return RedirectToAction("PagamentoIPVAPorStatusContrato");
+            //}
 
             if (escolha == "gcvs")
             {

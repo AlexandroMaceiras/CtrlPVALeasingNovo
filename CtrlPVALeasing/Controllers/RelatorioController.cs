@@ -36,10 +36,12 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa))
 
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
@@ -141,13 +143,16 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j0
-                     from d in j0.DefaultIfEmpty()
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
+                     //join d in db.Tbl_Bens
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j0
+                     //from d in j0.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
@@ -253,11 +258,12 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
@@ -360,13 +366,16 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
+                     //join d in db.Tbl_Bens
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j2
+                     //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join f in db.Tbl_SCC
                      on a.cpf_cnpj_cliente equals f.cpf_cnpj_cliente
@@ -481,13 +490,16 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
+                     //join d in db.Tbl_Bens
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j2
+                     //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
@@ -548,13 +560,16 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
+                     //join d in db.Tbl_Bens
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j2
+                     //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join e in db.Tbl_CCL
                      on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
@@ -683,8 +698,9 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
 
                      join f in db.Tbl_Agencias
                      on a.agencia equals f.agencia
@@ -856,13 +872,16 @@ namespace CtrlPVALeasing.Controllers
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
 
-                     join d in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa))
+
+                     from d in db.Tbl_Bens.Where(bens =>
+                     (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
+                     //join d in db.Tbl_Bens
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j2
+                     //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      //join e in db.Tbl_CCL
                      //on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente

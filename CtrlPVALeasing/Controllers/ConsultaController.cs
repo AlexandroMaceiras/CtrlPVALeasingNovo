@@ -533,7 +533,7 @@ namespace CtrlPVALeasing.Controllers
 
             where a.contrato.Contains(contrato)
             where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
-            where a.origem.Equals("B")
+            //where a.origem.Equals("B")
             where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
             select new
             {
@@ -670,10 +670,11 @@ namespace CtrlPVALeasing.Controllers
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     into j1
-                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
+                    //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                    //into j1
+                    //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join d in db.Tbl_Bens
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
@@ -696,7 +697,7 @@ namespace CtrlPVALeasing.Controllers
                      from g in j5.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
-                     where a.origem.Equals("B")
+                     //where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
