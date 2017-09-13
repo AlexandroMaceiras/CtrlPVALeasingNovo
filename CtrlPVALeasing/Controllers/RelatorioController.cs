@@ -44,7 +44,7 @@ namespace CtrlPVALeasing.Controllers
                      (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa))
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -155,7 +155,7 @@ namespace CtrlPVALeasing.Controllers
                      //from d in j0.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -266,7 +266,7 @@ namespace CtrlPVALeasing.Controllers
                      (b.chassi == bens.chassi) || (b.renavam == bens.renavam) || (b.placa == bens.placa)).DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -378,10 +378,10 @@ namespace CtrlPVALeasing.Controllers
                      //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join f in db.Tbl_SCC
-                     on a.cpf_cnpj_cliente equals f.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals f.cpf_cnpj_cliente.TrimStart('0')
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -502,7 +502,7 @@ namespace CtrlPVALeasing.Controllers
                      //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -572,7 +572,7 @@ namespace CtrlPVALeasing.Controllers
                      //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      join e in db.Tbl_CCL
-                     on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
                      into j1
                      from e in j1.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na CCL e quem não está também.
 
@@ -884,7 +884,7 @@ namespace CtrlPVALeasing.Controllers
                      //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN pra trazer quem esta na Bens e quem não está também.
 
                      //join e in db.Tbl_CCL
-                     //on a.cpf_cnpj_cliente equals e.cpf_cnpj_cliente
+                     //on a.cpf_cnpj_cliente.TrimStart('0') equals e.cpf_cnpj_cliente.TrimStart('0')
 
                      //where (c.pagamento_efet_banco == false || c.pagamento_efet_banco == null)
 
