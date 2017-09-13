@@ -417,6 +417,7 @@
     <Content Include="Views\Arm_Veiculos\Edit.cshtml" />
     <Content Include="Views\Arm_Veiculos\Index.cshtml" />
     <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\CriarContrato.cshtml" />
+    <Content Include="Views\Arm_Veiculos\CriarVeiculo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

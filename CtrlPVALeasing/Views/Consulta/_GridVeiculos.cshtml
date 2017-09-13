@@ -35,7 +35,7 @@
                 @{var contadorInterno = 0; var MF = Model.First();
                     foreach (var item in Model)
                     {
-                        if (item.contrato != null && ((MF.chassi != "" && MF.chassi != null) && (MF.renavam != "" && MF.renavam != null) && (MF.placa != "" && MF.placa != null)))
+                        if (item.contrato != null && ((MF.chassi != "" || MF.chassi != null) && (MF.renavam != "" || MF.renavam != null) && (MF.placa != "" || MF.placa != null)))
                         {
                             contadorInterno++;
                             <tr>

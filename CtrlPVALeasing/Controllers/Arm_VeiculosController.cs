@@ -17,7 +17,7 @@ namespace CtrlPVALeasing.Controllers
         // GET: Arm_Veiculos
         public ActionResult Index()
         {
-            return View(db.Arm_Veiculos.ToList());
+            return View(db.Arm_Veiculos.OrderByDescending(x => x.id).Take(100).ToList());
         }
 
         // GET: Arm_Veiculos/Details/5
@@ -127,7 +127,7 @@ namespace CtrlPVALeasing.Controllers
 
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Create
-        public ActionResult CriarContrato()
+        public ActionResult CriarVeiculo()
         {
             return View();
         }
@@ -137,16 +137,16 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status")] Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato)
+        public ActionResult CriarVeiculo([Bind(Include = "id,contrato,tipo_registro,marca,modelo,tipo,ano_fab,ano_mod,cor,renavam,chassi,placa,origem,status,comunicado_venda")] Arm_Veiculos arm_Veiculos)
         {
             if (ModelState.IsValid)
             {
-                db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
+                db.Arm_Veiculos.Add(arm_Veiculos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(arm_LiquidadosEAtivos_Contrato);
+            return View(arm_Veiculos);
         }
 
 
