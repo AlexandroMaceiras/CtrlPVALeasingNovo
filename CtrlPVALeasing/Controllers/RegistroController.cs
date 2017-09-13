@@ -1817,11 +1817,12 @@ namespace CtrlPVALeasing.Controllers
                         join b in db.Arm_Veiculos
                         on a.contrato equals b.contrato
 
-                        join c in db.Tbl_DebitosEPagamentos_Veiculo
-                        on b.chassi equals c.chassi
+                        from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv => 
+                        (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
+                        //on b.chassi equals c.chassi
                         //where (c.chassi == b.chassi || c.renavam == b.renavam)
-                        into j1
-                        from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                        //into j1
+                        //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                         join d in db.Tbl_Bens
                         on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
