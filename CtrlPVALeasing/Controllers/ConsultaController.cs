@@ -513,8 +513,8 @@ namespace CtrlPVALeasing.Controllers
             }
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-            join b in db.Arm_Veiculos
-            on a.contrato equals b.contrato
+            from b in db.Arm_Veiculos.Where(LEAC => (a.contrato == LEAC.contrato)).DefaultIfEmpty()
+            //on a.contrato equals b.contrato
 
             join c in db.Tbl_Dut
             on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
