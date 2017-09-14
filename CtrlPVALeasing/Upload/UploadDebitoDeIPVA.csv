@@ -1,3 +1,2 @@
-Caracteres (18);Caracteres (20);Caracteres (9);dd/mm/aaaa;Caracteres (2);Caracteres (1);Numerico (18,2);aaaa;Caracteres (10);Numerico (18,2);0 ou 1;Caracteres (40);0 ou 1;0 ou 1;Numerico (18,2);dd/mm/aaaa
-Chassi;Renavam;Placa;Data Cobranca;Uf Cobranca;Tipo Cobranca;Valor Divida;Ano Exercicio;CDA;Valor Custas;Debito Protesto;Nome Cartorio;Divida Ativa Serasa;Protesto Serasa;Valor Debito Tota;Data da Custa
-11221122;11221122;112211;25/10/2017;SP;1;145879;2017;145145145;19985,55;1;Teste Upload Cartório;1;1;89556,8;25/08/2017
+Caracteres (18);Caracteres (20);Caracteres (9);dd/mm/aaaa;Caracteres (2);Caracteres (1);Numerico (18,2);aaaa;Caracteres (10);Numerico (18,2);0 ou 1;Caracteres (40);0 ou 1;0 ou 1;Numerico (18,2);dd/mm/aaaa;
+Chassi;Renavam;Placa;Data Cobranca;Uf Cobranca;Tipo Cobranca;Valor Divida;Ano Exercicio;CDA;Valor Custas;Debito Protesto;Nome Cartorio;Divida Ativa Serasa;Protesto Serasa;Valor Debito Tota;Data das Custas;

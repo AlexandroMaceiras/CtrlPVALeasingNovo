@@ -235,18 +235,6 @@ function chamaErro() {
                                 <td></td>
                                 <td></td>
                                 <td align="right">
-                                    @*<div id="outrosContratos">
-                                            @{
-                                                if (MF.contrato != "" && MF.contrato != null)
-                                                {
-                                                    @Html.ActionLink("REGISTRAR", "RegistroCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm" })
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink("REGISTRAR", "RegistroCliente", new { cpf_cnpj_cliente = @MF.cpf_cnpj_cliente }, new { @class = "btn3 btn-primary-imp btn-sm", onclick = "chamaErro(); return false;" })
-                                                }
-                                            }
-                                    </div>*@
                                     <div>
                                         <input type="submit" value="INCLUIR" class="btn3 btn-primary-imp btn-sm" />
                                     </div>

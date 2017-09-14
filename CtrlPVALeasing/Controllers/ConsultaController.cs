@@ -72,23 +72,24 @@ namespace CtrlPVALeasing.Controllers
                 renavam = "ø";
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
-                     join b in db.Arm_Veiculos
-                     on a.contrato equals b.contrato
+                     from b in db.Arm_Veiculos.Where(LEAC => (a.contrato == LEAC.contrato)).DefaultIfEmpty()
+                     //Isto é um LEFT JOIN de LINQ com lambda, feito logo na raiz por precisar ter todos os contratos mesmo não tendo nenhum veículo associado.
 
-                     join c in db.Tbl_DebitosEPagamentos_Veiculo
-                     on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                     into j1
-                     from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(Depv => 
+                     (b.chassi == Depv.chassi) || (b.renavam == Depv.renavam) || (b.placa == Depv.placa)).DefaultIfEmpty()
+                     //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
+                     //into j1
+                     //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join d in db.Tbl_Dut
                      on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     join e in db.Tbl_Bens
-                     on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
-                     into j3
-                     from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from e in db.Tbl_Bens.Where(Bens => (b.chassi == Bens.chassi) || (b.renavam == Bens.renavam) || (b.placa == Bens.placa)).DefaultIfEmpty()
+                     //on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
+                     //into j3
+                     //from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      join f in db.Tbl_SCC
                      on new { a.cpf_cnpj_cliente } equals new { f.cpf_cnpj_cliente }
@@ -96,7 +97,7 @@ namespace CtrlPVALeasing.Controllers
                      from f in j4.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
-                     where a.origem.Equals("B")
+                     //where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
@@ -514,7 +515,7 @@ namespace CtrlPVALeasing.Controllers
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
             from b in db.Arm_Veiculos.Where(LEAC => (a.contrato == LEAC.contrato)).DefaultIfEmpty()
-            //on a.contrato equals b.contrato
+            //Isto é um LEFT JOIN de LINQ com lambda, feito logo na raiz por precisar ter todos os contratos mesmo não tendo nenhum veículo associado.
 
             join c in db.Tbl_Dut
             on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
@@ -531,7 +532,7 @@ namespace CtrlPVALeasing.Controllers
             into j3
             from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-            where a.contrato.Contains(contrato)
+            where a.contrato == contrato
             where a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente)
             //where a.origem.Equals("B")
             where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
@@ -863,7 +864,7 @@ namespace CtrlPVALeasing.Controllers
 
                      where
                        a.cpf_cnpj_cliente.Contains(cpf_cnpj_cliente) && //Não estou usando o cpf_cnpj_clienteZEROS porque decidiu-se que aqui não deveria-se fazer uma pesquisa exata para podermos pesquisar por RAIZ de CNPJs de uma mesma empresa.
-                       a.origem == "B" &&
+                       //a.origem == "B" &&
                        (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      group new { a, b } by new
                      {

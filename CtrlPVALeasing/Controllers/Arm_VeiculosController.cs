@@ -137,16 +137,75 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarVeiculo([Bind(Include = "id,contrato,tipo_registro,marca,modelo,tipo,ano_fab,ano_mod,cor,renavam,chassi,placa,origem,status,comunicado_venda")] Arm_Veiculos arm_Veiculos)
+        public ActionResult CriarVeiculo([Bind(Include = "id,contrato,tipo_registro,marca,modelo,tipo,ano_fab,ano_mod,cor,renavam,chassi,placa")] Arm_Veiculos arm_Veiculos)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Arm_Veiculos.Add(arm_Veiculos);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(arm_Veiculos);
+                // Controle de erros do ModelState
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+                if (ModelState.IsValid)
+                {
+                    var procuraRegistro = db.Arm_Veiculos
+                    .FirstOrDefault(c => 
+                    (c.chassi == arm_Veiculos.chassi
+                    || c.renavam == arm_Veiculos.renavam
+                    || c.placa == arm_Veiculos.placa ));
+
+                    if (procuraRegistro == null)
+                    {
+                        //Transforma tudo pra maiúsculas. 
+                        if (arm_Veiculos.cor != null)
+                            arm_Veiculos.cor.ToUpper();
+                        if (arm_Veiculos.marca != null)
+                            arm_Veiculos.marca.ToUpper();
+                        if (arm_Veiculos.modelo != null)
+                            arm_Veiculos.modelo.ToUpper();
+                        if (arm_Veiculos.tipo != null)
+                            arm_Veiculos.tipo.ToUpper();
+
+
+                        if ((arm_Veiculos.chassi != null) || (arm_Veiculos.renavam != null) || (arm_Veiculos.placa != null))
+                        {
+                            if (arm_Veiculos.chassi != null)
+                                arm_Veiculos.chassi.ToUpper();
+                            if (arm_Veiculos.renavam != null)
+                                arm_Veiculos.renavam.ToUpper();
+                            if (arm_Veiculos.placa != null)
+                                arm_Veiculos.placa.ToUpper();
+                        }
+                        else
+                        {
+                                arm_Veiculos.chassi.ToUpper();
+                                arm_Veiculos.renavam.ToUpper();
+                                arm_Veiculos.placa.ToUpper();
+                        }
+
+                        arm_Veiculos.flag_manual = true;
+
+                        db.Arm_Veiculos.Add(arm_Veiculos);
+                        db.SaveChanges();
+                        ViewBag.Message = "Incluido com Sucesso!";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Este Contrato já está cadastrado! Caso queira mudar os dados deste contrato vá em Cadastro procure-o e edite o registro.";
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Erro: Algum campo está inválido!";
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
+            }
+            return View();
         }
 
 

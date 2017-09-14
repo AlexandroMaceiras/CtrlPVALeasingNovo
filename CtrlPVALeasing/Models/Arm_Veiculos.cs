@@ -45,5 +45,8 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(92)]
         public string origem { get; set; }
+
+        public bool? flag_manual { get; set; }
+        
     }
 }

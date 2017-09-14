@@ -1,124 +1,365 @@
 ﻿@model CtrlPVALeasing.Models.Arm_Veiculos
-
 @{
-    ViewBag.Title = "CriarVeiculo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Registro de Ceículo";
 }
 
-<h2>CriarVeiculo</h2>
+<script>
+function chamaErro() {
+    $(document).ready(function () {
+        $("#msgErro").modal();
+    });
+}
+</script>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Arm_Veiculos</h4>
-        <hr />
+    <div class="jumbotronFundo">
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td class="busca" width="90%">
+                        <h2>REGISTRO DE VEÍCULO</h2>
+                    </td>
+                    <td align="right" width="9%">
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="limpar" value="LIMPAR" /></div>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+        </center>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.contrato, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.contrato, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DO VEÍCULO:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Chassi: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["chassi"]" type="text" name="chassi" id="chassi" size="25" maxlength="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Renavam: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["renavam"]" type="text" name="renavam" id="renavam" size="25" maxlength="20"  style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Placa: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["placa"]" type="text" name="placa" id="placa" size="15" maxlength="9" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Número do Contrato: </div>
+                                </td>
+                                <td>
+                                    @*<input class="input-sm-fino" value="@MF.contrato" type="text" name="contrato" size="25" style="text-transform:uppercase" />*@
+                                    @Html.EditorFor(model => model.contrato, new { htmlAttributes = new { @class = "input-sm-fino", size = "25", maxlength = "9", id = "numerocontrato" } })
+                                    @*@Html.ValidationMessageFor(model => model.contrato, "", new { @class = "text-danger" })*@
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo Registro: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["tipo_registro"]" type="text" name="tipo_registro" id="tipo_registro" size="10" maxlength="4" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Marca: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["marca"]" type="text" name="marca" id="marca" size="25" maxlength="20" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: </div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["modelo"]" type="text" name="modelo" id="modelo" size="25" smaxlength="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["tipo"]" type="text" name="tipo" id="tipo" size="25" maxlength="20" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano de Fabricação: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["ano_fab"]" type="text" name="ano_fab" id="ano_fab" size="10" maxlength="4" style="text-transform:uppercase" />
+                                </td>
+                            </tr>
+                            <tr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.tipo_registro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tipo_registro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipo_registro, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["ano_mod"]" type="text" name="ano_mod" id="ano_mod" size="10" maxlength="4" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Cor: &nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                <td>
+                                    <input class="input-sm-fino" value="@Request["cor"]" type="text" name="cor" id="cor" size="10" maxlength="10" style="text-transform:uppercase" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right">
+                                    <div>
+                                        <input type="submit" value="INCLUIR" class="btn3 btn-primary-imp btn-sm" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <br />
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.marca, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.marca, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.marca, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    //Erro de contrato não encontrado
+    @*if (MF.id == -1)
+        {
+        <script>
+            try
+            {
+                $(document).ready(function() {
+                    $("#msgErro").modal();
+                });
+            }
+            catch (e)
+            {
+                alert(e);
+            }
+        </script>
+        }*@
+    }
+@if (ViewBag.Message != null)
+{
+    @*<script type="text/javascript">
+                window.onload = function () {
+                    alert("@ViewBag.Message");
+                };
+            $("#msgOk").modal();
+        </script>*@
+    <script>
+        try {
+            $(document).ready(function () {
+                $("#msgOk").modal();
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    </script>
+}
+<!-- O section Scripts é necessário para funcionar algumas mascaras -->
+@section Scripts {
+    <script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    try {
+        $("#mudaReset").click(function () {
+            document.getElementById("numerocontrato").setAttribute("value", "");
+            document.getElementById("chassi").setAttribute("value", "");
+            document.getElementById("renavam").setAttribute("value", "");
+            document.getElementById("placa").setAttribute("value", "");
+            document.getElementById("tipo_registro").setAttribute("value", "");
+            document.getElementById("marca").setAttribute("value", "");
+            document.getElementById("modelo").setAttribute("value", "");
+            document.getElementById("tipo").setAttribute("value", "");
+            document.getElementById("ano_fab").setAttribute("value", "");
+            document.getElementById("ano_mod").setAttribute("value", "");
+            document.getElementById("cor").setAttribute("value", "");
+            //document.getElementById("ConsultaContrato").submit();
+        });
+    }
+    catch (e) {
+        alert(e);
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tipo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    try {
+        document.getElementById("numerocontrato").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("chassi").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("renavam").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("placa").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("tipo_registro").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("marca").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("modelo").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("tipo").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("ano_fab").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("ano_mod").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("cor").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if (" 1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+    }
+    catch (e) {
+        alert(e);
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ano_fab, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ano_fab, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ano_fab, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    $(document).ready(function () {
+        //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
+        //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
+        //$("#cep").inputmask("mask", { "mask": "99999-999" });
+        $("#dta_vecto_contrato").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dta_inicio_contrato").inputmask("mask", { "mask": "99/99/9999" });
+        $("#dta_ultimo_pagto").inputmask("mask", { "mask": "99/99/9999" });
+        $("#data_da_baixa").inputmask("mask", { "mask": "99/99/9999" });
+        //$("#valor1").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#valor2").inputmask("mask", { "mask": "999.999.999.999,99" }, { reverse: false });
+        //$("#ip").inputmask("mask", { "mask": "999.999.999.999" });
+    });
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ano_mod, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ano_mod, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ano_mod, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    $("#_valor_debito_total").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cor, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    $("#_valor_total_recuperado_contrato").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.renavam, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.renavam, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.renavam, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    $("#_valor_total_recuperado_cnpj").inputmask('decimal', {
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0',
+        rightAlign: false,
+        autoUnmask: true,
+        onBeforeMask: function (value, opts) {
+            return value;
+        }
+    });
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.chassi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.chassi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.chassi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.placa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.placa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.placa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.origem, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.origem, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.origem, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+    </script>
+}
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE CONTRATO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">@ViewBag.Message</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
+
+

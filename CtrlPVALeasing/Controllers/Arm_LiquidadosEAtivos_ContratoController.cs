@@ -133,7 +133,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status")] Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato)
+        public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status")] Arm_LiquidadosEAtivos_Contrato arm_Veiculos)
         {
             try
             {
@@ -146,20 +146,27 @@ namespace CtrlPVALeasing.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var procuraRegistro = db.Arm_LiquidadosEAtivos_Contrato
-                    .FirstOrDefault(c => c.contrato == arm_LiquidadosEAtivos_Contrato.contrato);
+                    var procuraRegistro = db.Arm_Veiculos
+                    .FirstOrDefault(c => c.contrato == arm_Veiculos.contrato);
 
                     if (procuraRegistro == null)
                     {
                         //Transforma tudo pra maiúsculas. 
-                        procuraRegistro.nome_cliente.ToUpper();
-                        procuraRegistro.end_cliente.ToUpper();
-                        procuraRegistro.comp_end_cliente.ToUpper();
-                        procuraRegistro.bairro_cliente.ToUpper();
-                        procuraRegistro.cidade_cliente.ToUpper();
-                        procuraRegistro.uf_cliente.ToUpper();
+                        arm_Veiculos.contrato.ToUpper();
+                        if (arm_Veiculos.nome_cliente != null)
+                            arm_Veiculos.nome_cliente.ToUpper();
+                        if (arm_Veiculos.end_cliente != null)
+                            arm_Veiculos.end_cliente.ToUpper();
+                        if (arm_Veiculos.comp_end_cliente != null)
+                            arm_Veiculos.comp_end_cliente.ToUpper();
+                        if (arm_Veiculos.bairro_cliente != null)
+                            arm_Veiculos.bairro_cliente.ToUpper();
+                        if (arm_Veiculos.cidade_cliente != null)
+                            arm_Veiculos.cidade_cliente.ToUpper();
+                        if (arm_Veiculos.uf_cliente != null)
+                            arm_Veiculos.uf_cliente.ToUpper();
 
-                        db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
+                        db.Arm_LiquidadosEAtivos_Contrato.Add(arm_Veiculos);
                         db.SaveChanges();
                         ViewBag.Message = "Incluido com Sucesso!";
                     }
@@ -173,9 +180,9 @@ namespace CtrlPVALeasing.Controllers
                     ViewBag.Message = "Erro: Algum campo está inválido!";
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                ViewBag.Message = e.Message.ToString();
+                ViewBag.Message = "Erro: O número do contrato é obrigatório!";
             }
             return View();
         }
