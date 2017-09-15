@@ -238,7 +238,7 @@ function chamaErro() {
             }
             document.getElementById("placa").onkeypress = function (e) {
                 var chr = String.fromCharCode(e.which);
-                if ("1234567890".indexOf(chr) < 0)
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
             }
             document.getElementById("tipo_registro").onkeypress = function (e) {

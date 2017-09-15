@@ -147,69 +147,90 @@ namespace CtrlPVALeasing.Controllers
                 .Select(x => new { x.Key, x.Value.Errors })
                 .ToArray();
 
-                if (ModelState.IsValid)
+                if (arm_Veiculos.chassi == null)
+                    arm_Veiculos.chassi = "ø";
+                if (arm_Veiculos.renavam == null)
+                    arm_Veiculos.renavam = "ø";
+                if (arm_Veiculos.placa == null)
+                    arm_Veiculos.placa = "ø";
+                if (arm_Veiculos.chassi != "ø" || arm_Veiculos.renavam != "ø" || arm_Veiculos.placa != "ø")
                 {
-                    bool valido1 = false;
-                    bool valido2 = false;
-                    bool valido3 = false;
-
-                    ModelState.Clear();
-
-                    if (db.Arm_Veiculos.Where(c => c.chassi == arm_Veiculos.chassi).Count() == 0)
-                        valido1 = true;
-
-                    if (db.Arm_Veiculos.Where(d => d.renavam == arm_Veiculos.renavam).Count() == 0)
-                        valido2 = true;
-
-                    if (db.Arm_Veiculos.Where(e => e.placa == arm_Veiculos.placa).Count() == 0)
-                        valido3 = true;
-
-                    if ((valido1 && valido2 && valido3) && (arm_Veiculos.chassi != null || arm_Veiculos.renavam != null || arm_Veiculos.placa != null))
+                    if (ModelState.IsValid)
                     {
-                        //Transforma tudo pra maiúsculas. 
-                        if (arm_Veiculos.cor != null)
-                            arm_Veiculos.cor.ToUpper();
-                        if (arm_Veiculos.marca != null)
-                            arm_Veiculos.marca.ToUpper();
-                        if (arm_Veiculos.modelo != null)
-                            arm_Veiculos.modelo.ToUpper();
-                        if (arm_Veiculos.tipo != null)
-                            arm_Veiculos.tipo.ToUpper();
+                        bool valido1 = false;
+                        bool valido2 = false;
+                        bool valido3 = false;
 
-                        if (arm_Veiculos.chassi != null)
-                            arm_Veiculos.chassi.ToUpper();
+                        ModelState.Clear();
+
+                        if (db.Arm_Veiculos.Where(c => c.chassi == arm_Veiculos.chassi).Count() == 0)
+                            valido1 = true;
+
+                        if (db.Arm_Veiculos.Where(d => d.renavam == arm_Veiculos.renavam).Count() == 0)
+                            valido2 = true;
+
+                        if (db.Arm_Veiculos.Where(e => e.placa == arm_Veiculos.placa).Count() == 0)
+                            valido3 = true;
+
+                        if (valido1 && valido2 && valido3)
+                        {
+                            //Transforma tudo pra maiúsculas. 
+                            if (arm_Veiculos.cor != null)
+                                arm_Veiculos.cor = arm_Veiculos.cor.ToUpper();
+                            if (arm_Veiculos.marca != null)
+                                arm_Veiculos.marca = arm_Veiculos.marca.ToUpper();
+                            if (arm_Veiculos.modelo != null)
+                                arm_Veiculos.modelo = arm_Veiculos.modelo.ToUpper();
+                            if (arm_Veiculos.tipo != null)
+                                arm_Veiculos.tipo = arm_Veiculos.tipo.ToUpper();
+
+                            if (arm_Veiculos.chassi != null && arm_Veiculos.chassi != "" && arm_Veiculos.chassi != "ø")
+                                arm_Veiculos.chassi = arm_Veiculos.chassi.ToUpper();
+                            else
+                                arm_Veiculos.chassi = null;
+
+
+                            if (arm_Veiculos.renavam != null && arm_Veiculos.renavam != "" && arm_Veiculos.renavam != "ø")
+                                arm_Veiculos.renavam = arm_Veiculos.renavam.ToUpper();
+                            else
+                                arm_Veiculos.renavam = null;
+
+
+                            if (arm_Veiculos.placa != null && arm_Veiculos.placa != "" && arm_Veiculos.placa != "ø")
+                                arm_Veiculos.placa = arm_Veiculos.placa.ToUpper();
+                            else
+                                arm_Veiculos.placa = null;
+
+
+                            arm_Veiculos.flag_manual = true;
+
+                            db.Arm_Veiculos.Add(arm_Veiculos);
+                            db.SaveChanges();
+                            ViewBag.Message = "Incluido com Sucesso!";
+                        }
+
+                        if ((arm_Veiculos.chassi == "" && arm_Veiculos.renavam == "" && arm_Veiculos.placa == "")
+                            || (arm_Veiculos.chassi == "ø" && arm_Veiculos.renavam == "ø" && arm_Veiculos.placa == "ø"))
+                        {
+                            ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
+                        }
+                        else if (valido1 && valido2 && valido3)
+                        {
+                            ViewBag.Message = "Incluido com Sucesso!";
+                        }
                         else
-                            arm_Veiculos.chassi = "";
-
-                        if (arm_Veiculos.renavam != null)
-                            arm_Veiculos.renavam.ToUpper();
-                        else
-                            arm_Veiculos.renavam = "";
-
-                        if (arm_Veiculos.placa != null)
-                            arm_Veiculos.placa.ToUpper();
-                        else
-                            arm_Veiculos.placa = "";
-
-                        arm_Veiculos.flag_manual = true;
-
-                        db.Arm_Veiculos.Add(arm_Veiculos);
-                        db.SaveChanges();
-                        ViewBag.Message = "Incluido com Sucesso!";
+                        {
+                            ViewBag.Message = "Erro: Este Veículo já está cadastrado!";
+                        }
                     }
-
-                    if (arm_Veiculos.chassi == null && arm_Veiculos.renavam == null && arm_Veiculos.placa == null)
+                    else
                     {
-                        ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
-                    }
-                    else if (!valido1 || !valido2 || !valido3)
-                    {
-                        ViewBag.Message = "Erro: Este Veículo já está cadastrado!";
+                        ViewBag.Message = "Erro: Algum campo está inválido!";
                     }
                 }
                 else
                 {
-                    ViewBag.Message = "Erro: Algum campo está inválido!";
+                    ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
                 }
             }
             catch (Exception e)

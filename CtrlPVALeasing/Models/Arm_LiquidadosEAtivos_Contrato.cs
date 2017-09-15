@@ -94,5 +94,6 @@ namespace CtrlPVALeasing.Models
         public string comp_end_cliente { get; set; }
 
         public bool? status { get; set; }
+        public bool? flag_manual { get; set; }
     }
 }

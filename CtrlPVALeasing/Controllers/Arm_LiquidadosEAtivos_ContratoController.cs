@@ -133,11 +133,10 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status")] Arm_LiquidadosEAtivos_Contrato arm_Veiculos)
+        public ActionResult CriarContrato([Bind(Include = "id,contrato,tipo,agencia,dta_inicio_contrato,dta_vecto_contrato,origem,cpf_cnpj_cliente,nome_cliente,ddd_cliente_particular,fone_cliente_particular,rml_cliente_particular,end_cliente,bairro_cliente,cidade_cliente,uf_cliente,cep_cliente,filler,ddd_cliente_cml,fone_cliente_cml,dta_ultimo_pagto,tipo_de_baixa,data_da_baixa,cod_empresa,num_end_cliente,comp_end_cliente,status,flag_manual")] Arm_LiquidadosEAtivos_Contrato arm_LiquidadosEAtivos_Contrato)
         {
             try
             {
-
                 // Controle de erros do ModelState
                 var errors = ModelState
                 .Where(x => x.Value.Errors.Count > 0)
@@ -146,27 +145,28 @@ namespace CtrlPVALeasing.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var procuraRegistro = db.Arm_Veiculos
-                    .FirstOrDefault(c => c.contrato == arm_Veiculos.contrato);
+                    var procuraRegistro = db.Arm_LiquidadosEAtivos_Contrato
+                    .Where(c => c.contrato == arm_LiquidadosEAtivos_Contrato.contrato);
 
-                    if (procuraRegistro == null)
+                    if (procuraRegistro.Count() == 0)
                     {
                         //Transforma tudo pra maiúsculas. 
-                        arm_Veiculos.contrato.ToUpper();
-                        if (arm_Veiculos.nome_cliente != null)
-                            arm_Veiculos.nome_cliente.ToUpper();
-                        if (arm_Veiculos.end_cliente != null)
-                            arm_Veiculos.end_cliente.ToUpper();
-                        if (arm_Veiculos.comp_end_cliente != null)
-                            arm_Veiculos.comp_end_cliente.ToUpper();
-                        if (arm_Veiculos.bairro_cliente != null)
-                            arm_Veiculos.bairro_cliente.ToUpper();
-                        if (arm_Veiculos.cidade_cliente != null)
-                            arm_Veiculos.cidade_cliente.ToUpper();
-                        if (arm_Veiculos.uf_cliente != null)
-                            arm_Veiculos.uf_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.nome_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.nome_cliente = arm_LiquidadosEAtivos_Contrato.nome_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.end_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.end_cliente = arm_LiquidadosEAtivos_Contrato.end_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.comp_end_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.comp_end_cliente = arm_LiquidadosEAtivos_Contrato.comp_end_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.bairro_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.bairro_cliente = arm_LiquidadosEAtivos_Contrato.bairro_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.cidade_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.cidade_cliente = arm_LiquidadosEAtivos_Contrato.cidade_cliente.ToUpper();
+                        if (arm_LiquidadosEAtivos_Contrato.uf_cliente != null)
+                            arm_LiquidadosEAtivos_Contrato.uf_cliente = arm_LiquidadosEAtivos_Contrato.uf_cliente.ToUpper();
 
-                        db.Arm_LiquidadosEAtivos_Contrato.Add(arm_Veiculos);
+                        arm_LiquidadosEAtivos_Contrato.flag_manual = true;
+
+                        db.Arm_LiquidadosEAtivos_Contrato.Add(arm_LiquidadosEAtivos_Contrato);
                         db.SaveChanges();
                         ViewBag.Message = "Incluido com Sucesso!";
                     }
