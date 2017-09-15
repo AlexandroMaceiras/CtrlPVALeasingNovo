@@ -141,7 +141,6 @@ namespace CtrlPVALeasing.Controllers
         {
             try
             {
-
                 // Controle de erros do ModelState
                 var errors = ModelState
                 .Where(x => x.Value.Errors.Count > 0)
@@ -150,13 +149,22 @@ namespace CtrlPVALeasing.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var procuraRegistro = db.Arm_Veiculos
-                    .FirstOrDefault(c => 
-                    (c.chassi == arm_Veiculos.chassi
-                    || c.renavam == arm_Veiculos.renavam
-                    || c.placa == arm_Veiculos.placa ));
+                    bool valido1 = false;
+                    bool valido2 = false;
+                    bool valido3 = false;
 
-                    if (procuraRegistro == null)
+                    ModelState.Clear();
+
+                    if (db.Arm_Veiculos.Where(c => c.chassi == arm_Veiculos.chassi).Count() == 0)
+                        valido1 = true;
+
+                    if (db.Arm_Veiculos.Where(d => d.renavam == arm_Veiculos.renavam).Count() == 0)
+                        valido2 = true;
+
+                    if (db.Arm_Veiculos.Where(e => e.placa == arm_Veiculos.placa).Count() == 0)
+                        valido3 = true;
+
+                    if ((valido1 && valido2 && valido3) && (arm_Veiculos.chassi != null || arm_Veiculos.renavam != null || arm_Veiculos.placa != null))
                     {
                         //Transforma tudo pra maiúsculas. 
                         if (arm_Veiculos.cor != null)
@@ -168,22 +176,20 @@ namespace CtrlPVALeasing.Controllers
                         if (arm_Veiculos.tipo != null)
                             arm_Veiculos.tipo.ToUpper();
 
-
-                        if ((arm_Veiculos.chassi != null) || (arm_Veiculos.renavam != null) || (arm_Veiculos.placa != null))
-                        {
-                            if (arm_Veiculos.chassi != null)
-                                arm_Veiculos.chassi.ToUpper();
-                            if (arm_Veiculos.renavam != null)
-                                arm_Veiculos.renavam.ToUpper();
-                            if (arm_Veiculos.placa != null)
-                                arm_Veiculos.placa.ToUpper();
-                        }
+                        if (arm_Veiculos.chassi != null)
+                            arm_Veiculos.chassi.ToUpper();
                         else
-                        {
-                                arm_Veiculos.chassi.ToUpper();
-                                arm_Veiculos.renavam.ToUpper();
-                                arm_Veiculos.placa.ToUpper();
-                        }
+                            arm_Veiculos.chassi = "";
+
+                        if (arm_Veiculos.renavam != null)
+                            arm_Veiculos.renavam.ToUpper();
+                        else
+                            arm_Veiculos.renavam = "";
+
+                        if (arm_Veiculos.placa != null)
+                            arm_Veiculos.placa.ToUpper();
+                        else
+                            arm_Veiculos.placa = "";
 
                         arm_Veiculos.flag_manual = true;
 
@@ -191,9 +197,14 @@ namespace CtrlPVALeasing.Controllers
                         db.SaveChanges();
                         ViewBag.Message = "Incluido com Sucesso!";
                     }
-                    else
+
+                    if (arm_Veiculos.chassi == null && arm_Veiculos.renavam == null && arm_Veiculos.placa == null)
                     {
-                        ViewBag.Message = "Este Contrato já está cadastrado! Caso queira mudar os dados deste contrato vá em Cadastro procure-o e edite o registro.";
+                        ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
+                    }
+                    else if (!valido1 || !valido2 || !valido3)
+                    {
+                        ViewBag.Message = "Erro: Este Veículo já está cadastrado!";
                     }
                 }
                 else
@@ -203,15 +214,10 @@ namespace CtrlPVALeasing.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Message = "Erro: O chassi o renavam ou a placa é obrigatório!";
+                ViewBag.Message = e.InnerException.ToString();
             }
             return View();
         }
-
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {
