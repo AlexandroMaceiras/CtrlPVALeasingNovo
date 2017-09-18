@@ -359,7 +359,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data das Custas:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null && Request["dta_custas"].Length > 10 ? Request["dta_custas"].Substring(0,10) : ""))" type="text" name="dta_pagamento_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.dta_custas.HasValue ? MF.dta_custas.ToString().Substring(0,10) : (Request["dta_custas"] != null && Request["dta_custas"].Length > 10 ? Request["dta_custas"].Substring(0,10) : ""))" type="text" name="dta_custas" size="20" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -489,7 +489,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Data Pag. Divida:  &nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="dta_pagamento" class="input-sm-fino" value="@(MF.dta_pagamento.HasValue ? MF.dta_pagamento.ToString().Substring(0,10) : (Request["dta_pagamento"] != null ? Request["dta_pagamento"] : ""))" type="text" name="dta_pagamento" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled'" : "") />
+                                    <input id="dta_pagamento_divida" class="input-sm-fino" value="@(MF.dta_pagamento_divida.HasValue ? MF.dta_pagamento_divida.ToString().Substring(0,10) : (Request["dta_pagamento_divida"] != null ? Request["dta_pagamento_divida"] : ""))" type="text" name="dta_pagamento_divida" size="10" style="text-transform:uppercase" @(Request["Rc"] == "true" || (Request["tipo_cobranca"] == "U" || MF.tipo_cobranca == "U") ? "disabled='disabled'" : "") />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -753,7 +753,7 @@
                                                 <input type="hidden" name="dta_pagamento_custas" value="@MF.dta_pagamento_custas" />
                                                 <input type="hidden" name="valor_debito_total" value="@MF.valor_debito_total" />
 
-                                                <input type="hidden" name="dta_pagamento" value="@MF.dta_pagamento" />
+                                                <input type="hidden" name="dta_pagamento_divida" value="@MF.dta_pagamento_divida" />
                                                 <input type="hidden" name="uf_pagamento" value="@MF.uf_pagamento" />
                                                 <input type="hidden" name="numero_miro_divida" value="@MF.numero_miro_divida" />
                                                 <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
@@ -771,7 +771,7 @@
 
                                                 <input type="hidden" name="pci_credito" value="@MF.pci_credito" />
                                                 <input type="hidden" name="dta_recuperacao" value="@MF.dta_recuperacao" />
-                                                <input type="hidden" name="valor_total_recuperado" value="@MF.valor_total_recuperado" />
+                                                <input type="hidden" name="valor_recuperado" value="@MF.valor_recuperado" />
                                                 <input type="hidden" name="dta_custas" value="@MF.dta_custas" />
                                                 <input type="hidden" name="forma_pagamento_custas" value="@MF.forma_pagamento_custas" />
                                                 <input type="hidden" name="pci_debito_custa" value="@MF.pci_debito_custa" />
@@ -824,10 +824,10 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Total Recuperado:  &nbsp;</div>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Valor Recuperado:  &nbsp;</div>
                                 </td>
                                 <td>
-                                    <input id="valor_total_recuperado" class="input-sm-fino" value="@(MF.valor_total_recuperado.HasValue ? MF.valor_total_recuperado.ToString() : (Request["valor_total_recuperado"] != null ? Request["valor_total_recuperado"] : ""))" type="text" name="valor_total_recuperado" size="10" style="text-transform:uppercase" />
+                                    <input id="valor_recuperado" class="input-sm-fino" value="@(MF.valor_recuperado.HasValue ? MF.valor_recuperado.ToString() : (Request["valor_recuperado"] != null ? Request["valor_recuperado"] : ""))" type="text" name="valor_recuperado" size="10" style="text-transform:uppercase" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -914,7 +914,7 @@
                                                     <input type="hidden" name="dta_pagamento_custas" value="@MF.dta_pagamento_custas" />
                                                     <input type="hidden" name="valor_debito_total" value="@MF.valor_debito_total" />
 
-                                                    <input type="hidden" name="dta_pagamento" value="@MF.dta_pagamento" />
+                                                    <input type="hidden" name="dta_pagamento_divida" value="@MF.dta_pagamento_divida" />
                                                     <input type="hidden" name="uf_pagamento" value="@MF.uf_pagamento" />
                                                     <input type="hidden" name="numero_miro_divida" value="@MF.numero_miro_divida" />
                                                     <input type="hidden" name="numero_miro_custa" value="@MF.numero_miro_custa" />
@@ -1030,8 +1030,52 @@
             }
         </script>
     }
+    else if (MF.id == -12)
+    {
+        <script>
+            try {
+                
+                $(document).ready(function () {
+                    $("#RecuperacaoOk").modal();
+                });
+            }
+            catch (e) {
+                alert(e);
+            }
+        </script>
+    }
+    if (Request["Rc"] == "true")
+    {
+        <script>
+            function validateFormRecuperacao()
+            {
+                document.getElementById("botaoDeSubmit2").setAttribute("disabled", "disabled");
 
-//Aqui o JavaScript participa do Using lá do início da página e ele só é fechado no fim do JS
+                if (
+                    document.getElementsByName('dta_recuperacao')[0].value == "" ||
+                    document.getElementsByName('valor_recuperado')[0].value == "" ||
+                    document.getElementsByName('pci_credito')[0].value == ""
+                    )
+                {
+
+                    $(document).ready(function () {
+                        $("#msgErro10").modal();
+                        return false;
+                    });
+                    return false;
+                }
+                else
+                {
+                    document.getElementById("rd").value = true;
+                    document.getElementsByName("id_debito").value = "@Request["id_debito"]";
+                    document.getElementById("FormAltera").submit();
+                    return true;
+                }
+            }
+        </script>
+    }
+
+    //Aqui o JavaScript participa do Using lá do início da página e ele só é fechado no fim do JS
 
 @section Scripts{
     <script>
@@ -1067,33 +1111,10 @@
             alert(e);
         }
 
+
         try
         {
-            function validateFormRecuperacao()
-            {
-                document.getElementById("botaoDeSubmit2").setAttribute("disabled", "disabled");
 
-                if (
-                    document.getElementsByName('dta_recuperacao')[0].value == "" ||
-                    document.getElementsByName('valor_total_recuperado')[0].value == "" ||
-                    document.getElementsByName('pci_credito')[0].value == ""
-                    )
-                {
-
-                    $(document).ready(function () {
-                        $("#msgErro10").modal();
-                        return false;
-                    });
-                    return false;
-                }
-                else
-                {
-                    document.getElementById("rd").value = true;
-                    document.getElementsByName("id_debito").value = "@Request["id_debito"]";
-                    document.getElementById("FormAltera").submit();
-                    return true;
-                }
-            }
 
             function validateForm()
             {
@@ -1104,7 +1125,7 @@
                     }
                 }
 
-                //alert("dta_pagamento')[0].value = " + document.getElementsByName('dta_pagamento')[0].value);
+                //alert("dta_pagamento_divida')[0].value = " + document.getElementsByName('dta_pagamento_divida')[0].value);
                 //alert("uf_pagamento')[0].value = " + document.getElementsByName('uf_pagamento')[0].value);
                 //alert("numero_miro_divida')[0].value = " + document.getElementsByName('numero_miro_divida')[0].value);
                 //alert("forma_pagamento_divida')[0].value = " + document.getElementsByName('forma_pagamento_divida')[0].value);
@@ -1161,7 +1182,7 @@
                         ||
                         document.getElementById('valor_pago_custas').value == ""
                         ||
-                        document.getElementById('dta_pagamento').value == ""
+                        document.getElementById('dta_pagamento_divida').value == ""
                         ||
                         document.getElementById('vdt2').value == ""
                         ||
@@ -1187,7 +1208,7 @@
                         ||
                         document.getElementById('grupo_safra').value == ""
                         ||
-                        document.getElementById('dta_pagamento').value == ""
+                        document.getElementById('dta_pagamento_divida').value == ""
                         ||
                         document.getElementById('vdt2').value == ""
                         ||
@@ -1247,7 +1268,7 @@
             //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
             //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
             //$("#cep").inputmask("mask", { "mask": "99999-999" });
-            $("#dta_pagamento").inputmask("mask", { "mask": "99/99/9999" });
+            $("#dta_pagamento_divida").inputmask("mask", { "mask": "99/99/9999" });
             $("#dta_pagamento_custas").inputmask("mask", { "mask": "99/99/9999" });
             $("#dta_recuperacao").inputmask("mask", { "mask": "99/99/9999" });
             $("#dta_contabil_divida").inputmask("mask", { "mask": "99/99/9999" });
@@ -1299,7 +1320,7 @@
             }
         });
 
-        $("#valor_total_recuperado").inputmask('decimal', {
+        $("#valor_recuperado").inputmask('decimal', {
             radixPoint: ",",
             groupSeparator: ".",
             autoGroup: true,
@@ -1520,7 +1541,7 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO RECUPERAÇÃO DE PAGAMENTO DE IPVA</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>RECUPERAÇÃO DE PAGAMENTO DE IPVA</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
@@ -1548,6 +1569,27 @@
                 <table width="100%">
                     <tr>
                         <td><center><h4 style="color: rgb(176, 172, 186)">O conteúdo de algum campo está inválido, verifique!</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="RecuperacaoOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>RECUPERAÇÃO DE PAGAMENTO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Recuperação de Pagamento de IPVA Registrada com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>

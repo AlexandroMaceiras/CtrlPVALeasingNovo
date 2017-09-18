@@ -175,7 +175,7 @@
                 PEPD
             </td>
             <td align="center">
-                @(item.dta_pagamento.HasValue ? item.dta_pagamento.ToString().Substring(0,10) : "")
+                @(item.dta_pagamento_divida.HasValue ? item.dta_pagamento_divida.ToString().Substring(0,10) : "")
             </td>
             <td align="center">
                 @(Html.DisplayFor(ModelItem => item.valor_divida))

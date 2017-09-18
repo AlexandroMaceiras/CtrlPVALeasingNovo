@@ -10,7 +10,7 @@
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Nº</div> @*@Html.DisplayNameFor(model => model.id)*@
                     </th>
                     <th class="input-sm-fino" align="center">
-                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data da Dívida</div>
+                        <div class="fonte-cinza-claro fonte-tamanho-form" align="center">Data Pag. Dívida</div>
                     </th>
                     <th class="input-sm-fino" align="center">
                         <div class="fonte-cinza-claro fonte-tamanho-form" align="center">UF da Dívida</div>
@@ -56,7 +56,7 @@
                                     @contadorInterno
                                 </td>
                                 <td class="input-sm-fino" align="center">
-                                   @(item.dta_cobranca.HasValue ? item.dta_cobranca.ToString().Substring(0,10) : "")
+                                   @(item.dta_pagamento_divida.HasValue ? item.dta_pagamento_divida.ToString().Substring(0,10) : "")
                                 </td>
                                 <td class="input-sm-fino" align="center">
                                     @Html.DisplayFor(modelItem => item.uf_cobranca)

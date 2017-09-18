@@ -181,8 +181,6 @@ namespace CtrlPVALeasing.Models
 
         public bool? pagamento_efet_banco { get; set; }
 
-        public DateTime? dta_pagamento { get; set; }
-
         [StringLength(2)]
         public string uf_pagamento { get; set; }
 

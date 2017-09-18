@@ -249,6 +249,7 @@ namespace CtrlPVALeasing.Controllers
 
                          valor_debito_total = c.valor_debito_total,
                          dta_cobranca = c.dta_cobranca,
+                         dta_custas = c.dta_custas,
                          uf_pagamento = c.uf_pagamento,
                          valor_divida = c.valor_divida,
                          ano_exercicio = c.ano_exercicio,
@@ -265,7 +266,6 @@ namespace CtrlPVALeasing.Controllers
                          debito_protesto = c.debito_protesto,
                          nome_cartorio = c.nome_cartorio,
                          protesto_serasa = c.protesto_serasa,
-                         dta_pagamento = c.dta_pagamento,
                          forma_pagamento_divida = c.forma_pagamento_divida,
                          forma_pagamento_custas = c.forma_pagamento_custas,
                          numero_miro_divida = c.numero_miro_divida,
@@ -277,7 +277,8 @@ namespace CtrlPVALeasing.Controllers
                          pci_debito_divida = c.pci_debito_divida,
                          pci_debito_custa = c.pci_debito_custa,
                          pci_credito = c.pci_credito,
-                         grupo_safra = c.grupo_safra
+                         grupo_safra = c.grupo_safra,
+                         status_recuperacao = c.status_recuperacao
 
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
@@ -325,6 +326,7 @@ namespace CtrlPVALeasing.Controllers
 
                          valor_debito_total = x.valor_debito_total,
                          dta_cobranca = x.dta_cobranca,
+                         dta_custas = x.dta_custas,
                          uf_pagamento = x.uf_pagamento,
                          valor_divida = x.valor_divida,
                          ano_exercicio = x.ano_exercicio,
@@ -341,7 +343,6 @@ namespace CtrlPVALeasing.Controllers
                          debito_protesto = x.debito_protesto,
                          nome_cartorio = x.nome_cartorio,
                          protesto_serasa = x.protesto_serasa,
-                         dta_pagamento = x.dta_pagamento,
                          forma_pagamento_divida = x.forma_pagamento_divida,
                          forma_pagamento_custas = x.forma_pagamento_custas,
                          numero_miro_divida = x.numero_miro_divida,
@@ -353,16 +354,17 @@ namespace CtrlPVALeasing.Controllers
                          pci_debito_divida = x.pci_debito_divida,
                          pci_debito_custa = x.pci_debito_custa,
                          pci_credito = x.pci_credito,
-                         grupo_safra = x.grupo_safra
+                         grupo_safra = x.grupo_safra,
+                         status_recuperacao = x.status_recuperacao
 
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             //Foi comentado pois o Bruno pediu para que gerasse um csv mesmo que estivesse vazio.
 
-            if (model.Count() == 0 || model == null)
-            {
-                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
-            }
+            //if (model.Count() == 0 || model == null)
+            //{
+            //    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            //}
 
             //if (model == null || model.Any() == false)
             //{
@@ -386,7 +388,7 @@ namespace CtrlPVALeasing.Controllers
 
 
                     "UF de Cobranca;" +
-                    "Tipo de Cobranca;" +
+                    "Tipo de Cobranca (S,D ou C);" +
                     "Ano de Exercicio;" +
 
                     "CDA;" +
@@ -396,8 +398,9 @@ namespace CtrlPVALeasing.Controllers
                     "Protesto no Serasa;" +
 
                     "Pagamento Efetuado no Banco;" +
-                    "Data de Cobranca;" +
-                    "Data de Pagamento;" +
+                    "Data da Dívida;" +
+                    "Data de Pagamento Dívida;" +
+                    "Data das Custas;" +
                     "Data Pagamento Custas;" +
                     "Data Recuperação;" +
 
@@ -427,6 +430,7 @@ namespace CtrlPVALeasing.Controllers
                     "Pci Crédito;" +
                     "Grupo Safra;" +
                     "Status;" +
+                    "Status da Recuperação;" +
                     "Origem"
                     );
 
@@ -439,7 +443,7 @@ namespace CtrlPVALeasing.Controllers
 
                 foreach (var elemento in model)
                 {
-                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};",
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40};{41}",
 
                     contador++,
                     elemento.contrato,
@@ -462,7 +466,8 @@ namespace CtrlPVALeasing.Controllers
 
                     elemento.pagamento_efet_banco.HasValue ? (elemento.pagamento_efet_banco == true ? "Sim" : "Não") : "Não",
                     (elemento.dta_cobranca.HasValue ? elemento.dta_cobranca.ToString().Substring(0, 10) : ""),
-                    (elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : ""),
+                    (elemento.dta_pagamento_divida.HasValue ? elemento.dta_pagamento_divida.ToString().Substring(0, 10) : ""),
+                    (elemento.dta_custas.HasValue ? elemento.dta_custas.ToString().Substring(0, 10) : ""),
                     (elemento.dta_pagamento_custas.HasValue ? elemento.dta_pagamento_custas.ToString().Substring(0, 10) : ""),
                     (elemento.dta_recuperacao.HasValue ? elemento.dta_recuperacao.ToString().Substring(0, 10) : ""),
                     elemento.numero_miro_divida,
@@ -482,7 +487,7 @@ namespace CtrlPVALeasing.Controllers
 
 
                     elemento.valor_debito_total,
-                    elemento.valor_pago_total,
+                    (elemento.valor_pago_custas.HasValue ? elemento.valor_pago_custas : 0) + (elemento.valor_pago_divida.HasValue ? elemento.valor_pago_divida : 0),
                     elemento.valor_recuperado,
                     elemento.valor_total_recuperado,
 
@@ -491,7 +496,8 @@ namespace CtrlPVALeasing.Controllers
                     elemento.pci_debito_custa,
                     elemento.pci_credito,
                     elemento.grupo_safra,
-                    elemento.status,
+                    elemento.status.HasValue ? (elemento.status == true ? "Ativo" : "liquidado") : "liquidado",
+                    elemento.status_recuperacao,
                     elemento.origem
                     ));
                 }
@@ -807,7 +813,7 @@ namespace CtrlPVALeasing.Controllers
 
                          dta_cobranca           = c.dta_cobranca,
                          valor_debito_total     = c.valor_debito_total,
-                         dta_pagamento          = c.dta_pagamento,
+                         dta_pagamento_divida          = c.dta_pagamento_divida,
                          valor_pago_total       = c.valor_pago_total,
                          divida_ativa_serasa    = c.divida_ativa_serasa,
 
@@ -860,7 +866,7 @@ namespace CtrlPVALeasing.Controllers
 
                          dta_cobranca           = x.dta_cobranca,
                          valor_debito_total     = x.valor_debito_total,
-                         dta_pagamento          = x.dta_pagamento,
+                         dta_pagamento_divida          = x.dta_pagamento_divida,
                          valor_pago_total       = x.valor_pago_total,
                          divida_ativa_serasa    = x.divida_ativa_serasa,
 

@@ -579,7 +579,7 @@ namespace CtrlPVALeasing.Controllers
 
                              dta_cobranca           = c.dta_cobranca,
                              valor_debito_total     = c.valor_debito_total,
-                             dta_pagamento          = c.dta_pagamento,
+                             dta_pagamento_divida          = c.dta_pagamento_divida,
                              valor_pago_total       = c.valor_pago_total,
                              divida_ativa_serasa    = c.divida_ativa_serasa,
 
@@ -641,7 +641,7 @@ namespace CtrlPVALeasing.Controllers
 
                              dta_cobranca           = x.dta_cobranca,
                              valor_debito_total     = x.valor_debito_total,
-                             dta_pagamento          = x.dta_pagamento,
+                             dta_pagamento_divida          = x.dta_pagamento_divida,
                              valor_pago_total       = x.valor_pago_total,
                              divida_ativa_serasa    = x.divida_ativa_serasa,
 

@@ -707,8 +707,8 @@ namespace CtrlPVALeasing.Controllers
                      into j1
                      from f in j1.DefaultIfEmpty()
 
-                     where c.dta_pagamento >= dataInicio
-                     where c.dta_pagamento <= dataFim
+                     where c.dta_pagamento_divida >= dataInicio
+                     where c.dta_pagamento_divida <= dataFim
                      where a.origem.Equals("B")
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
@@ -720,7 +720,7 @@ namespace CtrlPVALeasing.Controllers
                          descricao_agencia  = f.descricao_agencia,
                          agencia            = a.agencia,
 
-                         c.dta_pagamento,
+                         c.dta_pagamento_divida,
                          c.valor_divida,
                          c.pci_debito_divida,
                          c.dta_cobranca,
@@ -736,7 +736,7 @@ namespace CtrlPVALeasing.Controllers
                          descricao_agencia  = x.descricao_agencia,
                          agencia            = x.agencia,
 
-                         dta_pagamento          = x.dta_pagamento,
+                         dta_pagamento_divida          = x.dta_pagamento_divida,
                          valor_divida           = x.valor_divida,
                          pci_debito_divida      = x.pci_debito_divida,
                          dta_cobranca           = x.dta_cobranca,
@@ -835,7 +835,7 @@ namespace CtrlPVALeasing.Controllers
                     "Agências",
                     "1",
                     "Perda Efetiva",
-                    elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0,10) : "",
+                    elemento.dta_pagamento_divida.HasValue ? elemento.dta_pagamento_divida.ToString().Substring(0,10) : "",
                     elemento.dta_cobranca.HasValue ? elemento.dta_cobranca.ToString().Substring(0, 10) : "",
                     "Crédito",
                     "C",
