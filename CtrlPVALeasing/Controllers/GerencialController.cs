@@ -359,10 +359,10 @@ namespace CtrlPVALeasing.Controllers
 
             //Foi comentado pois o Bruno pediu para que gerasse um csv mesmo que estivesse vazio.
 
-            //if (model.Count() == 0 || model == null)
-            //{
-            //    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
-            //}
+            if (model.Count() == 0 || model == null)
+            {
+                return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            }
 
             //if (model == null || model.Any() == false)
             //{
@@ -377,40 +377,57 @@ namespace CtrlPVALeasing.Controllers
 
                 sw.WriteLine(
                     "Nº;" +
+                    "Contrato;" +
                     "Chassi;" +
                     "Renavam;" +
                     "Placa;" +
-                    "Data de Cobranca;" +
+                    "Nome Cliente;" +
+                    "CPF/CNPJ;" +
+
+
                     "UF de Cobranca;" +
                     "Tipo de Cobranca;" +
-                    "Valor da Divida;" +
                     "Ano de Exercicio;" +
+
                     "CDA;" +
-                    "Valor de Custas;" +
                     "Debito de Protesto;" +
                     "Nome do Cartorio;" +
                     "Divida Ativa no Serasa?;" +
                     "Protesto no Serasa;" +
-                    "Valor do Debito Total;" +
+
                     "Pagamento Efetuado no Banco;" +
+                    "Data de Cobranca;" +
                     "Data de Pagamento;" +
-                    "UF de Pagamento;" +
-                    "Forma de Pagamento da Divida;" +
-                    "Forma de Pagamento de Custas;" +
-                    "Valor Pago da Divida;" +
+                    "Data Pagamento Custas;" +
+                    "Data Recuperação;" +
+
                     "Número Miro da Dívida;" +
                     "Numero Miro das Custas;" +
-                    "Obs de Pagamento;" +
+                    "Forma de Pagamento da Divida;" +
+                    "Forma de Pagamento de Custas;" +
+                    "UF de Pagamento;" +
+
+
+
+
+                    "Valor de Custas;" +
                     "Valor Pago Custas;" +
+                    "Valor da Divida;" +
+                    "Valor Pago da Divida;" +
+
+
+                    "Valor do Debito Total;" +
                     "Valor Pago Total;" +
                     "Valor Recuperado;" +
                     "Valor Total Recuperado;" +
-                    "Data Pagamento Custas;" +
-                    "Data Recuperação;" +
+
+                    "Obs de Pagamento;" +
                     "Pci débito Dívida;" +
                     "Pci Débito Custa;" +
                     "Pci Crédito;" +
-                    "Grupo Safra"
+                    "Grupo Safra;" +
+                    "Status;" +
+                    "Origem"
                     );
 
                 Response.ClearContent();
@@ -422,43 +439,60 @@ namespace CtrlPVALeasing.Controllers
 
                 foreach (var elemento in model)
                 {
-                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};",
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};",
 
                     contador++,
+                    elemento.contrato,
                     elemento.chassi,
                     elemento.renavam,
                     elemento.placa,
-                    (elemento.dta_cobranca.HasValue ? elemento.dta_cobranca.ToString().Substring(0, 10) : ""),
+                    elemento.nome_cliente,
+                    elemento.cpf_cnpj_cliente,
+
+
                     elemento.uf_cobranca,
                     elemento.tipo_cobranca,
-                    elemento.valor_divida,
                     elemento.ano_exercicio,
+
                     elemento.cda,
-                    elemento.valor_custas,
-                    elemento.debito_protesto,
+                    elemento.debito_protesto.HasValue ? (elemento.debito_protesto == true ? "Sim" : "Não") : "Não",
                     elemento.nome_cartorio,
-                    elemento.divida_ativa_serasa,
-                    elemento.protesto_serasa,
-                    elemento.valor_debito_total,
-                    elemento.pagamento_efet_banco,
+                    elemento.divida_ativa_serasa.HasValue ? (elemento.divida_ativa_serasa == true ? "Sim" : "Não") : "Não",
+                    elemento.protesto_serasa.HasValue ? (elemento.protesto_serasa == true ? "Sim" : "Não") : "Não",
+
+                    elemento.pagamento_efet_banco.HasValue ? (elemento.pagamento_efet_banco == true ? "Sim" : "Não") : "Não",
+                    (elemento.dta_cobranca.HasValue ? elemento.dta_cobranca.ToString().Substring(0, 10) : ""),
                     (elemento.dta_pagamento.HasValue ? elemento.dta_pagamento.ToString().Substring(0, 10) : ""),
-                    elemento.uf_cobranca,
-                    elemento.forma_pagamento_divida,
-                    elemento.forma_pagamento_custas,
-                    elemento.valor_pago_divida,
+                    (elemento.dta_pagamento_custas.HasValue ? elemento.dta_pagamento_custas.ToString().Substring(0, 10) : ""),
+                    (elemento.dta_recuperacao.HasValue ? elemento.dta_recuperacao.ToString().Substring(0, 10) : ""),
                     elemento.numero_miro_divida,
                     elemento.numero_miro_custa,
-                    elemento.obs_pagamento,
+                    elemento.forma_pagamento_divida,
+                    elemento.forma_pagamento_custas,
+                    elemento.uf_pagamento,
+
+
+
+
+
+                    elemento.valor_custas,
                     elemento.valor_pago_custas,
+                    elemento.valor_divida,
+                    elemento.valor_pago_divida,
+
+
+                    elemento.valor_debito_total,
                     elemento.valor_pago_total,
                     elemento.valor_recuperado,
                     elemento.valor_total_recuperado,
-                    (elemento.dta_pagamento_custas.HasValue ? elemento.dta_pagamento_custas.ToString().Substring(0, 10) : ""),
-                    (elemento.dta_recuperacao.HasValue ? elemento.dta_recuperacao.ToString().Substring(0, 10) : ""),
+
+                    elemento.obs_pagamento,
                     elemento.pci_debito_divida,
                     elemento.pci_debito_custa,
                     elemento.pci_credito,
-                    elemento.grupo_safra
+                    elemento.grupo_safra,
+                    elemento.status,
+                    elemento.origem
                     ));
                 }
                 Response.Write(sw.ToString());

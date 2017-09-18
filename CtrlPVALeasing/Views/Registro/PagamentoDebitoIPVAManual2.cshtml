@@ -1118,7 +1118,11 @@
                     }
                 }
 
-                if (
+
+                // Este aqui é o JS que faz toda a verificação de campos do pagamento de débitos (VALIDAÇÃO) de acordo com o tipo de débito.
+                // MAS FOI DESATIVADO PARA ACEITAR TUDO EM BRANCO!!! Agora só faz submit lá no final.
+
+                @*if (
                     (@(MF.tipo_cobranca == "U" ? "true" : (Request["tipo_cobranca"] != null ? Request["tipo_cobranca"] : "false")))
                     &&
                     (
@@ -1200,13 +1204,13 @@
                     return false;
                 }
                 else
-                {
+                {*@
                     document.getElementById("botaoDeSubmit1").setAttribute("disabled", "disabled");
                     document.getElementById("rd").value = true;
                     document.getElementsByName("id_debito").value = "@Request["id_debito"]";
                     document.getElementById("FormAltera").submit();
                     return true;
-                }
+                //}
             }
         }
         catch (e) {
