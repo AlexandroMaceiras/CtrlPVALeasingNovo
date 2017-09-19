@@ -1,14 +1,9 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
-<head>
-    <meta name="viewport" content="width=device-width" />
 
-    <!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
-    <!-- <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
-    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+@{
+    ViewBag.Title = "Registrar DUT";
+}
 
-    <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
-
-</head>
 <script>
     function chamaErro1() {
         $(document).ready(function () {
@@ -16,9 +11,6 @@
         });
     }
 </script>
-@{
-    ViewBag.Title = "Registrar DUT";
-}
 
 @using (Html.BeginForm("RegistroDUT", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
@@ -34,19 +26,19 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" maxlength="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" size="35" style="text-transform:uppercase">
+                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" maxlength="20" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20" style="text-transform:uppercase">
+                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20"  maxlength="9" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
@@ -70,35 +62,12 @@
                     <td colspan="0" align="justify" width="25%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             DUT está com o Banco&nbsp;
-                            <input type="checkbox" name="pcv" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td width="10%" >
-                        <div class="fonte-cinza-claro fonte-tamanho-form">
-                            @{
-                                if (MF.contrato != "" && MF.contrato != null)
-                                {
-                                    <div id="fazSubmit">
-                                        <input onclick="validateForm('rd');" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR DUT" />
-                                        <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
-                                        <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
-                                        <input type="hidden" name="placaPesquisada" value="@MF.placa" />
-                                        <input type="hidden" name="comDUT" value="@( MF.comDUT != null && MF.comDUT != false ? true : false )" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    @Html.ActionLink("REGISTRAR DUT", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
-                                }
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" name="comDUT" id="comDUT" value="@MF.comDUT" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td colspan="0" align="justify" width="25%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             DUT Comunicado de Venda&nbsp;
-                            <input type="checkbox" name="pcv" @( MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" name="comVenda" id="comVenda" @( MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     </td>
                     <td>
@@ -107,21 +76,16 @@
                                 if (MF.contrato != "" && MF.contrato != null)
                                 {
                                     <div id="fazSubmit">
-                                        <input onclick="validateForm('rc');" class="btn4 btn-primary-imp .btn-sm" type="button" value="REGISTRAR COMUNICADO" />
-                                        <input type="hidden" name="chassiPesquisado" value="@MF.chassi" />
-                                        <input type="hidden" name="renavamPesquisado" value="@MF.renavam" />
-                                        <input type="hidden" name="placaPesquisada" value="@MF.placa" />
-                                        <input type="hidden" name="comVenda" value="@( MF.comVenda != null && MF.comVenda != false ? true : false )" />
+                                        <input onclick="validateForm('rdrc');" class="btn4 btn-primary-imp .btn-sm" type="button" value="SALVAR" />
                                     </div>
                                 }
                                 else
                                 {
-                                    @Html.ActionLink("REGISTRAR DUT", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
+                                    @Html.ActionLink("SALVAR", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
                                 }
                             }
                         </div>
                     </td>
-                    <td width="30%" ></td>
                 </tr>
             </table>
         </center>
@@ -216,10 +180,10 @@
                             <tr>
                                 <td colspan="6" align="justify">
                                     <div class="fonte-cinza-claro fonte-tamanho-form">
-                                        Possui comunicação de venda&nbsp;
-                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @*Possui comunicação de venda&nbsp;
+                                        <input type="checkbox" name="pcv" @(MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) disabled="disabled" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
                                         Veículo apreendido pelo banco&nbsp;
-                                        <input type="checkbox" name="vapb" @(MF.chassi_bens != null && MF.renavam_bens != null && MF.placa_bens != null && MF.chassi_bens != "" && MF.renavam_bens != "" && MF.placa_bens != "" ? "checked='checked'" : "" ) disabled="disabled" />
+                                        <input type="checkbox" name="vapb" @(((MF.chassi_bens != null && MF.chassi_bens != "") || (MF.renavam_bens != null && MF.renavam_bens != "") || (MF.placa_bens != null && MF.placa_bens != "")) ? "checked='checked'" : "" ) disabled="disabled" /> 
                                     </div>
                                 </td>
                             </tr>
@@ -426,6 +390,27 @@
         alert(e);
     }
 
+    try {
+        document.getElementById("limpaNaMarra1").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890".indexOf(chr) < 0)
+                return false;
+        }
+        document.getElementById("limpaNaMarra3").onkeypress = function (e) {
+            var chr = String.fromCharCode(e.which);
+            if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                return false;
+        }
+    }
+    catch (e) {
+        alert(e);
+    }
+
     try
     {
         function validateForm(a)
@@ -448,6 +433,9 @@
                 }
                 else if (a == "rc") {
                     document.getElementById("escolha").value = "rc";
+                }
+                else if (a == "rdrc") {
+                    document.getElementById("escolha").value = "rdrc";
                 }
                 document.getElementById("FormAltera").submit();
                 return true;

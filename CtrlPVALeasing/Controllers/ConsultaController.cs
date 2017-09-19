@@ -64,6 +64,8 @@ namespace CtrlPVALeasing.Controllers
                 return View(Nada());
             }
 
+            renavam = renavam.TrimStart('0');
+
             if (chassi == "" || chassi == null)
                 chassi = "ø";
             if (placa == "" || placa == null)
@@ -81,10 +83,11 @@ namespace CtrlPVALeasing.Controllers
                      //into j1
                      //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     join d in db.Tbl_Dut
-                     on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
-                     into j2
-                     from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from d in db.Tbl_Dut.Where(Dut =>
+                     (b.chassi == Dut.chassi) || (b.renavam == Dut.renavam) || (b.placa == Dut.placa)).DefaultIfEmpty()
+                     //on new { b.chassi, b.renavam, b.placa } equals new { d.chassi, d.renavam, d.placa }
+                     //into j2
+                     //from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
                      from e in db.Tbl_Bens.Where(Bens => (b.chassi == Bens.chassi) || (b.renavam == Bens.renavam) || (b.placa == Bens.placa)).DefaultIfEmpty()
                      //on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
