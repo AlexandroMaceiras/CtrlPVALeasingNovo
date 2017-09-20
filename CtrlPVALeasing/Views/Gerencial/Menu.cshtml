@@ -30,19 +30,33 @@
     <table border="0">
         <tr>
             <td>
-                <table border="0">
+                <table border="1">
                     <tr>
                         <td>
-                            <table border="1" style="border-style:inherit" width="100%">
+                            <table border="0" style="border-style:inherit" width="100%">
                                 <tr>
                                     <td>
                                         <table border="0" cellspacing="0" cellpadding="0" width="100%">
                                             <tr>
                                                 <td>
-                                                    <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Pagamento de IPVA por Status de Contrato&nbsp;&nbsp;&nbsp;</font></li></ul>
+                                                    <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Pagamento de IPVA por Status de Contrato&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></li></ul>
                                                 </td>
                                                 <td>
                                                     <a href="~/Gerencial/PagamentoIPVAPorStatusContrato" class="btn2 btn-primary-cons btn-sm">CONSULTAR</a>&nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td>
+                                                    <p><ul><li><font style="font-size: 14px;  font-weight: normal;  line-height: 1.428571429;">Exportar Toda a Base ARM (Contratos e Veículos)&nbsp;&nbsp;&nbsp;</font></li></ul>
+                                                </td>
+                                                <td>
+                                                    <a href="~/Gerencial/ExportarTodaBaseArm" class="btn2 btn-primary-imp .btn-sm">GERAR CSV</a>&nbsp;
                                                 </td>
                                             </tr>
                                         </table>
@@ -55,4 +69,44 @@
             </td>
         </tr>
     </table>
+</div>
+@if (ViewBag.Message != null)
+{
+    @*<script type="text/javascript">
+                window.onload = function () {
+                    alert("@ViewBag.Message");
+                };
+            $("#msgOk").modal();
+        </script>*@
+    <script>
+        try {
+            $(document).ready(function () {
+                $("#msgOk").modal();
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    </script>
+}
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE CONTRATO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">@ViewBag.Message</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

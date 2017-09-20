@@ -74,7 +74,7 @@
                         <input id="limpaNaMarra3" class="input-sm-fino" maxlength="9" value="@(Request["placa"] != null ? Request["placa"].Trim() : MF.placa)" type="text" name="placa" size="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
-                        <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
+                        <div id="fazSubmit"><input onclick="PesquisForm();" class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
                         <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
@@ -847,6 +847,19 @@
             alert(e);
         }
 
+        function PesquisForm()
+        {
+            $(document).ready(function () {
+                $("#Pesquisando").modal();
+            });
+        }
+
+        function CarregForm() {
+            $(document).ready(function () {
+                $("#Carregando").modal();
+            });
+        }
+
         $(document).ready(function () {
             //$("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
             //$("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
@@ -1181,7 +1194,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>  
 </div>
 
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
@@ -1215,3 +1228,52 @@
     </div>
 </div>
 
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="Pesquisando" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>*@
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <center>
+                                <h4 style="color: rgb(176, 172, 186)">
+                                    Pesquisando...
+                                </h4>
+                                <img src="~/Imagens/loader.gif" />
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="Carregando" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>*@
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <center>
+                                <h4 style="color: rgb(176, 172, 186)">
+                                    Carregando...
+                                </h4>
+                                <img src="~/Imagens/loader.gif" />
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

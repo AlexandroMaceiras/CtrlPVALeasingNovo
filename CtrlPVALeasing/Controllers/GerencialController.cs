@@ -36,7 +36,7 @@ namespace CtrlPVALeasing.Controllers
         private IEnumerable<ContratosVeiculosViewModel> GetContratosVeiculosViewModelPrimeira()
         {
             List<ContratosVeiculosViewModel> model = new List<ContratosVeiculosViewModel>();
-            model.Add(new ContratosVeiculosViewModel(){ id = 0, agencia = " "});
+            model.Add(new ContratosVeiculosViewModel() { id = 0, agencia = " " });
             return model;
         }
 
@@ -67,117 +67,117 @@ namespace CtrlPVALeasing.Controllers
                      where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
-                         id                         = a.id,
-                         contrato                   = a.contrato,
-                         tipo                       = a.tipo,
-                         agencia                    = a.agencia,
-                         dta_inicio_contrato        = a.dta_inicio_contrato,
-                         dta_vecto_contrato         = a.dta_vecto_contrato,
-                         origem                     = a.origem,
-                         cpf_cnpj_cliente           = a.cpf_cnpj_cliente,
-                         nome_cliente               = a.nome_cliente,
-                         ddd_cliente_particular     = a.ddd_cliente_particular,
-                         fone_cliente_particular    = a.fone_cliente_particular,
-                         rml_cliente_particular     = a.rml_cliente_particular,
-                         end_cliente                = a.end_cliente,
-                         bairro_cliente             = a.bairro_cliente,
-                         cidade_cliente             = a.cidade_cliente,
-                         uf_cliente                 = a.uf_cliente,
-                         cep_cliente                = a.cep_cliente,
-                         filler                     = a.filler,
-                         ddd_cliente_cml            = a.ddd_cliente_cml,
-                         fone_cliente_cml           = a.fone_cliente_cml,
-                         dta_ultimo_pagto           = a.dta_ultimo_pagto,
-                         tipo_de_baixa              = a.tipo_de_baixa,
-                         data_da_baixa              = a.data_da_baixa,
-                         cod_empresa                = a.cod_empresa,
-                         num_end_cliente            = a.num_end_cliente,
-                         comp_end_cliente           = a.comp_end_cliente,
-                         status                     = a.status,
+                         id = a.id,
+                         contrato = a.contrato,
+                         tipo = a.tipo,
+                         agencia = a.agencia,
+                         dta_inicio_contrato = a.dta_inicio_contrato,
+                         dta_vecto_contrato = a.dta_vecto_contrato,
+                         origem = a.origem,
+                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                         nome_cliente = a.nome_cliente,
+                         ddd_cliente_particular = a.ddd_cliente_particular,
+                         fone_cliente_particular = a.fone_cliente_particular,
+                         rml_cliente_particular = a.rml_cliente_particular,
+                         end_cliente = a.end_cliente,
+                         bairro_cliente = a.bairro_cliente,
+                         cidade_cliente = a.cidade_cliente,
+                         uf_cliente = a.uf_cliente,
+                         cep_cliente = a.cep_cliente,
+                         filler = a.filler,
+                         ddd_cliente_cml = a.ddd_cliente_cml,
+                         fone_cliente_cml = a.fone_cliente_cml,
+                         dta_ultimo_pagto = a.dta_ultimo_pagto,
+                         tipo_de_baixa = a.tipo_de_baixa,
+                         data_da_baixa = a.data_da_baixa,
+                         cod_empresa = a.cod_empresa,
+                         num_end_cliente = a.num_end_cliente,
+                         comp_end_cliente = a.comp_end_cliente,
+                         status = a.status,
 
-                         contrato_v     = b.contrato,
-                         tipo_registro  = b.tipo_registro,
-                         marca          = b.marca,
-                         modelo         = b.modelo,
-                         tipo_v         = b.tipo,
-                         ano_fab        = b.ano_fab,
-                         ano_mod        = b.ano_mod,
-                         cor            = b.cor,
-                         renavam        = b.renavam,
-                         chassi         = b.chassi,
-                         placa          = b.placa,
-                         origem_v       = b.origem,
+                         contrato_v = b.contrato,
+                         tipo_registro = b.tipo_registro,
+                         marca = b.marca,
+                         modelo = b.modelo,
+                         tipo_v = b.tipo,
+                         ano_fab = b.ano_fab,
+                         ano_mod = b.ano_mod,
+                         cor = b.cor,
+                         renavam = b.renavam,
+                         chassi = b.chassi,
+                         placa = b.placa,
+                         origem_v = b.origem,
 
-                         valor_debito_total     = c.valor_debito_total,
-                         dta_cobranca           = c.dta_cobranca,
-                         uf_pagamento           = c.uf_pagamento,
-                         valor_divida           = c.valor_divida,
-                         ano_exercicio          = c.ano_exercicio,
-                         valor_custas           = c.valor_custas,
-                         pagamento_efet_banco   = c.pagamento_efet_banco,
-                         valor_recuperado       = c.valor_recuperado,
+                         valor_debito_total = c.valor_debito_total,
+                         dta_cobranca = c.dta_cobranca,
+                         uf_pagamento = c.uf_pagamento,
+                         valor_divida = c.valor_divida,
+                         ano_exercicio = c.ano_exercicio,
+                         valor_custas = c.valor_custas,
+                         pagamento_efet_banco = c.pagamento_efet_banco,
+                         valor_recuperado = c.valor_recuperado,
                          valor_total_recuperado = c.valor_total_recuperado,
-                         divida_ativa_serasa    = c.divida_ativa_serasa,
-                         uf_cobranca            = c.uf_cobranca,
-                         valor_pago_divida      = c.valor_pago_divida,
-                         valor_pago_custas      = c.valor_pago_custas
+                         divida_ativa_serasa = c.divida_ativa_serasa,
+                         uf_cobranca = c.uf_cobranca,
+                         valor_pago_divida = c.valor_pago_divida,
+                         valor_pago_custas = c.valor_pago_custas
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
-                         id                         = x.id,
-                         contrato                   = x.contrato,
-                         tipo                       = x.tipo,
-                         agencia                    = x.agencia,
-                         dta_inicio_contrato        = x.dta_inicio_contrato,
-                         dta_vecto_contrato         = x.dta_vecto_contrato,
-                         origem                     = x.origem,
-                         cpf_cnpj_cliente           = x.cpf_cnpj_cliente,
-                         nome_cliente               = x.nome_cliente,
-                         ddd_cliente_particular     = x.ddd_cliente_particular,
-                         fone_cliente_particular    = x.fone_cliente_particular,
-                         rml_cliente_particular     = x.rml_cliente_particular,
-                         end_cliente                = x.end_cliente,
-                         bairro_cliente             = x.bairro_cliente,
-                         cidade_cliente             = x.cidade_cliente,
-                         uf_cliente                 = x.uf_cliente,
-                         cep_cliente                = x.cep_cliente,
-                         filler                     = x.filler,
-                         ddd_cliente_cml            = x.ddd_cliente_cml,
-                         fone_cliente_cml           = x.fone_cliente_cml,
-                         dta_ultimo_pagto           = x.dta_ultimo_pagto,
-                         tipo_de_baixa              = x.tipo_de_baixa,
-                         data_da_baixa              = x.data_da_baixa,
-                         cod_empresa                = x.cod_empresa,
-                         num_end_cliente            = x.num_end_cliente,
-                         comp_end_cliente           = x.comp_end_cliente,
-                         status                     = x.status,
+                         id = x.id,
+                         contrato = x.contrato,
+                         tipo = x.tipo,
+                         agencia = x.agencia,
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         origem = x.origem,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                         nome_cliente = x.nome_cliente,
+                         ddd_cliente_particular = x.ddd_cliente_particular,
+                         fone_cliente_particular = x.fone_cliente_particular,
+                         rml_cliente_particular = x.rml_cliente_particular,
+                         end_cliente = x.end_cliente,
+                         bairro_cliente = x.bairro_cliente,
+                         cidade_cliente = x.cidade_cliente,
+                         uf_cliente = x.uf_cliente,
+                         cep_cliente = x.cep_cliente,
+                         filler = x.filler,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         tipo_de_baixa = x.tipo_de_baixa,
+                         data_da_baixa = x.data_da_baixa,
+                         cod_empresa = x.cod_empresa,
+                         num_end_cliente = x.num_end_cliente,
+                         comp_end_cliente = x.comp_end_cliente,
+                         status = x.status,
 
-                         contrato_v     = x.contrato_v,
-                         tipo_registro  = x.tipo_registro,
-                         marca          = x.marca,
-                         modelo         = x.modelo,
-                         tipo_v         = x.tipo_v,
-                         ano_fab        = x.ano_fab,
-                         ano_mod        = x.ano_mod,
-                         cor            = x.cor,
-                         renavam        = x.renavam,
-                         chassi         = x.chassi,
-                         placa          = x.placa,
-                         origem_v       = x.origem_v,
+                         contrato_v = x.contrato_v,
+                         tipo_registro = x.tipo_registro,
+                         marca = x.marca,
+                         modelo = x.modelo,
+                         tipo_v = x.tipo_v,
+                         ano_fab = x.ano_fab,
+                         ano_mod = x.ano_mod,
+                         cor = x.cor,
+                         renavam = x.renavam,
+                         chassi = x.chassi,
+                         placa = x.placa,
+                         origem_v = x.origem_v,
 
-                         valor_debito_total     = x.valor_debito_total,
-                         dta_cobranca           = x.dta_cobranca,
-                         uf_pagamento           = x.uf_pagamento,
-                         valor_divida           = x.valor_divida,
-                         ano_exercicio          = x.ano_exercicio,
-                         valor_custas           = x.valor_custas,
-                         pagamento_efet_banco   = x.pagamento_efet_banco,
-                         valor_recuperado       = x.valor_recuperado,
+                         valor_debito_total = x.valor_debito_total,
+                         dta_cobranca = x.dta_cobranca,
+                         uf_pagamento = x.uf_pagamento,
+                         valor_divida = x.valor_divida,
+                         ano_exercicio = x.ano_exercicio,
+                         valor_custas = x.valor_custas,
+                         pagamento_efet_banco = x.pagamento_efet_banco,
+                         valor_recuperado = x.valor_recuperado,
                          valor_total_recuperado = x.valor_total_recuperado,
-                         divida_ativa_serasa    = x.divida_ativa_serasa,
-                         uf_cobranca            = x.uf_cobranca,
-                         valor_pago_divida      = x.valor_pago_divida,
-                         valor_pago_custas      = x.valor_pago_custas
+                         divida_ativa_serasa = x.divida_ativa_serasa,
+                         uf_cobranca = x.uf_cobranca,
+                         valor_pago_divida = x.valor_pago_divida,
+                         valor_pago_custas = x.valor_pago_custas
                      }).OrderByDescending(x => x.ano_exercicio).OrderByDescending(x => x.dta_cobranca);
 
             if (model.Count() == 0 || model == null)
@@ -507,6 +507,91 @@ namespace CtrlPVALeasing.Controllers
 
             return View("PagamentoIPVAPorStatusContrato", model);
         }
+
+        public ActionResult ExportarTodaBaseArm()
+        {
+            try
+            {
+                model = (from a in db.Arm_LiquidadosEAtivos_Contrato
+                         from b in db.Arm_Veiculos.Where(Tudo => Tudo.contrato == a.contrato).DefaultIfEmpty()
+                         select new
+                         {
+                             id = a.id,
+                             cpf_cnpj_cliente = a.cpf_cnpj_cliente,
+                             //nome_cliente = a.nome_cliente,
+                             contrato = a.contrato,
+                             origem = a.origem,
+                             status = a.status,
+
+                             renavam = b.renavam,
+                             chassi = b.chassi,
+                             placa = b.placa
+
+                         }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                         {
+                             id = x.id,
+                             cpf_cnpj_cliente = x.cpf_cnpj_cliente,
+                             //nome_cliente = x.nome_cliente,
+                             contrato = x.contrato,
+                             origem = x.origem,
+                             status = x.status,
+
+                             renavam = x.renavam,
+                             chassi = x.chassi,
+                             placa = x.placa
+
+                         }).OrderBy(x => x.contrato); //.OrderByDescending(x => x.dta_cobranca);
+
+
+                StringWriter sw = new StringWriter();
+
+                sw.WriteLine(
+                    "Nº;" +
+                    "CPF/CNPJ;" +
+                    //"Nome/Razão Social;" +
+                    "Contrato;" +
+                    "Chassi;" +
+                    "Renavam;" +
+                    "Placa;" +
+                    "Origem" +
+                    "Status;"
+                    );
+
+                Response.ClearContent();
+                Response.AddHeader("content-disposition", "attachment;filename=PagamentoIPVAPorStatusContrato.csv");
+                Response.ContentType = "application/octet-stream";
+                Response.ContentEncoding = System.Text.Encoding.Default;
+
+                var contador = 1;
+
+                foreach (var elemento in model)
+                {
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};",
+
+                    contador++,
+                    //elemento.cpf_cnpj_cliente,
+                    elemento.nome_cliente,
+                    elemento.contrato,
+                    elemento.chassi,
+                    elemento.renavam,
+                    elemento.placa,
+                    elemento.origem,
+                    elemento.status.HasValue ? (elemento.status == true ? "Ativo" : "liquidado") : "liquidado"
+                    ));
+                }
+                Response.Write(sw.ToString());
+                Response.End();
+
+
+
+            }
+             catch(Exception e)
+            {
+                ViewBag.Message = "Erro: Algum campo está inválido!";
+            }
+            return View("ExportarTodaBaseArm", model);
+        }
+
 
         public ActionResult _valor_total_recuperado(string cpf_cnpj_cliente)
         {
