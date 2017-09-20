@@ -703,6 +703,9 @@ namespace CtrlPVALeasing.Controllers
                             .FirstOrDefault(c => c.chassi == chassi.Trim() || c.renavam == renavam.Trim() || c.placa == placa.Trim());
                         if (procuraRegistro != null)
                         {
+                            procuraRegistro.chassi = (chassi != "ø" ? chassi : "");
+                            procuraRegistro.renavam = (renavam != "ø" ? renavam : "");
+                            procuraRegistro.placa = (placa != "ø" ? placa : "");
                             procuraRegistro.comDUT = comDUT;
                             procuraRegistro.comVenda = comVenda;
 
@@ -710,10 +713,25 @@ namespace CtrlPVALeasing.Controllers
                             db.SaveChanges();
                             return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
                         }
-                    }
-                    else
-                    {
-                        return View(GetErroDeEntradaDesconhecido());
+                        else
+                        {
+                            model3 = new Tbl_Dut
+                            {
+                                id = 0,
+                                chassi = (chassi != "ø" ? chassi : null),
+                                renavam = (renavam != "ø" ? renavam : null),
+                                placa = (placa != "ø" ? placa : null),
+                                comDUT = comDUT,
+                                comVenda = comVenda
+                            };
+
+                            if (db.Entry(model3).State == EntityState.Detached)
+                            {
+                                db.Tbl_Dut.Add(model3);
+                                db.SaveChanges();
+                                return View(GetContratosVeiculosViewModelRegistroOk());
+                            }
+                        }
                     }
                 }
                 catch (Exception e)

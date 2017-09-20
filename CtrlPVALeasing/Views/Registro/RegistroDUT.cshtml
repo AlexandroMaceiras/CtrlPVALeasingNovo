@@ -396,6 +396,12 @@
         history.go(-1);
     });
 
+    $("#msgErro3").on("hidden.bs.modal", function () {
+        history.go(-1);
+    });
+
+    
+
     try {
         document.getElementById("chassi").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
@@ -480,7 +486,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT ou Comunicado de Venda, atualizado com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT ou Comunicado de Venda, <text style="color: rgb(0, 0, 0)">atualizado</text> com </h4><h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -501,7 +507,7 @@
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT ou Comunicado de Venda, realizado com <h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT ou Comunicado de Venda,  <text style="color: rgb(0, 0, 0)">realizado</text> com </h4><h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
