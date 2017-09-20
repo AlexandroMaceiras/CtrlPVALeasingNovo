@@ -26,25 +26,25 @@
                         <b class="fonte-cinza-claro">Chassi:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra1" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" maxlength="20" style="text-transform:uppercase">
+                        <input id="chassi" class="input-sm-fino" value="@(Request["chassi"] != null ? Request["chassi"].Trim() : "")" type="text" name="chassi" size="35" maxlength="20" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <b class="fonte-cinza-claro">Renavam:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra2" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" maxlength="20" size="35" style="text-transform:uppercase">
+                        <input id="renavam" class="input-sm-fino" value="@(Request["renavam"] != null ? Request["renavam"].Trim() : "")" type="text" name="renavam" maxlength="20" size="35" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="3%">
                         <b class="fonte-cinza-claro">Placa:</b>
                     </th>
                     <th class="busca" width="8%">
-                        <input id="limpaNaMarra3" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20"  maxlength="9" style="text-transform:uppercase">
+                        <input id="placa" class="input-sm-fino" value="@(Request["placa"] != null ? Request["placa"].Trim() : "")" type="text" name="placa" size="20"  maxlength="9" style="text-transform:uppercase">
                     </th>
                     <th class="busca" width="5%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </th>
                     <th width="1%">
-                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
                     </th>
                 </tr>
                 <tr>
@@ -62,7 +62,7 @@
                     <td colspan="0" align="justify" width="25%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             DUT está com o Banco&nbsp;
-                            <input type="checkbox" name="comDUT" id="comDUT" value="@MF.comDUT" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" name="comDUT" id="comDUT" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td colspan="0" align="justify" width="25%" >
                         <div class="fonte-cinza-claro fonte-tamanho-form">
@@ -76,7 +76,7 @@
                                 if (MF.contrato != "" && MF.contrato != null)
                                 {
                                     <div id="fazSubmit">
-                                        <input onclick="validateForm('rdrc');" class="btn4 btn-primary-imp .btn-sm" type="button" value="SALVAR" />
+                                        <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="SALVAR" />
                                     </div>
                                 }
                                 else
@@ -101,7 +101,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Chassi:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassiPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.chassi" type="text" name="chassi" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -127,7 +127,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.renavam" type="text" name="renavam" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -153,7 +153,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@MF.placa" type="text" name="placa" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -374,15 +374,17 @@
         }
     </script>
     }
-}
 
+    //Aqui o JavaScript participa do Using lá do início da página e ele só é fechado no fim do JS
+
+@section Scripts{
 <script>
     //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
     try {
         $("#mudaReset").click(function () {
-            document.getElementById("limpaNaMarra1").setAttribute("value", "");
-            document.getElementById("limpaNaMarra2").setAttribute("value", "");
-            document.getElementById("limpaNaMarra3").setAttribute("value", "");
+            document.getElementById("chassi").setAttribute("value", "");
+            document.getElementById("renavam").setAttribute("value", "");
+            document.getElementById("placa").setAttribute("value", "");
             document.getElementById("ConsultaVeiculo").submit();
         });
     }
@@ -390,18 +392,22 @@
         alert(e);
     }
 
+    $("#msgOk").on("hidden.bs.modal", function () {
+        history.go(-1);
+    });
+
     try {
-        document.getElementById("limpaNaMarra1").onkeypress = function (e) {
+        document.getElementById("chassi").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
             if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
         }
-        document.getElementById("limpaNaMarra2").onkeypress = function (e) {
+        document.getElementById("renavam").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
             if ("1234567890".indexOf(chr) < 0)
                 return false;
         }
-        document.getElementById("limpaNaMarra3").onkeypress = function (e) {
+        document.getElementById("placa").onkeypress = function (e) {
             var chr = String.fromCharCode(e.which);
             if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                 return false;
@@ -416,9 +422,9 @@
         function validateForm(a)
         {
             if (
-                document.getElementsByName('chassiPesquisado')[0].value == "" ||
-                document.getElementsByName('renavamPesquisado')[0].value == "" ||
-                document.getElementsByName('placaPesquisada')[0].value == "")
+                document.getElementById('chassi').value == "" &&
+                document.getElementById('renavam').value == "" &&
+                document.getElementById('placa').value == "")
             {
                 $(document).ready(function () {
                     $("#msgErro1").modal();
@@ -428,15 +434,9 @@
             }
             else
             {
-                if (a == "rd") {
-                    document.getElementById("escolha").value = "rd";
-                }
-                else if (a == "rc") {
-                    document.getElementById("escolha").value = "rc";
-                }
-                else if (a == "rdrc") {
-                    document.getElementById("escolha").value = "rdrc";
-                }
+                document.getElementById("escolha").value = "rdrc";
+                document.getElementById("comDUT").value = (document.getElementById("comDUT").value == 'on' ? 'true' : 'false');
+                document.getElementById("comVenda").value = (document.getElementById("comVenda").value == 'on' ? 'true' : 'false');
                 document.getElementById("FormAltera").submit();
                 return true;
             }
@@ -447,7 +447,8 @@
         alert(e);
     }
 </script>
-
+}
+}
 <div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgErro1" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-sm">

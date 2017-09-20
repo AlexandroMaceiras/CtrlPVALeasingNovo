@@ -513,7 +513,7 @@ namespace CtrlPVALeasing.Controllers
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string chassiPesquisado, string placaPesquisada, string renavamPesquisado, string escolha, bool? comDUT, bool? comVenda)
+        public ActionResult RegistroDUT(string chassi, string placa, string renavam, string escolha, bool? comDUT, bool? comVenda)
         {
             if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
             {
@@ -700,63 +700,23 @@ namespace CtrlPVALeasing.Controllers
                     if (ModelState.IsValid)
                     {
                         var procuraRegistro = db.Tbl_Dut
-                            .FirstOrDefault(c => c.chassi == chassiPesquisado.Trim() || c.renavam == renavamPesquisado.Trim() || c.placa == placaPesquisada.Trim());
+                            .FirstOrDefault(c => c.chassi == chassi.Trim() || c.renavam == renavam.Trim() || c.placa == placa.Trim());
                         if (procuraRegistro != null)
                         {
-                            procuraRegistro.chassi = chassiPesquisado.Trim();
-                            procuraRegistro.renavam = renavamPesquisado.Trim();
-                            procuraRegistro.placa = placaPesquisada.Trim();
-
-                            if (escolha == "rd")
-                                procuraRegistro.comDUT = true;
-                            else if (escolha == "rc")
-                                procuraRegistro.comVenda = true;
-                            else if (escolha == "rdrc")
-                            {
-                                procuraRegistro.comDUT = true;
-                                procuraRegistro.comVenda = true;
-                            }
+                            procuraRegistro.comDUT = comDUT;
+                            procuraRegistro.comVenda = comVenda;
 
                             db.Entry(procuraRegistro).State = EntityState.Modified;
                             db.SaveChanges();
                             return View(GetContratosVeiculosViewModelAtualizaRegistroOk());
                         }
-                        else
-                        {
-                            if (escolha == "rd")
-                                comDUT = true;
-                            else if (escolha == "rc")
-                                comVenda = true;
-                            else if (escolha == "rdrc")
-                            {
-                                comDUT = true;
-                                comVenda = true;
-                            }
-
-                            model3 = new Tbl_Dut
-                            {
-                                id = 0,
-                                chassi = chassiPesquisado.Trim(),
-                                renavam = renavamPesquisado.Trim(),
-                                placa = placaPesquisada.Trim(),
-                                comDUT = comDUT,
-                                comVenda = comVenda
-                            };
-
-                            if (db.Entry(model3).State == EntityState.Detached)
-                            {
-                                db.Tbl_Dut.Add(model3);
-                                db.SaveChanges();
-                                return View(GetContratosVeiculosViewModelRegistroOk());
-                            }
-                        }
                     }
-                    //else
-                    //{
-                    //    return View(GetErroDeEntrada());
-                    //}
+                    else
+                    {
+                        return View(GetErroDeEntradaDesconhecido());
+                    }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Response.Write("<script>alert('" + e.InnerException + "')</script>");
                     return View(GetErroDeEntradaDesconhecido());
