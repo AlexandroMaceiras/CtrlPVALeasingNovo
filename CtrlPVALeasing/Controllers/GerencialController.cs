@@ -518,7 +518,7 @@ namespace CtrlPVALeasing.Controllers
                          {
                              id = a.id,
                              cpf_cnpj_cliente = a.cpf_cnpj_cliente,
-                             //nome_cliente = a.nome_cliente,
+                             nome_cliente = a.nome_cliente,
                              contrato = a.contrato,
                              origem = a.origem,
                              status = a.status,
@@ -531,11 +531,10 @@ namespace CtrlPVALeasing.Controllers
                          {
                              id = x.id,
                              cpf_cnpj_cliente = x.cpf_cnpj_cliente,
-                             //nome_cliente = x.nome_cliente,
+                             nome_cliente = x.nome_cliente,
                              contrato = x.contrato,
                              origem = x.origem,
                              status = x.status,
-
                              renavam = x.renavam,
                              chassi = x.chassi,
                              placa = x.placa
@@ -548,12 +547,12 @@ namespace CtrlPVALeasing.Controllers
                 sw.WriteLine(
                     "Nº;" +
                     "CPF/CNPJ;" +
-                    //"Nome/Razão Social;" +
+                    "Nome/Razão Social;" +
                     "Contrato;" +
                     "Chassi;" +
                     "Renavam;" +
                     "Placa;" +
-                    "Origem" +
+                    "Origem;" +
                     "Status;"
                     );
 
@@ -566,10 +565,10 @@ namespace CtrlPVALeasing.Controllers
 
                 foreach (var elemento in model)
                 {
-                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};",
+                    sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};",
 
                     contador++,
-                    //elemento.cpf_cnpj_cliente,
+                    elemento.cpf_cnpj_cliente,
                     elemento.nome_cliente,
                     elemento.contrato,
                     elemento.chassi,
@@ -582,14 +581,12 @@ namespace CtrlPVALeasing.Controllers
                 Response.Write(sw.ToString());
                 Response.End();
 
-
-
+                return View("Menu", model);
             }
-             catch(Exception e)
-            {
-                ViewBag.Message = "Erro: Algum campo está inválido!";
+            catch(Exception e)
+            {   
+                return View();
             }
-            return View("ExportarTodaBaseArm", model);
         }
 
 
