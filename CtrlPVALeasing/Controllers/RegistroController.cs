@@ -423,6 +423,83 @@ namespace CtrlPVALeasing.Controllers
         [HttpPost]
         public ActionResult UploadDebitoIPVA(string Upload1, HttpPostedFileBase Upload2)
         {
+            //Lê a tabela de débitos por completo.
+            model = (
+            from c in db.Tbl_DebitosEPagamentos_Veiculo
+            select new
+            {
+                renavam             = c.renavam,
+                chassi              = c.chassi,
+                placa               = c.placa,
+                dta_cobranca        = c.dta_cobranca,
+                uf_cobranca         = c.uf_cobranca,
+                tipo_cobranca       = c.tipo_cobranca,
+                valor_divida        = c.valor_divida,
+                ano_exercicio       = c.ano_exercicio,
+                cda                 = c.cda,
+                valor_custas        = c.valor_custas,
+                debito_protesto     = c.debito_protesto,
+                nome_cartorio       = c.nome_cartorio,
+                divida_ativa_serasa = c.divida_ativa_serasa,
+                protesto_serasa     = c.protesto_serasa,
+                valor_debito_total  = c.valor_debito_total,
+                dta_custas          = c.dta_custas,
+
+                c.uf_pagamento,
+                c.grupo_safra,
+                c.dta_pagamento_divida,
+                c.forma_pagamento_divida,
+                c.valor_pago_divida,
+                c.numero_miro_divida,
+                c.pci_debito_divida,
+                c.dta_contabil_divida,
+                c.dta_pagamento_custas,
+                c.forma_pagamento_custas,
+                c.valor_pago_custas,
+                c.numero_miro_custa,
+                c.pci_debito_custa,
+                c.dta_contabil_custa,
+                c.obs_pagamento
+
+
+            }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+            {
+                renavam             = x.renavam,
+                chassi              = x.chassi,
+                placa               = x.placa,
+                dta_cobranca        = x.dta_cobranca,
+                uf_cobranca         = x.uf_cobranca,
+                tipo_cobranca       = x.tipo_cobranca,
+                valor_divida        = x.valor_divida,
+                ano_exercicio       = x.ano_exercicio,
+                cda                 = x.cda,
+                valor_custas        = x.valor_custas,
+                debito_protesto     = x.debito_protesto,
+                nome_cartorio       = x.nome_cartorio,
+                divida_ativa_serasa = x.divida_ativa_serasa,
+                protesto_serasa     = x.protesto_serasa,
+                valor_debito_total  = x.valor_debito_total,
+                dta_custas          = x.dta_custas,
+
+                uf_pagamento            = x.uf_pagamento,
+                grupo_safra             = x.grupo_safra,
+                dta_pagamento_divida    = x.dta_pagamento_divida,
+                forma_pagamento_divida  = x.forma_pagamento_divida,
+                valor_pago_divida       = x.valor_pago_divida,
+                numero_miro_divida      = x.numero_miro_divida,
+                pci_debito_divida       = x.pci_debito_divida,
+                dta_contabil_divida     = x.dta_contabil_divida,
+                dta_pagamento_custas    = x.dta_pagamento_custas,
+                forma_pagamento_custas  = x.forma_pagamento_custas,
+                valor_pago_custas       = x.valor_pago_custas,
+                numero_miro_custa       = x.numero_miro_custa,
+                pci_debito_custa        = x.pci_debito_custa,
+                dta_contabil_custa      = x.dta_contabil_custa,
+                obs_pagamento           = x.obs_pagamento
+
+            });
+
+
             int LinhasPular = 2; //Quantidade de linhas à pular no cabeçalho.
 
             //if (Upload1 != null && Upload1.Length > 0) //Upload com path completo sendo informado pelo usuário e leitura direta do arquivo.
@@ -436,6 +513,7 @@ namespace CtrlPVALeasing.Controllers
 
                 Upload2.SaveAs(Server.MapPath("../Upload/" + NomeArquivo));
 
+                //Carrega o csv.
                 IEnumerable<Tbl_DebitosEPagamentos_Veiculo> ModelUpload = System.IO.File.ReadAllLines(Server.MapPath("../Upload/" + NomeArquivo), System.Text.Encoding.Default)
                 .Skip(LinhasPular)
                 .Select(x => x.Split(';'))
@@ -457,6 +535,8 @@ namespace CtrlPVALeasing.Controllers
                     protesto_serasa = x[13],
                     valor_debito_total = x[14],
                     dta_custas = x[15],
+                    uf_pagamento = x[2],
+                    grupo_safra = x[6]
 
                 }).AsEnumerable().Select(a => new Tbl_DebitosEPagamentos_Veiculo
                 {
@@ -477,21 +557,76 @@ namespace CtrlPVALeasing.Controllers
                     protesto_serasa = (a.protesto_serasa.Trim() == "1" ? true : false),
                     valor_debito_total = (a.valor_debito_total.Trim() == "" || a.valor_debito_total.Trim() == "null" || a.valor_debito_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_debito_total)),
                     dta_custas = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
+                    uf_pagamento = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
+                    grupo_safra = (a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim()),
 
                 });
+
                 bool salvouAlgum = false;
+                bool renegouAlgum = false;
                 try
                 {
                     if (ModelState.IsValid)
                     {
+                        //Compara csv com a tabela de débitos.
                         foreach (var item in ModelUpload)
                         {
-                            if (db.Entry(item).State == EntityState.Detached)
+                            if(model.Where(c => (
+                                item.chassi                 == c.chassi 
+                                && item.renavam             == c.renavam 
+                                && item.placa               == c.placa
+                                && item.dta_cobranca        == c.dta_cobranca
+                                && item.uf_cobranca         == c.uf_cobranca
+                                && item.tipo_cobranca       == c.tipo_cobranca
+                                && item.valor_divida        == c.valor_divida
+                                && item.ano_exercicio       == c.ano_exercicio
+                                && item.cda                 == c.cda
+                                && item.valor_custas        == c.valor_custas
+                                && item.debito_protesto     == c.debito_protesto
+                                && item.nome_cartorio       == c.nome_cartorio
+                                && item.divida_ativa_serasa == c.divida_ativa_serasa
+                                && item.protesto_serasa     == c.protesto_serasa
+                                && item.valor_debito_total  == c.valor_debito_total
+                                && item.dta_custas          == c.dta_custas
+                            )).Count() == 0 )
                             {
-                                db.Tbl_DebitosEPagamentos_Veiculo.Add(item);
-                                db.SaveChanges();
-                                salvouAlgum = true;
+                                if (db.Entry(item).State == EntityState.Detached)
+                                {
+                                    db.Tbl_DebitosEPagamentos_Veiculo.Add(item);
+                                    db.SaveChanges();
+                                    salvouAlgum = true;
+                                }
                             }
+                            else
+                            {
+                                //Se ele já existe, testar se os campos de pagamento um a um
+
+                                bool sobe = false;
+
+                                if (model.Where(c => (
+                                 ((item.uf_pagamento == null || item.uf_pagamento =="") && (c.uf_pagamento == null || c.uf_pagamento == "")
+                                 &&
+                                 ((c.grupo_safra == null || c.grupo_safra == "") && (item.grupo_safra != null && item.grupo_safra != ""))
+                                 //&& item.dta_pagamento_divida == c.dta_pagamento_divida
+                                 //&& item.forma_pagamento_divida == c.forma_pagamento_divida
+                                 //&& item.valor_pago_divida == c.valor_pago_divida
+                                 //&& item.numero_miro_divida == c.numero_miro_divida
+                                 //&& item.pci_debito_divida == c.pci_debito_divida
+                                 //&& item.dta_contabil_divida == c.dta_contabil_divida
+                                 //&& item.dta_pagamento_custas == c.dta_pagamento_custas
+                                 //&& item.forma_pagamento_custas == c.forma_pagamento_custas
+                                 //&& item.valor_pago_custas == c.valor_pago_custas
+                                 //&& item.numero_miro_custa == c.numero_miro_custa
+                                 //&& item.pci_debito_custa == c.pci_debito_custa
+                                 //&& item.dta_contabil_custa == c.dta_contabil_custa
+                                 //&& item.obs_pagamento == c.obs_pagamento
+                                )).Count() == 0)
+                                {
+                                    sobe = true;
+                                }
+                                    renegouAlgum = true;
+                            }
+
                         }
                         if (salvouAlgum)
                             return View(GetContratosVeiculosViewModelRegistroOk());
