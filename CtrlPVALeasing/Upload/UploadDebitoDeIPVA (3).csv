@@ -1,3 +1,18 @@
-Caracteres (18);Caracteres (20);Caracteres (9);dd/mm/aaaa;Caracteres (2);Caracteres (1);Numerico (18,2);aaaa;Caracteres (10);Numerico (18,2);0 ou 1;Caracteres (40);0 ou 1;0 ou 1;Numerico (18,2);dd/mm/aaaa
-Chassi;Renavam;Placa;Data Cobranca;Uf Cobranca;Tipo Cobranca;Valor Divida;Ano Exercicio;CDA;Valor Custas;Debito Protesto;Nome Cartorio;Divida Ativa Serasa;Protesto Serasa;Valor Debito Tota;Data das Custas
-7777888;777888;7788;15/09/2017;SP;B;1548454,8;2017;65464654;1548,2;1;Nome do cartório via tabela;1;1;558985,66;15/09/2017
+Caracteres (18);Caracteres (20);Caracteres (9);dd/mm/aaaa;Caracteres (2);Caracteres (1);Numerico (18,2);aaaa;Caracteres (10);Numerico (18,2);0 ou 1;Caracteres (40);0 ou 1;0 ou 1;Numerico (18,2);dd/mm/aaaa;Caracteres (2);Caracteres (6)
+Chassi;Renavam;Placa;Data Cobranca;Uf Cobranca;Tipo Cobranca;Valor Divida;Ano Exercicio;CDA;Valor Custas;Debito Protesto;Nome Cartorio;Divida Ativa Serasa;Protesto Serasa;Valor Debito Tota;Data das Custas;Uf Pagamento;Grupo Safra
+33333;222222;abc143;21/09/2017;SP;B;91348,5;2017;64654654;9288,95;1;Cartório TAL;1;1;91699,99;21/09/2017;SP;teste
+33333;333;abc143;21/09/2017;bb;B;1348,5;2017;64654654;288,95;1;Cartório TAL;1;1;1699,99;21/09/2017;SP;teste
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;

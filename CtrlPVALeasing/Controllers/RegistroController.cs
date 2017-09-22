@@ -424,80 +424,9 @@ namespace CtrlPVALeasing.Controllers
         public ActionResult UploadDebitoIPVA(string Upload1, HttpPostedFileBase Upload2)
         {
             //Lê a tabela de débitos por completo.
-            model = (
-            from c in db.Tbl_DebitosEPagamentos_Veiculo
-            select new
-            {
-                renavam             = c.renavam,
-                chassi              = c.chassi,
-                placa               = c.placa,
-                dta_cobranca        = c.dta_cobranca,
-                uf_cobranca         = c.uf_cobranca,
-                tipo_cobranca       = c.tipo_cobranca,
-                valor_divida        = c.valor_divida,
-                ano_exercicio       = c.ano_exercicio,
-                cda                 = c.cda,
-                valor_custas        = c.valor_custas,
-                debito_protesto     = c.debito_protesto,
-                nome_cartorio       = c.nome_cartorio,
-                divida_ativa_serasa = c.divida_ativa_serasa,
-                protesto_serasa     = c.protesto_serasa,
-                valor_debito_total  = c.valor_debito_total,
-                dta_custas          = c.dta_custas,
-
-                c.uf_pagamento,
-                c.grupo_safra,
-                c.dta_pagamento_divida,
-                c.forma_pagamento_divida,
-                c.valor_pago_divida,
-                c.numero_miro_divida,
-                c.pci_debito_divida,
-                c.dta_contabil_divida,
-                c.dta_pagamento_custas,
-                c.forma_pagamento_custas,
-                c.valor_pago_custas,
-                c.numero_miro_custa,
-                c.pci_debito_custa,
-                c.dta_contabil_custa,
-                c.obs_pagamento
-
-
-            }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
-            {
-                renavam             = x.renavam,
-                chassi              = x.chassi,
-                placa               = x.placa,
-                dta_cobranca        = x.dta_cobranca,
-                uf_cobranca         = x.uf_cobranca,
-                tipo_cobranca       = x.tipo_cobranca,
-                valor_divida        = x.valor_divida,
-                ano_exercicio       = x.ano_exercicio,
-                cda                 = x.cda,
-                valor_custas        = x.valor_custas,
-                debito_protesto     = x.debito_protesto,
-                nome_cartorio       = x.nome_cartorio,
-                divida_ativa_serasa = x.divida_ativa_serasa,
-                protesto_serasa     = x.protesto_serasa,
-                valor_debito_total  = x.valor_debito_total,
-                dta_custas          = x.dta_custas,
-
-                uf_pagamento            = x.uf_pagamento,
-                grupo_safra             = x.grupo_safra,
-                dta_pagamento_divida    = x.dta_pagamento_divida,
-                forma_pagamento_divida  = x.forma_pagamento_divida,
-                valor_pago_divida       = x.valor_pago_divida,
-                numero_miro_divida      = x.numero_miro_divida,
-                pci_debito_divida       = x.pci_debito_divida,
-                dta_contabil_divida     = x.dta_contabil_divida,
-                dta_pagamento_custas    = x.dta_pagamento_custas,
-                forma_pagamento_custas  = x.forma_pagamento_custas,
-                valor_pago_custas       = x.valor_pago_custas,
-                numero_miro_custa       = x.numero_miro_custa,
-                pci_debito_custa        = x.pci_debito_custa,
-                dta_contabil_custa      = x.dta_contabil_custa,
-                obs_pagamento           = x.obs_pagamento
-
-            });
+            IEnumerable<Tbl_DebitosEPagamentos_Veiculo> model = (
+            from c in db.Tbl_DebitosEPagamentos_Veiculo select c
+            );
 
 
             int LinhasPular = 2; //Quantidade de linhas à pular no cabeçalho.
@@ -535,30 +464,58 @@ namespace CtrlPVALeasing.Controllers
                     protesto_serasa = x[13],
                     valor_debito_total = x[14],
                     dta_custas = x[15],
-                    uf_pagamento = x[2],
-                    grupo_safra = x[6]
+
+                    uf_pagamento = x[16],
+                    grupo_safra = x[17],
+                    dta_pagamento_divida = x[18],
+                    forma_pagamento_divida = x[19],
+                    valor_pago_divida = x[20],
+                    numero_miro_divida = x[21],
+                    pci_debito_divida = x[22],
+                    dta_contabil_divida = x[23],
+                    dta_pagamento_custas = x[24],
+                    forma_pagamento_custas = x[25],
+                    valor_pago_custas = x[26],
+                    numero_miro_custa = x[27],
+                    pci_debito_custa = x[28],
+                    dta_contabil_custa = x[29],
+                    obs_pagamento = x[30]
 
                 }).AsEnumerable().Select(a => new Tbl_DebitosEPagamentos_Veiculo
                 {
-                    id = 0,
-                    chassi = (a.chassi.Trim() == "null" || a.chassi.Trim() == "NULL" ? null : a.chassi.Trim()),
-                    renavam = (a.renavam.Trim() == "null" || a.renavam.Trim() == "NULL" ? null : a.renavam.Trim()),
-                    placa = (a.placa.Trim() == "null" || a.placa.Trim() == "NULL" ? null : a.placa.Trim()),
-                    dta_cobranca = (a.dta_cobranca.Trim() == "" || a.dta_cobranca.Trim() == "null" || a.dta_cobranca.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_cobranca)),
-                    uf_cobranca = (a.uf_cobranca.Trim() == "null" || a.uf_cobranca.Trim() == "NULL" ? null : a.uf_cobranca.Trim()),
-                    tipo_cobranca = (a.tipo_cobranca.Trim() == "null" || a.tipo_cobranca.Trim() == "NULL" ? null : a.tipo_cobranca.Trim()),
-                    valor_divida = (a.valor_divida.Trim() == "" || a.valor_divida.Trim() == "null" || a.valor_divida.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_divida)),
-                    ano_exercicio = (a.ano_exercicio.Trim() == "null" || a.ano_exercicio.Trim() == "NULL" ? null : a.ano_exercicio.Trim()),
-                    cda = (a.cda.Trim() == "null" || a.cda.Trim() == "NULL" ? null : a.cda.Trim()),
-                    valor_custas = (a.valor_custas.Trim() == "" || a.valor_custas.Trim() == "null" || a.valor_custas.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_custas)),
-                    debito_protesto = (a.debito_protesto.Trim() == "1" ? true : false),
-                    nome_cartorio = (a.nome_cartorio.Trim() == "null" || a.nome_cartorio.Trim() == "NULL" ? null : a.nome_cartorio.Trim()),
+                    id                  = 0,
+                    chassi              = (a.chassi.Trim() == "null" || a.chassi.Trim() == "NULL" ? null : a.chassi.Trim()),
+                    renavam             = (a.renavam.Trim() == "null" || a.renavam.Trim() == "NULL" ? null : a.renavam.Trim()),
+                    placa               = (a.placa.Trim() == "null" || a.placa.Trim() == "NULL" ? null : a.placa.Trim()),
+                    dta_cobranca        = (a.dta_cobranca.Trim() == "" || a.dta_cobranca.Trim() == "null" || a.dta_cobranca.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_cobranca)),
+                    uf_cobranca         = (a.uf_cobranca.Trim() == "null" || a.uf_cobranca.Trim() == "NULL" ? null : a.uf_cobranca.Trim()),
+                    tipo_cobranca       = (a.tipo_cobranca.Trim() == "null" || a.tipo_cobranca.Trim() == "NULL" ? null : a.tipo_cobranca.Trim()),
+                    valor_divida        = (a.valor_divida.Trim() == "" || a.valor_divida.Trim() == "null" || a.valor_divida.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_divida)),
+                    ano_exercicio       = (a.ano_exercicio.Trim() == "null" || a.ano_exercicio.Trim() == "NULL" ? null : a.ano_exercicio.Trim()),
+                    cda                 = (a.cda.Trim() == "null" || a.cda.Trim() == "NULL" ? null : a.cda.Trim()),
+                    valor_custas        = (a.valor_custas.Trim() == "" || a.valor_custas.Trim() == "null" || a.valor_custas.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_custas)),
+                    debito_protesto     = (a.debito_protesto.Trim() == "1" ? true : false),
+                    nome_cartorio       = (a.nome_cartorio.Trim() == "null" || a.nome_cartorio.Trim() == "NULL" ? null : a.nome_cartorio.Trim()),
                     divida_ativa_serasa = (a.divida_ativa_serasa.Trim() == "1" ? true : false),
-                    protesto_serasa = (a.protesto_serasa.Trim() == "1" ? true : false),
-                    valor_debito_total = (a.valor_debito_total.Trim() == "" || a.valor_debito_total.Trim() == "null" || a.valor_debito_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_debito_total)),
-                    dta_custas = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
-                    uf_pagamento = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
-                    grupo_safra = (a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim()),
+                    protesto_serasa     = (a.protesto_serasa.Trim() == "1" ? true : false),
+                    valor_debito_total  = (a.valor_debito_total.Trim() == "" || a.valor_debito_total.Trim() == "null" || a.valor_debito_total.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_debito_total)),
+                    dta_custas          = (a.dta_custas.Trim() == "" || a.dta_custas.Trim() == "null" || a.dta_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_custas)),
+
+                    uf_pagamento            = (a.uf_pagamento.Trim() == "null" || a.uf_pagamento.Trim() == "NULL" ? null : a.uf_pagamento.Trim()),
+                    grupo_safra             = (a.grupo_safra.Trim() == "null" || a.grupo_safra.Trim() == "NULL" ? null : a.grupo_safra.Trim()),
+                    dta_pagamento_divida    = (a.dta_pagamento_divida.Trim() == "" || a.dta_pagamento_divida.Trim() == "null" || a.dta_pagamento_divida.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento_divida)),
+                    forma_pagamento_divida  = (a.forma_pagamento_divida.Trim() == "null" || a.forma_pagamento_divida.Trim() == "NULL" ? null : a.forma_pagamento_divida.Trim()),
+                    valor_pago_divida       = (a.valor_pago_divida.Trim() == "" || a.valor_pago_divida.Trim() == "null" || a.valor_pago_divida.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_divida)),
+                    numero_miro_divida      = (a.numero_miro_divida.Trim() == "null" || a.numero_miro_divida.Trim() == "NULL" ? null : a.numero_miro_divida.Trim()),
+                    pci_debito_divida       = (a.pci_debito_divida.Trim() == "null" || a.pci_debito_divida.Trim() == "NULL" ? null : a.pci_debito_divida.Trim()),
+                    dta_contabil_divida     = (a.dta_contabil_divida.Trim() == "" || a.dta_contabil_divida.Trim() == "null" || a.dta_contabil_divida.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_contabil_divida)),
+                    dta_pagamento_custas    = (a.dta_pagamento_custas.Trim() == "" || a.dta_pagamento_custas.Trim() == "null" || a.dta_pagamento_custas.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_pagamento_custas)),
+                    forma_pagamento_custas  = (a.forma_pagamento_custas.Trim() == "null" || a.forma_pagamento_custas.Trim() == "NULL" ? null : a.forma_pagamento_custas.Trim()),
+                    valor_pago_custas       = (a.valor_pago_custas.Trim() == "" || a.valor_pago_custas.Trim() == "null" || a.valor_pago_custas.Trim() == "NULL" ? (decimal?)null : decimal.Parse(a.valor_pago_custas)),
+                    numero_miro_custa       = (a.numero_miro_custa.Trim() == "null" || a.numero_miro_custa.Trim() == "NULL" ? null : a.numero_miro_custa.Trim()),
+                    pci_debito_custa        = (a.pci_debito_custa.Trim() == "null" || a.pci_debito_custa.Trim() == "NULL" ? null : a.pci_debito_custa.Trim()),
+                    dta_contabil_custa      = (a.dta_contabil_custa.Trim() == "" || a.dta_contabil_custa.Trim() == "null" || a.dta_contabil_custa.Trim() == "NULL" ? (DateTime?)null : DateTime.Parse(a.dta_contabil_custa)),
+                    obs_pagamento           = (a.obs_pagamento.Trim() == "null" || a.obs_pagamento.Trim() == "NULL" ? null : a.obs_pagamento.Trim())
 
                 });
 
@@ -571,24 +528,26 @@ namespace CtrlPVALeasing.Controllers
                         //Compara csv com a tabela de débitos.
                         foreach (var item in ModelUpload)
                         {
-                            if(model.Where(c => (
-                                item.chassi                 == c.chassi 
-                                && item.renavam             == c.renavam 
-                                && item.placa               == c.placa
-                                && item.dta_cobranca        == c.dta_cobranca
-                                && item.uf_cobranca         == c.uf_cobranca
-                                && item.tipo_cobranca       == c.tipo_cobranca
-                                && item.valor_divida        == c.valor_divida
-                                && item.ano_exercicio       == c.ano_exercicio
-                                && item.cda                 == c.cda
-                                && item.valor_custas        == c.valor_custas
-                                && item.debito_protesto     == c.debito_protesto
-                                && item.nome_cartorio       == c.nome_cartorio
-                                && item.divida_ativa_serasa == c.divida_ativa_serasa
-                                && item.protesto_serasa     == c.protesto_serasa
-                                && item.valor_debito_total  == c.valor_debito_total
-                                && item.dta_custas          == c.dta_custas
-                            )).Count() == 0 )
+                            Tbl_DebitosEPagamentos_Veiculo pesquisa = db.Tbl_DebitosEPagamentos_Veiculo.FirstOrDefault(c => (
+                            item.chassi == c.chassi
+                            && item.renavam == c.renavam
+                            && item.placa == c.placa
+                            && item.dta_cobranca == c.dta_cobranca
+                            && item.uf_cobranca == c.uf_cobranca
+                            && item.tipo_cobranca == c.tipo_cobranca
+                            && item.valor_divida == c.valor_divida
+                            && item.ano_exercicio == c.ano_exercicio
+                            && item.cda == c.cda
+                            && item.valor_custas == c.valor_custas
+                            && item.debito_protesto == c.debito_protesto
+                            && item.nome_cartorio == c.nome_cartorio
+                            && item.divida_ativa_serasa == c.divida_ativa_serasa
+                            && item.protesto_serasa == c.protesto_serasa
+                            && item.valor_debito_total == c.valor_debito_total
+                            && item.dta_custas == c.dta_custas
+                            ));
+
+                            if(pesquisa == null )
                             {
                                 if (db.Entry(item).State == EntityState.Detached)
                                 {
@@ -599,34 +558,64 @@ namespace CtrlPVALeasing.Controllers
                             }
                             else
                             {
-                                //Se ele já existe, testar se os campos de pagamento um a um
-
-                                bool sobe = false;
-
-                                if (model.Where(c => (
-                                 ((item.uf_pagamento == null || item.uf_pagamento =="") && (c.uf_pagamento == null || c.uf_pagamento == "")
-                                 &&
-                                 ((c.grupo_safra == null || c.grupo_safra == "") && (item.grupo_safra != null && item.grupo_safra != ""))
-                                 //&& item.dta_pagamento_divida == c.dta_pagamento_divida
-                                 //&& item.forma_pagamento_divida == c.forma_pagamento_divida
-                                 //&& item.valor_pago_divida == c.valor_pago_divida
-                                 //&& item.numero_miro_divida == c.numero_miro_divida
-                                 //&& item.pci_debito_divida == c.pci_debito_divida
-                                 //&& item.dta_contabil_divida == c.dta_contabil_divida
-                                 //&& item.dta_pagamento_custas == c.dta_pagamento_custas
-                                 //&& item.forma_pagamento_custas == c.forma_pagamento_custas
-                                 //&& item.valor_pago_custas == c.valor_pago_custas
-                                 //&& item.numero_miro_custa == c.numero_miro_custa
-                                 //&& item.pci_debito_custa == c.pci_debito_custa
-                                 //&& item.dta_contabil_custa == c.dta_contabil_custa
-                                 //&& item.obs_pagamento == c.obs_pagamento
-                                )).Count() == 0)
+                                if(
+                                    (pesquisa.uf_pagamento               == null || pesquisa.uf_pagamento == "")
+                                    && (pesquisa.grupo_safra             == null || pesquisa.grupo_safra == "")
+                                    && (pesquisa.dta_pagamento_divida    == null)
+                                    && (pesquisa.forma_pagamento_divida  == null || pesquisa.forma_pagamento_divida == "")
+                                    && (pesquisa.valor_pago_divida       == null || pesquisa.valor_pago_divida == 0)
+                                    && (pesquisa.numero_miro_divida      == null || pesquisa.numero_miro_divida == "")
+                                    && (pesquisa.pci_debito_divida       == null || pesquisa.pci_debito_divida == "")
+                                    && (pesquisa.dta_contabil_divida     == null)
+                                    && (pesquisa.dta_pagamento_custas    == null)
+                                    && (pesquisa.forma_pagamento_custas  == null || pesquisa.forma_pagamento_custas == "")
+                                    && (pesquisa.valor_pago_custas       == null || pesquisa.valor_pago_custas == 0)
+                                    && (pesquisa.numero_miro_custa       == null || pesquisa.numero_miro_custa == "")
+                                    && (pesquisa.pci_debito_custa        == null || pesquisa.pci_debito_custa == "")
+                                    && (pesquisa.dta_contabil_custa      == null)
+                                    && (pesquisa.obs_pagamento           == null || pesquisa.obs_pagamento == "")
+                                  )
                                 {
-                                    sobe = true;
-                                }
-                                    renegouAlgum = true;
-                            }
+                                    pesquisa.chassi = item.chassi;
+                                    pesquisa.renavam = item.renavam;
+                                    pesquisa.placa = item.placa;
+                                    pesquisa.dta_cobranca = item.dta_cobranca;
+                                    pesquisa.uf_cobranca = item.uf_cobranca;
+                                    pesquisa.tipo_cobranca = item.tipo_cobranca;
+                                    pesquisa.valor_divida = item.valor_divida;
+                                    pesquisa.ano_exercicio = item.ano_exercicio;
+                                    pesquisa.cda = item.cda;
+                                    pesquisa.valor_custas = item.valor_custas;
+                                    pesquisa.debito_protesto = item.debito_protesto;
+                                    pesquisa.nome_cartorio = item.nome_cartorio;
+                                    pesquisa.divida_ativa_serasa = item.divida_ativa_serasa;
+                                    pesquisa.protesto_serasa = item.protesto_serasa;
+                                    pesquisa.valor_debito_total = item.valor_debito_total;
+                                    pesquisa.dta_custas = item.dta_custas;
+                                    pesquisa.uf_pagamento = item.uf_pagamento;
+                                    pesquisa.grupo_safra = item.grupo_safra;
+                                    pesquisa.dta_pagamento_divida = item.dta_pagamento_divida;
+                                    pesquisa.forma_pagamento_divida = item.forma_pagamento_divida;
+                                    pesquisa.valor_pago_divida = item.valor_pago_divida;
+                                    pesquisa.numero_miro_divida = item.numero_miro_divida;
+                                    pesquisa.pci_debito_divida = item.pci_debito_divida;
+                                    pesquisa.dta_contabil_divida = item.dta_contabil_divida;
+                                    pesquisa.dta_pagamento_custas = item.dta_pagamento_custas;
+                                    pesquisa.forma_pagamento_custas = item.forma_pagamento_custas;
+                                    pesquisa.valor_pago_custas = item.valor_pago_custas;
+                                    pesquisa.numero_miro_custa = item.numero_miro_custa;
+                                    pesquisa.pci_debito_custa = item.pci_debito_custa;
+                                    pesquisa.dta_contabil_custa = item.dta_contabil_custa;
+                                    pesquisa.obs_pagamento = item.obs_pagamento;
 
+
+                                    if (db.Entry(pesquisa).State == EntityState.Modified)
+                                    {
+                                        db.SaveChanges();
+                                        salvouAlgum = true;
+                                    }
+                                }
+                            }
                         }
                         if (salvouAlgum)
                             return View(GetContratosVeiculosViewModelRegistroOk());
@@ -639,7 +628,7 @@ namespace CtrlPVALeasing.Controllers
                         return View(GetErroDeEntrada(null));
                     }
                 }
-                catch
+                catch (Exception e)
                 {
                     return View(GetErroDeEntradaDesconhecido());
                 }
