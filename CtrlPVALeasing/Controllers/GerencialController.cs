@@ -16,6 +16,7 @@ namespace CtrlPVALeasing.Controllers
         private CtrlIPVALeasingContext db = new CtrlIPVALeasingContext();
 
         IEnumerable<ContratosVeiculosViewModel> model = null;
+        Arm_Veiculos model2 = null;
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel vazio para se injetar na PARTIAL VIEW pela primeira vez quando ela carrega sem ninguém.
@@ -506,6 +507,98 @@ namespace CtrlPVALeasing.Controllers
             }
 
             return View("PagamentoIPVAPorStatusContrato", model);
+        }
+
+        public ActionResult RegistroVeiculosComDebitoMasSemCadastro(string escolha)
+        {
+            model = (
+                     from a in db.Tbl_DebitosEPagamentos_Veiculo
+                     from b in db.Arm_Veiculos.Where(v =>
+                     (a.chassi == v.chassi) && (a.renavam == v.renavam) && (a.placa == v.placa)).DefaultIfEmpty() // Isto é um LEFT JOIN
+                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+                     where (b.chassi == null || b.chassi == "") && (b.renavam == null || b.renavam == "") && (b.placa == null || b.placa == "")
+
+                     group new { a, b } by new
+                     {
+                         a.chassi,
+                         a.renavam,
+                         a.placa
+                     }
+                     into g
+                     orderby g.Key.chassi,
+                             g.Key.renavam,
+                             g.Key.placa
+                     select new
+                     {
+                         g.Key.chassi,
+                         g.Key.renavam,
+                         g.Key.placa
+
+                     }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
+                     {
+                         chassi = x.chassi,
+                         renavam = x.renavam,
+                         placa = x.placa
+
+                     });
+
+            //Foi comentado pois o Bruno pediu para que gerasse um csv mesmo que estivesse vazio.
+
+            //if (model.Count() == 0 || model == null)
+            //{
+            //    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
+            //}
+
+            //if (model == null || model.Any() == false)
+            //{
+            //    //return HttpNotFound();
+            //    return RedirectToAction("PagamentoIPVAPorStatusContrato");
+            //}
+
+            if (escolha == "rv")
+            {
+                foreach (var elemento in model.ToList())
+                {
+                    try
+                    {
+                        // Controle de erros do ModelState
+                        var errors = ModelState
+                        .Where(x => x.Value.Errors.Count > 0)
+                        .Select(x => new { x.Key, x.Value.Errors })
+                        .ToArray();
+
+                        if (ModelState.IsValid)
+                        {
+                            model2 = new Arm_Veiculos()
+                            {
+                                id = 0,
+                                chassi = elemento.chassi,
+                                renavam = elemento.renavam,
+                                placa = elemento.placa
+                            };
+
+
+                            if (db.Entry(model2).State == EntityState.Detached)
+                            {
+                                db.Arm_Veiculos.Add(model2);
+                                db.SaveChanges();
+                                //return View();
+                            }
+                            ViewBag.Message = "Incluido com Sucesso!";
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Erro: Algum campo está inválido!";
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.Message = "Erro: O número do contrato é obrigatório!";
+                    }
+                }
+            }
+
+            return View("RegistroVeiculosComDebitoMasSemCadastro", model);
         }
 
         public ActionResult ExportarTodaBaseArm()

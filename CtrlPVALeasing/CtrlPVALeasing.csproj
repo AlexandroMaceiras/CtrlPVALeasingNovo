@@ -422,6 +422,9 @@
     <Content Include="Views\Arm_LiquidadosEAtivos_Contrato\CriarContrato.cshtml" />
     <Content Include="Views\Arm_Veiculos\CriarVeiculo.cshtml" />
     <Content Include="Views\Gerencial\ExportarTodaBaseArm.cshtml" />
+    <Content Include="Views\Gerencial\RegistroVeiculosComDebitoMasSemCadastro.cshtml" />
+    <Content Include="Views\Gerencial\_GridDebitos.cshtml" />
+    <Content Include="Views\Gerencial\_ContadorDeVeiculos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

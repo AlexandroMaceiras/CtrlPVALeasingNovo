@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+@{
+    ViewBag.Title = "Registro de Veículos com Débito mas Sem Cadastro";
+}
+
+@using (Html.BeginForm("RegistroVeiculosComDebitoMasSemCadastro", "Gerencial", FormMethod.Post, new { id = "FormAltera" }))
+{
+    <div class="jumbotronFundo">
+        <input type="hidden" name="escolha" id="escolha" value="nada" />
+        <center>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th class="busca" width="90%">
+                        <h2>REGISTRO DE VEÍCULOS COM DÉBITO MAS SEM CADASTRO</h2>
+                    </th>
+
+                    <th>
+                        <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <input onclick="validateForm('rv');" class="btn4 btn-primary-imp .btn-sm" type="button" name="Submit" id="Submit" value="REGISTRAR VEÍCULOS" />
+                    </td>
+
+                </tr>
+            </table>
+            <hr />
+        </center>
+
+        <center>
+            <table width="100%" border="1" cellspacing="0" cellpadding="10" style="border-style:inherit">
+                <tr>
+                    <td>
+                        <b class="fonte-cinza-escuro">DADOS DOS VEÍCULOS:</b>
+                        <table border="0" style="border-style:inherit">
+                            <tr>
+                                <td>
+                                    <div class="fonte-cinza-claro fonte-tamanho-form">Total de Veículos:&nbsp;&nbsp;&nbsp;</div>
+                                </td>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_ContadorDeVeiculos")
+                                }
+                            </tr>
+                            <tr>
+                                <td class="input-sm-fino">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                @if (Model != null)
+                                {
+                                    @Html.Partial("_GridDebitos")
+                                }
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </center>
+
+    </div>
+}
+<script>
+    try {
+        function validateForm(a) {
+            if (a == "rv") {
+                document.getElementById("escolha").value = "rv";
+            }
+            document.getElementById("FormAltera").submit();
+            return true;
+        }
+    }
+    catch (e) {
+        alert("Erro: " + e);
+    }
+</script>

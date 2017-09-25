@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
+
+<table class="table" border="1" style="border-style:inherit">
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Nº</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Chassi</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Renavam</div>
+                    </th>
+                    <th class="input-sm-fino">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">Placa</div>
+                    </th>
+                </tr>
+
+                @{var contadorInterno = 0;
+                    foreach (var item in Model)
+                    {
+                        if ((item.chassi != null && item.chassi != "") || (item.renavam != null && item.renavam != "") || (item.placa != null && item.placa != ""))
+                        {
+                            contadorInterno++;
+                            <tr>
+                                <td class="input-sm-fino">
+                                    @contadorInterno
+                                </td>
+                                <td class="input-sm-fino">
+                                    @(item.chassi == null ? "" : item.chassi.ToString())
+                                </td>
+                                <td class="input-sm-fino">
+                                    @(item.chassi == null ? "" : item.renavam.ToString())
+                                </td>
+                                <td class="input-sm-fino">
+                                    @(item.chassi == null ? "" : item.placa.ToString())
+                                </td>
+                            </tr>
+                        }                        
+                    }
+                }
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+
