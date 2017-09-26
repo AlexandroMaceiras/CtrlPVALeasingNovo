@@ -86,12 +86,12 @@
                                     @Html.DisplayFor(modelItem => item.valor_total_recuperado)
                                 </td>
                                 <td class="input-sm-fino" align="right">
-                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                    @Html.ActionLink((item.uf_pagamento != "" && item.uf_pagamento != null ? "EDITAR" : "PAGAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "false" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm"), onclick = "CarregForm();" })
                                 </td>
                                 <td class="input-sm-fino" align="right">
                                     @if (item.uf_pagamento != "" && item.uf_pagamento != null)
                                     {
-                                        @Html.ActionLink((item.valor_total_recuperado.HasValue ? "EDITAR" : "RECUPERAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null && item.valor_total_recuperado.HasValue ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm") })
+                                        @Html.ActionLink((item.valor_total_recuperado.HasValue ? "EDITAR" : "RECUPERAR"), "../Registro/PagamentoDebitoIPVAManual2", new { id_debito = item.id_debito, chassi = Model.First().chassi, renavam = Model.First().renavam, placa = Model.First().placa, Rc = "true" }, new { @class = (item.uf_pagamento != "" && item.uf_pagamento != null && item.valor_total_recuperado.HasValue ? "btn2 btn-primary-limpar btn-sm" : "btn2 btn-primary-menu btn-sm"), onclick = "CarregForm();" })
                                     }
                                 </td>
                             </tr>

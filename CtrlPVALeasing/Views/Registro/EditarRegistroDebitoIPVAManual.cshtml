@@ -31,6 +31,12 @@
             $("#msgErro8").modal();
         });
     }
+
+    function CarregaForm() {
+        $(document).ready(function () {
+            $("#Carregando").modal();
+        });
+    }
 </script>
 @{
     ViewBag.Title = "Editar Débito de IPVA";
@@ -49,7 +55,7 @@
                     </th>
                     <th class="busca" width="18%" align="right">
                         <br />
-                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
+                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "CarregaForm();" })
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -944,6 +950,31 @@
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="Carregando" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>*@
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>EDITAR DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <center>
+                                <h4 style="color: rgb(176, 172, 186)">
+                                    Recarregando...
+                                </h4>
+                                <img src="~/Imagens/loader.gif" />
+                            </center>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -1322,7 +1322,10 @@ namespace CtrlPVALeasing.Controllers
 
                         db.Entry(procuraRegistro).State = EntityState.Modified;
                         db.SaveChanges();
-                        return View(RecuperacaoOk());
+                        if(status_recuperacao != null)
+                            return View(RecuperacaoOk());
+                        else
+                            return View(GetContratosVeiculosViewModelRegistroOk());
                     }
                     else
                     {

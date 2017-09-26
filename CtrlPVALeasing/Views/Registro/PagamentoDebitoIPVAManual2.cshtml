@@ -1,41 +1,13 @@
 ﻿@model IEnumerable<CtrlPVALeasing.Models.ContratosVeiculosViewModel>
-<head>
-    <meta name="viewport" content="width=device-width" />
 
-    <!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
-    <!-- <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
-    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
-
-    <!-- <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script> -->
-
-</head>
-@*<script>
-    function chamaErro4() {
+<script>
+    function CarregaForm()
+    {
         $(document).ready(function () {
-            $("#msgErro4").modal();
+            $("#Carregando").modal();
         });
     }
-    function chamaErro3() {
-        $(document).ready(function () {
-            $("#msgErro3").modal();
-        });
-    }
-    function chamaErro1() {
-        $(document).ready(function () {
-            $("#msgErro1").modal();
-        });
-    }
-    function chamaErro7() {
-        $(document).ready(function () {
-            $("#msgErro7").modal();
-        });
-    }
-    function chamaErro8() {
-        $(document).ready(function () {
-            $("#msgErro8").modal();
-        });
-    }
-</script>*@
+</script>
 @{
     if (Request["Rc"] == "true")
     {
@@ -74,11 +46,11 @@
                 @{
                     if (Request["deb"] == "true")
                     {
-                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { id_debito = @MF.id_debito, chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
+                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { id_debito = @MF.id_debito, chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "CarregaForm();" })
                     }
                     else
                     {
-                        @Html.ActionLink("VOLTAR", "PagamentoDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "" })
+                        @Html.ActionLink("VOLTAR", "PagamentoDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "CarregaForm();" })
                     }
                 }
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
@@ -1334,7 +1306,6 @@
             }
         });
 
-
         $("#msgOk").on("hidden.bs.modal", function () {
             history.go(-1);
         });
@@ -1342,7 +1313,11 @@
         $("#msgErro9").on("hidden.bs.modal", function () {
             history.go(-1);
         });
-
+        
+        $("#RecuperacaoOk").on("hidden.bs.modal", function () {
+            history.go(-1);
+        });
+    
     </script>
 }
 }
@@ -1593,6 +1568,32 @@
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="Carregando" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>*@
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>PAGAMENTO DÉBITO DE IPVA</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <center>
+                                <h4 style="color: rgb(176, 172, 186)">
+                                    Recarregando...
+                                </h4>
+                                <img src="~/Imagens/loader.gif" />
+                            </center>
+                        </td>
                     </tr>
                 </table>
             </div>
