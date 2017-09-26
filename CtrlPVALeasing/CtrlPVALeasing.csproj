@@ -425,6 +425,8 @@
     <Content Include="Views\Gerencial\RegistroVeiculosComDebitoMasSemCadastro.cshtml" />
     <Content Include="Views\Gerencial\_GridDebitos.cshtml" />
     <Content Include="Views\Gerencial\_ContadorDeVeiculos.cshtml" />
+    <Content Include="Views\Registro\RegistroSituacaoCliente.cshtml" />
+    <Content Include="Views\Registro\_valor_debito_total.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

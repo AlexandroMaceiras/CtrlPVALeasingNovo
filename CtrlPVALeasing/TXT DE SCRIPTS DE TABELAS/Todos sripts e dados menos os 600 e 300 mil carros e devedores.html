@@ -217,7 +217,20 @@ CREATE TABLE dbo.Tbl_SCC
 	)
 GO
 
+IF OBJECT_ID ('Tbl_Situacao') IS NOT NULL
+	DROP TABLE Tbl_Situacao
+GO
 
+CREATE TABLE dbo.Tbl_Situacao
+	(
+	id       	INT IDENTITY NOT NULL,
+	contrato 	VARCHAR (9) NULL,
+	ativa 		BIT NULL,
+	localizada	BIT NULL,
+	outrasOper	BIT NULL,
+	PRIMARY KEY (id)
+	)
+GO
 
 INSERT INTO Tbl_Agencias (agencia, descricao_agencia) VALUES ('200', 'CENTRAL XV')
 GO
