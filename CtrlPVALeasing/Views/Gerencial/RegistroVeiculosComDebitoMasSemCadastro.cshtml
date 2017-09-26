@@ -61,6 +61,20 @@
 
     </div>
 }
+@if (ViewBag.Message != null)
+{
+    <script>
+        try {
+            $(document).ready(function () {
+                $("#msgOk").modal();
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    </script>
+}
+
 <script>
     try {
         function validateForm(a) {
@@ -75,3 +89,24 @@
         alert("Erro: " + e);
     }
 </script>
+
+<div class="modal fade modal-sm" role="dialog" aria-labelledby="example-modal--label" aria-hidden="true" id="msgOk" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <header class="modal-header modal-sm">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE VEÍCULOS COM DÉBITO MAS SEM CADASTRO</b></h4></center>
+            </header>
+            <div class="modal-body modal-sm">
+                <table width="100%">
+                    <tr>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">@ViewBag.Message</h4></center></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

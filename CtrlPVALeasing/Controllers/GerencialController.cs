@@ -533,41 +533,28 @@ namespace CtrlPVALeasing.Controllers
                          g.Key.chassi,
                          g.Key.renavam,
                          g.Key.placa
-
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
                          chassi = x.chassi,
                          renavam = x.renavam,
                          placa = x.placa
-
                      });
-
-            //Foi comentado pois o Bruno pediu para que gerasse um csv mesmo que estivesse vazio.
-
-            //if (model.Count() == 0 || model == null)
-            //{
-            //    return View(GetContratosVeiculosViewModelErro()); //RedirectToAction("ConsultaVeiculo");
-            //}
-
-            //if (model == null || model.Any() == false)
-            //{
-            //    //return HttpNotFound();
-            //    return RedirectToAction("PagamentoIPVAPorStatusContrato");
-            //}
 
             if (escolha == "rv")
             {
-                foreach (var elemento in model.ToList())
-                {
-                    try
-                    {
-                        // Controle de erros do ModelState
-                        var errors = ModelState
-                        .Where(x => x.Value.Errors.Count > 0)
-                        .Select(x => new { x.Key, x.Value.Errors })
-                        .ToArray();
+                // Controle de erros do ModelState
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
 
-                        if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    int existe = 0;
+                    foreach (var elemento in model.ToList())
+                    {
+                        existe++;
+                        try
                         {
                             model2 = new Arm_Veiculos()
                             {
@@ -577,27 +564,28 @@ namespace CtrlPVALeasing.Controllers
                                 placa = elemento.placa
                             };
 
-
                             if (db.Entry(model2).State == EntityState.Detached)
                             {
                                 db.Arm_Veiculos.Add(model2);
                                 db.SaveChanges();
-                                //return View();
                             }
-                            ViewBag.Message = "Incluido com Sucesso!";
                         }
-                        else
+                        catch (Exception e)
                         {
-                            ViewBag.Message = "Erro: Algum campo está inválido!";
+                            ViewBag.Message = "Erro: " + e.InnerException;
                         }
                     }
-                    catch (Exception e)
-                    {
-                        ViewBag.Message = "Erro: O número do contrato é obrigatório!";
-                    }
+                    if(existe > 0)
+                        ViewBag.Message = "Veículo(s) Incluso(s) com Sucesso!";
+                    else
+                        ViewBag.Message = "Não existe nenhum veículo à ser incluso!";
                 }
-            }
+                else
+                {
+                    ViewBag.Message = "Erro: Algum campo está inválido!";
+                }
 
+            }
             return View("RegistroVeiculosComDebitoMasSemCadastro", model);
         }
 
