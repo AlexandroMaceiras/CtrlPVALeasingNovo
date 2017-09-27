@@ -378,9 +378,7 @@
             //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
             try {
                 $("#mudaReset").click(function () {
-                    document.getElementById("chassi").setAttribute("value", "");
-                    document.getElementById("renavam").setAttribute("value", "");
-                    document.getElementById("placa").setAttribute("value", "");
+                    document.getElementById("contrato").setAttribute("value", "");
                     document.getElementById("ConsultaVeiculo").submit();
                 });
             }
@@ -422,9 +420,7 @@
             try {
                 function validateForm(a) {
                     if (
-                        document.getElementById('chassi').value == "" &&
-                        document.getElementById('renavam').value == "" &&
-                        document.getElementById('placa').value == "") {
+                        document.getElementById('contrato').value == "") {
                         $(document).ready(function () {
                             $("#msgErro1").modal();
                             return false;
@@ -433,8 +429,9 @@
                     }
                     else {
                         document.getElementById("escolha").value = "rdrc";
-                        document.getElementById("comDUT").value = (document.getElementById("comDUT").value == 'on' ? 'true' : 'false');
-                        document.getElementById("comVenda").value = (document.getElementById("comVenda").value == 'on' ? 'true' : 'false');
+                        document.getElementById("ativa").value = (document.getElementById("ativa").value == 'on' ? 'true' : 'false');
+                        document.getElementById("localizada").value = (document.getElementById("localizada").value == 'on' ? 'true' : 'false');
+                        document.getElementById("outrasOper").value = (document.getElementById("outrasOper").value == 'on' ? 'true' : 'false');
                         document.getElementById("FormAltera").submit();
                         return true;
                     }

@@ -918,6 +918,8 @@ namespace CtrlPVALeasing.Controllers
                          //into j3
                          //from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
+                     //from f in db.Tbl_Dut.Where(Dut => a.contrato == Dut.).DefaultIfEmpty()
+
                      where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
 
                      where a.origem.Equals("B")

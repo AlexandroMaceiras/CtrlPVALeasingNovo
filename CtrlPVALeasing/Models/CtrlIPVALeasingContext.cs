@@ -250,5 +250,6 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
         }
 
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Situacao> Tbl_Situacao { get; set; }
     }
 }

@@ -169,6 +169,7 @@
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\Tbl_DutController.cs" />
     <Compile Include="Controllers\Tbl_SCCController.cs" />
+    <Compile Include="Controllers\Tbl_SituacaoController.cs" />
     <Compile Include="Controllers\TransacionalController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Models\Tbl_Dut.cs" />
     <Compile Include="Models\Tbl_Impressao.cs" />
     <Compile Include="Models\Tbl_SCC.cs" />
+    <Compile Include="Models\Tbl_Situacao.cs" />
     <Compile Include="Models\TesteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -427,6 +429,11 @@
     <Content Include="Views\Gerencial\_ContadorDeVeiculos.cshtml" />
     <Content Include="Views\Registro\RegistroSituacaoCliente.cshtml" />
     <Content Include="Views\Registro\_valor_debito_total.cshtml" />
+    <Content Include="Views\Tbl_Situacao\Create.cshtml" />
+    <Content Include="Views\Tbl_Situacao\Delete.cshtml" />
+    <Content Include="Views\Tbl_Situacao\Details.cshtml" />
+    <Content Include="Views\Tbl_Situacao\Edit.cshtml" />
+    <Content Include="Views\Tbl_Situacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

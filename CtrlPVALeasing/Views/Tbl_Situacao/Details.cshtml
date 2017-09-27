@@ -1,0 +1,50 @@
+﻿@model CtrlPVALeasing.Models.Tbl_Situacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Situacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.contrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.outrasOper)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.outrasOper)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
