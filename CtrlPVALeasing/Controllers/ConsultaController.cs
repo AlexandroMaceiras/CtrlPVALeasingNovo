@@ -219,6 +219,8 @@ namespace CtrlPVALeasing.Controllers
                          valor_recuperado       = x.valor_recuperado,
                          valor_total_recuperado = x.valor_total_recuperado,
                          divida_ativa_serasa    = x.divida_ativa_serasa,
+                         dta_pagamento_divida   = x.dta_pagamento_divida,
+                         dta_pagamento_custas   = x.dta_pagamento_custas,
 
                          comVenda = x.comVenda,
 

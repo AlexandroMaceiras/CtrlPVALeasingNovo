@@ -1106,7 +1106,7 @@ namespace CtrlPVALeasing.Controllers
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
                      {
-                         soma_valor_total_recuperado = g.Sum(c => c.valor_total_recuperado)
+                         soma_valor_total_recuperado = g.Sum(c => c.valor_recuperado)
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
@@ -1208,7 +1208,7 @@ namespace CtrlPVALeasing.Controllers
                      group c by new { c.chassi, c.renavam, c.placa } into g
                      select new
                      {
-                         soma_valor_debito_total = g.Sum(c => c.valor_pago_divida + c.valor_pago_custas)
+                         soma_valor_debito_total = g.Sum(c => (c.valor_pago_divida.HasValue ? c.valor_pago_divida : 0) + (c.valor_pago_custas.HasValue ? c.valor_pago_custas : 0))
 
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
