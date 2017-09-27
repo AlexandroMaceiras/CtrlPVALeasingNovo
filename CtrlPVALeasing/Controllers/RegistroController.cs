@@ -18,6 +18,7 @@ namespace CtrlPVALeasing.Controllers
         IEnumerable<ContratosVeiculosViewModel> model = null;
         Tbl_DebitosEPagamentos_Veiculo model2 = null;
         Tbl_Dut model3 = null;
+        Tbl_Situacao model4 = null;
 
         /// <summary>
         /// Cria um IEnumerable do modelo ContratosVeiculosViewModel com -3 para se injetar na view quando for retorno de pesquisa após inclusão.
@@ -115,20 +116,6 @@ namespace CtrlPVALeasing.Controllers
         {
             return View(GetContratosVeiculosViewModelPrimeira());
         }
-
-        public ActionResult Teste()
-        {
-            int milliseconds = 10000;
-            System.Threading.Thread.Sleep(milliseconds);
-            return View();
-        }
-
-        public ActionResult Teste2()
-        {
-            System.Threading.Thread.Sleep(5000);
-            return View();
-        }
-
 
         public ActionResult RegistroContrato(string contrato, string cpf_cnpj_cliente)
         {
@@ -881,162 +868,89 @@ namespace CtrlPVALeasing.Controllers
         }
 
         // GET: Arm_LiquidadosEAtivos_Contrato/Details/5
-        public ActionResult RegistroSituacaoCliente(string chassi, string placa, string renavam, string escolha, bool? comDUT, bool? comVenda)
+        public ActionResult RegistroSituacaoCliente(string cpf_cnpj_cliente, string escolha, bool? ativa, bool? localizada, bool? outrasOper)
         {
-            if ((chassi == "" || chassi == null) && (placa == "" || placa == null) && (renavam == "" || renavam == null))
+            if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
             {
                 return View(GetContratosVeiculosViewModelPrimeira());
             }
 
-            renavam = renavam.TrimStart('0');
+            if (cpf_cnpj_cliente == "" || cpf_cnpj_cliente == null)
+                cpf_cnpj_cliente = "ø";
 
-            if (chassi == "" || chassi == null)
-                chassi = "ø";
-            if (placa == "" || placa == null)
-                placa = "ø";
-            if (renavam == "" || renavam == null)
-                renavam = "ø";
+
+            string cpf_cnpj_clienteZEROS = cpf_cnpj_cliente.Trim().ToString().PadLeft(18, '0');
 
             model = (from a in db.Arm_LiquidadosEAtivos_Contrato
                      join b in db.Arm_Veiculos
                      on a.contrato equals b.contrato
 
-                     from c in db.Tbl_Dut.Where(Dut =>
-                     (b.chassi == Dut.chassi) || (b.renavam == Dut.renavam) || (b.placa == Dut.placa)).DefaultIfEmpty()
-                         //on new { b.chassi, b.renavam, b.placa } equals new { c.chassi, c.renavam, c.placa }
-                         //into j1
-                         //from c in j1.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     from c in db.Tbl_DebitosEPagamentos_Veiculo.Where(depv =>
+                     (b.chassi == depv.chassi) || (b.renavam == depv.renavam) || (b.placa == depv.placa)).DefaultIfEmpty()
 
-                     join d in db.Tbl_SCC
+                     join d in db.Tbl_CCL
                      on new { a.cpf_cnpj_cliente } equals new { d.cpf_cnpj_cliente }
                      into j2
                      from d in j2.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     from e in db.Tbl_Bens.Where(Bens =>
-                     (b.chassi == Bens.chassi) || (b.renavam == Bens.renavam) || (b.placa == Bens.placa)).DefaultIfEmpty()
-                         //on new { b.chassi, b.renavam, b.placa } equals new { e.chassi, e.renavam, e.placa }
-                         //into j3
-                         //from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
+                     join e in db.Tbl_Situacao
+                     on new { a.cpf_cnpj_cliente } equals new { e.cpf_cnpj_cliente }
+                     into j3
+                     from e in j3.DefaultIfEmpty() //Isto é um LEFT JOIN
 
-                     //from f in db.Tbl_Dut.Where(Dut => a.contrato == Dut.).DefaultIfEmpty()
-
-                     where (b.chassi.Contains(chassi) || b.placa.Contains(placa) || b.renavam.Contains(renavam))
-
-                     where a.origem.Equals("B")
-                     where (!b.origem.Contains("RECIBO VEN") || b.origem == null)
+                     where
+                     a.cpf_cnpj_cliente.Contains(cpf_cnpj_clienteZEROS) && (!b.origem.Contains("RECIBO VEN") || b.origem == null)
                      select new
                      {
-                         id = a.id,
-                         contrato = a.contrato,
-                         tipo = a.tipo,
-                         agencia = a.agencia,
-                         dta_inicio_contrato = a.dta_inicio_contrato,
-                         dta_vecto_contrato = a.dta_vecto_contrato,
-                         origem = a.origem,
-                         cpf_cnpj_cliente = a.cpf_cnpj_cliente,
-                         nome_cliente = a.nome_cliente,
-                         ddd_cliente_particular = a.ddd_cliente_particular,
-                         fone_cliente_particular = a.fone_cliente_particular,
-                         rml_cliente_particular = a.rml_cliente_particular,
-                         end_cliente = a.end_cliente,
-                         bairro_cliente = a.bairro_cliente,
-                         cidade_cliente = a.cidade_cliente,
-                         uf_cliente = a.uf_cliente,
-                         cep_cliente = a.cep_cliente,
-                         filler = a.filler,
-                         ddd_cliente_cml = a.ddd_cliente_cml,
-                         fone_cliente_cml = a.fone_cliente_cml,
-                         dta_ultimo_pagto = a.dta_ultimo_pagto,
-                         tipo_de_baixa = a.tipo_de_baixa,
-                         data_da_baixa = a.data_da_baixa,
-                         cod_empresa = a.cod_empresa,
-                         num_end_cliente = a.num_end_cliente,
-                         comp_end_cliente = a.comp_end_cliente,
-                         status = a.status,
-
-                         contrato_v = b.contrato,
-                         tipo_registro = b.tipo_registro,
-                         marca = b.marca,
-                         modelo = b.modelo,
-                         tipo_v = b.tipo,
-                         ano_fab = b.ano_fab,
-                         ano_mod = b.ano_mod,
-                         cor = b.cor,
-                         renavam = b.renavam,
-                         chassi = b.chassi,
-                         placa = b.placa,
-                         origem_v = b.origem,
-
-                         renavam_dut = c.renavam,
-                         chassi_dut = c.chassi,
-                         placa_dut = c.placa,
-                         comVenda = c.comVenda,
-                         comDUT = c.comDUT,
-
-                         conta = d.conta,
-
-                         renavam_bens = e.renavam,
-                         chassi_bens = e.chassi,
-                         placa_bens = e.placa
-
+                         a.nome_cliente,
+                         a.cpf_cnpj_cliente,
+                         a.ddd_cliente_particular,
+                         a.fone_cliente_particular,
+                         a.ddd_cliente_cml,
+                         a.fone_cliente_cml,
+                         a.end_cliente,
+                         a.bairro_cliente,
+                         a.cidade_cliente,
+                         a.uf_cliente,
+                         a.cep_cliente,
+                         a.contrato,
+                         a.status,
+                         a.dta_inicio_contrato,
+                         a.dta_vecto_contrato,
+                         a.dta_ultimo_pagto,
+                         a.data_da_baixa,
+                         b.origem,
+                         d.marca,
+                         e.ativa,
+                         e.localizada,
+                         e.outrasOper
                      }).AsEnumerable().Select(x => new ContratosVeiculosViewModel
                      {
-                         id = x.id,
-                         contrato = x.contrato,
-                         tipo = x.tipo,
-                         agencia = x.agencia,
-                         dta_inicio_contrato = x.dta_inicio_contrato,
-                         dta_vecto_contrato = x.dta_vecto_contrato,
-                         origem = x.origem,
-                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
                          nome_cliente = x.nome_cliente,
+                         cpf_cnpj_cliente = x.cpf_cnpj_cliente,
                          ddd_cliente_particular = x.ddd_cliente_particular,
                          fone_cliente_particular = x.fone_cliente_particular,
-                         rml_cliente_particular = x.rml_cliente_particular,
+                         ddd_cliente_cml = x.ddd_cliente_cml,
+                         fone_cliente_cml = x.fone_cliente_cml,
                          end_cliente = x.end_cliente,
                          bairro_cliente = x.bairro_cliente,
                          cidade_cliente = x.cidade_cliente,
                          uf_cliente = x.uf_cliente,
                          cep_cliente = x.cep_cliente,
-                         filler = x.filler,
-                         ddd_cliente_cml = x.ddd_cliente_cml,
-                         fone_cliente_cml = x.fone_cliente_cml,
-                         dta_ultimo_pagto = x.dta_ultimo_pagto,
-                         tipo_de_baixa = x.tipo_de_baixa,
-                         data_da_baixa = x.data_da_baixa,
-                         cod_empresa = x.cod_empresa,
-                         num_end_cliente = x.num_end_cliente,
-                         comp_end_cliente = x.comp_end_cliente,
+                         contrato = x.contrato,
                          status = x.status,
-
-                         contrato_v = x.contrato_v,
-                         tipo_registro = x.tipo_registro,
-                         marca = x.marca,
-                         modelo = x.modelo,
-                         tipo_v = x.tipo_v,
-                         ano_fab = x.ano_fab,
-                         ano_mod = x.ano_mod,
-                         cor = x.cor,
-                         renavam = x.renavam,
-                         chassi = x.chassi,
-                         placa = x.placa,
-                         origem_v = x.origem_v,
-
-                         renavam_dut = x.renavam_dut,
-                         chassi_dut = x.chassi_dut,
-                         placa_dut = x.placa_dut,
-                         comVenda = x.comVenda,
-                         comDUT = x.comDUT,
-
-                         conta = x.conta,
-
-                         renavam_bens = x.renavam_bens,
-                         chassi_bens = x.chassi_bens,
-                         placa_bens = x.placa_bens
+                         dta_inicio_contrato = x.dta_inicio_contrato,
+                         dta_vecto_contrato = x.dta_vecto_contrato,
+                         dta_ultimo_pagto = x.dta_ultimo_pagto,
+                         data_da_baixa = x.data_da_baixa,
+                         origem = x.origem,
+                         //origem_v = x.origemB,
+                         CCL_marca = x.marca,
+                         ativa = x.ativa,
+                         localizada = x.localizada,
+                         outrasOper = x.outrasOper
 
                      });
-
-
 
             try //A única maneira de contornar um erro no model.Count() quando se entra com um sequencia numérica no "where b.chassi.Contains(chassi)" do model, se for "where b.chassi.Equals(chassi)" não dá pau!
             {
@@ -1069,15 +983,14 @@ namespace CtrlPVALeasing.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        var procuraRegistro = db.Tbl_Dut
-                            .FirstOrDefault(c => c.chassi == chassi.Trim() || c.renavam == renavam.Trim() || c.placa == placa.Trim());
+                        var procuraRegistro = db.Tbl_Situacao
+                            .FirstOrDefault(c => c.cpf_cnpj_cliente == cpf_cnpj_clienteZEROS);
                         if (procuraRegistro != null)
                         {
-                            procuraRegistro.chassi = (chassi != "ø" ? chassi : "");
-                            procuraRegistro.renavam = (renavam != "ø" ? renavam : "");
-                            procuraRegistro.placa = (placa != "ø" ? placa : "");
-                            procuraRegistro.comDUT = comDUT;
-                            procuraRegistro.comVenda = comVenda;
+                            procuraRegistro.cpf_cnpj_cliente = (cpf_cnpj_cliente != "ø" ? cpf_cnpj_clienteZEROS : "");
+                            procuraRegistro.ativa = ativa;
+                            procuraRegistro.localizada = localizada;
+                            procuraRegistro.outrasOper = outrasOper;
 
                             db.Entry(procuraRegistro).State = EntityState.Modified;
                             db.SaveChanges();
@@ -1085,19 +998,18 @@ namespace CtrlPVALeasing.Controllers
                         }
                         else
                         {
-                            model3 = new Tbl_Dut
+                            model4 = new Tbl_Situacao
                             {
-                                id = 0,
-                                chassi = (chassi != "ø" ? chassi : null),
-                                renavam = (renavam != "ø" ? renavam : null),
-                                placa = (placa != "ø" ? placa : null),
-                                comDUT = comDUT,
-                                comVenda = comVenda
+                                id                  = 0,
+                                cpf_cnpj_cliente    = (cpf_cnpj_cliente != "ø" ? cpf_cnpj_clienteZEROS : null),
+                                ativa               = ativa,
+                                localizada          = localizada,
+                                outrasOper          = outrasOper,
                             };
 
-                            if (db.Entry(model3).State == EntityState.Detached)
+                            if (db.Entry(model4).State == EntityState.Detached)
                             {
-                                db.Tbl_Dut.Add(model3);
+                                db.Tbl_Situacao.Add(model4);
                                 db.SaveChanges();
                                 return View(GetContratosVeiculosViewModelRegistroOk());
                             }

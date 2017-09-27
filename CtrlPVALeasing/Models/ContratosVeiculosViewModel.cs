@@ -330,5 +330,11 @@ namespace CtrlPVALeasing.Models
 
         [StringLength(20)]
         public string CCL_marca { get; set; }
+
+
+        public bool? ativa { get; set; }
+        public bool? localizada { get; set; }
+        public bool? outrasOper { get; set; }
+
     }
 }

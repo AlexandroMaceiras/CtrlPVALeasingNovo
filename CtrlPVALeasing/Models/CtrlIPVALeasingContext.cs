@@ -22,6 +22,7 @@ namespace CtrlPVALeasing.Models
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_SCC> Tbl_SCC { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Agencias> Tbl_Agencias { get; set; }
         public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Impressao> Tbl_Impressao { get; set; }
+        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Situacao> Tbl_Situacao { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -250,6 +251,5 @@ namespace CtrlPVALeasing.Models
                 .IsUnicode(false);
         }
 
-        public System.Data.Entity.DbSet<CtrlPVALeasing.Models.Tbl_Situacao> Tbl_Situacao { get; set; }
     }
 }

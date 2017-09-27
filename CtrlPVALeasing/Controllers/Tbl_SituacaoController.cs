@@ -46,7 +46,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,contrato,ativa,localizada,outrasOper")] Tbl_Situacao tbl_Situacao)
+        public ActionResult Create([Bind(Include = "id,cpf_cnpj_cliente,ativa,localizada,outrasOper")] Tbl_Situacao tbl_Situacao)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace CtrlPVALeasing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,contrato,ativa,localizada,outrasOper")] Tbl_Situacao tbl_Situacao)
+        public ActionResult Edit([Bind(Include = "id,cpf_cnpj_cliente,ativa,localizada,outrasOper")] Tbl_Situacao tbl_Situacao)
         {
             if (ModelState.IsValid)
             {

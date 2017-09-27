@@ -10,8 +10,8 @@
     {
         public int id { get; set; }
 
-        [StringLength(9)]
-        public string contrato { get; set; }
+        [StringLength(18)]
+        public string cpf_cnpj_cliente { get; set; }
 
         public bool? ativa { get; set; }
         public bool? localizada { get; set; }

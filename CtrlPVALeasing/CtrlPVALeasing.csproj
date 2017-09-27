@@ -404,8 +404,6 @@
     <Content Include="Views\Registro\_valor_total_recuperado_por_veiculo.cshtml" />
     <Content Include="Views\Registro\_GridPagamentoDebitos.cshtml" />
     <Content Include="Views\Registro\EditarRegistroDebitoIPVAManual.cshtml" />
-    <Content Include="Views\Registro\Teste.cshtml" />
-    <Content Include="Views\Registro\Teste2.cshtml" />
     <Content Include="Views\Gerencial\PagamentoIPVAPorStatusContrato_ANTIGO.cshtml" />
     <Content Include="Views\Registro\RegistroContrato.cshtml" />
     <Content Include="Views\Registro\RegistroVeiculo.cshtml" />

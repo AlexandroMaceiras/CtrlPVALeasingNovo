@@ -15,6 +15,7 @@
 @using (Html.BeginForm("RegistroSituacaoCliente", "Registro", FormMethod.Post, new { id = "FormAltera" }))
 {
     var MF = Model.First();
+    <input type="hidden" name="escolha" id="escolha" value="nada" />
     <div class="jumbotronFundo">
         <h2>REGISTRAR SITUAÇÃO DO CLIENTE</h2>
         <br />
@@ -25,14 +26,14 @@
                         <b class="fonte-cinza-claro">CPF/CNPJ:&nbsp;&nbsp;&nbsp;</b>
                     </th>
                     <th class="busca" width="10%">
-                        <input id="limpaNaMarra" class="input-sm-fino" value="@(Request["cpf_cnpj_cliente"] != null ? Request["cpf_cnpj_cliente"].TrimStart('0').Trim() : "")" maxlength="18" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
+                        <input id="cpf_cnpj_cliente" class="input-sm-fino" value="@(Request["cpf_cnpj_cliente"] != null ? Request["cpf_cnpj_cliente"].TrimStart('0').Trim() : "")" maxlength="18" type="text" name="cpf_cnpj_cliente" size="40" style="text-transform:uppercase">
                     </th>
                     <th class="busca">
                     <td align="right" width="10%">
                         <div id="fazSubmit"><input class="btn2 btn-primary-pesqui .btn-sm" type="submit" name="busca" value="PESQUISAR" /></div>
                     </td>
                     <td align="right" width="9%">
-                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="submit" name="busca" value="LIMPAR" /></div>
+                        <div id="mudaReset"><input class="btn2 btn-primary-limpar btn-sm" type="reset" name="busca" value="LIMPAR" /></div>
                     </td>
                     <td>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -313,19 +314,25 @@
                 <tr>
                     <td colspan="0" align="justify" width="25%">
                         <div class="fonte-cinza-claro fonte-tamanho-form">
-                            DUT está com o Banco&nbsp;
-                            <input type="checkbox" name="comDUT" id="comDUT" @( MF.comDUT != null && MF.comDUT != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
+                            Empresa ATIVA&nbsp;
+                            <input type="checkbox" name="ativa" id="ativa" @( MF.ativa != null && MF.ativa != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td colspan="0" align="justify" width="25%">
                         <div class="fonte-cinza-claro fonte-tamanho-form">
-                            DUT Comunicado de Venda&nbsp;
-                            <input type="checkbox" name="comVenda" id="comVenda" @( MF.comVenda != null && MF.comVenda != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
+                            Empresa LOCALIZADA&nbsp;
+                            <input type="checkbox" name="localizada" id="localizada" @( MF.localizada != null && MF.localizada != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     </td>
-                    <td>
+                    <td colspan="0" align="justify" width="30%">
+                        <div class="fonte-cinza-claro fonte-tamanho-form">
+                            Empresa com outras Operações no Banco&nbsp;
+                            <input type="checkbox" name="outrasOper" id="outrasOper" @( MF.outrasOper != null && MF.outrasOper != false ? "checked='checked'" : "" ) />&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </td>
+                    <td colspan="0" align="justify" width="20%">
                         <div class="fonte-cinza-claro fonte-tamanho-form">
                             @{
-                                if (MF.contrato != "" && MF.contrato != null)
+                                if (MF.cpf_cnpj_cliente != "" && MF.cpf_cnpj_cliente != null)
                                 {
                                     <div id="fazSubmit">
                                         <input onclick="validateForm();" class="btn4 btn-primary-imp .btn-sm" type="button" value="SALVAR" />
@@ -333,7 +340,7 @@
                                 }
                                 else
                                 {
-                                    @Html.ActionLink("SALVAR", "RegistroDut", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
+                                    @Html.ActionLink("SALVAR", "RegistroSituacaoCliente", new { }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro1(); return false;" })
                                 }
                             }
                         </div>
@@ -378,7 +385,7 @@
             //Limpa o campo contrato mesmo que ele tenha sito recuperado pelo request.
             try {
                 $("#mudaReset").click(function () {
-                    document.getElementById("contrato").setAttribute("value", "");
+                    document.getElementById("cpf_cnpj_cliente").setAttribute("value", "");
                     document.getElementById("ConsultaVeiculo").submit();
                 });
             }
@@ -394,24 +401,12 @@
                 history.go(-1);
             });
 
-
-
             try {
-                //document.getElementById("chassi").onkeypress = function (e) {
-                //    var chr = String.fromCharCode(e.which);
-                //    if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                //        return false;
-                //}
-                //document.getElementById("renavam").onkeypress = function (e) {
-                //    var chr = String.fromCharCode(e.which);
-                //    if ("1234567890".indexOf(chr) < 0)
-                //        return false;
-                //}
-                //document.getElementById("placa").onkeypress = function (e) {
-                //    var chr = String.fromCharCode(e.which);
-                //    if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                //        return false;
-                //}
+                document.getElementById("cpf_cnpj_cliente").onkeypress = function (e) {
+                    var chr = String.fromCharCode(e.which);
+                    if ("1234567890".indexOf(chr) < 0)
+                        return false;
+                }
             }
             catch (e) {
                 alert(e);
@@ -420,7 +415,7 @@
             try {
                 function validateForm(a) {
                     if (
-                        document.getElementById('contrato').value == "") {
+                        document.getElementById('cpf_cnpj_cliente').value == "") {
                         $(document).ready(function () {
                             $("#msgErro1").modal();
                             return false;
@@ -448,12 +443,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO SITUAÇÃO DO CLIENTE</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Veículo não encontrado!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Cliente não encontrado!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
@@ -469,12 +464,12 @@
         <div class="modal-content modal-sm">
             <header class="modal-header modal-sm">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fecha Janela</span></button>
-                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO DE DUT</b></h4></center>
+                <center><h4 class="modal-title modal-sm" id="mySmallModalLabel" style="color:rgb(7, 44, 85)"><b>REGISTRO SITUAÇÃO DO CLIENTE</b></h4></center>
             </header>
             <div class="modal-body modal-sm">
                 <table width="100%">
                     <tr>
-                        <td><center><h4 style="color: rgb(176, 172, 186)">Registro de DUT ou Comunicado de Venda, <text style="color: rgb(0, 0, 0)">atualizado</text> com </h4><h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
+                        <td><center><h4 style="color: rgb(176, 172, 186)">Empresa ATIVA, Empresa LOCALIZADA e Empresa com outras Operações no Banco, <text style="color: rgb(0, 0, 0)">atualizados</text> com </h4><h4 style="color: rgb(206, 39, 39)">Sucesso!</h4></center></td>
                     </tr>
                     <tr>
                         <td align="right"><button type="button" class="btn btn-sm" data-dismiss="modal">Fechar</button></td>
