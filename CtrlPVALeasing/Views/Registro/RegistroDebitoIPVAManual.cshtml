@@ -414,9 +414,6 @@
                                 <td></td>
                                 <td align="right">
                                     <div id="Detalhes">
-                                        @{
-                                            if (MF.contrato != "" && MF.contrato != null)
-                                            {
                                                 <div id="fazSubmit">
                                                     @*Isto faz uma ActionLink usando POST, junto com um JS que ele chama*@
                                                     @*@Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "saveButton", onclick = "validateForm();return false;" })*@
@@ -434,12 +431,6 @@
 
 
                                                 </div>
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("REGISTRAR DÉBITO", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn4 btn-primary-imp btn-sm", onclick = "chamaErro3(); return false;" })
-                                            }
-                                        }
                                     </div>
                                 </td>
                             </tr>

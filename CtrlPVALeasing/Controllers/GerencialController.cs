@@ -561,7 +561,8 @@ namespace CtrlPVALeasing.Controllers
                                 id = 0,
                                 chassi = elemento.chassi,
                                 renavam = elemento.renavam,
-                                placa = elemento.placa
+                                placa = elemento.placa,
+                                flag_manual = true
                             };
 
                             if (db.Entry(model2).State == EntityState.Detached)
@@ -638,7 +639,7 @@ namespace CtrlPVALeasing.Controllers
                     );
 
                 Response.ClearContent();
-                Response.AddHeader("content-disposition", "attachment;filename=PagamentoIPVAPorStatusContrato.csv");
+                Response.AddHeader("content-disposition", "attachment;filename=Base_Veículos_Contratos_ARM.csv");
                 Response.ContentType = "application/octet-stream";
                 Response.ContentEncoding = System.Text.Encoding.Default;
 

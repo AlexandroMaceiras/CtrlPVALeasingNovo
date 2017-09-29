@@ -55,7 +55,7 @@
                     </th>
                     <th class="busca" width="18%" align="right">
                         <br />
-                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi, placa = @MF.placa, renavam = @MF.renavam }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "CarregaForm();" })
+                        @Html.ActionLink("VOLTAR", "RegistroDebitoIPVAManual", new { chassi = @MF.chassi }, new { @class = "btn2 btn-primary-pesqui .btn-sm", onclick = "CarregaForm();" })
                         <a href="~/" class="btn2 btn-primary-menu btn-sm">MENU</a>
                     </th>
                 </tr>
@@ -82,7 +82,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Marca: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.chassi : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.marca != null && MF.marca != "" ? MF.marca : (Request["marca"] != null ? Request["marca"].Trim() : "") )" type="text" name="marca" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -99,7 +99,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Renavam:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(MF.ano_fab != null && MF.ano_fab != "" ? MF.ano_fab : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.renavam != null && MF.renavam != "" ? MF.renavam : (Request["renavamPesquisado"] != null ? Request["renavamPesquisado"].Trim() : "") )" type="text" name="renavamPesquisado" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -108,7 +108,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Modelo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["modelo"] != null ? Request["modelo"].Trim() : MF.modelo)" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.modelo != null && MF.modelo != "" ? MF.modelo : (Request["modelo"] != null ? Request["modelo"].Trim() : "") )" type="text" name="modelo" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -117,7 +117,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Ano do Modelo: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["ano_mod"] != null ? Request["ano_mod"].Trim() : MF.ano_mod)" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.ano_mod != null && MF.ano_mod != "" ? MF.ano_mod : (Request["ano_mod"] != null ? Request["ano_mod"].Trim() : "") )" type="text" name="ano_mod" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>
@@ -125,7 +125,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Placa:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : MF.placa)" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.placa != null && MF.placa != "" ? MF.placa : (Request["placaPesquisada"] != null ? Request["placaPesquisada"].Trim() : "") )" type="text" name="placaPesquisada" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -134,7 +134,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Tipo: &nbsp;&nbsp;&nbsp;</div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["tipo_v"] != null ? Request["tipo_v"].Trim() : MF.tipo_v)" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.tipo_v != null && MF.tipo_v != "" ? MF.tipo_v : (Request["tipo_v"] != null ? Request["tipo_v"].Trim() : "") )" type="text" name="versao" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -143,7 +143,7 @@
                                     <div class="fonte-cinza-claro fonte-tamanho-form">Cor: </div>
                                 </td>
                                 <td>
-                                    <input class="input-sm-fino" value="@(Request["cor"] != null ? Request["cor"].Trim() : MF.cor)" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
+                                    <input class="input-sm-fino" value="@(MF.cor != null && MF.cor != "" ? MF.cor : (Request["cor"] != null ? Request["cor  "].Trim() : "") )" type="text" name="cor" size="30" style="text-transform:uppercase" disabled="disabled" />
                                 </td>
                             </tr>
                             <tr>

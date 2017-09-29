@@ -139,6 +139,8 @@ namespace CtrlPVALeasing.Models
 
         public bool? status_v { get; set; }
 
+        public bool? flag_manual { get; set; }
+
 
 
 
