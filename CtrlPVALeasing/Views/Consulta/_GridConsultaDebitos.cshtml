@@ -41,7 +41,7 @@
                 @{var contadorInterno = 0; var MF = Model.First();
                     foreach (var item in Model)
                     {
-                        if (item.contrato != null && item.chassi == MF.chassi && item.renavam == MF.renavam && item.renavam == MF.renavam)
+                        if((item.flag_manual == true) || (item.contrato != null && item.chassi == MF.chassi && item.renavam == MF.renavam && item.renavam == MF.renavam))
                         {
                             contadorInterno++;
                             if (item.valor_divida.HasValue || item.valor_custas.HasValue)
